@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">PSSP-HHListing</string>
+    <string name="hh01"> ڈسٹرکٹ کوڈ </string>
+    <string name="hh02"> PSU کوڈ </string>
+    <string name="hh03"> اسٹرکچر نمبر </string>
+    <string name="hh04"> تعمیراتی ساخت </string>
+    <string name="hh04a"> رہائشی </string>
+    <string name="hh04b"> دکان/مارکیٹ/پلازہ </string>
+    <string name="hh04c"> مسجد/گرجاگھر/مندر </string>
+    <string name="hh04d"> اسکول/کالج/یونیورسٹی </string>
+    <string name="hh04e"> مرکز صحت </string>
+    <string name="hh04f"> خالی/بند/زیرتعمیر </string>
+    <string name="hh04g"> مزید عمارت نہیں </string>
+    <string name="hh04x"> دیگر (وضاحت کریں) </string>
+    <string name="hh05"> کیا اس عمارت میں کوئی اور خاندان بھی رہائش پزیر ہے؟ </string>
+    <string name="hh06"> خاندان کی تعداد؟ </string>
+    <string name="hh07"> خاندان نمبر </string>
+    <string name="hh08"> خاندان کے سربراہ کا نام </string>
+    <string name="hh09"> رابطہ کا نمبر </string>
+    <string name="hh10"> کیا گھر میں 6 - 11 ماہ کا کوئی بچہ موجود ہے؟ </string>
+    <string name="hh11"> بچوں کی تعداد؟ </string>
+
+    <string name="yes"> ہاں </string>
+    <string name="no"> نہیں </string>
+
+    <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
+    <string name="child_name">بچے کا نام</string>
+</resources>
