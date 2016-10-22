@@ -20,6 +20,13 @@
             android:layout_height="wrap_content"
             android:text="HouseHold Listing Form" />
 
+        <Spinner
+            android:id="@+id/MN01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
         <Button
             android:id="@+id/openForm"
             android:layout_width="match_parent"

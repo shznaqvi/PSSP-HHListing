@@ -21,7 +21,7 @@ import edu.aku.hassannaqvi.pssp_hhlisting.ListingContract.ListingEntry;
 public class FormsDBHelper extends SQLiteOpenHelper {
 
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     // The name of database.
     private static final String DATABASE_NAME = "pssp-hhl.db";
     public static String TAG = "FormsDBHelper";
@@ -53,7 +53,11 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CHILD_NAME + " TEXT, " +
-                ListingEntry.COLUMN_NAME_DEVICEID + " TEXT " +
+                ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
+                ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
+                ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
+                ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
+                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
                 " );";
 
         // Do the creating of the databases.
@@ -104,8 +108,11 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
-        Log.d(TAG, "addForm: " + lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
+        values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
+        values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
+        values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
+        values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
 
         long newRowId;
         newRowId = db.insert(
@@ -138,6 +145,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_CHILD_NAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
+                ListingEntry.COLUMN_NAME_GPSLat,
+                ListingEntry.COLUMN_NAME_GPSLng,
+                ListingEntry.COLUMN_NAME_GPSTime,
+                ListingEntry.COLUMN_NAME_GPSAccuracy,
         };
 
         String whereClause = null;
@@ -191,8 +202,11 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
-        Log.d(TAG, "getContentValues: " + lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
+        values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
+        values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
+        values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
+        values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
 
         return values;
     }
@@ -214,8 +228,11 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHhChildNm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CHILD_NAME))));
-        Log.d(TAG, "hydrate: " + lc.getHhChildNm());
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
+        lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
+        lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
+        lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
+        lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
 
         return lc;
     }

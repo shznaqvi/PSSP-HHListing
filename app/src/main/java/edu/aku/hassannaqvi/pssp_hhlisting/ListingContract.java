@@ -28,6 +28,10 @@ public class ListingContract {
     public String hh11;
     public String hhChildNm;
     public String DeviceID;
+    public String GPSLat;
+    public String GPSLng;
+    public String GPSTime;
+    public String GPSAcc;
 
     public ListingContract() {
     }
@@ -36,7 +40,7 @@ public class ListingContract {
         this.ID = ID;
     }
 
-    public ListingContract(String hh01, String hh02, String hh03, String hh04, String hh04x, String hh05, String hh06, String hh07) {
+    public ListingContract(String hh01, String hh02, String hh03, String hh04, String hh04x, String hh05, String hh06, String hh07, String DeviceID, String GPSLat, String GPSLng, String GPSTime, String GPSAcc) {
         this.hh01 = hh01;
         this.hh02 = hh02;
         this.hh03 = hh03;
@@ -46,6 +50,10 @@ public class ListingContract {
         this.hh06 = hh06;
         this.hh07 = hh07;
         this.DeviceID = DeviceID;
+        this.GPSLat = GPSLat;
+        this.GPSLng = GPSLng;
+        this.GPSTime = GPSTime;
+        this.GPSAcc = GPSAcc;
     }
 
     public ListingContract(JSONObject jsonObject) throws JSONException {
@@ -210,6 +218,38 @@ public class ListingContract {
         DeviceID = deviceID;
     }
 
+    public String getGPSLat() {
+        return GPSLat;
+    }
+
+    public void setGPSLat(String GPSLat) {
+        this.GPSLat = GPSLat;
+    }
+
+    public String getGPSLng() {
+        return GPSLng;
+    }
+
+    public void setGPSLng(String GPSLng) {
+        this.GPSLng = GPSLng;
+    }
+
+    public String getGPSTime() {
+        return GPSTime;
+    }
+
+    public void setGPSTime(String GPSTime) {
+        this.GPSTime = GPSTime;
+    }
+
+    public String getGPSAcc() {
+        return GPSAcc;
+    }
+
+    public void setGPSAcc(String GPSAcc) {
+        this.GPSAcc = GPSAcc;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -229,6 +269,10 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
         json.put(ListingEntry.COLUMN_NAME_CHILD_NAME, this.hhChildNm);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
+        json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
+        json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
+        json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
+        json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
 
         return json;
     }
@@ -254,5 +298,9 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH11 = "hh11";
         public static final String COLUMN_NAME_CHILD_NAME = "child_name";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
+        public static final String COLUMN_NAME_GPSLat = "gpslat";
+        public static final String COLUMN_NAME_GPSLng = "gpslng";
+        public static final String COLUMN_NAME_GPSTime = "gpstime";
+        public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
     }
 }
