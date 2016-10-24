@@ -57,7 +57,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
-                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
+                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
                 " );";
 
         // Do the creating of the databases.
