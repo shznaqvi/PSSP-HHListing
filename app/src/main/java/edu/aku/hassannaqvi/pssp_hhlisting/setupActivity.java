@@ -85,14 +85,14 @@ public class setupActivity extends Activity {
             AppMain.hh03txt = 1;
         } else {
             AppMain.hh03txt++;
-            AppMain.lc.setHh03(AppMain.hh02txt.toString());
+            //AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
             hh02.setText(AppMain.hh02txt.toString());
             hh02.setEnabled(false);
 
         }
         AppMain.hh07txt = "X";
         hh01.setText(getString(R.string.hh01) + ": " + AppMain.hh01txt);
-        hh03.setText(getString(R.string.hh03) + ": " + AppMain.hh03txt);
+        hh03.setText(String.valueOf(AppMain.hh03txt));
         hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
 
 

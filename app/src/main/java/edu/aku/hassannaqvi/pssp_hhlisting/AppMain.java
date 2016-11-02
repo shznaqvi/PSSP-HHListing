@@ -17,21 +17,49 @@ import android.widget.Toast;
 
 public class AppMain extends Application {
 
-
     // GPS Related Field Variables
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     private static final int TWO_MINUTES = 1000 * 60 * 2;
+    public static String TAG = "AppMain";
     public static ListingContract lc;
     public static String hh01txt = "0000";
     public static String hh02txt;
-    public static int hh03txt;
+    public static int hh03txt = 0;
     public static String hh07txt;
     public static int fCount = 0;
     public static int fTotal = 0;
     public static int cCount = 0;
     public static int cTotal = 0;
+    public static SharedPreferences sharedPref;
     protected static LocationManager locationManager;
+
+    public static void updatePSU(String psuCode, String structureNo) {
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putString(psuCode, structureNo);
+
+        editor.apply();
+        Log.d(TAG, "updatePSU: " + psuCode + " " + structureNo);
+
+    }
+
+    public static Boolean PSUExist(String psuCode) {
+        Log.d(TAG, "PSUExist: " + psuCode);
+        AppMain.hh03txt = Integer.valueOf(sharedPref.getString(psuCode, "0"));
+        Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(psuCode, "0"));
+
+        if (AppMain.hh03txt == 0) {
+            Log.d(TAG, "PSUExist (False): " + AppMain.hh03txt);
+
+            return false;
+        } else {
+            Log.d(TAG, "PSUExist (True): " + AppMain.hh03txt);
+
+            return true;
+        }
+    }
 
     @Override
     public void onCreate() {
@@ -47,6 +75,8 @@ public class AppMain extends Application {
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 new GPSLocationListener() // Implement this class from code
         );
+
+        sharedPref = getSharedPreferences("PSUCodes", Context.MODE_PRIVATE);
 
     }
 

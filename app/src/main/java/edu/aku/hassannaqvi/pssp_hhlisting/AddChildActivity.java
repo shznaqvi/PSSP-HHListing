@@ -28,6 +28,10 @@ public class AddChildActivity extends Activity {
     TextView txtChildListing;
     @BindView(R.id.icName)
     EditText icName;
+    @BindView(R.id.icAgeM)
+    EditText icAgeM;
+    @BindView(R.id.icAgeD)
+    EditText icAgeD;
     @BindView(R.id.btnAddChild)
     Button btnAddChild;
     @BindView(R.id.btnAddFamily)
@@ -106,6 +110,42 @@ public class AddChildActivity extends Activity {
             icName.setError(null);
         }
 
+        if (icAgeM.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter Age Months", Toast.LENGTH_LONG).show();
+            icAgeM.setError("Please enter age");
+            Log.i(TAG, "Please enter age");
+            return false;
+        } else if (Integer.valueOf(icAgeM.getText().toString()) > 11) {
+            Toast.makeText(this, "Invalid Age Months", Toast.LENGTH_LONG).show();
+            icAgeM.setError("Invalid enter age");
+            Log.i(TAG, "Please enter age");
+            return false;
+        } else {
+            icAgeM.setError(null);
+        }
+        if (icAgeD.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter Age Days", Toast.LENGTH_LONG).show();
+            icAgeD.setError("Please enter age");
+            Log.i(TAG, "Please enter age");
+            return false;
+        } else if (Integer.valueOf(icAgeD.getText().toString()) > 29) {
+            Toast.makeText(this, "Invalid Age Days", Toast.LENGTH_LONG).show();
+            icAgeD.setError("Invalid enter age");
+            Log.i(TAG, "Please enter age");
+            return false;
+        } else {
+            icAgeD.setError(null);
+        }
+        if (Integer.valueOf(icAgeD.getText().toString()) == 0 && Integer.valueOf(icAgeM.getText().toString()) == 0) {
+            Toast.makeText(this, "Invalid Age ", Toast.LENGTH_LONG).show();
+            icAgeD.setError("Invalid age");
+            icAgeM.setError("Invalid age");
+            Log.i(TAG, "Please enter age");
+            return false;
+        } else {
+            icAgeD.setError(null);
+            icAgeM.setError(null);
+        }
         return true;
     }
 

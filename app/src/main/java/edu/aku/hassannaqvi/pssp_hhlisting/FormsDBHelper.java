@@ -9,10 +9,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.DistrictsContract.singleDistrict;
 import edu.aku.hassannaqvi.pssp_hhlisting.ListingContract.ListingEntry;
+import edu.aku.hassannaqvi.pssp_hhlisting.PSUsContract.singlePSU;
+
+import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 
 
 /**
@@ -52,6 +59,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH12m + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH12d + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CHILD_NAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
@@ -60,14 +69,32 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
                 " );";
 
+        final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
+                singleDistrict._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singleDistrict.COLUMN_DISTRICT_CODE + " TEXT, " +
+                singleDistrict.COLUMN_DISTRICT_NAME + " TEXT " +
+                ");";
+
+        final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
+                singlePSU._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singlePSU.COLUMN_PSU_CODE + " TEXT, " +
+                singlePSU.COLUMN_PSU_NAME + " TEXT, " +
+                singlePSU.COLUMN_DISTRICT_CODE + " TEXT " +
+                ");";
+
+
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
+        db.execSQL(SQL_CREATE_DISTRICT_TABLE);
+        db.execSQL(SQL_CREATE_PSU_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Simply discard all old data and start over when upgrading.
         db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
         onCreate(db);
     }
 
@@ -98,6 +125,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
+
+        AppMain.updatePSU(lc.getHh02(), lc.getHh03());
+        Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(lc.getHh02(), "0"));
+
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
         values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
@@ -107,6 +138,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
+        values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
+        values.put(ListingEntry.COLUMN_NAME_HH12d, lc.getHh12d());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
@@ -120,6 +153,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_NULLABLE,
                 values);
         DB_FORM_ID = String.valueOf(newRowId);
+
+        return newRowId;
+    }
+
+    public Long addDistrict(DistrictsContract dc) {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(singleDistrict.COLUMN_DISTRICT_CODE, dc.getDistrictCode());
+        values.put(singleDistrict.COLUMN_DISTRICT_NAME, dc.getDistrictName());
+
+        long newRowId;
+        newRowId = db.insert(
+                singleDistrict.TABLE_NAME,
+                singleDistrict.COLUMN_NAME_NULLABLE,
+                values);
 
         return newRowId;
     }
@@ -143,6 +195,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
+                ListingEntry.COLUMN_NAME_HH12m,
+                ListingEntry.COLUMN_NAME_HH12d,
                 ListingEntry.COLUMN_NAME_CHILD_NAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_GPSLat,
@@ -184,6 +238,93 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allLC;
     }
 
+    public Collection<DistrictsContract> getAllDistricts() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singleDistrict._ID,
+                singleDistrict.COLUMN_DISTRICT_CODE,
+                singleDistrict.COLUMN_DISTRICT_NAME
+        };
+
+        String whereClause = null;
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                singleDistrict._ID + " ASC";
+
+        Collection<DistrictsContract> allDC = new ArrayList<DistrictsContract>();
+        try {
+            c = db.query(
+                    singleDistrict.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                DistrictsContract dc = new DistrictsContract();
+                allDC.add(dc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allDC;
+    }
+
+    public Collection<PSUsContract> getAllPSUsByDistrict(String district_code) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singlePSU._ID,
+                singlePSU.COLUMN_PSU_CODE,
+                singlePSU.COLUMN_PSU_NAME,
+                singlePSU.COLUMN_DISTRICT_CODE
+        };
+
+        String whereClause = singlePSU.COLUMN_DISTRICT_CODE + " = ?";
+        String[] whereArgs = {district_code};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                singlePSU._ID + " ASC";
+
+        Collection<PSUsContract> allPC = new ArrayList<PSUsContract>();
+        try {
+            c = db.query(
+                    singlePSU.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                PSUsContract pc = new PSUsContract();
+                allPC.add(pc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allPC;
+    }
+
     private ContentValues getContentValues(ListingContract lc) {
         ContentValues values = new ContentValues();
         values.put(ListingEntry._ID, lc.getID());
@@ -201,6 +342,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
+        values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
+        values.put(ListingEntry.COLUMN_NAME_HH12d, lc.getHh12d());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
@@ -227,6 +370,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
+        lc.setHh12m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12m))));
+        lc.setHh12d(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12d))));
         lc.setHhChildNm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CHILD_NAME))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
@@ -285,6 +430,61 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
 
 
+    }
+
+    public void syncDistrict(JSONArray dcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(singleDistrict.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = dcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectDistrict = jsonArray.getJSONObject(i);
+
+                DistrictsContract dc = new DistrictsContract();
+                dc.sync(jsonObjectDistrict);
+
+                ContentValues values = new ContentValues();
+
+                values.put(singleDistrict.COLUMN_DISTRICT_CODE, dc.getDistrictCode());
+                values.put(singleDistrict.COLUMN_DISTRICT_NAME, dc.getDistrictName());
+
+                db.insert(singleDistrict.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void syncPSU(JSONArray pcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(singlePSU.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = pcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectPSU = jsonArray.getJSONObject(i);
+
+                PSUsContract pc = new PSUsContract();
+                pc.sync(jsonObjectPSU);
+
+                ContentValues values = new ContentValues();
+
+                values.put(singlePSU.COLUMN_PSU_CODE, pc.getPSUCode());
+                values.put(singlePSU.COLUMN_PSU_NAME, pc.getPSUName());
+                values.put(singlePSU.COLUMN_DISTRICT_CODE, pc.getDistrictCode());
+
+                db.insert(singlePSU.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+
+        }
     }
 
 }

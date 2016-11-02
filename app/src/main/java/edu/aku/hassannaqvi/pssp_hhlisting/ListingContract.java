@@ -26,6 +26,8 @@ public class ListingContract {
     public String hh09;
     public String hh10;
     public String hh11;
+    public String hh12m;
+    public String hh12d;
     public String hhChildNm;
     public String DeviceID;
     public String GPSLat;
@@ -194,6 +196,22 @@ public class ListingContract {
         this.hh11 = hh11;
     }
 
+    public String getHh12m() {
+        return hh12m;
+    }
+
+    public void setHh12m(String hh12m) {
+        this.hh12m = hh12m;
+    }
+
+    public String getHh12d() {
+        return hh12d;
+    }
+
+    public void setHh12d(String hh12d) {
+        this.hh12d = hh12d;
+    }
+
     public String getUID() {
         return UID;
     }
@@ -267,6 +285,8 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
+        json.put(ListingEntry.COLUMN_NAME_HH12m, this.hh12m);
+        json.put(ListingEntry.COLUMN_NAME_HH12d, this.hh12d);
         json.put(ListingEntry.COLUMN_NAME_CHILD_NAME, this.hhChildNm);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
         json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
@@ -296,6 +316,8 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH09 = "hh09";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
+        public static final String COLUMN_NAME_HH12m = "hh12m";
+        public static final String COLUMN_NAME_HH12d = "hh12d";
         public static final String COLUMN_NAME_CHILD_NAME = "child_name";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
