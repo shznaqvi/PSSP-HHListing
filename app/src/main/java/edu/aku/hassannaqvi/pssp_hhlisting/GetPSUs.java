@@ -4,6 +4,7 @@ package edu.aku.hassannaqvi.pssp_hhlisting;
  * Created by hassan.naqvi on 10/31/2016.
  */
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -24,12 +25,23 @@ import java.util.ArrayList;
  */
 public class GetPSUs extends AsyncTask<String, String, String> {
 
-    private final String TAG = "GetUsers()";
+    private final String TAG = "GetPSUs()";
     HttpURLConnection urlConnection;
     private Context mContext;
+    private ProgressDialog pd;
 
     public GetPSUs(Context context) {
         mContext = context;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pd = new ProgressDialog(mContext);
+        pd.setTitle("Getting PSUs");
+        pd.setMessage("Preparing...");
+        pd.show();
+
     }
 
     @Override
@@ -38,24 +50,35 @@ public class GetPSUs extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL("http://192.168.1.10:3000/psus/");
+            URL url = new URL(AppMain._IP + "/psus/");
             urlConnection = (HttpURLConnection) url.openConnection();
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                pd.setMessage("Connected to Server");
+                //pd.show();
+
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
             String line;
             while ((line = reader.readLine()) != null) {
+                pd.setMessage("Receiving Data...");
+                //pd.show();
                 Log.i(TAG, "PSUs In: " + line);
                 result.append(line);
             }
+            } else {
+                pd.setMessage("URL not found");
+                result.append("URL not found");
 
+            }
         } catch (Exception e) {
             e.printStackTrace();
 
 
         } finally {
             urlConnection.disconnect();
+
         }
 
 
@@ -66,6 +89,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
 
         //Do something with the JSON string
+        if (result != "URL not found") {
 
         String json = result;
         //json = json.replaceAll("\\[", "").replaceAll("\\]","");
@@ -76,12 +100,18 @@ public class GetPSUs extends AsyncTask<String, String, String> {
             PSUArrayList = new ArrayList<PSUsContract>();
             //JSONObject jsonObject = new JSONObject(json);
             JSONArray jsonArray = new JSONArray(json);
+            pd.setMessage("Received: " + jsonArray.length() + " PSUs");
+            pd.setTitle("Done... Synced PSUs");
             db.syncPSU(jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
+            pd.setMessage("Received: 0 PSUs");
+            pd.setTitle("Error... Syncing PSUs");
         }
         db.getAllDistricts();
+            pd.show();
     }
+
 
 
 /*        try {
@@ -99,4 +129,5 @@ public class GetPSUs extends AsyncTask<String, String, String> {
 //            }
 //        }
 
+    }
 }

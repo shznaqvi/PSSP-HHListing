@@ -55,6 +55,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
@@ -66,6 +67,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
+                ListingEntry.COLUMN_NAME_ROUND + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
                 " );";
 
@@ -126,7 +128,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
 
-        AppMain.updatePSU(lc.getHh02(), lc.getHh03());
+        AppMain.updatePSU(lc.getHh02(), lc.getHh03()); 
         Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(lc.getHh02(), "0"));
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
@@ -134,6 +136,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
+        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
@@ -146,6 +149,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
+        values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
 
         long newRowId;
         newRowId = db.insert(
@@ -191,6 +195,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
+                ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
                 ListingEntry.COLUMN_NAME_HH10,
@@ -203,6 +208,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLng,
                 ListingEntry.COLUMN_NAME_GPSTime,
                 ListingEntry.COLUMN_NAME_GPSAccuracy,
+                ListingEntry.COLUMN_NAME_ROUND
         };
 
         String whereClause = null;
@@ -297,7 +303,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singlePSU._ID + " ASC";
+                singlePSU.COLUMN_PSU_CODE + " ASC";
 
         Collection<PSUsContract> allPC = new ArrayList<PSUsContract>();
         try {
@@ -338,6 +344,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
+        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
@@ -350,6 +357,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
+        values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
 
         return values;
     }
@@ -366,6 +374,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh05(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH05))));
         lc.setHh06(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH06))));
         lc.setHh07(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07))));
+        lc.setHh07n(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07n))));
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
@@ -378,6 +387,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
         lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
+        lc.setRound(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ROUND))));
 
         return lc;
     }

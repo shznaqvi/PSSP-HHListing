@@ -1,6 +1,5 @@
 package edu.aku.hassannaqvi.pssp_hhlisting;
 
-import android.database.Cursor;
 import android.provider.BaseColumns;
 
 import org.json.JSONException;
@@ -22,6 +21,7 @@ public class ListingContract {
     public String hh05;
     public String hh06;
     public String hh07;
+    public String hh07n;
     public String hh08;
     public String hh09;
     public String hh10;
@@ -34,6 +34,7 @@ public class ListingContract {
     public String GPSLng;
     public String GPSTime;
     public String GPSAcc;
+    public String Round = "1";
 
     public ListingContract() {
     }
@@ -56,32 +57,6 @@ public class ListingContract {
         this.GPSLng = GPSLng;
         this.GPSTime = GPSTime;
         this.GPSAcc = GPSAcc;
-    }
-
-    public ListingContract(JSONObject jsonObject) throws JSONException {
-        this.hhDT = jsonObject.getString("hhDT");
-        this.hh01 = jsonObject.getString("hh01");
-        this.hh02 = jsonObject.getString("hh02");
-        this.hh03 = jsonObject.getString("hh03");
-        this.hh04 = jsonObject.getString("hh04");
-        this.hh04x = jsonObject.getString("hh04x");
-        this.hh05 = jsonObject.getString("hh05");
-        this.hh06 = jsonObject.getString("hh06");
-        this.hh07 = jsonObject.getString("hh07");
-        this.DeviceID = jsonObject.getString("deviceid");
-    }
-
-    public ListingContract(Cursor cursor) {
-        this.hhDT = cursor.getString(cursor.getColumnIndex("hhDT"));
-        this.hh01 = cursor.getString(cursor.getColumnIndex("hh01"));
-        this.hh02 = cursor.getString(cursor.getColumnIndex("hh02"));
-        this.hh03 = cursor.getString(cursor.getColumnIndex("hh03"));
-        this.hh04 = cursor.getString(cursor.getColumnIndex("hh04"));
-        this.hh04x = cursor.getString(cursor.getColumnIndex("hh04x"));
-        this.hh05 = cursor.getString(cursor.getColumnIndex("hh05"));
-        this.hh06 = cursor.getString(cursor.getColumnIndex("hh06"));
-        this.hh07 = cursor.getString(cursor.getColumnIndex("hh07"));
-        this.DeviceID = cursor.getString(cursor.getColumnIndex("deviceid"));
     }
 
     public String getID() {
@@ -162,6 +137,14 @@ public class ListingContract {
 
     public void setHh07(String hh07) {
         this.hh07 = hh07;
+    }
+
+    public String getHh07n() {
+        return hh07n;
+    }
+
+    public void setHh07n(String hh07n) {
+        this.hh07n = hh07n;
     }
 
     public String getHh08() {
@@ -268,6 +251,14 @@ public class ListingContract {
         this.GPSAcc = GPSAcc;
     }
 
+    public String getRound() {
+        return Round;
+    }
+
+    public void setRound(String round) {
+        Round = round;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -281,6 +272,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH05, this.hh05);
         json.put(ListingEntry.COLUMN_NAME_HH06, this.hh06);
         json.put(ListingEntry.COLUMN_NAME_HH07, this.hh07);
+        json.put(ListingEntry.COLUMN_NAME_HH07n, this.hh07n);
         json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
@@ -293,6 +285,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
+        json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
 
         return json;
     }
@@ -312,6 +305,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH05 = "hh05";
         public static final String COLUMN_NAME_HH06 = "hh06";
         public static final String COLUMN_NAME_HH07 = "hh07";
+        public static final String COLUMN_NAME_HH07n = "hh07n";
         public static final String COLUMN_NAME_HH08 = "hh08";
         public static final String COLUMN_NAME_HH09 = "hh09";
         public static final String COLUMN_NAME_HH10 = "hh10";
@@ -324,5 +318,6 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSLng = "gpslng";
         public static final String COLUMN_NAME_GPSTime = "gpstime";
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
+        public static final String COLUMN_NAME_ROUND = "round";
     }
 }

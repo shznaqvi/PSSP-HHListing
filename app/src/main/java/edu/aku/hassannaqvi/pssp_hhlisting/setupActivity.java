@@ -1,7 +1,9 @@
 package edu.aku.hassannaqvi.pssp_hhlisting;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -103,6 +105,7 @@ public class setupActivity extends Activity {
                 if (hh04a.isChecked()) {
                     //Moved to Add next Family button: AppMain.hh07txt = String.valueOf((char) AppMain.hh07txt.charAt(0) + 1);
                     AppMain.hh07txt = "X";
+
 
                 } else if (!hh04a.isChecked()) {
                     AppMain.hh07txt = null;
@@ -222,6 +225,13 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setDeviceID(deviceId);
 
+        SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+        AppMain.lc.setGPSLat(sharedPref.getString("Latitude", ""));
+        AppMain.lc.setGPSLat(sharedPref.getString("Longitude", ""));
+        AppMain.lc.setGPSLat(sharedPref.getString("Accuracy", ""));
+        AppMain.lc.setGPSLat(sharedPref.getString("Time", ""));
+
+
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
@@ -312,6 +322,11 @@ public class setupActivity extends Activity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();
+
+    }
 }
 
 

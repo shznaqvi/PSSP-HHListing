@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.InetSocketAddress;
@@ -42,6 +43,12 @@ public class MainActivity extends Activity {
     Spinner mN01;
     @BindView(R.id.MN02)
     Spinner mN02;
+    @BindView(R.id.districtN)
+    TextView districtN;
+    @BindView(R.id.ucN)
+    TextView ucN;
+    @BindView(R.id.psuN)
+    TextView psuN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +112,22 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 AppMain.hh02txt = psuCode.get(position);
+                Collection<PSUsContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt);
+                for (PSUsContract p : pc) {
+                    Log.d(TAG, "onItemSelected: " + p.getPSUCode() + " -" + AppMain.hh02txt);
 
+                    if (p.getPSUCode().equals(AppMain.hh02txt)) {
+                        Log.d(TAG, "onItemSelected: " + p.getPSUName());
+                        String[] psuNameS = p.getPSUName().toString().split("\\|");
+                        districtN.setText(psuNameS[0]);
+                        Log.d(TAG, "onItemSelected: " + psuNameS[0]);
+                        ucN.setText(psuNameS[1]);
+                        Log.d(TAG, "onItemSelected: " + psuNameS[1]);
+                        psuN.setText(psuNameS[2]);
+                        Log.d(TAG, "onItemSelected: " + psuNameS[2]);
+
+                    }
+                }
             }
 
             @Override

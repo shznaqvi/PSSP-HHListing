@@ -45,6 +45,7 @@ public class FamilyListingActivity extends Activity {
         setContentView(R.layout.activity_family_listing);
         ButterKnife.bind(this);
 
+
         txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
 
         if (AppMain.fCount < AppMain.fTotal) {
@@ -219,5 +220,11 @@ public class FamilyListingActivity extends Activity {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();
+
     }
 }

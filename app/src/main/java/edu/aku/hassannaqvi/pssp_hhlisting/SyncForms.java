@@ -62,9 +62,10 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
         HttpURLConnection connection = null;
         try {
-            String request = "http://192.168.1.10:3000/forms/";
+            String request = AppMain._IP + "/forms/";
             //String request = "http://10.1.42.30:3000/forms";
-
+            pd.setTitle("Connecting to... " + request);
+            //pd.show();
             URL url = new URL(request);
             connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
@@ -95,12 +96,16 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
             wr.flush();
             int HttpResult = connection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_OK) {
+
+
                 BufferedReader br = new BufferedReader(new InputStreamReader(
                         connection.getInputStream(), "utf-8"));
                 StringBuffer sb = new StringBuffer();
 
                 while ((line = br.readLine()) != null) {
                     sb.append(line + "\n");
+
+                    //pd.show();
                 }
                 br.close();
 
@@ -130,7 +135,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         pd.setMessage("Server Response: " + result);
-        pd.setTitle("Please wait... Done Forms");
-        pd.show();
+        pd.setTitle("Done!... Synced Forms");
+        //pd.show();
     }
 }

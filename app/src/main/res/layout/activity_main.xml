@@ -55,5 +55,22 @@
             android:onClick="openDB"
             android:text="Open DB Manager" />
 
+        <TextView
+            android:id="@+id/districtN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp" />
+
+        <TextView
+            android:id="@+id/ucN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/psuN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
     </LinearLayout>
 </ScrollView>

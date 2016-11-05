@@ -94,9 +94,10 @@ public class AddChildActivity extends Activity {
 
     private void SaveDraft() {
         AppMain.lc.setHhChildNm(icName.getText().toString());
+        AppMain.lc.setHh12d(icAgeD.getText().toString());
+        AppMain.lc.setHh12m(icAgeM.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
-
     }
 
     private boolean formValidation() {
@@ -170,7 +171,6 @@ public class AddChildActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-
         }
     }
 
@@ -192,4 +192,9 @@ public class AddChildActivity extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();
+
+    }
 }
