@@ -37,11 +37,11 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     }
 
     public static void longInfo(String str) {
-        if (str.length() > 4000) {
+       /* if (str.length() > 4000) {
             Log.i("TAG: ", str.substring(0, 4000));
             longInfo(str.substring(4000));
         } else
-            Log.i("TAG: ", str);
+            Log.i("TAG: ", str);*/
     }
 
 
@@ -64,7 +64,6 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
         try {
             String request = AppMain._IP + "/forms/";
             //String request = "http://10.1.42.30:3000/forms";
-            pd.setTitle("Connecting to... " + request);
             //pd.show();
             URL url = new URL(request);
             connection = (HttpURLConnection) url.openConnection();
@@ -92,7 +91,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
             }
             wr.writeBytes(jsonSync.toString().replace("\uFEFF", "") + "\n");
-            longInfo(jsonSync.toString().replace("\uFEFF", "") + "\n");
+            //longInfo(jsonSync.toString().replace("\uFEFF", "") + "\n");
             wr.flush();
             int HttpResult = connection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_OK) {

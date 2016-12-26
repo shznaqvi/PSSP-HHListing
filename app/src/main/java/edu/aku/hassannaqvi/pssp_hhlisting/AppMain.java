@@ -180,9 +180,7 @@ public class AppMain extends Application {
 
         protected void showCurrentLocation() {
 
-
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
 
             if (location != null) {
                 String message = String.format(
@@ -194,7 +192,6 @@ public class AppMain extends Application {
             }
 
         }
-
 
     }
 

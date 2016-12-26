@@ -77,15 +77,15 @@ public class AddChildActivity extends Activity {
 
     private boolean UpdateDB() {
         FormsDBHelper db = new FormsDBHelper(this);
-        try {
-            Log.d(TAG, "onBtnAddFamilyClick: " + AppMain.lc.toJSONObject().toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+
         long updcount = db.addForm(AppMain.lc);
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+            AppMain.lc.setHhChildNm(null);
+            AppMain.lc.setHh12d(null);
+            AppMain.lc.setHh12m(null);
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
