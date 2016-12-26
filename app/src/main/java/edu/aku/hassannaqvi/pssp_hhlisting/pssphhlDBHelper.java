@@ -1,6 +1,8 @@
 package edu.aku.hassannaqvi.pssp_hhlisting;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -26,5 +28,7 @@ public class pssphhlDBHelper extends SQLiteOpenHelper {
                 + " to " + newVersion + ", which remove all old records");
         onCreate(db);
     }
+
+
 
 }

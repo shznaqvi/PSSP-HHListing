@@ -163,13 +163,21 @@ public class MainActivity extends Activity {
     }
 
     public void openForm(View view) {
-        Intent oF = new Intent(this, setupActivity.class);
 
-        if (AppMain.PSUExist(AppMain.hh02txt)) {
-            Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
-            alertPSU();
-        } else {
-            startActivity(oF);
+
+        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
+
+            Intent oF = new Intent(this, setupActivity.class);
+
+            if (AppMain.PSUExist(AppMain.hh02txt)) {
+                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                alertPSU();
+            } else {
+                startActivity(oF);
+            }
+        }
+        else {
+
         }
     }
 

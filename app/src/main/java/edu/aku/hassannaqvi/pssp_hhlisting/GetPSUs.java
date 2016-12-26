@@ -50,10 +50,10 @@ public class GetPSUs extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/psus/");
+            URL url = new URL(AppMain._IP + "/enrich/psus/");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                pd.setMessage("Connected to Server");
+//                pd.setMessage("Connected to Server");
                 //pd.show();
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -62,13 +62,13 @@ public class GetPSUs extends AsyncTask<String, String, String> {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                pd.setMessage("Receiving Data...");
+//                pd.setMessage("Receiving Data...");
                 //pd.show();
                 Log.i(TAG, "PSUs In: " + line);
                 result.append(line);
             }
             } else {
-                pd.setMessage("URL not found");
+//                pd.setMessage("URL not found");
                 result.append("URL not found");
 
             }
@@ -100,16 +100,16 @@ public class GetPSUs extends AsyncTask<String, String, String> {
             PSUArrayList = new ArrayList<PSUsContract>();
             //JSONObject jsonObject = new JSONObject(json);
             JSONArray jsonArray = new JSONArray(json);
-            pd.setMessage("Received: " + jsonArray.length() + " PSUs");
-            pd.setTitle("Done... Synced PSUs");
+//            pd.setMessage("Received: " + jsonArray.length() + " PSUs");
+//            pd.setTitle("Done... Synced PSUs");
             db.syncPSU(jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
-            pd.setMessage("Received: 0 PSUs");
-            pd.setTitle("Error... Syncing PSUs");
+//            pd.setMessage("Received: 0 PSUs");
+//            pd.setTitle("Error... Syncing PSUs");
         }
         db.getAllDistricts();
-            pd.show();
+//            pd.show();
     }
 
 

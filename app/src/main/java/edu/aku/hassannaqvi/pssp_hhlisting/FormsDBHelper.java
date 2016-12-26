@@ -21,6 +21,8 @@ import edu.aku.hassannaqvi.pssp_hhlisting.PSUsContract.singlePSU;
 
 import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.UsersContract.singleUser;
+
 
 /**
  * Created by hassan.naqvi on 10/18/2016.
@@ -38,6 +40,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public FormsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
 
     @Override
@@ -84,11 +87,16 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singlePSU.COLUMN_DISTRICT_CODE + " TEXT " +
                 ");";
 
+        final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
+                + singleUser._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + singleUser.ROW_USERNAME + " TEXT,"
+                + singleUser.ROW_PASSWORD + " TEXT );";
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
+        db.execSQL(SQL_CREATE_USERS);
     }
 
     @Override
@@ -97,6 +105,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
         onCreate(db);
     }
 
@@ -245,6 +254,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     }
 
     public Collection<DistrictsContract> getAllDistricts() {
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -392,6 +402,19 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return lc;
     }
 
+    public boolean Login(String username, String password) throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor mCursor = db.rawQuery("SELECT * FROM " + UsersContract.singleUser.TABLE_NAME + " WHERE " + UsersContract.singleUser.ROW_USERNAME + "=? AND " + UsersContract.singleUser.ROW_PASSWORD + "=?", new String[]{username, password});
+        if (mCursor != null) {
+            if (mCursor.getCount() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public ArrayList<Cursor> getData(String Query) {
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();
@@ -496,5 +519,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         }
     }
+
 
 }

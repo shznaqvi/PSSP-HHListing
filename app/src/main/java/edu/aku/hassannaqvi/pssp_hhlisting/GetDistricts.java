@@ -53,10 +53,10 @@ public class GetDistricts extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/districts/");
+            URL url = new URL(AppMain._IP + "/enrich/districts/");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                pd.setMessage("Connected to Server");
+//                pd.setMessage("Connected to Server");
                 //pd.show();
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
