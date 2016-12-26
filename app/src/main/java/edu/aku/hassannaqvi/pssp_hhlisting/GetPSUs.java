@@ -54,7 +54,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 pd.setMessage("Connected to Server");
-                //pd.show();
+                 //pd.show();
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
