@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PSSP-HHListing</string>
+    <string name="app_name">Enrich Household Line Listing</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
     <string name="hh02"> PSU کوڈ </string>
     <string name="hh03"> اسٹرکچر نمبر </string>

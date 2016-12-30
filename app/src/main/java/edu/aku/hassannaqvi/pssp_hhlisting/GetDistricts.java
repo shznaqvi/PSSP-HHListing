@@ -56,7 +56,6 @@ public class GetDistricts extends AsyncTask<String, String, String> {
             URL url = new URL(AppMain._IP + "/enrich/districts/");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                pd.setMessage("Connected to Server");
                 //pd.show();
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -65,13 +64,11 @@ public class GetDistricts extends AsyncTask<String, String, String> {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                pd.setMessage("Receiving Data...");
                 Log.i(TAG, "District In: " + line);
                 result.append(line);
             }
             } else {
                 result.append("URL not found");
-                pd.setMessage("URL not found");
             }
         } catch (Exception e) {
             e.printStackTrace();

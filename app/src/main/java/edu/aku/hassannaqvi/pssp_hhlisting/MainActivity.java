@@ -123,8 +123,8 @@ public class MainActivity extends Activity {
                         Log.d(TAG, "onItemSelected: " + psuNameS[0]);
                         ucN.setText(psuNameS[1]);
                         Log.d(TAG, "onItemSelected: " + psuNameS[1]);
-                        psuN.setText(psuNameS[2]);
-                        Log.d(TAG, "onItemSelected: " + psuNameS[2]);
+                        /*psuN.setText(psuNameS[2]);
+                        Log.d(TAG, "onItemSelected: " + psuNameS[2]);*/
 
                     }
                 }
