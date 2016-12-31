@@ -18,6 +18,9 @@ import java.util.Collection;
 import edu.aku.hassannaqvi.pssp_hhlisting.DistrictsContract.singleDistrict;
 import edu.aku.hassannaqvi.pssp_hhlisting.ListingContract.ListingEntry;
 import edu.aku.hassannaqvi.pssp_hhlisting.PSUsContract.singlePSU;
+import edu.aku.hassannaqvi.pssp_hhlisting.VillageContract.VillageEntry;
+import edu.aku.hassannaqvi.pssp_hhlisting.TehsilContract.TehsilEntry;
+
 
 import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 
@@ -28,9 +31,9 @@ import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 public class FormsDBHelper extends SQLiteOpenHelper {
 
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 1;
     // The name of database.
-    private static final String DATABASE_NAME = "pssp-hhl.db";
+    private static final String DATABASE_NAME = "src-hhl.db";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -47,6 +50,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ListingEntry.COLUMN_NAME_UID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
+
+
                 ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
@@ -85,10 +90,27 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ");";
 
 
+        final String SQL_CREATE_VILLAGE_TABLE = "CREATE TABLE " + VillageEntry.TABLE_NAME + " (" +
+                VillageEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                VillageEntry.ROW_VCODE + " TEXT, " +
+                VillageEntry.ROW_VNAME + " TEXT, " +
+                VillageEntry.ROW_UCNAME + " TEXT " +
+                ");";
+
+
+        final String SQL_CREATE_TEHSIL_TABLE = "CREATE TABLE " + TehsilEntry.TABLE_NAME + " (" +
+                TehsilEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                TehsilEntry.COLUMN_TEHSIL_CODE + " TEXT, " +
+                TehsilEntry.COLUMN_TEHSIL_NAME + " TEXT " +
+                ");";
+
+
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
+        db.execSQL(SQL_CREATE_VILLAGE_TABLE);
+        db.execSQL(SQL_CREATE_TEHSIL_TABLE);
     }
 
     @Override
@@ -330,6 +352,96 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
         return allPC;
     }
+
+
+    public Collection<TehsilContract> getAllTehsil() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                TehsilEntry._ID,
+                TehsilEntry.COLUMN_TEHSIL_CODE,
+                TehsilEntry.COLUMN_TEHSIL_NAME
+        };
+
+        String whereClause = null;
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                TehsilEntry._ID + " ASC";
+
+        Collection<TehsilContract> allDC = new ArrayList<TehsilContract>();
+        try {
+            c = db.query(
+                    TehsilEntry.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                TehsilContract dc = new TehsilContract();
+                allDC.add(dc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allDC;
+    }
+
+
+    public Collection<VillageContract> getAllVillage() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                VillageEntry._ID,
+                VillageEntry.ROW_VCODE,
+                VillageEntry.ROW_VNAME,
+                VillageEntry.ROW_UCNAME
+        };
+
+        String whereClause = null;
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                VillageEntry._ID + " ASC";
+
+        Collection<VillageContract> allDC = new ArrayList<VillageContract>();
+        try {
+            c = db.query(
+                    VillageEntry.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                VillageContract dc = new VillageContract();
+                allDC.add(dc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allDC;
+    }
+
 
     private ContentValues getContentValues(ListingContract lc) {
         ContentValues values = new ContentValues();
