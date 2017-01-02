@@ -18,10 +18,9 @@ import java.util.Collection;
 import edu.aku.hassannaqvi.pssp_hhlisting.DistrictsContract.singleDistrict;
 import edu.aku.hassannaqvi.pssp_hhlisting.ListingContract.ListingEntry;
 import edu.aku.hassannaqvi.pssp_hhlisting.PSUsContract.singlePSU;
+import edu.aku.hassannaqvi.pssp_hhlisting.UsersContract.singleUser;
 
 import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
-
-import edu.aku.hassannaqvi.pssp_hhlisting.UsersContract.singleUser;
 
 
 /**
@@ -464,6 +463,54 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 
     }
+
+    public void syncUser(JSONArray userlist) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(UsersContract.singleUser.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = userlist;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectUser = jsonArray.getJSONObject(i);
+                String userName = jsonObjectUser.getString("username");
+                String password = jsonObjectUser.getString("password");
+
+
+                ContentValues values = new ContentValues();
+
+                values.put(singleUser.ROW_USERNAME, userName);
+                values.put(singleUser.ROW_PASSWORD, password);
+                db.insert(singleUser.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+        }
+    }
+
+    public ArrayList<UsersContract> getAllUsers() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<UsersContract> userList = null;
+        try {
+            userList = new ArrayList<UsersContract>();
+            String QUERY = "SELECT * FROM " + singleUser.TABLE_NAME;
+            Cursor cursor = db.rawQuery(QUERY, null);
+            int num = cursor.getCount();
+            if (!cursor.isLast()) {
+                while (cursor.moveToNext()) {
+                    UsersContract user = new UsersContract();
+                    user.setId(cursor.getInt(0));
+                    user.setUserName(cursor.getString(1));
+                    user.setPassword(cursor.getString(2));
+                    userList.add(user);
+                }
+            }
+            db.close();
+        } catch (Exception e) {
+        }
+        return userList;
+    }
+
 
     public void syncDistrict(JSONArray dcList) {
         SQLiteDatabase db = this.getWritableDatabase();
