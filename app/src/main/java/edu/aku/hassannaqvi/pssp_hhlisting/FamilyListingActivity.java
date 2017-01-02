@@ -34,6 +34,8 @@ public class FamilyListingActivity extends Activity {
     Switch hh13;
     @BindView(R.id.hh14)
     Switch hh14;
+    @BindView(R.id.hh15)
+    Switch hh15;
     @BindView(R.id.hh10)
     Switch hh10;
     @BindView(R.id.hh11)
@@ -132,8 +134,9 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh12(hh12.isChecked() ? "1" : "2");
         AppMain.lc.setHh13(hh13.isChecked() ? "1" : "2");
         AppMain.lc.setHh14(hh14.isChecked() ? "1" : "2");
-        AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
+        AppMain.lc.setHh15(hh15.isChecked() ? "1" : "2");
 
+        AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
         AppMain.lc.setHh11(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());

@@ -22,6 +22,7 @@
     <string name="hh12"> Does the household have MWRA </string>
     <string name="hh13"> Does HH have any MWRA who delivered during last one year </string>
     <string name="hh14"> Does HH have any MWRA who is currently pregnant </string>
+    <string name="hh15"> Any other hhds lives in this structure </string>
 
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>

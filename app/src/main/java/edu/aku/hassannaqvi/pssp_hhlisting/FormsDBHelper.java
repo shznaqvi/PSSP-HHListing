@@ -64,6 +64,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH14 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH15 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12m + " TEXT, " +
@@ -168,6 +169,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
         values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
+        values.put(ListingEntry.COLUMN_NAME_HH15, lc.getHh15());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
@@ -230,6 +232,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH12,
                 ListingEntry.COLUMN_NAME_HH13,
                 ListingEntry.COLUMN_NAME_HH14,
+                ListingEntry.COLUMN_NAME_HH15,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_HH12m,
