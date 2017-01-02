@@ -123,8 +123,8 @@ public class MainActivity extends Activity {
                         Log.d(TAG, "onItemSelected: " + psuNameS[0]);
                         ucN.setText(psuNameS[1]);
                         Log.d(TAG, "onItemSelected: " + psuNameS[1]);
-                        psuN.setText(psuNameS[2]);
-                        Log.d(TAG, "onItemSelected: " + psuNameS[2]);
+                        /*psuN.setText(psuNameS[2]);
+                        Log.d(TAG, "onItemSelected: " + psuNameS[2]);*/
 
                     }
                 }
@@ -163,13 +163,21 @@ public class MainActivity extends Activity {
     }
 
     public void openForm(View view) {
-        Intent oF = new Intent(this, setupActivity.class);
 
-        if (AppMain.PSUExist(AppMain.hh02txt)) {
-            Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
-            alertPSU();
-        } else {
-            startActivity(oF);
+
+        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
+
+            Intent oF = new Intent(this, setupActivity.class);
+
+            if (AppMain.PSUExist(AppMain.hh02txt)) {
+                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                alertPSU();
+            } else {
+                startActivity(oF);
+            }
+        }
+        else {
+
         }
     }
 
@@ -185,6 +193,9 @@ public class MainActivity extends Activity {
             //Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
             //ff.execute();
 
+            GetUsers u = new GetUsers(this);
+            Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
+            u.execute();
 
             GetDistricts gd = new GetDistricts(this);
             Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();

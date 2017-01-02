@@ -21,6 +21,7 @@ import edu.aku.hassannaqvi.pssp_hhlisting.PSUsContract.singlePSU;
 import edu.aku.hassannaqvi.pssp_hhlisting.VillageContract.VillageEntry;
 import edu.aku.hassannaqvi.pssp_hhlisting.TehsilContract.TehsilEntry;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.UsersContract.singleUser;
 
 import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 
@@ -41,6 +42,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public FormsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
 
     @Override
@@ -108,6 +110,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 VillageEntry.COLUMN_UCNAME + " TEXT " +
                 ");";
 
+        final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
+                + singleUser._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + singleUser.ROW_USERNAME + " TEXT,"
+                + singleUser.ROW_PASSWORD + " TEXT );";
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
@@ -115,6 +121,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_VILLAGE_TABLE);
         db.execSQL(SQL_CREATE_TEHSIL_TABLE);
+        db.execSQL(SQL_CREATE_USERS);
     }
 
     @Override
@@ -124,6 +131,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         //db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
         //db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
 
+        db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
         onCreate(db);
     }
 
@@ -280,6 +291,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     }
 
     public Collection<DistrictsContract> getAllDistricts() {
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -523,6 +535,19 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return lc;
     }
 
+    public boolean Login(String username, String password) throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor mCursor = db.rawQuery("SELECT * FROM " + UsersContract.singleUser.TABLE_NAME + " WHERE " + UsersContract.singleUser.ROW_USERNAME + "=? AND " + UsersContract.singleUser.ROW_PASSWORD + "=?", new String[]{username, password});
+        if (mCursor != null) {
+            if (mCursor.getCount() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public ArrayList<Cursor> getData(String Query) {
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();
@@ -572,6 +597,54 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 
     }
+
+    public void syncUser(JSONArray userlist) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(UsersContract.singleUser.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = userlist;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectUser = jsonArray.getJSONObject(i);
+                String userName = jsonObjectUser.getString("username");
+                String password = jsonObjectUser.getString("password");
+
+
+                ContentValues values = new ContentValues();
+
+                values.put(singleUser.ROW_USERNAME, userName);
+                values.put(singleUser.ROW_PASSWORD, password);
+                db.insert(singleUser.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+        }
+    }
+
+    public ArrayList<UsersContract> getAllUsers() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<UsersContract> userList = null;
+        try {
+            userList = new ArrayList<UsersContract>();
+            String QUERY = "SELECT * FROM " + singleUser.TABLE_NAME;
+            Cursor cursor = db.rawQuery(QUERY, null);
+            int num = cursor.getCount();
+            if (!cursor.isLast()) {
+                while (cursor.moveToNext()) {
+                    UsersContract user = new UsersContract();
+                    user.setId(cursor.getInt(0));
+                    user.setUserName(cursor.getString(1));
+                    user.setPassword(cursor.getString(2));
+                    userList.add(user);
+                }
+            }
+            db.close();
+        } catch (Exception e) {
+        }
+        return userList;
+    }
+
 
     public void syncDistrict(JSONArray dcList) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -685,5 +758,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         }
     }
+
 
 }

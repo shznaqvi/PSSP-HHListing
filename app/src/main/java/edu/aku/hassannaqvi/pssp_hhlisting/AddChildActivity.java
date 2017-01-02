@@ -68,6 +68,9 @@ public class AddChildActivity extends Activity {
             SaveDraft();
             if (UpdateDB()) {
                 AppMain.cCount++;
+
+                AppMain.lc.setHhChildNm(null);
+
                 Intent fA = new Intent(this, AddChildActivity.class);
                 startActivity(fA);
             }
@@ -116,7 +119,7 @@ public class AddChildActivity extends Activity {
             icAgeM.setError("Please enter age");
             Log.i(TAG, "Please enter age");
             return false;
-        } else if (Integer.valueOf(icAgeM.getText().toString()) > 11) {
+        } else if (Integer.valueOf(icAgeM.getText().toString()) > 59) {
             Toast.makeText(this, "Invalid Age Months", Toast.LENGTH_LONG).show();
             icAgeM.setError("Invalid enter age");
             Log.i(TAG, "Please enter age");
