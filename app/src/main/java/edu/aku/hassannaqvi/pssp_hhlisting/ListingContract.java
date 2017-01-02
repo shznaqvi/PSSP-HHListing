@@ -10,6 +10,7 @@ import org.json.JSONObject;
  */
 public class ListingContract {
 
+    public static String userName;
     public String ID;
     public String UID;
     public String hhDT;
@@ -39,7 +40,6 @@ public class ListingContract {
     public String GPSTime;
     public String GPSAcc;
     public String Round = "1";
-    public static String userName;
 
 
     public ListingContract() {
@@ -302,7 +302,7 @@ public class ListingContract {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        ListingContract.userName = userName;
     }
 
     public JSONObject toJSONObject() throws JSONException {
@@ -336,7 +336,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
-        json.put(ListingEntry.COLUMN_NAME_USERNAME, this.userName);
+        json.put(ListingEntry.COLUMN_NAME_USERNAME, userName);
 
         return json;
     }

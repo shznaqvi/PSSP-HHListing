@@ -175,8 +175,7 @@ public class MainActivity extends Activity {
             } else {
                 startActivity(oF);
             }
-        }
-        else {
+        } else {
 
         }
     }

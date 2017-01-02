@@ -18,10 +18,9 @@ import java.util.Collection;
 import edu.aku.hassannaqvi.pssp_hhlisting.DistrictsContract.singleDistrict;
 import edu.aku.hassannaqvi.pssp_hhlisting.ListingContract.ListingEntry;
 import edu.aku.hassannaqvi.pssp_hhlisting.PSUsContract.singlePSU;
-import edu.aku.hassannaqvi.pssp_hhlisting.VillageContract.VillageEntry;
 import edu.aku.hassannaqvi.pssp_hhlisting.TehsilContract.TehsilEntry;
-
 import edu.aku.hassannaqvi.pssp_hhlisting.UsersContract.singleUser;
+import edu.aku.hassannaqvi.pssp_hhlisting.VillageContract.VillageEntry;
 
 import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 

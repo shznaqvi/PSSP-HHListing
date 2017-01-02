@@ -11,9 +11,9 @@ import android.database.Cursor;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,33 +29,28 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,LoaderManager.LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "test1234:test1234", "testS12345:testS12345", "bar@example.com:world"};
-
-    private UserLoginTask mAuthTask = null;
-
     public ArrayList<String> lables;
     public ArrayList<String> values;
-
-
     ProgressBar mProgressView;
     EditText mPasswordView;
     AutoCompleteTextView mEmailView;
     Button email_sign_in_button;
-
+    private UserLoginTask mAuthTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mProgressView = (ProgressBar)findViewById(R.id.login_progress);
-        mPasswordView = (EditText)findViewById(R.id.password);
-        mEmailView = (AutoCompleteTextView)findViewById(R.id.email);
-        email_sign_in_button = (Button)findViewById(R.id.email_sign_in_button);
+        mProgressView = (ProgressBar) findViewById(R.id.login_progress);
+        mPasswordView = (EditText) findViewById(R.id.password);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
 
         populateAutoComplete();
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -73,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.email_sign_in_button){
+        if (v.getId() == R.id.email_sign_in_button) {
             attemptLogin();
         }
     }

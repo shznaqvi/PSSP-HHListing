@@ -2,36 +2,35 @@
     <string name="app_name">SRC-HHListing</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
     <string name="hh02"> PSU کوڈ </string>
-    <string name="hh03"> اسٹرکچر نمبر </string>
-    <string name="hh04"> تعمیراتی ساخت </string>
-    <string name="hh04a"> رہائشی </string>
-    <string name="hh04b"> دکان/مارکیٹ/پلازہ </string>
-    <string name="hh04c"> مسجد/گرجاگھر/مندر </string>
-    <string name="hh04d"> اسکول/کالج/یونیورسٹی </string>
-    <string name="hh04e"> مرکز صحت </string>
-    <string name="hh04f"> خالی/بند/زیرتعمیر </string>
-    <string name="hh04g"> مزید عمارت نہیں </string>
-    <string name="hh04x"> دیگر (وضاحت کریں) </string>
-    <string name="hh05"> کیا اس عمارت میں ایک سے زیادہ خاندان رہائش پزیر ہیں؟ </string>
-    <string name="hh06"> خاندان کی تعداد؟ </string>
+    <string name="hh03"> عمارت جو نمبر </string>
+    <string name="hh04"> عمارت جو قسم </string>
+    <string name="hh04a"> رهائشي </string>
+    <string name="hh04b"> دڪان / مارڪيٽ / پلازا </string>
+    <string name="hh04c">  مسجد / چرچ / مندر </string>
+    <string name="hh04d"> اسڪول / ڪاليج / یونیورسٹی </string>
+    <string name="hh04e"> صحت مرڪز </string>
+    <string name="hh04f"> خالي / ڇڏيل / تعمير هيٺ </string>
+    <string name="hh04g"> ڪا عمارت نه آهي </string>
+    <string name="hh04x"> ٻيو (وضاحت ڪريو) </string>
+    <string name="hh05"> هن عمارت ۾ ڪو ٻيو خاندان رهي ٿو؟ </string>
+    <string name="hh06"> خاندان جی تعداد؟ </string>
     <string name="hh07"> خاندان نمبر </string>
-    <string name="hh08"> خاندان کے سربراہ کا نام </string>
-    <string name="hh09"> رابطہ کا نمبر </string>
-    <string name="hh10"> کیا گھر میں 5 سال سے چھوٹا بچہ موجود ہے؟ </string>
-    <string name="hh11"> بچوں کی تعداد؟ </string>
-    <string name="hh12"> Does the household have MWRA </string>
-    <string name="hh13"> Does HH have any MWRA who delivered during last one year </string>
-    <string name="hh14"> Does HH have any MWRA who is currently pregnant </string>
-    <string name="hh15"> Any other hhds lives in this structure </string>
+    <string name="hh08"> گهر جي سربراه جو نالو </string>
+    <string name="hh09"> رابطي جو نمبر </string>
+    <string name="hh09a"> ڇا گهر ۾ 15 کان 49 سالن جي شادي شده عورت موجود آهي؟ </string>
+    <string name="hh09b"> ڇا گهر ۾ 15 کان 49 سالن جي ڪنهن شادي شده عورت ڪنهن ٻار کي جنم ڏنو؟ </string>
+    <string name="hh09c"> ڇا گهر ۾ 15 کان 49 سالن جي ڪا عورت حمل سان آهي؟ </string>
+    <string name="hh10"> ڇا گهر ۾ 5 سالن کان گهٽ عمر جو ڪو ٻار موجود آهي؟ </string>
+    <string name="hh11"> ٻارن جو تعداد؟ </string>
+    <string name="child_name">بچے کا نام</string>
+    <string name="child_age">بچے کی عمر</string>
+    <string name="hh12m">ماہ</string>
+    <string name="hh12d">دن</string>
 
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
-    <string name="child_name">بچے کا نام</string>
-    <string name="child_age">بچے کی عمر</string>
-    <string name="hh12m">ماہ</string>
-    <string name="hh12d">دن</string>
 
 
     <!--Ali-->

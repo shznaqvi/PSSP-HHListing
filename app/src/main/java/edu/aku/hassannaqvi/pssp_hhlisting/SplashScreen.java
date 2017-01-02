@@ -1,9 +1,9 @@
 package edu.aku.hassannaqvi.pssp_hhlisting;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -20,6 +20,6 @@ public class SplashScreen extends AppCompatActivity {
                 // close this activity
                 finish();
             }
-        },3000);
+        }, 3000);
     }
 }
