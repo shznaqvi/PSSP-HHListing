@@ -17,8 +17,11 @@
     <string name="hh07"> خاندان نمبر </string>
     <string name="hh08"> خاندان کے سربراہ کا نام </string>
     <string name="hh09"> رابطہ کا نمبر </string>
-    <string name="hh10"> کیا گھر میں ایک سال سے چھوٹا بچہ موجود ہے؟ </string>
+    <string name="hh10"> کیا گھر میں 5 سال سے چھوٹا بچہ موجود ہے؟ </string>
     <string name="hh11"> بچوں کی تعداد؟ </string>
+    <string name="hh12"> Does the household have MWRA </string>
+    <string name="hh13"> Does HH have any MWRA who delivered during last one year </string>
+    <string name="hh14"> Does HH have any MWRA who is currently pregnant </string>
 
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>

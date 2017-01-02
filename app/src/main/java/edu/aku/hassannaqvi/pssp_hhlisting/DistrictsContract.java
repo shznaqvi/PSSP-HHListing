@@ -21,14 +21,10 @@ public class DistrictsContract {
     public DistrictsContract() {
     }
 
-    public DistrictsContract sync(JSONObject jsonObject) {
+    public DistrictsContract sync(JSONObject jsonObject) throws JSONException {
 
-        try {
-            this.districtCode = jsonObject.getString(singleDistrict.COLUMN_DISTRICT_CODE);
-            this.districtName = jsonObject.getString(singleDistrict.COLUMN_DISTRICT_NAME);
-        } catch (Exception ex) {
-            Log.d(TAG, "exp: " + ex.getMessage());
-        }
+        this.districtCode = jsonObject.getString(singleDistrict.COLUMN_DISTRICT_CODE);
+        this.districtName = jsonObject.getString(singleDistrict.COLUMN_DISTRICT_NAME);
 
         return this;
     }

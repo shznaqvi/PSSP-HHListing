@@ -18,6 +18,9 @@ public class listings extends pssphhlDBHelperController {
     public static final String hh07 = "hh07";
     public static final String hh08 = "hh08";
     public static final String hh09 = "hh09";
+    public static final String hh12 = "hh12";
+    public static final String hh13 = "hh13";
+    public static final String hh14 = "hh14";
     public static final String hh10 = "hh10";
     public static final String hh11 = "hh11";
     public static final String child_name = "child_name";
@@ -29,7 +32,7 @@ public class listings extends pssphhlDBHelperController {
         this.context = context;
     }
 
-    public void insert(Integer _id, String uid, String hhdt, String hh01, String hh02, String hh03, String hh04, String hh04x, String hh05, String hh06, String hh07, String hh08, String hh09, String hh10, String hh11, String child_name, String deviceid) {
+    public void insert(Integer _id, String uid, String hhdt, String hh01, String hh02, String hh03, String hh04, String hh04x, String hh05, String hh06, String hh07, String hh08, String hh09, String hh12, String hh13, String hh14, String hh10, String hh11, String child_name, String deviceid) {
         uid = uid != null ? "\"" + uid + "\"" : null;
         hhdt = hhdt != null ? "\"" + hhdt + "\"" : null;
         hh01 = hh01 != null ? "\"" + hh01 + "\"" : null;
@@ -42,13 +45,16 @@ public class listings extends pssphhlDBHelperController {
         hh07 = hh07 != null ? "\"" + hh07 + "\"" : null;
         hh08 = hh08 != null ? "\"" + hh08 + "\"" : null;
         hh09 = hh09 != null ? "\"" + hh09 + "\"" : null;
+        hh12 = hh12 != null ? "\"" + hh12 + "\"" : null;
+        hh13 = hh13 != null ? "\"" + hh13 + "\"" : null;
+        hh14 = hh14 != null ? "\"" + hh14 + "\"" : null;
         hh10 = hh10 != null ? "\"" + hh10 + "\"" : null;
         hh11 = hh11 != null ? "\"" + hh11 + "\"" : null;
         child_name = child_name != null ? "\"" + child_name + "\"" : null;
         deviceid = deviceid != null ? "\"" + deviceid + "\"" : null;
 
-        Object[] values_ar = {_id, uid, hhdt, hh01, hh02, hh03, hh04, hh04x, hh05, hh06, hh07, hh08, hh09, hh10, hh11, child_name, deviceid};
-        String[] fields_ar = {listings._id, listings.uid, listings.hhdt, listings.hh01, listings.hh02, listings.hh03, listings.hh04, listings.hh04x, listings.hh05, listings.hh06, listings.hh07, listings.hh08, listings.hh09, listings.hh10, listings.hh11, listings.child_name, listings.deviceid};
+        Object[] values_ar = {_id, uid, hhdt, hh01, hh02, hh03, hh04, hh04x, hh05, hh06, hh07, hh08, hh09, hh12, hh13, hh14, hh10, hh11, child_name, deviceid};
+        String[] fields_ar = {listings._id, listings.uid, listings.hhdt, listings.hh01, listings.hh02, listings.hh03, listings.hh04, listings.hh04x, listings.hh05, listings.hh06, listings.hh07, listings.hh08, listings.hh09, listings.hh12, listings.hh13, listings.hh14, listings.hh10, listings.hh11, listings.child_name, listings.deviceid};
         String values = "", fields = "";
         for (int i = 0; i < values_ar.length; i++) {
             if (values_ar[i] != null) {
