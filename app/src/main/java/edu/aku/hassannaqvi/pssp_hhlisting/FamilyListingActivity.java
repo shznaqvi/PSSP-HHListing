@@ -133,6 +133,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh13(hh13.isChecked() ? "1" : "2");
         AppMain.lc.setHh14(hh14.isChecked() ? "1" : "2");
         AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
+
         AppMain.lc.setHh11(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
