@@ -1,9 +1,5 @@
 package edu.aku.hassannaqvi.pssp_hhlisting;
 
-/**
- * Created by hassan.naqvi on 10/31/2016.
- */
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -21,17 +17,17 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by hassan.naqvi on 4/28/2016.
+ * Created by javed.khan on 1/2/2017.
  */
-public class GetDistricts extends AsyncTask<String, String, String> {
 
-    private final String TAG = "GetUsers()";
+public class GetVillages extends AsyncTask<String, String, String> {
+
+    private final String TAG = "GetVillages()";
     HttpURLConnection urlConnection;
     private Context mContext;
     private ProgressDialog pd;
 
-
-    public GetDistricts(Context context) {
+    public GetVillages(Context context) {
         mContext = context;
     }
 
@@ -40,11 +36,10 @@ public class GetDistricts extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Getting Districts");
+        pd.setTitle("Getting Villages");
         pd.setMessage("Preparing...");
         pd.show();
     }
-
 
     @Override
     protected String doInBackground(String... args) {
@@ -52,7 +47,7 @@ public class GetDistricts extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/linelisting/getdistrictll.php");
+            URL url = new URL(AppMain._IP + "/linelisting/getvillagesll.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();
@@ -63,7 +58,7 @@ public class GetDistricts extends AsyncTask<String, String, String> {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "District In: " + line);
+                    Log.i(TAG, "Villages In: " + line);
                     result.append(line);
                 }
             } else {
@@ -76,6 +71,7 @@ public class GetDistricts extends AsyncTask<String, String, String> {
         } finally {
             urlConnection.disconnect();
         }
+
 
         return result.toString();
     }
@@ -94,17 +90,17 @@ public class GetDistricts extends AsyncTask<String, String, String> {
                 districtArrayList = new ArrayList<DistrictsContract>();
                 //JSONObject jsonObject = new JSONObject(json);
                 JSONArray jsonArray = new JSONArray(json);
-                db.syncDistrict(jsonArray);
+                db.syncVillages(jsonArray);
 
-                pd.setMessage("Received: " + jsonArray.length() + " Districts");
-                pd.setTitle("Done... Synced Districts");
+                pd.setMessage("Received: " + jsonArray.length() + " Villages");
+                pd.setTitle("Done... Synced Villages");
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                pd.setMessage("Received: 0 Districts");
-                pd.setTitle("Error... Syncing Districts");
+                pd.setMessage("Received: 0 Villages");
+                pd.setTitle("Error... Syncing Villages");
             }
-            db.getAllDistricts();
+            db.getAllVillage();
             pd.show();
         }
     }

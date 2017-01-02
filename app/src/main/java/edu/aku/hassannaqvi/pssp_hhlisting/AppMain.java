@@ -1,4 +1,5 @@
 package edu.aku.hassannaqvi.pssp_hhlisting;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,8 +22,8 @@ public class AppMain extends Application {
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     private static final int TWO_MINUTES = 1000 * 60 * 2;
-    //public static String _IP = "http://192.168.1.10:3000"; // Testing Server
-    public static String _IP = "http://43.245.131.159:3000"; //Production server
+    public static String _IP = "http://10.1.42.86/src"; // Testing Server
+    //public static String _IP = "http://43.245.131.159:3000"; //Production server
     public static String TAG = "AppMain";
     public static ListingContract lc;
     public static String hh01txt = "0000";

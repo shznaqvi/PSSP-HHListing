@@ -46,7 +46,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a table to hold Listings.
-        final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE " + ListingEntry.TABLE_NAME + " (" +
+        final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE IF NOT EXISTS " + ListingEntry.TABLE_NAME + " (" +
                 ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ListingEntry.COLUMN_NAME_UID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
@@ -76,32 +76,34 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
                 " );";
 
-        final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
+        final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE IF NOT EXISTS " + singleDistrict.TABLE_NAME + " (" +
                 singleDistrict._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 singleDistrict.COLUMN_DISTRICT_CODE + " TEXT, " +
                 singleDistrict.COLUMN_DISTRICT_NAME + " TEXT " +
                 ");";
 
-        final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
+
+        final String SQL_CREATE_TEHSIL_TABLE = "CREATE TABLE IF NOT EXISTS " + TehsilEntry.TABLE_NAME + " (" +
+                TehsilEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                TehsilEntry.COLUMN_TEHSIL_CODE + " TEXT, " +
+                TehsilEntry.COLUMN_TEHSIL_NAME + " TEXT, " +
+                TehsilEntry.COLUMN_DISTRICT_NAME + " TEXT " +
+                ");";
+
+
+        final String SQL_CREATE_PSU_TABLE = "CREATE TABLE IF NOT EXISTS " + singlePSU.TABLE_NAME + " (" +
                 singlePSU._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 singlePSU.COLUMN_PSU_CODE + " TEXT, " +
                 singlePSU.COLUMN_PSU_NAME + " TEXT, " +
-                singlePSU.COLUMN_DISTRICT_CODE + " TEXT " +
+                singlePSU.COLUMN_TEHSIL_NAME + " TEXT " +
                 ");";
 
 
-        final String SQL_CREATE_VILLAGE_TABLE = "CREATE TABLE " + VillageEntry.TABLE_NAME + " (" +
+        final String SQL_CREATE_VILLAGE_TABLE = "CREATE TABLE IF NOT EXISTS " + VillageEntry.TABLE_NAME + " (" +
                 VillageEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                VillageEntry.ROW_VCODE + " TEXT, " +
-                VillageEntry.ROW_VNAME + " TEXT, " +
-                VillageEntry.ROW_UCNAME + " TEXT " +
-                ");";
-
-
-        final String SQL_CREATE_TEHSIL_TABLE = "CREATE TABLE " + TehsilEntry.TABLE_NAME + " (" +
-                TehsilEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                TehsilEntry.COLUMN_TEHSIL_CODE + " TEXT, " +
-                TehsilEntry.COLUMN_TEHSIL_NAME + " TEXT " +
+                VillageEntry.COLUMN_VCODE + " TEXT, " +
+                VillageEntry.COLUMN_VNAME + " TEXT, " +
+                VillageEntry.COLUMN_UCNAME + " TEXT " +
                 ");";
 
 
@@ -116,9 +118,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Simply discard all old data and start over when upgrading.
-        db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
+        //db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
+        //db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
+        //db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
+
         onCreate(db);
     }
 
@@ -316,10 +319,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singlePSU._ID,
                 singlePSU.COLUMN_PSU_CODE,
                 singlePSU.COLUMN_PSU_NAME,
-                singlePSU.COLUMN_DISTRICT_CODE
+                singlePSU.COLUMN_TEHSIL_NAME
         };
 
-        String whereClause = singlePSU.COLUMN_DISTRICT_CODE + " = ?";
+        String whereClause = singlePSU.COLUMN_TEHSIL_NAME + " = ?";
         String[] whereArgs = {district_code};
         String groupBy = null;
         String having = null;
@@ -403,9 +406,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Cursor c = null;
         String[] columns = {
                 VillageEntry._ID,
-                VillageEntry.ROW_VCODE,
-                VillageEntry.ROW_VNAME,
-                VillageEntry.ROW_UCNAME
+                VillageEntry.COLUMN_VCODE,
+                VillageEntry.COLUMN_VNAME,
+                VillageEntry.COLUMN_UCNAME
         };
 
         String whereClause = null;
@@ -598,9 +601,67 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 values.put(singlePSU.COLUMN_PSU_CODE, pc.getPSUCode());
                 values.put(singlePSU.COLUMN_PSU_NAME, pc.getPSUName());
-                values.put(singlePSU.COLUMN_DISTRICT_CODE, pc.getDistrictCode());
+                values.put(singlePSU.COLUMN_TEHSIL_NAME, pc.getTehsilName());
 
                 db.insert(singlePSU.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+
+        }
+    }
+
+
+    public void syncTehsil(JSONArray pcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TehsilEntry.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = pcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectTehsil = jsonArray.getJSONObject(i);
+
+                TehsilContract pc = new TehsilContract();
+                pc.sync(jsonObjectTehsil);
+
+                ContentValues values = new ContentValues();
+
+                values.put(TehsilEntry.COLUMN_TEHSIL_CODE, pc.getTehsilCode());
+                values.put(TehsilEntry.COLUMN_TEHSIL_NAME, pc.getTehsilName());
+                values.put(TehsilEntry.COLUMN_DISTRICT_NAME, pc.getDistrictName());
+
+                db.insert(TehsilEntry.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+
+        }
+    }
+
+
+    public void syncVillages(JSONArray pcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(VillageEntry.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = pcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectVillage = jsonArray.getJSONObject(i);
+
+                VillageContract pc = new VillageContract();
+                pc.sync(jsonObjectVillage);
+
+                ContentValues values = new ContentValues();
+
+                values.put(VillageEntry.COLUMN_VCODE, pc.getROW_VCODE());
+                values.put(VillageEntry.COLUMN_VNAME, pc.getROW_VNAME());
+                values.put(VillageEntry.COLUMN_UCNAME, pc.getROW_UCNAME());
+
+                db.insert(VillageEntry.TABLE_NAME, null, values);
             }
             db.close();
 

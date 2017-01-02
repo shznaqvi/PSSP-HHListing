@@ -180,18 +180,27 @@ public class MainActivity extends Activity {
 
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
-            SyncForms ff = new SyncForms(this);
-            Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
-            ff.execute();
+
+            //SyncForms ff = new SyncForms(this);
+            //Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
+            //ff.execute();
 
 
             GetDistricts gd = new GetDistricts(this);
             Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
             gd.execute();
-            GetPSUs gp = new GetPSUs(this);
-            Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
-            gp.execute();
 
+            //GetTehsil gt = new GetTehsil(this);
+            //Toast.makeText(getApplicationContext(), "Syncing Tehsils", Toast.LENGTH_SHORT).show();
+            //gt.execute();
+
+            //GetPSUs gp = new GetPSUs(this);
+            //Toast.makeText(getApplicationContext(), "Syncing UCs", Toast.LENGTH_SHORT).show();
+            //gp.execute();
+
+            //GetVillages gv = new GetVillages(this);
+            //Toast.makeText(getApplicationContext(), "Syncing Villags", Toast.LENGTH_SHORT).show();
+            //gv.execute();
 
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = syncPref.edit();

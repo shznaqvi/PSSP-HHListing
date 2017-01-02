@@ -14,11 +14,13 @@ public class TehsilContract implements BaseColumns {
 
     String COLUMN_TEHSIL_CODE;
     String COLUMN_TEHSIL_NAME;
+    String COLUMN_DISTRICT_NAME;
 
 
     public TehsilContract sync(JSONObject jsonObject) throws JSONException {
         this.COLUMN_TEHSIL_CODE = jsonObject.getString(TehsilContract.TehsilEntry.COLUMN_TEHSIL_CODE);
         this.COLUMN_TEHSIL_NAME = jsonObject.getString(TehsilContract.TehsilEntry.COLUMN_TEHSIL_NAME);
+        this.COLUMN_DISTRICT_NAME = jsonObject.getString(TehsilContract.TehsilEntry.COLUMN_DISTRICT_NAME);
 
         return this;
     }
@@ -26,6 +28,7 @@ public class TehsilContract implements BaseColumns {
     public TehsilContract hydrate(Cursor cursor) {
         this.COLUMN_TEHSIL_CODE = cursor.getString(cursor.getColumnIndex(TehsilContract.TehsilEntry.COLUMN_TEHSIL_CODE));
         this.COLUMN_TEHSIL_NAME = cursor.getString(cursor.getColumnIndex(TehsilContract.TehsilEntry.COLUMN_TEHSIL_NAME));
+        this.COLUMN_DISTRICT_NAME = cursor.getString(cursor.getColumnIndex(TehsilContract.TehsilEntry.COLUMN_DISTRICT_NAME));
 
         return this;
     }
@@ -40,11 +43,20 @@ public class TehsilContract implements BaseColumns {
     }
 
     public String getTehsilName() {
-        return COLUMN_TEHSIL_NAME;
+        return this.COLUMN_TEHSIL_NAME;
     }
 
     public void setTehsilName(String COLUMN_TEHSIL_NAME) {
         this.COLUMN_TEHSIL_NAME = COLUMN_TEHSIL_NAME;
+    }
+
+
+    public String getDistrictName() {
+        return this.COLUMN_DISTRICT_NAME;
+    }
+
+    public void setDistrictName(String COLUMN_DISTRICT_NAME) {
+        this.COLUMN_DISTRICT_NAME = COLUMN_DISTRICT_NAME;
     }
 
 
@@ -55,5 +67,6 @@ public class TehsilContract implements BaseColumns {
         public static final String _ID = "_ID";
         public static final String COLUMN_TEHSIL_CODE = "tehsil_code";
         public static final String COLUMN_TEHSIL_NAME = "tehsil_name";
+        public static final String COLUMN_DISTRICT_NAME = "district_name";
     }
 }

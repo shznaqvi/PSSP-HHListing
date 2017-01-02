@@ -2,6 +2,7 @@ package edu.aku.hassannaqvi.pssp_hhlisting;
 
 import android.database.Cursor;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,15 +13,22 @@ import org.json.JSONObject;
 
 public class DistrictsContract {
 
+    private static String TAG = "";
+
     private String districtCode;
     private String districtName;
 
     public DistrictsContract() {
     }
 
-    public DistrictsContract sync(JSONObject jsonObject) throws JSONException {
-        this.districtCode = jsonObject.getString(singleDistrict.COLUMN_DISTRICT_CODE);
-        this.districtName = jsonObject.getString(singleDistrict.COLUMN_DISTRICT_NAME);
+    public DistrictsContract sync(JSONObject jsonObject) {
+
+        try {
+            this.districtCode = jsonObject.getString(singleDistrict.COLUMN_DISTRICT_CODE);
+            this.districtName = jsonObject.getString(singleDistrict.COLUMN_DISTRICT_NAME);
+        } catch (Exception ex) {
+            Log.d(TAG, "exp: " + ex.getMessage());
+        }
 
         return this;
     }

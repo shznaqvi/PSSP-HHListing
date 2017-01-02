@@ -14,7 +14,7 @@ public class PSUsContract {
 
     private String psuCode;
     private String psuName;
-    private String districtCode;
+    private String tehsilName;
 
 
     public PSUsContract() {
@@ -23,7 +23,7 @@ public class PSUsContract {
     public PSUsContract sync(JSONObject jsonObject) throws JSONException {
         this.psuCode = jsonObject.getString(singlePSU.COLUMN_PSU_CODE);
         this.psuName = jsonObject.getString(singlePSU.COLUMN_PSU_NAME);
-        this.districtCode = jsonObject.getString(singlePSU.COLUMN_DISTRICT_CODE);
+        this.tehsilName = jsonObject.getString(singlePSU.COLUMN_TEHSIL_NAME);
 
 
         return this;
@@ -32,7 +32,7 @@ public class PSUsContract {
     public PSUsContract hydrate(Cursor cursor) {
         this.psuCode = cursor.getString(cursor.getColumnIndex(singlePSU.COLUMN_PSU_CODE));
         this.psuName = cursor.getString(cursor.getColumnIndex(singlePSU.COLUMN_PSU_NAME));
-        this.districtCode = cursor.getString(cursor.getColumnIndex(singlePSU.COLUMN_DISTRICT_CODE));
+        this.tehsilName = cursor.getString(cursor.getColumnIndex(singlePSU.COLUMN_TEHSIL_NAME));
 
         return this;
     }
@@ -53,12 +53,12 @@ public class PSUsContract {
         this.psuName = psuName;
     }
 
-    public String getDistrictCode() {
-        return districtCode;
+    public String getTehsilName() {
+        return this.tehsilName;
     }
 
-    public void setDistrictCode(String districtCode) {
-        this.districtCode = districtCode;
+    public void setTehsilName(String tehsilName) {
+        this.tehsilName = tehsilName;
     }
 
     public static abstract class singlePSU implements BaseColumns {
@@ -68,7 +68,7 @@ public class PSUsContract {
         public static final String _ID = "_ID";
         public static final String COLUMN_PSU_CODE = "psu_code";
         public static final String COLUMN_PSU_NAME = "psu_name";
-        public static final String COLUMN_DISTRICT_CODE = "district_code";
+        public static final String COLUMN_TEHSIL_NAME = "tehsil_name";
 
     }
 
