@@ -67,11 +67,6 @@ public class GetDistricts extends AsyncTask<String, String, String> {
                     Log.i(TAG, "District In: " + line);
                     result.append(line);
                 }
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "District In: " + line);
-                    result.append(line);
-                }
             } else {
                 result.append("URL not found");
             }

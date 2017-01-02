@@ -25,10 +25,6 @@ public class ListingContract {
     public String hh07n;
     public String hh08;
     public String hh09;
-    public String hh12;
-    public String hh13;
-    public String hh14;
-    public String hh15;
     public String hh10;
     public String hh11;
     public String hh12m;
@@ -63,38 +59,6 @@ public class ListingContract {
         this.GPSLng = GPSLng;
         this.GPSTime = GPSTime;
         this.GPSAcc = GPSAcc;
-    }
-
-    public String getHh15() {
-        return hh15;
-    }
-
-    public void setHh15(String hh15) {
-        this.hh15 = hh15;
-    }
-
-    public String getHh12() {
-        return hh12;
-    }
-
-    public void setHh12(String hh12) {
-        this.hh12 = hh12;
-    }
-
-    public String getHh13() {
-        return hh13;
-    }
-
-    public void setHh13(String hh13) {
-        this.hh13 = hh13;
-    }
-
-    public String getHh14() {
-        return hh14;
-    }
-
-    public void setHh14(String hh14) {
-        this.hh14 = hh14;
     }
 
     public String getID() {
@@ -321,10 +285,6 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH07n, this.hh07n);
         json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
-        json.put(ListingEntry.COLUMN_NAME_HH12, this.hh12);
-        json.put(ListingEntry.COLUMN_NAME_HH13, this.hh13);
-        json.put(ListingEntry.COLUMN_NAME_HH14, this.hh14);
-        json.put(ListingEntry.COLUMN_NAME_HH15, this.hh15);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
         json.put(ListingEntry.COLUMN_NAME_HH12m, this.hh12m);
@@ -359,10 +319,6 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH07n = "hh07n";
         public static final String COLUMN_NAME_HH08 = "hh08";
         public static final String COLUMN_NAME_HH09 = "hh09";
-        public static final String COLUMN_NAME_HH12 = "hh12";
-        public static final String COLUMN_NAME_HH13 = "hh13";
-        public static final String COLUMN_NAME_HH14 = "hh14";
-        public static final String COLUMN_NAME_HH15 = "hh15";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
         public static final String COLUMN_NAME_HH12m = "hh12m";

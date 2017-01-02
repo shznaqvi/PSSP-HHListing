@@ -47,7 +47,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a table to hold Listings.
-        final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE IF NOT EXISTS " + ListingEntry.TABLE_NAME + " (" +
+        final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE " + ListingEntry.TABLE_NAME + " (" +
                 ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ListingEntry.COLUMN_NAME_UID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
@@ -62,10 +62,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH14 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH15 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12m + " TEXT, " +
@@ -79,7 +75,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
                 " );";
 
-        final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE IF NOT EXISTS " + singleDistrict.TABLE_NAME + " (" +
+        final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
                 singleDistrict._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 singleDistrict.COLUMN_DISTRICT_CODE + " TEXT, " +
                 singleDistrict.COLUMN_DISTRICT_NAME + " TEXT " +
@@ -126,10 +122,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Simply discard all old data and start over when upgrading.
-        //db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
-        //db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
-        //db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
-
         db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
@@ -176,10 +168,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
-        values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
-        values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
-        values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
-        values.put(ListingEntry.COLUMN_NAME_HH15, lc.getHh15());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
@@ -239,10 +227,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
-                ListingEntry.COLUMN_NAME_HH12,
-                ListingEntry.COLUMN_NAME_HH13,
-                ListingEntry.COLUMN_NAME_HH14,
-                ListingEntry.COLUMN_NAME_HH15,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_HH12m,
@@ -483,9 +467,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
-        values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
-        values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
-        values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
@@ -516,9 +497,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh07n(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07n))));
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
-        lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
-        lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
-        lc.setHh14(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH14))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12m))));
