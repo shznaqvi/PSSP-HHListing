@@ -72,8 +72,6 @@ public class GetDistricts extends AsyncTask<String, String, String> {
             }
         } catch (Exception e) {
             e.printStackTrace();
-
-
         } finally {
             urlConnection.disconnect();
         }
