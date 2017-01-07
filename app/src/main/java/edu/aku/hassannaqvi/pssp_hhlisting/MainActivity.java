@@ -123,8 +123,8 @@ public class MainActivity extends Activity {
                         Log.d(TAG, "onItemSelected: " + psuNameS[0]);
                         ucN.setText(psuNameS[1]);
                         Log.d(TAG, "onItemSelected: " + psuNameS[1]);
-                        /*psuN.setText(psuNameS[2]);
-                        Log.d(TAG, "onItemSelected: " + psuNameS[2]);*/
+                        psuN.setText(psuNameS[2]);
+                        Log.d(TAG, "onItemSelected: " + psuNameS[2]);
 
                     }
                 }
@@ -204,9 +204,9 @@ public class MainActivity extends Activity {
             //Toast.makeText(getApplicationContext(), "Syncing Tehsils", Toast.LENGTH_SHORT).show();
             //gt.execute();
 
-            //GetPSUs gp = new GetPSUs(this);
-            //Toast.makeText(getApplicationContext(), "Syncing UCs", Toast.LENGTH_SHORT).show();
-            //gp.execute();
+            GetPSUs gp = new GetPSUs(this);
+            Toast.makeText(getApplicationContext(), "Syncing UCs", Toast.LENGTH_SHORT).show();
+            gp.execute();
 
             //GetVillages gv = new GetVillages(this);
             //Toast.makeText(getApplicationContext(), "Syncing Villags", Toast.LENGTH_SHORT).show();

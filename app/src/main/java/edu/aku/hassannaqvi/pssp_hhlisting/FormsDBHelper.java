@@ -31,7 +31,7 @@ import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 public class FormsDBHelper extends SQLiteOpenHelper {
 
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // The name of database.
     private static final String DATABASE_NAME = "src-hhl.db";
     public static String TAG = "FormsDBHelper";
@@ -62,6 +62,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH09A + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH09B + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12m + " TEXT, " +
@@ -81,28 +83,11 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleDistrict.COLUMN_DISTRICT_NAME + " TEXT " +
                 ");";
 
-
-        final String SQL_CREATE_TEHSIL_TABLE = "CREATE TABLE IF NOT EXISTS " + TehsilEntry.TABLE_NAME + " (" +
-                TehsilEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                TehsilEntry.COLUMN_TEHSIL_CODE + " TEXT, " +
-                TehsilEntry.COLUMN_TEHSIL_NAME + " TEXT, " +
-                TehsilEntry.COLUMN_DISTRICT_NAME + " TEXT " +
-                ");";
-
-
-        final String SQL_CREATE_PSU_TABLE = "CREATE TABLE IF NOT EXISTS " + singlePSU.TABLE_NAME + " (" +
+        final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
                 singlePSU._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 singlePSU.COLUMN_PSU_CODE + " TEXT, " +
                 singlePSU.COLUMN_PSU_NAME + " TEXT, " +
-                singlePSU.COLUMN_TEHSIL_NAME + " TEXT " +
-                ");";
-
-
-        final String SQL_CREATE_VILLAGE_TABLE = "CREATE TABLE IF NOT EXISTS " + VillageEntry.TABLE_NAME + " (" +
-                VillageEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                VillageEntry.COLUMN_VCODE + " TEXT, " +
-                VillageEntry.COLUMN_VNAME + " TEXT, " +
-                VillageEntry.COLUMN_UCNAME + " TEXT " +
+                singlePSU.COLUMN_DISTRICT_CODE + " TEXT " +
                 ");";
 
         final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
@@ -114,8 +99,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
-        db.execSQL(SQL_CREATE_VILLAGE_TABLE);
-        db.execSQL(SQL_CREATE_TEHSIL_TABLE);
         db.execSQL(SQL_CREATE_USERS);
     }
 
@@ -168,6 +151,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
+        values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
+        values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
@@ -227,6 +212,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
+                ListingEntry.COLUMN_NAME_HH09A,
+                ListingEntry.COLUMN_NAME_HH09B,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_HH12m,
@@ -324,10 +311,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singlePSU._ID,
                 singlePSU.COLUMN_PSU_CODE,
                 singlePSU.COLUMN_PSU_NAME,
-                singlePSU.COLUMN_TEHSIL_NAME
+                singlePSU.COLUMN_DISTRICT_CODE
         };
 
-        String whereClause = singlePSU.COLUMN_TEHSIL_NAME + " = ?";
+        String whereClause = singlePSU.COLUMN_DISTRICT_CODE + " = ?";
         String[] whereArgs = {district_code};
         String groupBy = null;
         String having = null;
@@ -467,6 +454,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
+        values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
+        values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
@@ -497,6 +486,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh07n(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07n))));
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
+        lc.setHh09a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09A))));
+        lc.setHh09b(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09B))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12m))));
@@ -662,12 +653,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 PSUsContract pc = new PSUsContract();
                 pc.sync(jsonObjectPSU);
+                Log.i(TAG, "syncPSU: " + jsonObjectPSU.toString());
 
                 ContentValues values = new ContentValues();
 
                 values.put(singlePSU.COLUMN_PSU_CODE, pc.getPSUCode());
                 values.put(singlePSU.COLUMN_PSU_NAME, pc.getPSUName());
-                values.put(singlePSU.COLUMN_TEHSIL_NAME, pc.getTehsilName());
+                values.put(singlePSU.COLUMN_DISTRICT_CODE, pc.getDistrictCode());
 
                 db.insert(singlePSU.TABLE_NAME, null, values);
             }

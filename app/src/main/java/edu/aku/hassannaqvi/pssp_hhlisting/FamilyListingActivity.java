@@ -28,16 +28,14 @@ public class FamilyListingActivity extends Activity {
     EditText hh08;
     @BindView(R.id.hh09)
     EditText hh09;
-    @BindView(R.id.hh10)
-    Switch hh10;
-    @BindView(R.id.hh11)
-    EditText hh11;
-    @BindView(R.id.btnAddChild)
-    Button btnAddChild;
-    @BindView(R.id.btnAddFamily)
-    Button btnAddFamilty;
-    @BindView(R.id.btnAddHousehold)
-    Button btnAddHousehold;
+    @BindView(R.id.hh09a)
+    Switch hh09a;
+    @BindView(R.id.hh09b)
+    EditText hh09b;
+    @BindView(R.id.btnContNextQ)
+    Button btnContNextQ;
+    @BindView(R.id.btnAddMWRA)
+    Button btnAddMWRA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,28 +47,28 @@ public class FamilyListingActivity extends Activity {
         txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
         AppMain.lc.setHhChildNm(null);
 
-        if (AppMain.fCount < AppMain.fTotal) {
+        /*if (AppMain.fCount < AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
         } else {
             btnAddFamilty.setVisibility(View.GONE);
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
-
-        hh10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+*/
+        hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    hh11.setVisibility(View.VISIBLE);
-                    hh11.requestFocus();
+                    hh09b.setVisibility(View.VISIBLE);
+                    hh09b.requestFocus();
                 } else {
-                    hh11.setVisibility(View.INVISIBLE);
-                    hh11.setText(null);
+                    hh09b.setVisibility(View.INVISIBLE);
+                    hh09b.setText(null);
                 }
             }
         });
 
-        hh11.addTextChangedListener(new TextWatcher() {
+        hh09b.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -80,18 +78,20 @@ public class FamilyListingActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
                     Toast.makeText(FamilyListingActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
-                    btnAddChild.setVisibility(View.VISIBLE);
-                    btnAddFamilty.setVisibility(View.GONE);
-                    btnAddHousehold.setVisibility(View.GONE);
+                    btnAddMWRA.setVisibility(View.VISIBLE);
+                    /*btnAddFamilty.setVisibility(View.GONE);
+                    btnAddHousehold.setVisibility(View.GONE);*/
+                    btnContNextQ.setVisibility(View.GONE);
                 } else {
-                    btnAddChild.setVisibility(View.GONE);
-                    if (AppMain.fCount < AppMain.fTotal) {
+                    btnAddMWRA.setVisibility(View.GONE);
+                    btnContNextQ.setVisibility(View.VISIBLE);
+                   /* if (AppMain.fCount < AppMain.fTotal) {
                         btnAddFamilty.setVisibility(View.VISIBLE);
                         btnAddHousehold.setVisibility(View.GONE);
                     } else {
                         btnAddFamilty.setVisibility(View.GONE);
                         btnAddHousehold.setVisibility(View.VISIBLE);
-                    }
+                    }*/
 
                 }
             }
@@ -104,17 +104,28 @@ public class FamilyListingActivity extends Activity {
 
     }
 
-    @OnClick(R.id.btnAddChild)
-    void onBtnAddChildClick() {
+    @OnClick(R.id.btnContNextQ)
+    void onBtnContNextQClick() {
+        if (formValidation()) {
+
+            SaveDraft();
+            Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
+            startActivity(mwraA);
+        }
+    }
+
+
+    @OnClick(R.id.btnAddMWRA)
+    void onBtnAddMWRAClick() {
 
         if (formValidation()) {
 
             SaveDraft();
-            AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
-            AppMain.cCount++;
-            Toast.makeText(this, AppMain.cCount + ":" + AppMain.cTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
-            Intent fA = new Intent(this, AddChildActivity.class);
-            startActivity(fA);
+            AppMain.mwraTotal = Integer.parseInt(hh09b.getText().toString());
+            AppMain.mwraCount++;
+            Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
+            Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
+            startActivity(mwraA);
         }
 
     }
@@ -123,8 +134,8 @@ public class FamilyListingActivity extends Activity {
 
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
-        AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
-        AppMain.lc.setHh11(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString());
+        AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
+        AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
 
@@ -150,29 +161,29 @@ public class FamilyListingActivity extends Activity {
             hh09.setError(null);
         }
 
-        if (hh10.isChecked() && hh11.getText().toString().isEmpty()) {
+        if (hh09a.isChecked() && hh09b.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            hh11.setError("Please enter child count");
+            hh09b.setError("Please enter child count");
             Log.i(TAG, "Please enter child count");
             return false;
         } else {
-            hh11.setError(null);
+            hh09b.setError(null);
         }
 
-        if (!hh11.getText().toString().isEmpty() && Integer.valueOf(hh11.getText().toString()) < 1) {
+        if (!hh09b.getText().toString().isEmpty() && Integer.valueOf(hh09b.getText().toString()) < 1) {
             Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
-            hh11.setError("Invalid Value!");
+            hh09.setError("Invalid Value!");
             Log.i(TAG, "Invalid Value!");
             return false;
         } else {
-            hh11.setError(null);
+            hh09b.setError(null);
         }
 
         return true;
     }
 
 
-    @OnClick(R.id.btnAddFamily)
+    /*@OnClick(R.id.btnAddFamily)
     void onBtnAddFamilyClick() {
         if (formValidation()) {
 
@@ -187,9 +198,7 @@ public class FamilyListingActivity extends Activity {
                 Intent fA = new Intent(this, FamilyListingActivity.class);
                 startActivity(fA);
             }
-
         }
-
     }
 
     @OnClick(R.id.btnAddHousehold)
@@ -204,11 +213,9 @@ public class FamilyListingActivity extends Activity {
                 AppMain.cTotal = 0;
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
-
             }
         }
-
-    }
+    }*/
 
     private boolean UpdateDB() {
         FormsDBHelper db = new FormsDBHelper(this);

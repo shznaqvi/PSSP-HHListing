@@ -25,6 +25,8 @@ public class ListingContract {
     public String hh07n;
     public String hh08;
     public String hh09;
+    public String hh09a;
+    public String hh09b;
     public String hh10;
     public String hh11;
     public String hh12m;
@@ -165,6 +167,22 @@ public class ListingContract {
         this.hh09 = hh09;
     }
 
+    public String getHh09a() {
+        return hh09a;
+    }
+
+    public void setHh09a(String hh09a) {
+        this.hh09a = hh09a;
+    }
+
+    public String getHh09b() {
+        return hh09b;
+    }
+
+    public void setHh09b(String hh09b) {
+        this.hh09b = hh09b;
+    }
+
     public String getHh10() {
         return hh10;
     }
@@ -285,6 +303,8 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH07n, this.hh07n);
         json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
+        json.put(ListingEntry.COLUMN_NAME_HH09A, this.hh09a);
+        json.put(ListingEntry.COLUMN_NAME_HH09B, this.hh09b);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
         json.put(ListingEntry.COLUMN_NAME_HH12m, this.hh12m);
@@ -319,6 +339,8 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH07n = "hh07n";
         public static final String COLUMN_NAME_HH08 = "hh08";
         public static final String COLUMN_NAME_HH09 = "hh09";
+        public static final String COLUMN_NAME_HH09A = "hh09a";
+        public static final String COLUMN_NAME_HH09B = "hh09b";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
         public static final String COLUMN_NAME_HH12m = "hh12m";

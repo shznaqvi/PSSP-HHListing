@@ -49,7 +49,8 @@ public class GetPSUs extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/linelisting/getucll.php");
+            URL url = new URL(AppMain._IP + "/src/psus/");
+            Log.d(TAG, "doInBackground: " + url);
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();
@@ -88,7 +89,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
 
             String json = result;
             //json = json.replaceAll("\\[", "").replaceAll("\\]","");
-            Log.d(TAG, result);
+            //Log.d(TAG, result);
             ArrayList<PSUsContract> PSUArrayList;
             FormsDBHelper db = new FormsDBHelper(mContext);
             try {

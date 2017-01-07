@@ -53,7 +53,9 @@ public class GetDistricts extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/linelisting/getdistrictll.php");
+            URL url = new URL(AppMain._IP + "/src/districts/");
+            Log.d(TAG, "doInBackground: " + url);
+
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();

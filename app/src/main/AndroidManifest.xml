@@ -45,7 +45,8 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat" />
-        <activity android:name=".AddMarriedWomenActivity"></activity>
+        <activity android:name=".AddMarriedWomenActivity" />
+        <activity android:name=".ClosingActivity"></activity>
     </application>
 
 </manifest>
