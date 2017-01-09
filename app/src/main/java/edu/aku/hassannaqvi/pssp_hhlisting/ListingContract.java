@@ -29,8 +29,8 @@ public class ListingContract {
     public String hh09b;
     public String hh10;
     public String hh11;
-    public String hh12m;
-    public String hh12d;
+    public String hh12;
+    public String hh13;
     public String hhChildNm;
     public String DeviceID;
     public String GPSLat;
@@ -38,6 +38,7 @@ public class ListingContract {
     public String GPSTime;
     public String GPSAcc;
     public String Round = "1";
+    public String fStatus = "3";
 
 
     public ListingContract() {
@@ -199,20 +200,20 @@ public class ListingContract {
         this.hh11 = hh11;
     }
 
-    public String getHh12m() {
-        return hh12m;
+    public String getHh12() {
+        return hh12;
     }
 
-    public void setHh12m(String hh12m) {
-        this.hh12m = hh12m;
+    public void setHh12(String hh12) {
+        this.hh12 = hh12;
     }
 
-    public String getHh12d() {
-        return hh12d;
+    public String getHh13() {
+        return hh13;
     }
 
-    public void setHh12d(String hh12d) {
-        this.hh12d = hh12d;
+    public void setHh13(String hh13) {
+        this.hh13 = hh13;
     }
 
     public String getUID() {
@@ -287,6 +288,14 @@ public class ListingContract {
         ListingContract.userName = userName;
     }
 
+    public String getfStatus() {
+        return fStatus;
+    }
+
+    public void setfStatus(String fStatus) {
+        this.fStatus = fStatus;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -307,8 +316,9 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH09B, this.hh09b);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
-        json.put(ListingEntry.COLUMN_NAME_HH12m, this.hh12m);
-        json.put(ListingEntry.COLUMN_NAME_HH12d, this.hh12d);
+        json.put(ListingEntry.COLUMN_NAME_HH12, this.hh12);
+        json.put(ListingEntry.COLUMN_NAME_HH13, this.hh13);
+
         json.put(ListingEntry.COLUMN_NAME_CHILD_NAME, this.hhChildNm);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
         json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
@@ -317,9 +327,11 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
         json.put(ListingEntry.COLUMN_NAME_USERNAME, userName);
+        json.put(ListingEntry.COLUMN_NAME_FORMSTATUS, fStatus);
 
         return json;
     }
+
 
     public static abstract class ListingEntry implements BaseColumns {
 
@@ -343,8 +355,9 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH09B = "hh09b";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
-        public static final String COLUMN_NAME_HH12m = "hh12m";
-        public static final String COLUMN_NAME_HH12d = "hh12d";
+        public static final String COLUMN_NAME_HH12 = "hh12";
+        public static final String COLUMN_NAME_HH13 = "hh13";
+
         public static final String COLUMN_NAME_CHILD_NAME = "child_name";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
@@ -353,6 +366,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
         public static final String COLUMN_NAME_ROUND = "round";
         public static final String COLUMN_NAME_USERNAME = "username";
+        public static final String COLUMN_NAME_FORMSTATUS = "status";
 
     }
 }

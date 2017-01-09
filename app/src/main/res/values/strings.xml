@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SRC-HHListing</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
-    <string name="hh02"> PSU کوڈ </string>
+    <string name="hh02"> Village کوڈ </string>
     <string name="hh03"> عمارت جو نمبر </string>
     <string name="hh04"> عمارت جو قسم </string>
     <string name="hh04a"> رهائشي </string>
@@ -23,13 +23,28 @@
     <string name="hh11"> ٻارن جو تعداد؟ </string>
     <string name="child_name">بچے کا نام</string>
     <string name="child_age">بچے کی عمر</string>
-    <string name="hh12m">ماہ</string>
-    <string name="hh12d">دن</string>
-
+    <string name="hh12">ڇا ليڊي هيلٿ ورڪر توهان جي گهر وزٽ تي ايندي آهي؟</string>
+    <string name="hh13">جيڪڏهن ها ته ليڊي هيلٿ ورڪر جو نالو ڇا آهي؟</string>
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
+    <string name="txtName">qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM</string>
+
+    <!--sidra-->
+
+
+    <string name="mw01">عورت جو نالو</string>
+    <string name="mw02">گذريل 1 سال ۾ ويم ٿيو؟</string>
+    <string name="mw03">ويم جو نتيجو</string>
+    <string name="mw03a">ضايع ٿي ويو</string>
+    <string name="mw03b">مرده ٻار جي پيدائش</string>
+    <string name="mw03c">زنده ٻار جي پيدائش</string>
+    <string name="mw03d">ٻن مرده ٻارن جي پيدائش</string>
+    <string name="mw03e">هڪ مرده ۽ هڪ زنده ٻارجي پيدائش</string>
+    <string name="mw03f">ٻن زنده ٻارن جي پيدائش</string>
+    <string name="mw04"> ڇا(عورت جو نالو) حمل سان آهي؟ </string>
+    <string name="mw05">حمل کي ڪيترو عرصو ٿيو آهي؟(مهينا لکو)</string>
 
 
     <!--Ali-->

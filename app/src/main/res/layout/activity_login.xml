@@ -104,9 +104,9 @@
                 android:id="@+id/txtinstalldate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#efefef"
+
                 android:gravity="center"
-                android:textColor="#565656"
+                android:textColor="#d6d6d6"
                 android:textSize="11sp" />
 
         </LinearLayout>

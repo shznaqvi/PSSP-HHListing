@@ -188,9 +188,13 @@ public class MainActivity extends Activity {
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
 
-            //SyncForms ff = new SyncForms(this);
-            //Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
-            //ff.execute();
+            SyncForms ff = new SyncForms(this);
+            Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
+            ff.execute();
+
+            SyncMwras mm = new SyncMwras(this);
+            Toast.makeText(getApplicationContext(), "Syncing Mwras", Toast.LENGTH_SHORT).show();
+            mm.execute();
 
             GetUsers u = new GetUsers(this);
             Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();

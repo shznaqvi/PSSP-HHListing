@@ -8,3 +8,21 @@
 /captures
 .externalNativeBuild
 
+Nov05/
+apk/05Nov2016/
+apk/app-release.apk
+apk/check.log
+apk/enrich/
+apk/pssp/
+apk/sero-linelisting-08nov.apk
+apk/sero-linelisting-11nov.apk
+apk/sero-linelisting-21dec.apk
+apk/src/
+libs/
+src/main/res/mipmap-hdpi/icon_linelisting.png
+src/main/res/mipmap-mdpi/icon_linelisting.png
+src/main/res/mipmap-xhdpi/icon_linelisting.png
+src/main/res/mipmap-xxhdpi/icon_linelisting.png
+src/main/res/mipmap-xxhdpi/icon_xl_household.png
+src/main/res/mipmap-xxxhdpi/icon_linelisting.png
+src/main/res/mipmap-xxxhdpi/icon_xl_household.png

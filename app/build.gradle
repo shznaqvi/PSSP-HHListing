@@ -4,13 +4,28 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
-    defaultConfig {
-        applicationId "edu.aku.hassannaqvi.pssp_hhlisting"
-        minSdkVersion 19
-        targetSdkVersion 19
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+
+        versionProps['VERSION_CODE'] = code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        defaultConfig {
+            applicationId "edu.aku.hassannaqvi.pssp"
+            minSdkVersion 19
+            targetSdkVersion 19
+            versionCode code
+            versionName "1.5"
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        }
+    } else {
+        throw new GradleException("Could not read version.properties!")
     }
     buildTypes {
         release {

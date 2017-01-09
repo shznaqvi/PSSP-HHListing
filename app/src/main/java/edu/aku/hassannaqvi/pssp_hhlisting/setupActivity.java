@@ -243,9 +243,9 @@ public class setupActivity extends Activity {
 
     private boolean formValidation() {
         if (AppMain.hh02txt == null) {
-            Toast.makeText(this, "Please enter PSU", Toast.LENGTH_LONG).show();
-            hh02.setError("Please enter PSU");
-            Log.i(TAG, "PSU not given");
+            Toast.makeText(this, "Please enter Village", Toast.LENGTH_LONG).show();
+            hh02.setError("Please enter Village");
+            Log.i(TAG, "Village not given");
             return false;
         } else {
             hh02.setError(null);

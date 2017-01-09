@@ -1,10 +1,13 @@
 package edu.aku.hassannaqvi.pssp_hhlisting;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -107,10 +110,13 @@ public class FamilyListingActivity extends Activity {
     @OnClick(R.id.btnContNextQ)
     void onBtnContNextQClick() {
         if (formValidation()) {
-
             SaveDraft();
-            Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
-            startActivity(mwraA);
+            if (UpdateDB()) {
+                Intent closeA = new Intent(this, ClosingActivity.class);
+                startActivity(closeA);
+            } else {
+                Toast.makeText(this, "Saving Draft... Failed!", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -121,11 +127,15 @@ public class FamilyListingActivity extends Activity {
         if (formValidation()) {
 
             SaveDraft();
-            AppMain.mwraTotal = Integer.parseInt(hh09b.getText().toString());
-            AppMain.mwraCount++;
-            Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
-            Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
-            startActivity(mwraA);
+            if (UpdateDB()) {
+                AppMain.mwraTotal = Integer.parseInt(hh09b.getText().toString());
+                AppMain.mwraCount = 1;
+                Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
+                Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
+                startActivity(mwraA);
+            } else {
+                Toast.makeText(this, "Saving Draft... Failed!", Toast.LENGTH_LONG).show();
+            }
         }
 
     }
@@ -136,8 +146,12 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh09(hh09.getText().toString());
         AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
         AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());
+
+        setGPS();
+
+
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
+        //Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
 
     }
 
@@ -219,20 +233,44 @@ public class FamilyListingActivity extends Activity {
 
     private boolean UpdateDB() {
         FormsDBHelper db = new FormsDBHelper(this);
+        Long rowId;
 
-        long updcount = db.addForm(AppMain.lc);
+        rowId = db.addForm(AppMain.lc);
 
-        if (updcount != 0) {
+        AppMain.lc.setID(String.valueOf(rowId));
+
+
+        if (rowId != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+            AppMain.lc.setUID(
+                    (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+            Toast.makeText(this, "Current Form No: " + AppMain.lc.getUID(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
 
+    public void setGPS() {
+        SharedPreferences GPSPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+
+        // CONVERTING GPS TIMESTAMP TO DATETIME FORMAT
+        String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
+
+        AppMain.lc.setGPSLat(GPSPref.getString("Latitude", "0"));
+        AppMain.lc.setGPSLng(GPSPref.getString("Longitude", "0"));
+        AppMain.lc.setGPSAcc(GPSPref.getString("Accuracy", "0"));
+        AppMain.lc.setGPSTime(GPSPref.getString(date, "0")); // Timestamp is converted to date above
+
+        Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+    }
+    
+    
     @Override
     public void onBackPressed() {
         Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();
 
     }
+
+
 }

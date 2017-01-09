@@ -17,12 +17,11 @@ import java.util.Collection;
 
 import edu.aku.hassannaqvi.pssp_hhlisting.DistrictsContract.singleDistrict;
 import edu.aku.hassannaqvi.pssp_hhlisting.ListingContract.ListingEntry;
+import edu.aku.hassannaqvi.pssp_hhlisting.MWRAContract.MwraEntry;
 import edu.aku.hassannaqvi.pssp_hhlisting.PSUsContract.singlePSU;
 import edu.aku.hassannaqvi.pssp_hhlisting.TehsilContract.TehsilEntry;
 import edu.aku.hassannaqvi.pssp_hhlisting.UsersContract.singleUser;
 import edu.aku.hassannaqvi.pssp_hhlisting.VillageContract.VillageEntry;
-
-import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 
 
 /**
@@ -31,17 +30,17 @@ import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 public class FormsDBHelper extends SQLiteOpenHelper {
 
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     // The name of database.
     private static final String DATABASE_NAME = "src-hhl.db";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
+    public static String DB_MWRA_ID;
 
 
     public FormsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
 
 
     @Override
@@ -66,15 +65,30 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09B + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH12m + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH12d + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CHILD_NAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
                 ListingEntry.COLUMN_NAME_ROUND + " TEXT, " +
+                ListingEntry.COLUMN_NAME_FORMSTATUS + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
+                " );";
+
+        final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
+                MwraEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                MwraEntry.MWRA_UUID + " TEXT," +
+                MwraEntry.MWRA_UID + " TEXT," +
+                MwraEntry.MWRA_MWDT + " TEXT," +
+                MwraEntry.MWRA_MWVILLAGECODE + " TEXT," +
+                MwraEntry.MWRA_MWSTRUCTURENO + " TEXT," +
+                MwraEntry.MWRA_MW01 + " TEXT," +
+                MwraEntry.MWRA_MW02 + " TEXT," +
+                MwraEntry.MWRA_MW03 + " TEXT," +
+                MwraEntry.MWRA_MW04 + " TEXT," +
+                MwraEntry.MWRA_MW05 + " TEXT" +
                 " );";
 
         final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
@@ -97,6 +111,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
+        db.execSQL(SQL_CREATE_MWRA_TABLE);
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
@@ -106,6 +121,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Simply discard all old data and start over when upgrading.
         db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + MwraEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
@@ -141,7 +157,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
 
         AppMain.updatePSU(lc.getHh02(), lc.getHh03());
-        Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(lc.getHh02(), "0"));
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
         values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());
@@ -153,10 +168,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
-        values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
-        values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
-        values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
-        values.put(ListingEntry.COLUMN_NAME_HH12d, lc.getHh12d());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
@@ -165,12 +176,43 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
 
+
         long newRowId;
         newRowId = db.insert(
                 ListingEntry.TABLE_NAME,
                 ListingEntry.COLUMN_NAME_NULLABLE,
                 values);
         DB_FORM_ID = String.valueOf(newRowId);
+
+        return newRowId;
+    }
+
+    public Long addMwra(MWRAContract mwra) {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+
+        values.put(MwraEntry.MWRA_ID, mwra.getID());
+        values.put(MwraEntry.MWRA_UUID, mwra.getUUID());
+        values.put(MwraEntry.MWRA_UID, mwra.getUID());
+        values.put(MwraEntry.MWRA_MWDT, mwra.getMwDT());
+        values.put(MwraEntry.MWRA_MWVILLAGECODE, mwra.getMwVillageCode());
+        values.put(MwraEntry.MWRA_MWSTRUCTURENO, mwra.getMwStructureNo());
+        values.put(MwraEntry.MWRA_MW01, mwra.getMw01());
+        values.put(MwraEntry.MWRA_MW02, mwra.getMw02());
+        values.put(MwraEntry.MWRA_MW03, mwra.getMw03());
+        values.put(MwraEntry.MWRA_MW04, mwra.getMw04());
+        values.put(MwraEntry.MWRA_MW05, mwra.getMw05());
+
+        long newRowId;
+        newRowId = db.insert(
+                MwraEntry.TABLE_NAME,
+                MwraEntry.MWRA_NULLABLE,
+                values);
+        DB_MWRA_ID = String.valueOf(newRowId);
 
         return newRowId;
     }
@@ -194,6 +236,50 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
+    public int updateMwra() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(MwraEntry.MWRA_UID, AppMain.mwra.getUID());
+
+
+// Which row to update, based on the ID
+        String selection = MwraEntry._ID + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(AppMain.mwra.getID())};
+
+        int count = db.update(MwraEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
+    }
+
+    public int updateForm() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ListingEntry.COLUMN_NAME_UID, AppMain.lc.getUID());
+        values.put(ListingEntry.COLUMN_NAME_HH10, AppMain.lc.getHh10());
+        values.put(ListingEntry.COLUMN_NAME_HH11, AppMain.lc.getHh11());
+        values.put(ListingEntry.COLUMN_NAME_HH12, AppMain.lc.getHh12());
+        values.put(ListingEntry.COLUMN_NAME_HH13, AppMain.lc.getHh13());
+        values.put(ListingEntry.COLUMN_NAME_FORMSTATUS, "1");
+
+
+// Which row to update, based on the ID
+        String selection = ListingEntry._ID + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(AppMain.lc.getID())};
+
+        int count = db.update(ListingEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
+    }
+
+
     public Collection<ListingContract> getAllListings() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
@@ -216,15 +302,16 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09B,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
-                ListingEntry.COLUMN_NAME_HH12m,
-                ListingEntry.COLUMN_NAME_HH12d,
+                ListingEntry.COLUMN_NAME_HH12,
+                ListingEntry.COLUMN_NAME_HH13,
                 ListingEntry.COLUMN_NAME_CHILD_NAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
                 ListingEntry.COLUMN_NAME_GPSTime,
                 ListingEntry.COLUMN_NAME_GPSAccuracy,
-                ListingEntry.COLUMN_NAME_ROUND
+                ListingEntry.COLUMN_NAME_ROUND,
+                ListingEntry.COLUMN_NAME_FORMSTATUS
         };
 
         String whereClause = null;
@@ -259,6 +346,59 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
         return allLC;
     }
+
+    public Collection<MWRAContract> getAllMwras() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                MwraEntry.MWRA_ID,
+                MwraEntry.MWRA_UUID,
+                MwraEntry.MWRA_UID,
+                MwraEntry.MWRA_MWDT,
+                MwraEntry.MWRA_MWVILLAGECODE,
+                MwraEntry.MWRA_MWSTRUCTURENO,
+                MwraEntry.MWRA_MW01,
+                MwraEntry.MWRA_MW02,
+                MwraEntry.MWRA_MW03,
+                MwraEntry.MWRA_MW04,
+                MwraEntry.MWRA_MW05
+
+        };
+
+        String whereClause = null;
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                MwraEntry._ID + " ASC";
+
+        Collection<MWRAContract> allMWRA = new ArrayList<MWRAContract>();
+        try {
+            c = db.query(
+                    MwraEntry.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                MWRAContract mwra = new MWRAContract();
+                allMWRA.add(mwra.Hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allMWRA;
+    }
+
 
     public Collection<DistrictsContract> getAllDistricts() {
 
@@ -458,8 +598,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
-        values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
-        values.put(ListingEntry.COLUMN_NAME_HH12d, lc.getHh12d());
+        values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
+        values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
@@ -467,6 +607,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
+        values.put(ListingEntry.COLUMN_NAME_FORMSTATUS, lc.getfStatus());
 
         return values;
     }
@@ -490,8 +631,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh09b(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09B))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
-        lc.setHh12m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12m))));
-        lc.setHh12d(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12d))));
+        lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
+        lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
         lc.setHhChildNm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CHILD_NAME))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
@@ -499,6 +640,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
         lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
         lc.setRound(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ROUND))));
+        lc.setfStatus(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_FORMSTATUS))));
 
         return lc;
     }
