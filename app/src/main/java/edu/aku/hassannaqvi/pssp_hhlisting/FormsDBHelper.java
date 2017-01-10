@@ -126,6 +126,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
+        values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
 
         AppMain.updatePSU(lc.getHh02(), lc.getHh03());
@@ -189,6 +190,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HHDATETIME,
                 ListingEntry.COLUMN_NAME_HH01,
                 ListingEntry.COLUMN_NAME_HH02,
+                ListingEntry.COLUMN_NAME_HHADD,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
                 ListingEntry.COLUMN_NAME_HH04x,
@@ -338,6 +340,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
+        values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
         values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());
@@ -368,6 +371,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
+        lc.setHhadd(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHADD))));
         lc.setHh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH03))));
         lc.setHh04(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04))));
         lc.setHh04x(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04x))));

@@ -64,6 +64,20 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/hhadd" />
+
+        <EditText
+            android:id="@+id/hhadd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:digits="@string/txtMsg"
+            android:inputType="text" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,6 +100,7 @@
                 android:textSize="48dp"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <!--// Structure Type-->
 
         <TextView
