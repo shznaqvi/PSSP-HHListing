@@ -69,7 +69,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_weight="18"
                 android:digits="@string/txtMsg"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:maxLength="24" />
 
         </LinearLayout>
@@ -107,14 +107,14 @@
                 android:visibility="invisible" />
         </LinearLayout>
 
-        <Button
+        <!--<Button
             android:id="@+id/btnAddChild"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:onClick="addChild"
             android:text="Add A Child"
-            android:visibility="invisible" />
+            android:visibility="invisible" />-->
 
         <LinearLayout
             android:layout_width="match_parent"

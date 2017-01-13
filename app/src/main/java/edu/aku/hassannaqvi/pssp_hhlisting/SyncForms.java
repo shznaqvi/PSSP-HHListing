@@ -62,7 +62,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
         HttpURLConnection connection = null;
         try {
-            String request = AppMain._IP + "/enrich/forms/";
+            String request = AppMain._IP + "/mccp/forms/";
             //String request = "http://10.1.42.30:3000/forms";
             pd.setTitle("Connecting to... " + request);
             //pd.show();

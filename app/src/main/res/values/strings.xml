@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MCCP2-CENSUS</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
-    <string name="hh02"> PSU کوڈ </string>
+    <string name="hh02"> Cluster کوڈ </string>
     <string name="hh03"> اسٹرکچر نمبر </string>
     <string name="hh04"> تعمیراتی ساخت </string>
     <string name="hh04a"> رہائشی </string>

@@ -38,7 +38,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Getting PSUs");
+        pd.setTitle("Getting Clusters");
         pd.setMessage("Preparing...");
         pd.show();
 
@@ -50,7 +50,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/enrich/psus/");
+            URL url = new URL(AppMain._IP + "/mccp/psus/");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();
@@ -62,7 +62,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
             String line;
             while ((line = reader.readLine()) != null) {
                 //pd.show();
-                Log.i(TAG, "PSUs In: " + line);
+                Log.i(TAG, "Clusters In: " + line);
                 result.append(line);
             }
             } else {
@@ -97,13 +97,13 @@ public class GetPSUs extends AsyncTask<String, String, String> {
             PSUArrayList = new ArrayList<PSUsContract>();
             //JSONObject jsonObject = new JSONObject(json);
             JSONArray jsonArray = new JSONArray(json);
-            pd.setMessage("Received: " + jsonArray.length() + " PSUs");
-            pd.setTitle("Done... Synced PSUs");
+            pd.setMessage("Received: " + jsonArray.length() + " Clusters");
+            pd.setTitle("Done... Synced Clusters");
             db.syncPSU(jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
-            pd.setMessage("Received: 0 PSUs");
-            pd.setTitle("Error... Syncing PSUs");
+            pd.setMessage("Received: 0 Clusters");
+            pd.setTitle("Error... Syncing Clusters");
         }
         db.getAllDistricts();
             pd.show();

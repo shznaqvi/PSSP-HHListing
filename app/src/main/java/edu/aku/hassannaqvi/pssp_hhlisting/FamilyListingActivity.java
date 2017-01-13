@@ -3,8 +3,6 @@ package edu.aku.hassannaqvi.pssp_hhlisting;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,8 +30,7 @@ public class FamilyListingActivity extends Activity {
     Switch hh10;
     @BindView(R.id.hh11)
     EditText hh11;
-    @BindView(R.id.btnAddChild)
-    Button btnAddChild;
+    //@BindView(R.id.btnAddChild) Button btnAddChild;
     @BindView(R.id.btnAddFamily)
     Button btnAddFamilty;
     @BindView(R.id.btnAddHousehold)
@@ -70,7 +67,7 @@ public class FamilyListingActivity extends Activity {
             }
         });
 
-        hh11.addTextChangedListener(new TextWatcher() {
+        /*hh11.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -80,9 +77,7 @@ public class FamilyListingActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
                     Toast.makeText(FamilyListingActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
-                    btnAddChild.setVisibility(View.VISIBLE);
-                    btnAddFamilty.setVisibility(View.GONE);
-                    btnAddHousehold.setVisibility(View.GONE);
+                    btnAddHousehold.setVisibility(View.VISIBLE);
                 } else {
                     btnAddChild.setVisibility(View.GONE);
                     if (AppMain.fCount < AppMain.fTotal) {
@@ -100,11 +95,11 @@ public class FamilyListingActivity extends Activity {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
     }
 
-    @OnClick(R.id.btnAddChild)
+    /*@OnClick(R.id.btnAddChild)
     void onBtnAddChildClick() {
 
         if (formValidation()) {
@@ -117,7 +112,7 @@ public class FamilyListingActivity extends Activity {
             startActivity(fA);
         }
 
-    }
+    }*/
 
     private void SaveDraft() {
 

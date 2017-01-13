@@ -158,7 +158,7 @@ public class MainActivity extends Activity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Do you want to continue?");
-        builder.setMessage("PSU data already exist.").setPositiveButton("Yes", dialogClickListener)
+        builder.setMessage("Cluster data already exist.").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("Cancel", dialogClickListener).show();
     }
 
@@ -170,7 +170,7 @@ public class MainActivity extends Activity {
             Intent oF = new Intent(this, setupActivity.class);
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
-                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Cluster data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
                 startActivity(oF);
@@ -200,7 +200,7 @@ public class MainActivity extends Activity {
             Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
             gd.execute();
             GetPSUs gp = new GetPSUs(this);
-            Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Syncing Clusters", Toast.LENGTH_SHORT).show();
             gp.execute();
 
 
