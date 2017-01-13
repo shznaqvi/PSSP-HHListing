@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Enrich Household Line Listing</string>
+    <string name="app_name">MCCP2-CENSUS</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
     <string name="hh02"> PSU کوڈ </string>
     <string name="hh03"> اسٹرکچر نمبر </string>
@@ -17,7 +17,7 @@
     <string name="hh07"> خاندان نمبر </string>
     <string name="hh08"> خاندان کے سربراہ کا نام </string>
     <string name="hh09"> رابطہ کا نمبر </string>
-    <string name="hh10"> کیا گھر میں ایک سال سے چھوٹا بچہ موجود ہے؟ </string>
+    <string name="hh10"> کیا گھر میں پانچ سال سے چھوٹا بچہ موجود ہے؟ </string>
     <string name="hh11"> بچوں کی تعداد؟ </string>
 
     <string name="yes"> ہاں </string>

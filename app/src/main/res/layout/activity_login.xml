@@ -59,8 +59,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="0dp"
                 android:contentDescription="TVI LOGO"
-                android:onClick="gotoMain"
-                android:src="@drawable/logo_agakhan" />
+                android:src="@drawable/logoagakhan" />
 
             <AutoCompleteTextView
                 android:id="@+id/email"
