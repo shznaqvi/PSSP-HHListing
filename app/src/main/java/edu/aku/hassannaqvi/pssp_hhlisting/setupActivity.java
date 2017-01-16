@@ -35,6 +35,8 @@ public class setupActivity extends Activity {
     TextView hh01;
     @BindView(R.id.hh02)
     EditText hh02;
+    @BindView(R.id.hhadd)
+    EditText hhadd;
     @BindView(R.id.hh03)
     TextView hh03;
     @BindView(R.id.hh04)
@@ -189,6 +191,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh01(AppMain.hh01txt);
         AppMain.lc.setHh02(AppMain.hh02txt);
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
+        AppMain.lc.setHhadd(hhadd.getText().toString());
         switch (hh04.getCheckedRadioButtonId()) {
             case R.id.hh04a:
                 AppMain.lc.setHh04("1");
