@@ -227,9 +227,9 @@ public class setupActivity extends Activity {
 
         SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
         AppMain.lc.setGPSLat(sharedPref.getString("Latitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Longitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Accuracy", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Time", ""));
+        AppMain.lc.setGPSLng(sharedPref.getString("Longitude", ""));
+        AppMain.lc.setGPSAcc(sharedPref.getString("Accuracy", ""));
+        AppMain.lc.setGPSTime(sharedPref.getString("Time", ""));
 
 
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
