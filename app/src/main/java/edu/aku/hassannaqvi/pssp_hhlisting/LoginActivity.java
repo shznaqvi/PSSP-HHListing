@@ -7,7 +7,6 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -23,57 +22,51 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+
 
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "test1234:test1234", "testS12345:testS12345", "bar@example.com:world"};
     public ArrayList<String> lables;
     public ArrayList<String> values;
-    ProgressBar mProgressView;
-    EditText mPasswordView;
-    TextView txtinstalldate;
-    AutoCompleteTextView mEmailView;
+    @BindView(R.id.email_sign_in_button)
     Button email_sign_in_button;
+    @BindView(R.id.activity_login)
+    LinearLayout activityLogin;
+    @BindView(R.id.login_progress)
+    ProgressBar mProgressView;
+    @BindView(R.id.login_form)
+    ScrollView loginForm;
+    @BindView(R.id.email_login_form)
+    LinearLayout emailLoginForm;
+    @BindView(R.id.email)
+    AutoCompleteTextView mEmailView;
+    @BindView(R.id.password)
+    EditText mPasswordView;
+    @BindView(R.id.txtinstalldate)
+    TextView txtinstalldate;
     private UserLoginTask mAuthTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
 
-        mProgressView = (ProgressBar) findViewById(R.id.login_progress);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        txtinstalldate = (TextView) findViewById(R.id.txtinstalldate);
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
-        try {
-            long installedOn = this
-                    .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.pssp", 0)
-                    .lastUpdateTime;
-            Integer versionCode = this
-                    .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.pssp", 0)
-                    .versionCode;
-            String versionName = this
-                    .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.pssp", 0)
-                    .versionName;
-            txtinstalldate.setText("Ver. " + versionName + "." + String.valueOf(versionCode) + " \r\n( Last Updated: " + new SimpleDateFormat("dd MMM. yyyy").format(new Date(installedOn)) + " )");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
         populateAutoComplete();
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
