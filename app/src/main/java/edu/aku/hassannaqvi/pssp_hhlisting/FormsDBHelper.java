@@ -144,7 +144,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
+        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getUserName());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
@@ -353,7 +353,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
+        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getUserName());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());

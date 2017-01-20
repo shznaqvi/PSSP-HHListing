@@ -234,6 +234,9 @@ public class setupActivity extends Activity {
 
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
 
+
+        AppMain.lc.setUserName(AppMain.userName);
+
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03().toString());
 

@@ -36,6 +36,7 @@ public class AppMain extends Application {
     public static int cTotal = 0;
     public static SharedPreferences sharedPref;
     protected static LocationManager locationManager;
+    public static String userName;
 
     public static void updatePSU(String psuCode, String structureNo) {
 
