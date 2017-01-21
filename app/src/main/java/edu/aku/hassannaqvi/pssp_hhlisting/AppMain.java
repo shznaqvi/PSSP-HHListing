@@ -38,6 +38,8 @@ public class AppMain extends Application {
     protected static LocationManager locationManager;
     public static String userName;
 
+    public static Context contextOfApplication;
+
     public static void updatePSU(String psuCode, String structureNo) {
 
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -82,6 +84,12 @@ public class AppMain extends Application {
 
         sharedPref = getSharedPreferences("PSUCodes", Context.MODE_PRIVATE);
 
+        contextOfApplication = getApplicationContext();
+
+    }
+
+    public static Context getContextOfApplication(){
+        return contextOfApplication;
     }
 
     public class GPSLocationListener implements LocationListener {
