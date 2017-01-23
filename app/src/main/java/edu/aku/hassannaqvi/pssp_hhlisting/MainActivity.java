@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -178,19 +179,19 @@ public class MainActivity extends Activity {
         startActivity(dbmanager);
     }
 
-    public void syncFunction(View view) {
+    public void syncFunction(View view) throws ExecutionException, InterruptedException {
         if (isNetworkAvailable()) {
             SyncForms ff = new SyncForms(this);
             Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
-            ff.execute();
-
+            ff.execute().get();
 
             GetDistricts gd = new GetDistricts(this);
             Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
-            gd.execute();
+            gd.execute().get();
+
             GetPSUs gp = new GetPSUs(this);
             Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
-            gp.execute();
+            gp.execute().get();
 
 
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);

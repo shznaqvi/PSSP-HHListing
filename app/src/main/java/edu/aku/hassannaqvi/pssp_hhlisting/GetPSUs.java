@@ -4,6 +4,7 @@ package edu.aku.hassannaqvi.pssp_hhlisting;
  * Created by hassan.naqvi on 10/31/2016.
  */
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -40,7 +41,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
         pd = new ProgressDialog(mContext);
         pd.setTitle("Getting PSUs");
         pd.setMessage("Preparing...");
-        pd.show();
+       //pd.show();
 
     }
 
