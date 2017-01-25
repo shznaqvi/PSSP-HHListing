@@ -54,15 +54,12 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
     }
 
-
-    @Override
-    protected String doInBackground(Void... params) {
-
+    private String downloadUrl(String myurl) throws IOException {
         String line = "No Response";
 
         HttpURLConnection connection = null;
         try {
-            String request = AppMain._IP + "/enrich/forms/";
+            String request = myurl;
             //String request = "http://10.1.42.30:3000/forms";
             pd.setTitle("Connecting to... " + request);
             //pd.show();
@@ -129,6 +126,16 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
                 connection.disconnect();
         }
         return line;
+    }
+
+
+    @Override
+    protected String doInBackground(Void... params) {
+        try {
+            return downloadUrl(AppMain._IP + "/enrich/forms/");
+        } catch (IOException e) {
+            return "Unable to upload data. Server may be down.";
+        }
     }
 
     @Override
