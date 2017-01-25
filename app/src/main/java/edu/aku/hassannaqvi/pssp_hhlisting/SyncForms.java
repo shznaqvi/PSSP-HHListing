@@ -132,7 +132,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return downloadUrl(AppMain._IP + "/enrich/forms/");
+            return downloadUrl(AppMain._IP + "/forms/");
         } catch (IOException e) {
             return "Unable to upload data. Server may be down.";
         }
