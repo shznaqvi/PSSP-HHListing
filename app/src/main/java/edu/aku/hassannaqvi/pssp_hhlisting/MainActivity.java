@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -248,6 +249,25 @@ public class MainActivity extends Activity {
         } else {
             Toast.makeText(getApplicationContext(), "Network not available for Update", Toast.LENGTH_SHORT).show();
             return false;
+
+        }
+    }
+
+    private Boolean exit = false;
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
 
         }
     }

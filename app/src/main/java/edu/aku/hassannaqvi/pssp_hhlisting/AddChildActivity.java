@@ -170,6 +170,7 @@ public class AddChildActivity extends Activity {
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
                 AppMain.fCount++;
 
+                finish();
                 Intent fA = new Intent(this, FamilyListingActivity.class);
                 startActivity(fA);
                 try {

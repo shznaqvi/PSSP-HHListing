@@ -166,6 +166,9 @@ public class setupActivity extends Activity {
         if (formValidation()) {
             SaveDraft();
             AppMain.fCount++;
+
+            finish();
+
             Intent fA = new Intent(this, FamilyListingActivity.class);
             startActivity(fA);
         }
@@ -176,8 +179,11 @@ public class setupActivity extends Activity {
     void onBtnChangePSUClick() {
 
         AppMain.hh02txt = null;
-        Intent fA = new Intent(this, MainActivity.class);
-        startActivity(fA);
+
+        finish();
+
+//        Intent fA = new Intent(this, MainActivity.class);
+//        startActivity(fA);
 
     }
 

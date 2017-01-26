@@ -200,6 +200,9 @@ public class FamilyListingActivity extends Activity {
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
+
+                finish();
+
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
 
