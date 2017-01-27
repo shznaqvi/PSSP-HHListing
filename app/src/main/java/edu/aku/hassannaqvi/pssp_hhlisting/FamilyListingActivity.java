@@ -120,6 +120,9 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh09(hh09.getText().toString());
         AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
         AppMain.lc.setHh11(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString());
+
+        AppMain.lc.setUserName(AppMain.userName);
+
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
 
@@ -197,6 +200,9 @@ public class FamilyListingActivity extends Activity {
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
+
+                finish();
+
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
 

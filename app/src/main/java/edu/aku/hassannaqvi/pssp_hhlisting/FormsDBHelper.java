@@ -2,6 +2,7 @@ package edu.aku.hassannaqvi.pssp_hhlisting;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.SQLException;
@@ -144,7 +145,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
+        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getUserName());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
@@ -153,10 +154,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH12d, lc.getHh12d());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
-        values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
-        values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
-        values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
-        values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
+
+
+        AppMain.sharedPref = AppMain.getContextOfApplication().getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+
+        values.put(ListingEntry.COLUMN_NAME_GPSLat, sharedPref.getString("Latitude", ""));
+        values.put(ListingEntry.COLUMN_NAME_GPSLng, sharedPref.getString("Longitude", ""));
+        values.put(ListingEntry.COLUMN_NAME_GPSTime, sharedPref.getString("Time", ""));
+        values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, sharedPref.getString("Accuracy", ""));
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
 
         long newRowId;
@@ -353,7 +358,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
+        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getUserName());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
