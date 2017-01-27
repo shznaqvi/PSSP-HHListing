@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PSSP-HHListing</string>
+    <string name="app_name">MCCP2-CENSUS</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
     <string name="hh02"> PSU کوڈ </string>
     <string name="hh03"> اسٹرکچر نمبر </string>
@@ -17,7 +17,7 @@
     <string name="hh07"> خاندان نمبر </string>
     <string name="hh08"> خاندان کے سربراہ کا نام </string>
     <string name="hh09"> رابطہ کا نمبر </string>
-    <string name="hh10"> کیا گھر میں ایک سال سے چھوٹا بچہ موجود ہے؟ </string>
+    <string name="hh10"> کیا گھر میں پانچ سال سے چھوٹا بچہ موجود ہے؟ </string>
     <string name="hh11"> بچوں کی تعداد؟ </string>
 
     <string name="yes"> ہاں </string>
@@ -28,4 +28,15 @@
     <string name="child_age">بچے کی عمر</string>
     <string name="hh12m">ماہ</string>
     <string name="hh12d">دن</string>
+
+
+    <!--Ali-->
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+
+
 </resources>

@@ -51,10 +51,9 @@ public class GetPSUs extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/psus/");
+            URL url = new URL(AppMain._IP + "/enrich/psus/");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                pd.setMessage("Connected to Server");
                 //pd.show();
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -63,13 +62,11 @@ public class GetPSUs extends AsyncTask<String, String, String> {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                pd.setMessage("Receiving Data...");
                 //pd.show();
                 Log.i(TAG, "PSUs In: " + line);
                 result.append(line);
             }
             } else {
-                pd.setMessage("URL not found");
                 result.append("URL not found");
 
             }
