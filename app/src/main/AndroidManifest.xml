@@ -14,7 +14,7 @@
     <application
         android:name=".AppMain"
         android:allowBackup="true"
-        android:icon="@mipmap/icon_linelisting"
+        android:icon="@drawable/linelisting"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
