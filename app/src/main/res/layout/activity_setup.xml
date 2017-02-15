@@ -57,7 +57,7 @@
                 android:layout_weight="1"
                 android:digits="1234567890"
                 android:inputType="number"
-                android:maxLength="5" />
+                android:maxLength="6" />
 
             <!--Structure No. (Auto-Generate)-->
 
