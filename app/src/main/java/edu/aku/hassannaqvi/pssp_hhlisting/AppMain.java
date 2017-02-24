@@ -83,7 +83,7 @@ public class AppMain extends Application {
                 new GPSLocationListener() // Implement this class from code
         );
 
-        sharedPref = getSharedPreferences("PSUCodes", Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
 
         contextOfApplication = getApplicationContext();
 
