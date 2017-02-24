@@ -145,12 +145,13 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
+                        finish();
                         Intent oF = new Intent(MainActivity.this, setupActivity.class);
                         startActivity(oF);
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
-
+                        finish();
                         break;
                 }
             }
@@ -176,8 +177,7 @@ public class MainActivity extends Activity {
             } else {
                 startActivity(oF);
             }
-        }
-        else {
+        } else {
 
         }
     }
@@ -254,6 +254,7 @@ public class MainActivity extends Activity {
     }
 
     private Boolean exit = false;
+
     @Override
     public void onBackPressed() {
         if (exit) {

@@ -168,7 +168,6 @@ public class setupActivity extends Activity {
             AppMain.fCount++;
 
             finish();
-
             Intent fA = new Intent(this, FamilyListingActivity.class);
             startActivity(fA);
         }
@@ -181,9 +180,8 @@ public class setupActivity extends Activity {
         AppMain.hh02txt = null;
 
         finish();
-
-//        Intent fA = new Intent(this, MainActivity.class);
-//        startActivity(fA);
+        Intent fA = new Intent(this, MainActivity.class);
+        startActivity(fA);
 
     }
 
@@ -310,6 +308,9 @@ public class setupActivity extends Activity {
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
+
+                finish();
+
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
 

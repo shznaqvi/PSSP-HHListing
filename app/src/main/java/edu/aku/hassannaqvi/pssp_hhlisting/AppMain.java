@@ -35,6 +35,7 @@ public class AppMain extends Application {
     public static int hh07 = 0;
     public static int cTotal = 0;
     public static SharedPreferences sharedPref;
+    public static SharedPreferences sharedPrefLoc;
     protected static LocationManager locationManager;
     public static String userName;
 

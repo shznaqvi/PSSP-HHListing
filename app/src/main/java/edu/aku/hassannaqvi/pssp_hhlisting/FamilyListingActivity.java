@@ -181,7 +181,7 @@ public class FamilyListingActivity extends Activity {
                 AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
                 AppMain.fCount++;
-
+                finish();
                 Intent fA = new Intent(this, FamilyListingActivity.class);
                 startActivity(fA);
             }

@@ -2,7 +2,6 @@ package edu.aku.hassannaqvi.pssp_hhlisting;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.SQLException;
@@ -156,12 +155,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
 
 
-        AppMain.sharedPref = AppMain.getContextOfApplication().getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+        AppMain.sharedPrefLoc = AppMain.getContextOfApplication().getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
 
-        values.put(ListingEntry.COLUMN_NAME_GPSLat, sharedPref.getString("Latitude", ""));
-        values.put(ListingEntry.COLUMN_NAME_GPSLng, sharedPref.getString("Longitude", ""));
-        values.put(ListingEntry.COLUMN_NAME_GPSTime, sharedPref.getString("Time", ""));
-        values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, sharedPref.getString("Accuracy", ""));
+        values.put(ListingEntry.COLUMN_NAME_GPSLat, AppMain.sharedPrefLoc.getString("Latitude", ""));
+        values.put(ListingEntry.COLUMN_NAME_GPSLng, AppMain.sharedPrefLoc.getString("Longitude", ""));
+        values.put(ListingEntry.COLUMN_NAME_GPSTime, AppMain.sharedPrefLoc.getString("Time", ""));
+        values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, AppMain.sharedPrefLoc.getString("Accuracy", ""));
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
 
         long newRowId;
