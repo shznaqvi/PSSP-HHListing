@@ -106,7 +106,8 @@ public class GetDistricts extends AsyncTask<String, String, String> {
             pd.setTitle("Error... Syncing Districts");
         }
         db.getAllDistricts();
-            pd.show();
+            if(pd != null)
+                pd.dismiss();
     }
 
 /*        try {
