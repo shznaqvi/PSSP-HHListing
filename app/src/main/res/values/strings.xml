@@ -59,4 +59,13 @@
     <string name="hh12m">ماہ</string>
     <string name="hh12d">دن</string>
 
+    <string name="lhwa">UC name</string>
+    <string name="lhwb">LHW name and code</string>
+    <string name="lhwc">Village name</string>
+    <string name="lhwd">Reporting Health facility name</string>
+    <string name="lhwe">Phone no of LHW</string>
+    <string name="lhwf"># of HH in your catchment area</string>
+    <string name="lhwg"># of HH BISP beneficiary in your catchment area</string>
+    <string name="lhwh">Date of Visit</string>
+
 </resources>
