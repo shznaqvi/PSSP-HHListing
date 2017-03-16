@@ -56,5 +56,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_incorrect_password">This password is incorrect</string>
 
+    <string name="hh12m">ماہ</string>
+    <string name="hh12d">دن</string>
 
 </resources>

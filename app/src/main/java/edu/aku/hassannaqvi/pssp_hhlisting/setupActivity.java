@@ -253,10 +253,19 @@ public class setupActivity extends Activity {
         } else {
             hh02.setError(null);
         }
+        if (hhadd.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Error(Invalid):Data Required", Toast.LENGTH_LONG).show();
+            hhadd.setError("Error(Invalid):Data Required");
+            Log.i(TAG, "hhadd:Data Required");
+            return false;
+        } else {
+            hhadd.setError(null);
+        }
+
         if (hh04.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
-            hh04x.setError("Please one option");
-            Log.i(TAG, "Please one option");
+            Toast.makeText(this, "Error(Invalid):Please one option", Toast.LENGTH_LONG).show();
+            hh04x.setError("Error(Invalid):Please one option");
+            Log.i(TAG, "hh04x:Please one option");
             return false;
         } else {
             hh04x.setError(null);
@@ -280,7 +289,7 @@ public class setupActivity extends Activity {
             hh06.setError(null);
         }
 
-        if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) <= 1) {
+        if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) < 1) {
             Toast.makeText(this, "Answers do not match!", Toast.LENGTH_LONG).show();
             hh06.setError("Answers do not match!");
             Log.i(TAG, "Answers do not match!");

@@ -30,6 +30,25 @@ public class ListingContract {
     public String hh09b;
     public String hh10;
     public String hh11;
+    public String hh12d;
+
+    public String getHh12d() {
+        return hh12d;
+    }
+
+    public void setHh12d(String hh12d) {
+        this.hh12d = hh12d;
+    }
+
+    public String getHh12m() {
+        return hh12m;
+    }
+
+    public void setHh12m(String hh12m) {
+        this.hh12m = hh12m;
+    }
+
+    public String hh12m;
     public String hh12;
     public String hh13;
     public String hhChildNm;

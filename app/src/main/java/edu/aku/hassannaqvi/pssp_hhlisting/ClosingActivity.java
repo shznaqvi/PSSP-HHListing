@@ -3,6 +3,8 @@ package edu.aku.hassannaqvi.pssp_hhlisting;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import org.json.JSONException;
+
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,9 +63,12 @@ public class ClosingActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     fldGrpHH11.setVisibility(View.VISIBLE);
+                    btnAddHousehold.setText("Add Child");
                 } else {
                     fldGrpHH11.setVisibility(View.GONE);
                     hh11.setText(null);
+
+                    btnAddHousehold.setText("Goto Next Household");
                 }
             }
         });
@@ -73,6 +80,33 @@ public class ClosingActivity extends Activity {
                 } else {
                     fldGrpHH13.setVisibility(View.GONE);
                     hh13.setText(null);
+                }
+            }
+        });
+
+        hh11.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (hh11.getText().toString().isEmpty()) {
+                    hh11.setError("Invalid(Error): Data required");
+                } else {
+                    hh11.setError(null);
+                    if (Integer.parseInt(hh11.getText().toString()) < 1) {
+                        hh11.setError("Invalid(Error): Child greater then 0");
+                    } else {
+                        hh11.setError(null);
+                    }
                 }
             }
         });
@@ -108,14 +142,25 @@ public class ClosingActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                AppMain.fCount = 0;
-                AppMain.fTotal = 0;
-                AppMain.cCount = 0;
-                AppMain.cTotal = 0;
-                AppMain.mwraCount = 0;
-                AppMain.mwraTotal = 0;
-                Intent fA = new Intent(this, setupActivity.class);
-                startActivity(fA);
+//                AppMain.fCount = 0;
+//                AppMain.fTotal = 0;
+//                AppMain.cCount = 0;
+//                AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
+//                AppMain.mwraCount = 0;
+//                AppMain.mwraTotal = 0;
+
+                if (!hh10.isChecked()) {
+                    AppMain.fCount = 0;
+                    AppMain.fTotal = 0;
+                    AppMain.cCount = 0;
+                    AppMain.cTotal = 0;
+                    AppMain.mwraCount = 0;
+                    AppMain.mwraTotal = 0;
+                    startActivity(new Intent(this, setupActivity.class));
+                } else {
+                    AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
+                    startActivity(new Intent(this, AddChildActivity.class));
+                }
 
             }
         }
@@ -150,9 +195,17 @@ public class ClosingActivity extends Activity {
 
         if (hh10.isChecked()) {
             if (hh11.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Cannot be Empty", Toast.LENGTH_LONG).show();
-                hh11.setError("Cannot be Empty");
-                Log.i(TAG, "Cannot be Empty");
+                Toast.makeText(this, "Error(Invalid):Cannot be Empty", Toast.LENGTH_LONG).show();
+                hh11.setError("Error(Invalid):Cannot be Empty");
+                Log.i(TAG, "hh11:Cannot be Empty");
+                return false;
+            } else {
+                hh11.setError(null);
+            }
+            if (Integer.parseInt(hh11.getText().toString()) < 1) {
+                Toast.makeText(this, "Error(Invalid):Greater then 0", Toast.LENGTH_LONG).show();
+                hh11.setError("Error(Invalid):Greater then 0");
+                Log.i(TAG, "hh11:Greater then 0");
                 return false;
             } else {
                 hh11.setError(null);
@@ -160,9 +213,9 @@ public class ClosingActivity extends Activity {
         }
         if (hh12.isChecked()) {
             if (hh13.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Cannot be Empty", Toast.LENGTH_LONG).show();
-                hh13.setError("Cannot be Empty");
-                Log.i(TAG, "Cannot be Empty");
+                Toast.makeText(this, "Error(Invalid):Cannot be Empty", Toast.LENGTH_LONG).show();
+                hh13.setError("Error(Invalid):Cannot be Empty");
+                Log.i(TAG, "hh13:Cannot be Empty");
                 return false;
             } else {
                 hh13.setError(null);

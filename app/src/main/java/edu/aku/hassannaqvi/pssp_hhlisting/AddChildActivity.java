@@ -28,7 +28,10 @@ public class AddChildActivity extends Activity {
     TextView txtChildListing;
     @BindView(R.id.icName)
     EditText icName;
-
+    @BindView(R.id.icAgeM)
+    EditText icAgeM;
+    @BindView(R.id.icAgeD)
+    EditText icAgeD;
     @BindView(R.id.btnAddChild)
     Button btnAddChild;
     @BindView(R.id.btnAddFamily)
@@ -41,8 +44,8 @@ public class AddChildActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_child);
         ButterKnife.bind(this);
-        txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.cCount + " of " + AppMain.cTotal + ")");
-        if (AppMain.cCount < AppMain.cTotal) {
+        txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + (AppMain.cCount + 1) + " of " + AppMain.cTotal + ")");
+        if (AppMain.cCount < (AppMain.cTotal-1)) {
             btnAddChild.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
             btnAddFamilty.setVisibility(View.GONE);
@@ -84,7 +87,8 @@ public class AddChildActivity extends Activity {
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
             AppMain.lc.setHhChildNm(null);
-
+            AppMain.lc.setHh12d(null);
+            AppMain.lc.setHh12m(null);
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
@@ -93,7 +97,8 @@ public class AddChildActivity extends Activity {
 
     private void SaveDraft() {
         AppMain.lc.setHhChildNm(icName.getText().toString());
-
+        AppMain.lc.setHh12d(icAgeD.getText().toString());
+        AppMain.lc.setHh12m(icAgeM.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
     }
@@ -101,14 +106,52 @@ public class AddChildActivity extends Activity {
     private boolean formValidation() {
 
         if (icName.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter name", Toast.LENGTH_LONG).show();
-            icName.setError("Please enter name");
-            Log.i(TAG, "Please enter name");
+            Toast.makeText(this, "Invalid(Error):Please enter name", Toast.LENGTH_LONG).show();
+            icName.setError("Invalid(Error):Please enter name");
+            Log.i(TAG, "Invalid(Error):Please enter name");
             return false;
         } else {
             icName.setError(null);
         }
 
+        if (icAgeM.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Invalid(Error):Please enter Age Months", Toast.LENGTH_LONG).show();
+            icAgeM.setError("Invalid(Error):Please enter age");
+            Log.i(TAG, "Invalid(Error):Please enter age");
+            return false;
+        }
+        if (Integer.valueOf(icAgeM.getText().toString()) < 1 || Integer.valueOf(icAgeM.getText().toString()) > 11) {
+            Toast.makeText(this, "Invalid(Error):Invalid Age Months", Toast.LENGTH_LONG).show();
+            icAgeM.setError("Invalid(Error):Invalid enter age");
+            Log.i(TAG, "Invalid(Error):Please enter age");
+            return false;
+        } else {
+            icAgeM.setError(null);
+        }
+        if (icAgeD.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Invalid(Error):Please enter Age Days", Toast.LENGTH_LONG).show();
+            icAgeD.setError("Invalid(Error):Please enter age");
+            Log.i(TAG, "Invalid(Error):Please enter age");
+            return false;
+        }
+        if (Integer.valueOf(icAgeM.getText().toString()) < 1 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
+            Toast.makeText(this, "Invalid(Error):Invalid Age Days", Toast.LENGTH_LONG).show();
+            icAgeD.setError("Invalid(Error):Invalid enter age");
+            Log.i(TAG, "Invalid(Error):Please enter age");
+            return false;
+        } else {
+            icAgeD.setError(null);
+        }
+//        if (Integer.valueOf(icAgeD.getText().toString()) == 0 && Integer.valueOf(icAgeM.getText().toString()) == 0) {
+//            Toast.makeText(this, "Invalid Age ", Toast.LENGTH_LONG).show();
+//            icAgeD.setError("Invalid age");
+//            icAgeM.setError("Invalid age");
+//            Log.i(TAG, "Please enter age");
+//            return false;
+//        } else {
+//            icAgeD.setError(null);
+//            icAgeM.setError(null);
+//        }
         return true;
     }
 

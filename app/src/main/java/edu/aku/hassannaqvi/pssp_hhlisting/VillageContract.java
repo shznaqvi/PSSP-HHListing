@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * Created by isd on 30/12/2016.
  */
 
-public final class VillageContract implements BaseColumns {
+public class VillageContract implements BaseColumns {
     private static final String TAG = "village_contract";
 
     String COLUMN_VCODE;
