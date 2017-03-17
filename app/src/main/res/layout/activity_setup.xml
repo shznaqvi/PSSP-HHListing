@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.pssp_hhlisting.HouseholdListingActivity">
+    tools:context="edu.aku.hassannaqvi.cbt_hhlisting.HouseholdListingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,42 +25,78 @@
             android:text="Household Information"
             android:textAlignment="center" />
 
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+
+            <!--&lt;!&ndash;DISTRICT (Name)&ndash;&gt;-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/hh01"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="24dp"-->
+                <!--android:text="@string/hh01" />-->
+
+
+            <!--&lt;!&ndash;PSU Code&ndash;&gt;-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="24dp"-->
+                <!--android:text="@string/hh02" />-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/hh02"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="24dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:digits="1234567890"-->
+                <!--android:inputType="number"-->
+                <!--android:maxLength="5" />-->
+
+            <!--&lt;!&ndash;Structure No. (Auto-Generate)&ndash;&gt;-->
+
+        <!--</LinearLayout>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
-            <!--DISTRICT (Name)-->
-
-            <TextView
-                android:id="@+id/hh01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh01" />
-
-
-            <!--PSU Code-->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh02" />
+                android:text="@string/lhwa" />
 
-            <EditText
-                android:id="@+id/hh02"
+            <Spinner
+                android:id="@+id/lhwaUCname"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="1"
-                android:digits="1234567890"
-                android:inputType="number"
-                android:maxLength="5" />
+                android:layout_weight="2"></Spinner>
 
-            <!--Structure No. (Auto-Generate)-->
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lhwc" />
+
+            <Spinner
+                android:id="@+id/lhwcVillage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"></Spinner>
 
         </LinearLayout>
 
@@ -77,6 +113,7 @@
             android:layout_marginTop="24dp"
             android:digits="@string/txtMsg"
             android:inputType="text" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -177,9 +214,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:visibility="gone"
             android:digits="@string/txtMsg"
-            android:hint="@string/hh04x" />
+            android:hint="@string/hh04x"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/fldGrpHH04"

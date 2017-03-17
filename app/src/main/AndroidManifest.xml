@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.aku.hassannaqvi.pssp_hhlisting">
+    package="edu.aku.hassannaqvi.cbt_hhlisting">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,33 +12,33 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name=".AppMain"
+        android:name="edu.aku.hassannaqvi.cbt_hhlisting.AppMain"
         android:allowBackup="true"
         android:icon="@mipmap/icon_linelisting"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.MainActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".HouseholdListingActivity"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.HouseholdListingActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".AddChildActivity"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.AddChildActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".setupActivity"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.setupActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".FamilyListingActivity"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.FamilyListingActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".AndroidDatabaseManager"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.AndroidDatabaseManager"
             android:theme="@style/android:Theme.Holo.Light.DarkActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".SplashScreen"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,16 +47,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.LoginActivity"
             android:theme="@style/Theme.AppCompat"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".AddMarriedWomenActivity"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.AddMarriedWomenActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ClosingActivity"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.ClosingActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".LHWActivity"></activity>
+        <activity android:name="edu.aku.hassannaqvi.cbt_hhlisting.LHWActivity"></activity>
     </application>
 
 </manifest>
