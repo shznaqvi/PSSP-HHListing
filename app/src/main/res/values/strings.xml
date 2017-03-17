@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SRC-HHListing</string>
+    <string name="app_name">BISP-HHListing</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
     <string name="hh02"> Village کوڈ </string>
     <string name="hh03"> عمارت جو نمبر </string>
@@ -61,7 +61,7 @@
 
     <string name="lhwa">UC name</string>
     <string name="lhwb">LHW name and code</string>
-    <string name="lhwc">Village name</string>
+    <string name="lhwc">Village </string>
     <string name="lhwd">Reporting Health facility name</string>
     <string name="lhwe">Phone no of LHW</string>
     <string name="lhwf"># of HH in your catchment area</string>
