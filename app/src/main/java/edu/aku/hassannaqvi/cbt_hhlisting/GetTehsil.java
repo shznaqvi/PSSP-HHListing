@@ -47,7 +47,7 @@ public class GetTehsil extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/linelisting/gettehsilll.php");
+            URL url = new URL(AppMain.PROJECT_URI + TehsilsContract.TehsilTable.URI);
 
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -84,10 +84,9 @@ public class GetTehsil extends AsyncTask<String, String, String> {
             String json = result;
             //json = json.replaceAll("\\[", "").replaceAll("\\]","");
             Log.d(TAG, result);
-            ArrayList<DistrictsContract> districtArrayList;
+            ArrayList<TehsilsContract> tehsilArrayList;
             FormsDBHelper db = new FormsDBHelper(mContext);
             try {
-                districtArrayList = new ArrayList<DistrictsContract>();
                 //JSONObject jsonObject = new JSONObject(json);
                 JSONArray jsonArray = new JSONArray(json);
                 db.syncTehsil(jsonArray);

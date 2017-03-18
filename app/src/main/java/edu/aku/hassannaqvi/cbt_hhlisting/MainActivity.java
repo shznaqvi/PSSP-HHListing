@@ -36,15 +36,13 @@ public class MainActivity extends Activity {
     private static String ipAddress = "192.168.1.10";
     private static String port = "3000";
 
-    public List<String> psuCode;
+    public List<String> lhwCode;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
     @BindView(R.id.MN01)
     Spinner mN01;
     @BindView(R.id.MN02)
     Spinner mN02;
-    @BindView(R.id.districtN)
-    TextView districtN;
     @BindView(R.id.ucN)
     TextView ucN;
     @BindView(R.id.psuN)
@@ -63,18 +61,18 @@ public class MainActivity extends Activity {
 
 
         // Spinner Drop down elements
-        List<String> districtNames = new ArrayList<String>();
-        final List<String> districtCodes = new ArrayList<String>();
-        Collection<DistrictsContract> dc = db.getAllDistricts();
-        Log.d(TAG, "onCreate: " + dc.size());
-        for (DistrictsContract d : dc) {
-            districtNames.add(d.getDistrictName());
-            districtCodes.add(d.getDistrictCode());
+        List<String> hfNames = new ArrayList<>();
+        final List<String> hfCodes = new ArrayList<>();
+        Collection<HFacilitiesContract> hfc = db.getAllHFacilities();
+        Log.d(TAG, "onCreate: " + hfc.size());
+        for (HFacilitiesContract hf : hfc) {
+            hfNames.add(hf.gethFacilityName());
+            hfCodes.add(hf.gethFacilityCode());
         }
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, districtNames);
+                android.R.layout.simple_spinner_item, hfNames);
 
         // Drop down layout style - list view with radio button
         dataAdapter
@@ -86,15 +84,15 @@ public class MainActivity extends Activity {
         mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                AppMain.hh01txt = districtCodes.get(position);
+                AppMain.hh01txt = hfCodes.get(position);
 
-                psuCode = new ArrayList<String>();
-                Collection<PSUsContract> pc = db.getAllPSUsByDistrict(districtCodes.get(position));
-                for (PSUsContract p : pc) {
-                    psuCode.add(p.getPSUCode());
+                lhwCode = new ArrayList<String>();
+                Collection<LHWsContract> lhwc = db.getAllLhwsByHf(hfCodes.get(position));
+                for (LHWsContract lhw : lhwc) {
+                    lhwCode.add(lhw.getLHWCode());
                 }
                 ArrayAdapter<String> psuAdapter = new ArrayAdapter<String>(MainActivity.this,
-                        android.R.layout.simple_spinner_item, psuCode);
+                        android.R.layout.simple_spinner_item, lhwCode);
 
                 psuAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -111,14 +109,14 @@ public class MainActivity extends Activity {
         mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                AppMain.hh02txt = psuCode.get(position);
-                Collection<PSUsContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt);
-                for (PSUsContract p : pc) {
-                    Log.d(TAG, "onItemSelected: " + p.getPSUCode() + " -" + AppMain.hh02txt);
+                AppMain.hh02txt = lhwCode.get(position);
+                /*Collection<LHWsContract> lhwc = db.getAllLhwsByHf(AppMain.hh01txt);
+                for (LHWsContract l : lhwc) {
+                    Log.d(TAG, "onItemSelected: " + l.getLHWCode() + " -" + AppMain.hh02txt);
 
-                    if (p.getPSUCode().equals(AppMain.hh02txt)) {
-                        Log.d(TAG, "onItemSelected: " + p.getPSUName());
-                        String[] psuNameS = p.getPSUName().toString().split("\\|");
+                    if (l.getLHWCode().equals(AppMain.hh02txt)) {
+                        Log.d(TAG, "onItemSelected: " + l.getLHWName());
+                        String[] psuNameS = l.getLHWName().toString().split("\\|");
                         districtN.setText(psuNameS[0]);
                         Log.d(TAG, "onItemSelected: " + psuNameS[0]);
                         ucN.setText(psuNameS[1]);
@@ -127,7 +125,7 @@ public class MainActivity extends Activity {
                         Log.d(TAG, "onItemSelected: " + psuNameS[2]);
 
                     }
-                }
+                }*/
             }
 
             @Override
@@ -167,14 +165,13 @@ public class MainActivity extends Activity {
 
         if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
 
-//            Intent oF = new Intent(this, setupActivity.class);
+            Intent oF = new Intent(this, setupActivity.class);
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
-//                startActivity(oF);
-                startActivity(new Intent(this,LHWActivity.class));
+                startActivity(oF);
             }
         } else {
 
@@ -189,33 +186,37 @@ public class MainActivity extends Activity {
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
 
-            SyncForms ff = new SyncForms(this);
+            /*SyncForms ff = new SyncForms(this);
             Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
-            ff.execute();
+            ff.execute();*/
 
-            SyncMwras mm = new SyncMwras(this);
+            /*SyncMwras mm = new SyncMwras(this);
             Toast.makeText(getApplicationContext(), "Syncing Mwras", Toast.LENGTH_SHORT).show();
-            mm.execute();
+            mm.execute();*/
 
-            GetUsers u = new GetUsers(this);
+            /*GetUsers u = new GetUsers(this);
             Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
-            u.execute();
+            u.execute();*/
 
-            GetDistricts gd = new GetDistricts(this);
-            Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
-            gd.execute();
+            GetTehsil gt = new GetTehsil(this);
+            Toast.makeText(getApplicationContext(), "Syncing Tehsils", Toast.LENGTH_SHORT).show();
+            gt.execute();
 
-            //GetTehsil gt = new GetTehsil(this);
-            //Toast.makeText(getApplicationContext(), "Syncing Tehsils", Toast.LENGTH_SHORT).show();
-            //gt.execute();
+            GetVillages gv = new GetVillages(this);
+            Toast.makeText(getApplicationContext(), "Syncing Villages", Toast.LENGTH_SHORT).show();
+            gv.execute();
 
-            GetPSUs gp = new GetPSUs(this);
-            Toast.makeText(getApplicationContext(), "Syncing UCs", Toast.LENGTH_SHORT).show();
+            GetUCs gu = new GetUCs(this);
+            Toast.makeText(getApplicationContext(), "Syncing Ucs", Toast.LENGTH_SHORT).show();
+            gu.execute();
+
+            GetHFacilities gh = new GetHFacilities(this);
+            Toast.makeText(getApplicationContext(), "Syncing Health Facilities", Toast.LENGTH_SHORT).show();
+            gh.execute();
+
+            GetLHWs gp = new GetLHWs(this);
+            Toast.makeText(getApplicationContext(), "Syncing LHWs", Toast.LENGTH_SHORT).show();
             gp.execute();
-
-            //GetVillages gv = new GetVillages(this);
-            //Toast.makeText(getApplicationContext(), "Syncing Villags", Toast.LENGTH_SHORT).show();
-            //gv.execute();
 
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = syncPref.edit();

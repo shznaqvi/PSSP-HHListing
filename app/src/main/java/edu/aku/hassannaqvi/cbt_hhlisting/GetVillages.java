@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.VillagesContract.VillageTable;
 /**
  * Created by javed.khan on 1/2/2017.
  */
@@ -47,7 +48,7 @@ public class GetVillages extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/linelisting/getvillagesll.php");
+            URL url = new URL(AppMain.PROJECT_URI + VillageTable.URI);
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();
@@ -84,10 +85,10 @@ public class GetVillages extends AsyncTask<String, String, String> {
             String json = result;
             //json = json.replaceAll("\\[", "").replaceAll("\\]","");
             Log.d(TAG, result);
-            ArrayList<DistrictsContract> districtArrayList;
+            ArrayList<UCsContract> districtArrayList;
             FormsDBHelper db = new FormsDBHelper(mContext);
             try {
-                districtArrayList = new ArrayList<DistrictsContract>();
+                districtArrayList = new ArrayList<UCsContract>();
                 //JSONObject jsonObject = new JSONObject(json);
                 JSONArray jsonArray = new JSONArray(json);
                 db.syncVillages(jsonArray);
