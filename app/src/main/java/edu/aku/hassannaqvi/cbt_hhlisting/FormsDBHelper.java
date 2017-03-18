@@ -122,6 +122,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 LHWTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 LHWTable.COLUMN_LHW_CODE + " TEXT, " +
                 LHWTable.COLUMN_LHW_NAME + " TEXT, " +
+                LHWTable.COLUMN_AREA_TYPE + " TEXT, " +
+                LHWTable.COLUMN_STATUS + " TEXT, " +
                 LHWTable.COLUMN_HF_CODE + " TEXT " +
                 ");";
 
