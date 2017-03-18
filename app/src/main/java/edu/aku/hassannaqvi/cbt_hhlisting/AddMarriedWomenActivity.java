@@ -69,9 +69,9 @@ public class AddMarriedWomenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_married_women);
         ButterKnife.bind(this);
-        txtMwraListing.setText("MWRA Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.mwraCount + " of " + AppMain.mwraTotal + ")");
+        txtMwraListing.setText("MWRA Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.pwCount + " of " + AppMain.pwTotal + ")");
 
-        if (AppMain.mwraCount < AppMain.mwraTotal) {
+        if (AppMain.pwCount < AppMain.pwTotal) {
             btnAddMWRA.setVisibility(View.VISIBLE);
             btnContNextQ.setVisibility(View.GONE);
         } else {
@@ -126,8 +126,8 @@ public class AddMarriedWomenActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                AppMain.mwraCount++;
-                Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
+                AppMain.pwCount++;
+                Toast.makeText(this, AppMain.pwCount + ":" + AppMain.pwTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
                 Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
                 startActivity(mwraA);
             }
@@ -139,18 +139,18 @@ public class AddMarriedWomenActivity extends Activity {
 
     private void SaveDraft() {
 
-        AppMain.mwra = new MWRAContract();
+        AppMain.pw = new PWContract();
 
-        AppMain.mwra.setUUID(AppMain.lc.getUID());
-        AppMain.mwra.setMwDT(dtToday);
-        AppMain.mwra.setMwVillageCode(AppMain.lc.getHh02());
+        AppMain.pw.setUUID(AppMain.lc.getUID());
+        AppMain.pw.setMwDT(dtToday);
+        AppMain.pw.setMwVillageCode(AppMain.lc.getHh02());
         Log.d(TAG, "SaveDraft-hh02: " + AppMain.lc.getHh02());
-        AppMain.mwra.setMwStructureNo(AppMain.lc.getHh03() + "-" + AppMain.lc.getHh07());
+        AppMain.pw.setMwStructureNo(AppMain.lc.getHh03() + "-" + AppMain.lc.getHh07());
         Log.d(TAG, "SaveDraft-hh07: " + AppMain.lc.getHh07());
 
-        AppMain.mwra.setMw01(mw01.getText().toString());
-        AppMain.mwra.setMw02(mw02.isChecked() ? "1" : "2");
-        AppMain.mwra.setMw03(mw03a.isChecked() ? "1"
+        AppMain.pw.setMw01(mw01.getText().toString());
+        AppMain.pw.setMw02(mw02.isChecked() ? "1" : "2");
+        AppMain.pw.setMw03(mw03a.isChecked() ? "1"
                 : mw03b.isChecked() ? "2"
                 : mw03c.isChecked() ? "3"
                 : mw03d.isChecked() ? "4"
@@ -158,8 +158,8 @@ public class AddMarriedWomenActivity extends Activity {
                 : mw03f.isChecked() ? "6"
                 : "default"
         );
-        AppMain.mwra.setMw04(mw04.isChecked() ? "1" : "2");
-        AppMain.mwra.setMw05(mw05.getText().toString());
+        AppMain.pw.setMw04(mw04.isChecked() ? "1" : "2");
+        AppMain.pw.setMw05(mw05.getText().toString());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
     }
@@ -206,15 +206,15 @@ public class AddMarriedWomenActivity extends Activity {
         FormsDBHelper db = new FormsDBHelper(this);
         Long rowId;
 
-        rowId = db.addMwra(AppMain.mwra);
+        rowId = db.addMwra(AppMain.pw);
 
-        AppMain.mwra.setID(rowId);
+        AppMain.pw.setID(rowId);
 
 
         if (rowId != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.mwra.setUID(
-                    (AppMain.lc.getDeviceID() + AppMain.mwra.getID()));
+            AppMain.pw.setUID(
+                    (AppMain.lc.getDeviceID() + AppMain.pw.getID()));
             db.updateMwra();
             Toast.makeText(this, "Current Form No: " + AppMain.lc.getUID(), Toast.LENGTH_SHORT).show();
         } else {

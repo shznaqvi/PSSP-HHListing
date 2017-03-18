@@ -78,10 +78,10 @@ public class SyncMwras extends AsyncTask<Void, Void, String> {
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             FormsDBHelper db = new FormsDBHelper(mContext);
-            Collection<MWRAContract> mwras = db.getAllMwras();
+            Collection<PWContract> mwras = db.getAllMwras();
             Log.d(TAG, String.valueOf(mwras.size()));
 //            pd.setMessage("Total Forms: " );
-            for (MWRAContract mwra : mwras) {
+            for (PWContract mwra : mwras) {
 
                 jsonSync.put(mwra.toJSONObject());
                 //wr.writeBytes(jsonParam.toString().replace("\uFEFF", "") + "\n");

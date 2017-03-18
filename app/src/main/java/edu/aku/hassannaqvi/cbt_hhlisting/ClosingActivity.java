@@ -144,16 +144,16 @@ public class ClosingActivity extends Activity {
 //                AppMain.fTotal = 0;
 //                AppMain.cCount = 0;
 //                AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
-//                AppMain.mwraCount = 0;
-//                AppMain.mwraTotal = 0;
+//                AppMain.pwCount = 0;
+//                AppMain.pwTotal = 0;
 
                 if (!hh10.isChecked()) {
                     AppMain.fCount = 0;
                     AppMain.fTotal = 0;
                     AppMain.cCount = 0;
                     AppMain.cTotal = 0;
-                    AppMain.mwraCount = 0;
-                    AppMain.mwraTotal = 0;
+                    AppMain.pwCount = 0;
+                    AppMain.pwTotal = 0;
                     startActivity(new Intent(this, setupActivity.class));
                 } else {
                     AppMain.cTotal = Integer.parseInt(hh11.getText().toString());

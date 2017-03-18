@@ -27,7 +27,7 @@ public class AppMain extends Application {
     public static String PROJECT_URI = _IP + "/cbt/"; //Production server
     public static String TAG = "AppMain";
     public static ListingContract lc;
-    public static MWRAContract mwra;
+    public static PWContract pw;
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static int hh03txt = 0;
@@ -37,8 +37,8 @@ public class AppMain extends Application {
     public static int cCount = 0;
     public static int hh07 = 0;
     public static int cTotal = 0;
-    public static int mwraCount = 0;
-    public static int mwraTotal = 0;
+    public static int pwCount = 0;
+    public static int pwTotal = 0;
     public static SharedPreferences sharedPref;
     protected static LocationManager locationManager;
 
@@ -90,7 +90,6 @@ public class AppMain extends Application {
 
     public class GPSLocationListener implements LocationListener {
         public void onLocationChanged(Location location) {
-
 
             SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();

@@ -18,7 +18,7 @@ import java.util.Collection;
 import edu.aku.hassannaqvi.cbt_hhlisting.HFacilitiesContract.HFacilityTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.LHWsContract.LHWTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.ListingContract.ListingEntry;
-import edu.aku.hassannaqvi.cbt_hhlisting.MWRAContract.MwraEntry;
+import edu.aku.hassannaqvi.cbt_hhlisting.PWContract.PwTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.TehsilsContract.TehsilTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.UCsContract.UcTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.UsersContract.singleUser;
@@ -36,7 +36,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "cbt-hhl.db";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
-    public static String DB_MWRA_ID;
+    public static String DB_PW_ID;
 
 
     public FormsDBHelper(Context context) {
@@ -79,18 +79,21 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
                 " );";
 
-        final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
-                MwraEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                MwraEntry.MWRA_UUID + " TEXT," +
-                MwraEntry.MWRA_UID + " TEXT," +
-                MwraEntry.MWRA_MWDT + " TEXT," +
-                MwraEntry.MWRA_MWVILLAGECODE + " TEXT," +
-                MwraEntry.MWRA_MWSTRUCTURENO + " TEXT," +
-                MwraEntry.MWRA_MW01 + " TEXT," +
-                MwraEntry.MWRA_MW02 + " TEXT," +
-                MwraEntry.MWRA_MW03 + " TEXT," +
-                MwraEntry.MWRA_MW04 + " TEXT," +
-                MwraEntry.MWRA_MW05 + " TEXT" +
+        final String SQL_CREATE_PW_TABLE = "CREATE TABLE " + PwTable.TABLE_NAME + " (" +
+                PwTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                PwTable.PW_UUID + " TEXT," +
+                PwTable.PW_UID + " TEXT," +
+                PwTable.PW_PWDT + " TEXT," +
+                PwTable.PW_PWVILLAGECODE + " TEXT," +
+                PwTable.PW_PWSTRUCTURENO + " TEXT," +
+                PwTable.PW_PW01 + " TEXT," +
+                PwTable.PW_PW02 + " TEXT," +
+                PwTable.PW_PW03 + " TEXT," +
+                PwTable.PW_DEVICE_ID + " TEXT," +
+                PwTable.PW_LHW_CODE + " TEXT," +
+                PwTable.PW_HOUSEHOLD + " TEXT," +
+                PwTable.PW_SYNCED + " TEXT," +
+                PwTable.PW_SYNCED_DATE + " TEXT" +
                 " );";
 
         final String SQL_CREATE_TEHSIL_TABLE = "CREATE TABLE " + TehsilTable.TABLE_NAME + " (" +
@@ -134,7 +137,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
-        db.execSQL(SQL_CREATE_MWRA_TABLE);
+        db.execSQL(SQL_CREATE_PW_TABLE);
         db.execSQL(SQL_CREATE_TEHSIL_TABLE);
         db.execSQL(SQL_CREATE_UC_TABLE);
         db.execSQL(SQL_CREATE_VILLAGE_TABLE);
@@ -147,7 +150,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Simply discard all old data and start over when upgrading.
         db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + MwraEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PwTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TehsilTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UcTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + VillageTable.TABLE_NAME);
@@ -217,7 +220,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    public Long addMwra(MWRAContract mwra) {
+    public Long addPw(PWContract pw) {
 
         // Gets the data repository in write mode
         SQLiteDatabase db = this.getWritableDatabase();
@@ -225,24 +228,27 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
 
-        values.put(MwraEntry.MWRA_ID, mwra.getID());
-        values.put(MwraEntry.MWRA_UUID, mwra.getUUID());
-        values.put(MwraEntry.MWRA_UID, mwra.getUID());
-        values.put(MwraEntry.MWRA_MWDT, mwra.getMwDT());
-        values.put(MwraEntry.MWRA_MWVILLAGECODE, mwra.getMwVillageCode());
-        values.put(MwraEntry.MWRA_MWSTRUCTURENO, mwra.getMwStructureNo());
-        values.put(MwraEntry.MWRA_MW01, mwra.getMw01());
-        values.put(MwraEntry.MWRA_MW02, mwra.getMw02());
-        values.put(MwraEntry.MWRA_MW03, mwra.getMw03());
-        values.put(MwraEntry.MWRA_MW04, mwra.getMw04());
-        values.put(MwraEntry.MWRA_MW05, mwra.getMw05());
+        values.put(PwTable.PW_ID, pw.getID());
+        values.put(PwTable.PW_UUID, pw.getUUID());
+        values.put(PwTable.PW_UID, pw.getUID());
+        values.put(PwTable.PW_PWDT, pw.getMwDT());
+        values.put(PwTable.PW_PWVILLAGECODE, pw.getMwVillageCode());
+        values.put(PwTable.PW_PWSTRUCTURENO, pw.getMwStructureNo());
+        values.put(PwTable.PW_PW01, pw.getMw01());
+        values.put(PwTable.PW_PW02, pw.getMw02());
+        values.put(PwTable.PW_PW03, pw.getMw03());
+        values.put(PwTable.PW_DEVICE_ID, pw.getDeviceId());
+        values.put(PwTable.PW_LHW_CODE, pw.getLhwCode());
+        values.put(PwTable.PW_HOUSEHOLD, pw.getHousehold());
+        values.put(PwTable.PW_SYNCED, pw.getSynced());
+        values.put(PwTable.PW_SYNCED_DATE, pw.getSyncedDate());
 
         long newRowId;
         newRowId = db.insert(
-                MwraEntry.TABLE_NAME,
-                MwraEntry.MWRA_NULLABLE,
+                PwTable.TABLE_NAME,
+                PwTable.PW_NULLABLE,
                 values);
-        DB_MWRA_ID = String.valueOf(newRowId);
+        DB_PW_ID = String.valueOf(newRowId);
 
         return newRowId;
     }
@@ -266,19 +272,19 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    public int updateMwra() {
+    public int updatePw() {
         SQLiteDatabase db = this.getReadableDatabase();
 
 // New value for one column
         ContentValues values = new ContentValues();
-        values.put(MwraEntry.MWRA_UID, AppMain.mwra.getUID());
+        values.put(PwTable.PW_UID, AppMain.pw.getUID());
 
 
 // Which row to update, based on the ID
-        String selection = MwraEntry._ID + " LIKE ?";
-        String[] selectionArgs = {String.valueOf(AppMain.mwra.getID())};
+        String selection = PwTable._ID + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(AppMain.pw.getID())};
 
-        int count = db.update(MwraEntry.TABLE_NAME,
+        int count = db.update(PwTable.TABLE_NAME,
                 values,
                 selection,
                 selectionArgs);
@@ -378,21 +384,24 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allLC;
     }
 
-    public Collection<MWRAContract> getAllMwras() {
+    public Collection<PWContract> getAllPws() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
-                MwraEntry.MWRA_ID,
-                MwraEntry.MWRA_UUID,
-                MwraEntry.MWRA_UID,
-                MwraEntry.MWRA_MWDT,
-                MwraEntry.MWRA_MWVILLAGECODE,
-                MwraEntry.MWRA_MWSTRUCTURENO,
-                MwraEntry.MWRA_MW01,
-                MwraEntry.MWRA_MW02,
-                MwraEntry.MWRA_MW03,
-                MwraEntry.MWRA_MW04,
-                MwraEntry.MWRA_MW05
+                PwTable.PW_ID,
+                PwTable.PW_UUID,
+                PwTable.PW_UID,
+                PwTable.PW_PWDT,
+                PwTable.PW_PWVILLAGECODE,
+                PwTable.PW_PWSTRUCTURENO,
+                PwTable.PW_PW01,
+                PwTable.PW_PW02,
+                PwTable.PW_PW03,
+                PwTable.PW_DEVICE_ID,
+                PwTable.PW_LHW_CODE,
+                PwTable.PW_HOUSEHOLD,
+                PwTable.PW_SYNCED,
+                PwTable.PW_SYNCED_DATE
 
         };
 
@@ -402,12 +411,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                MwraEntry._ID + " ASC";
+                PwTable._ID + " ASC";
 
-        Collection<MWRAContract> allMWRA = new ArrayList<MWRAContract>();
+        Collection<PWContract> allPW = new ArrayList<PWContract>();
         try {
             c = db.query(
-                    MwraEntry.TABLE_NAME,  // The table to query
+                    PwTable.TABLE_NAME,  // The table to query
                     columns,                   // The columns to return
                     whereClause,               // The columns for the WHERE clause
                     whereArgs,                 // The values for the WHERE clause
@@ -416,8 +425,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     orderBy                    // The sort order
             );
             while (c.moveToNext()) {
-                MWRAContract mwra = new MWRAContract();
-                allMWRA.add(mwra.Hydrate(c));
+                PWContract pw = new PWContract();
+                allPW.add(pw.Hydrate(c));
             }
         } finally {
             if (c != null) {
@@ -427,7 +436,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 db.close();
             }
         }
-        return allMWRA;
+        return allPW;
     }
 
 

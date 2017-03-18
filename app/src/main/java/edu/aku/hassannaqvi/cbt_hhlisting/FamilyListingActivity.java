@@ -128,9 +128,9 @@ public class FamilyListingActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                AppMain.mwraTotal = Integer.parseInt(hh09b.getText().toString());
-                AppMain.mwraCount = 1;
-                Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
+                AppMain.pwTotal = Integer.parseInt(hh09b.getText().toString());
+                AppMain.pwCount = 1;
+                Toast.makeText(this, AppMain.pwCount + ":" + AppMain.pwTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
                 Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
                 startActivity(mwraA);
             } else {
