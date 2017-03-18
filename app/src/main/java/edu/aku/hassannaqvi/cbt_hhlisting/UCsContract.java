@@ -62,6 +62,13 @@ public class UCsContract {
         this.tehsilCode = tehsilCode;
     }
 
+    public UCsContract setDefaultVal(String code,String name) {
+        this.ucCode = code;
+        this.ucName = name;
+
+        return this;
+    }
+
     public static abstract class UcTable implements BaseColumns {
 
         public static final String URI = "ucs";

@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
                 lhwName = new ArrayList<String>();
                 Collection<LHWsContract> lhwc = db.getAllLhwsByHf(hfCodes.get(position));
                 for (LHWsContract lhw : lhwc) {
-                    lhwName.add(lhw.getLHWName());
+                    lhwName.add(lhw.getLHWName()+" ("+lhw.getLHWCode()+")");
                 }
                 ArrayAdapter<String> psuAdapter = new ArrayAdapter<String>(MainActivity.this,
                         android.R.layout.simple_spinner_item, lhwName);

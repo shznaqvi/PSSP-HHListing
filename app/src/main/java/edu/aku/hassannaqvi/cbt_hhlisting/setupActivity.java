@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -22,7 +24,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -166,7 +173,21 @@ public class setupActivity extends Activity {
             }
         });
 
-        if (lhwaUCname.getItemAtPosition(0) == "") {
+//        Spinners fill
+
+        final FormsDBHelper db = new FormsDBHelper(getApplicationContext());
+
+        List<String> UCs =new ArrayList<>();
+        Map<String,String> getAllUCs =new HashMap<>();
+        Collection<UCsContract> allUcs = db.getAllUcs();
+        for (UCsContract aUCs : allUcs) {
+            getAllUCs.put(aUCs.getUcName(),aUCs.getUcCode());
+            UCs.add(aUCs.getUcName());
+        }
+
+        lhwaUCname.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,UCs));
+
+        if (lhwaUCname.getItemAtPosition(0) == "...") {
             btnChangeVillage.setChecked(true);
             lhwaUCname.setEnabled(true);
             lhwcVillage.setEnabled(true);

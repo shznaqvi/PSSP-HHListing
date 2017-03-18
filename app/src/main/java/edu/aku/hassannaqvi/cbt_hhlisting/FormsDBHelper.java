@@ -470,6 +470,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     having,                    // don't filter by row groups
                     orderBy                    // The sort order
             );
+
+            UCsContract uc1 = new UCsContract();
+            allDC.add(uc1.setDefaultVal("", "..."));
+
             while (c.moveToNext()) {
                 UCsContract dc = new UCsContract();
                 allDC.add(dc.hydrate(c));

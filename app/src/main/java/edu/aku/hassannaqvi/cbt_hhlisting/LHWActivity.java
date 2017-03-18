@@ -108,10 +108,10 @@ public class LHWActivity extends Activity {
         } else {
             lhwg.setError(null);
 
-            if (Integer.parseInt(lhwg.getText().toString()) < 1) {
-                Toast.makeText(this, "Invalid(Error):Greater then 0", Toast.LENGTH_LONG).show();
-                lhwg.setError("Invalid(Error):Greater then 0");
-                Log.i(TAG, "lhwg: Greater then 0");
+            if (Integer.parseInt(lhwg.getText().toString()) < 1 || Integer.parseInt(lhwg.getText().toString()) > Integer.parseInt(lhwf.getText().toString())) {
+                Toast.makeText(this, "Invalid(Error):Range 1-"+Integer.parseInt(lhwf.getText().toString()), Toast.LENGTH_LONG).show();
+                lhwg.setError("Invalid(Error):Range 1-"+Integer.parseInt(lhwf.getText().toString()));
+                Log.i(TAG, "lhwg: Range 1-"+Integer.parseInt(lhwf.getText().toString()));
                 return false;
             } else {
                 lhwg.setError(null);
