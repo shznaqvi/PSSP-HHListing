@@ -571,7 +571,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 LHWTable._ID,
                 LHWTable.COLUMN_LHW_CODE,
                 LHWTable.COLUMN_LHW_NAME,
-                LHWTable.COLUMN_HF_CODE
+                LHWTable.COLUMN_HF_CODE,
+                LHWTable.COLUMN_AREA_TYPE,
+                LHWTable.COLUMN_STATUS
         };
 
         String whereClause = LHWTable.COLUMN_HF_CODE + " = ?";
@@ -902,7 +904,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             db.close();
 
         } catch (Exception e) {
-
+            Log.e(TAG, "syncUc: "+e.toString() );
         }
     }
 

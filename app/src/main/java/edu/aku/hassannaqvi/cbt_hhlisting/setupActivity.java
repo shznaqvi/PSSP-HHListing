@@ -15,9 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,10 +33,10 @@ public class setupActivity extends Activity {
     private static String deviceId;
     @BindView(R.id.activity_household_listing)
     ScrollView activityHouseholdListing;
-//    @BindView(R.id.hh01)
-//    TextView hh01;
-//    @BindView(R.id.hh02)
-//    EditText hh02;
+    @BindView(R.id.lhwaUCname)
+    Spinner lhwaUCname;
+    @BindView(R.id.lhwcVillage)
+    Spinner lhwcVillage;
     @BindView(R.id.hhadd)
     EditText hhadd;
     @BindView(R.id.hh03)
@@ -71,6 +73,11 @@ public class setupActivity extends Activity {
     Button btnAddHousehold;
     @BindView(R.id.btnChangePSU)
     Button btnChangPSU;
+
+    @BindView(R.id.btnChangeVillage)
+    ToggleButton btnChangeVillage;
+
+
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
@@ -159,6 +166,35 @@ public class setupActivity extends Activity {
             }
         });
 
+        if (lhwaUCname.getItemAtPosition(0) == "") {
+            btnChangeVillage.setChecked(true);
+            lhwaUCname.setEnabled(true);
+            lhwcVillage.setEnabled(true);
+        }else {
+            btnChangeVillage.setChecked(false);
+            lhwaUCname.setEnabled(false);
+            lhwcVillage.setEnabled(false);
+        }
+
+        btnChangeVillage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (btnChangeVillage.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "Edit mode", Toast.LENGTH_SHORT).show();
+
+                    lhwaUCname.setEnabled(true);
+                    lhwcVillage.setEnabled(true);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+
+                    lhwaUCname.setEnabled(false);
+                    lhwcVillage.setEnabled(false);
+                }
+
+            }
+        });
 
     }
 
@@ -185,6 +221,14 @@ public class setupActivity extends Activity {
         startActivity(fA);
 
     }
+
+//    @OnClick(R.id.btnChangeVillage)
+//    void onBtnChangeVillageClick() {
+//        //TODO implement
+//
+//        lhwaUCname.
+//
+//    }
 
 
     private void SaveDraft() {

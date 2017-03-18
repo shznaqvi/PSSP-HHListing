@@ -88,7 +88,7 @@ public class LHWsContract {
         public static final String TABLE_NAME = "lhws";
         public static final String URI = "lhws";
         public static final String COLUMN_NAME_NULLABLE = "nullColumnHack";
-        public static final String _ID = "_ID";
+        public static final String _ID = "_id";
         public static final String COLUMN_LHW_CODE = "lhw_code";
         public static final String COLUMN_LHW_NAME = "lhw_name";
         public static final String COLUMN_AREA_TYPE = "area_type";

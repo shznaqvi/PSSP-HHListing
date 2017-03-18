@@ -21,10 +21,6 @@ public class LHWActivity extends Activity {
     ScrollView householdIdentification;
     @BindView(R.id.txtChildListing)
     TextView txtChildListing;
-    @BindView(R.id.lhwa)
-    Spinner lhwa;
-    @BindView(R.id.lhwb)
-    Spinner lhwb;
     @BindView(R.id.lhwe)
     EditText lhwe;
     @BindView(R.id.lhwf)
@@ -93,6 +89,15 @@ public class LHWActivity extends Activity {
             return false;
         } else {
             lhwf.setError(null);
+
+            if (Integer.parseInt(lhwf.getText().toString()) < 1) {
+                Toast.makeText(this, "Invalid(Error):Greater then 0", Toast.LENGTH_LONG).show();
+                lhwf.setError("Invalid(Error):Greater then 0");
+                Log.i(TAG, "lhwf: Greater then 0");
+                return false;
+            } else {
+                lhwf.setError(null);
+            }
         }
 
         if (lhwg.getText().toString().isEmpty()) {
@@ -102,6 +107,15 @@ public class LHWActivity extends Activity {
             return false;
         } else {
             lhwg.setError(null);
+
+            if (Integer.parseInt(lhwg.getText().toString()) < 1) {
+                Toast.makeText(this, "Invalid(Error):Greater then 0", Toast.LENGTH_LONG).show();
+                lhwg.setError("Invalid(Error):Greater then 0");
+                Log.i(TAG, "lhwg: Greater then 0");
+                return false;
+            } else {
+                lhwg.setError(null);
+            }
         }
         return true;
     }

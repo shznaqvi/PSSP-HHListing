@@ -27,29 +27,6 @@
             android:text="LHW"
             android:textAlignment="center" />
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/lhwa" />
-
-        <Spinner
-            android:id="@+id/lhwa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/lhwc" />
-
-        <Spinner
-            android:id="@+id/lhwb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

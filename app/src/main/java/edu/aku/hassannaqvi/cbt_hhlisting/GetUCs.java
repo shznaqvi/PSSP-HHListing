@@ -60,7 +60,7 @@ public class GetUCs extends AsyncTask<String, String, String> {
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                String line;
+                String line="";
                 while ((line = reader.readLine()) != null) {
                     //pd.show();
                     Log.i(TAG, "UCs In: " + line);

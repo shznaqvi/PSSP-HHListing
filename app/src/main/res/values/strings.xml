@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BISP-HHListing</string>
+    <string name="app_name">CBT-Listing</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
     <string name="hh02"> Village کوڈ </string>
     <string name="hh03"> عمارت جو نمبر </string>

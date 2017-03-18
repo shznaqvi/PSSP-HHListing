@@ -36,17 +36,17 @@ public class MainActivity extends Activity {
     private static String ipAddress = "192.168.1.10";
     private static String port = "3000";
 
-    public List<String> lhwCode;
+    public List<String> lhwName;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
     @BindView(R.id.MN01)
     Spinner mN01;
     @BindView(R.id.MN02)
     Spinner mN02;
-    @BindView(R.id.ucN)
-    TextView ucN;
-    @BindView(R.id.psuN)
-    TextView psuN;
+//    @BindView(R.id.ucN)
+//    TextView ucN;
+//    @BindView(R.id.psuN)
+//    TextView psuN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,13 +86,13 @@ public class MainActivity extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 AppMain.hh01txt = hfCodes.get(position);
 
-                lhwCode = new ArrayList<String>();
+                lhwName = new ArrayList<String>();
                 Collection<LHWsContract> lhwc = db.getAllLhwsByHf(hfCodes.get(position));
                 for (LHWsContract lhw : lhwc) {
-                    lhwCode.add(lhw.getLHWCode());
+                    lhwName.add(lhw.getLHWName());
                 }
                 ArrayAdapter<String> psuAdapter = new ArrayAdapter<String>(MainActivity.this,
-                        android.R.layout.simple_spinner_item, lhwCode);
+                        android.R.layout.simple_spinner_item, lhwName);
 
                 psuAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
         mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                AppMain.hh02txt = lhwCode.get(position);
+                AppMain.hh02txt = lhwName.get(position);
                 /*Collection<LHWsContract> lhwc = db.getAllLhwsByHf(AppMain.hh01txt);
                 for (LHWsContract l : lhwc) {
                     Log.d(TAG, "onItemSelected: " + l.getLHWCode() + " -" + AppMain.hh02txt);
@@ -165,13 +165,13 @@ public class MainActivity extends Activity {
 
         if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
 
-            Intent oF = new Intent(this, setupActivity.class);
+//            Intent oF = new Intent(this, setupActivity.class);
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
-                startActivity(oF);
+                startActivity(new Intent(this,LHWActivity.class));
             }
         } else {
 

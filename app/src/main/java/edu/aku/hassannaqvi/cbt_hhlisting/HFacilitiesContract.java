@@ -53,8 +53,8 @@ public class HFacilitiesContract implements BaseColumns {
         public static final String COLUMN_NAME_NULLABLE = "nullColumnHack";
 
         public static final String _ID = "_ID";
-        public static final String COLUMN_HFACILITY_CODE = "hfcode";
-        public static final String COLUMN_HFACILITY_NAME = "hfname";
+        public static final String COLUMN_HFACILITY_CODE = "hf_code";
+        public static final String COLUMN_HFACILITY_NAME = "health_facility";
 
     }
 }
