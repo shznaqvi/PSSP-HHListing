@@ -104,6 +104,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_H_FACILIY_TABLE = "CREATE TABLE " + HFacilityTable.TABLE_NAME + " (" +
                 HFacilityTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 HFacilityTable.COLUMN_HFACILITY_CODE + " TEXT, " +
+                HFacilityTable.COLUMN_TEHSIL_CODE + " TEXT, " +
                 HFacilityTable.COLUMN_HFACILITY_NAME + " TEXT " +
                 ");";
 
@@ -497,10 +498,56 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 HFacilityTable._ID,
                 HFacilityTable.COLUMN_HFACILITY_CODE,
                 HFacilityTable.COLUMN_HFACILITY_NAME,
+                HFacilityTable.COLUMN_TEHSIL_CODE,
         };
 
         String whereClause = null;
         String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                HFacilityTable._ID + " ASC";
+
+        Collection<HFacilitiesContract> allHFC = new ArrayList<>();
+        try {
+            c = db.query(
+                    HFacilityTable.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                HFacilitiesContract hfc = new HFacilitiesContract();
+                allHFC.add(hfc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allHFC;
+    }
+
+    public Collection<HFacilitiesContract> getAllHFacilitiesByTehsil(String tehsil_code) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                HFacilityTable._ID,
+                HFacilityTable.COLUMN_HFACILITY_CODE,
+                HFacilityTable.COLUMN_HFACILITY_NAME,
+                HFacilityTable.COLUMN_TEHSIL_CODE,
+        };
+
+        String whereClause = HFacilityTable.COLUMN_TEHSIL_CODE + " = ?";
+        String[] whereArgs = {tehsil_code};
         String groupBy = null;
         String having = null;
 
@@ -966,6 +1013,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 values.put(HFacilityTable.COLUMN_HFACILITY_CODE, hc.gethFacilityCode());
                 values.put(HFacilityTable.COLUMN_HFACILITY_NAME, hc.gethFacilityName());
+                values.put(HFacilityTable.COLUMN_TEHSIL_CODE, hc.gethFacilityName());
 
                 db.insert(HFacilityTable.TABLE_NAME, null, values);
             }

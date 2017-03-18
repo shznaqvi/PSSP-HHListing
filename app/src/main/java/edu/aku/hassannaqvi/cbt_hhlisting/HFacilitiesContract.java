@@ -14,10 +14,12 @@ public class HFacilitiesContract implements BaseColumns {
 
     String hFacilityCode;
     String hFacilityName;
+    String tehsilCode;
 
     public HFacilitiesContract sync(JSONObject jsonObject) throws JSONException {
         this.hFacilityCode = jsonObject.getString(HFacilityTable.COLUMN_HFACILITY_CODE);
         this.hFacilityName = jsonObject.getString(HFacilityTable.COLUMN_HFACILITY_NAME);
+        this.tehsilCode = jsonObject.getString(HFacilityTable.COLUMN_TEHSIL_CODE);
 
         return this;
     }
@@ -25,6 +27,7 @@ public class HFacilitiesContract implements BaseColumns {
     public HFacilitiesContract hydrate(Cursor cursor) {
         this.hFacilityCode = cursor.getString(cursor.getColumnIndex(HFacilityTable.COLUMN_HFACILITY_CODE));
         this.hFacilityName = cursor.getString(cursor.getColumnIndex(HFacilityTable.COLUMN_HFACILITY_NAME));
+        this.tehsilCode = cursor.getString(cursor.getColumnIndex(HFacilityTable.COLUMN_TEHSIL_CODE));
 
         return this;
     }
@@ -45,6 +48,14 @@ public class HFacilitiesContract implements BaseColumns {
         this.hFacilityName = hFacilityName;
     }
 
+    public String getTehsilCode() {
+        return tehsilCode;
+    }
+
+    public void setTehsilCode(String tehsilCode) {
+        this.tehsilCode = tehsilCode;
+    }
+
     public abstract class HFacilityTable implements BaseColumns {
 
 
@@ -55,6 +66,7 @@ public class HFacilitiesContract implements BaseColumns {
         public static final String _ID = "_ID";
         public static final String COLUMN_HFACILITY_CODE = "hf_code";
         public static final String COLUMN_HFACILITY_NAME = "health_facility";
+        public static final String COLUMN_TEHSIL_CODE = "tehsil_code";
 
     }
 }
