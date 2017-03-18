@@ -18,6 +18,16 @@ public class VillageContract implements BaseColumns {
     String COLUMN_UCNAME;
 
 
+    public VillageContract() {
+        // Default Constructor
+    }
+
+    public VillageContract(String vcode, String vname, String ucname) {
+        this.COLUMN_VCODE = vcode;
+        this.COLUMN_VNAME = vname;
+        this.COLUMN_UCNAME = ucname;
+    }
+
     public VillageContract sync(JSONObject jsonObject) throws JSONException {
         this.COLUMN_VCODE = jsonObject.getString(VillageContract.VillageEntry.COLUMN_VCODE);
         this.COLUMN_VNAME = jsonObject.getString(VillageContract.VillageEntry.COLUMN_VNAME);
@@ -33,18 +43,6 @@ public class VillageContract implements BaseColumns {
 
         return this;
     }
-
-
-    public VillageContract() {
-        // Default Constructor
-    }
-
-    public VillageContract(String vcode, String vname, String ucname) {
-        this.COLUMN_VCODE = vcode;
-        this.COLUMN_VNAME = vname;
-        this.COLUMN_UCNAME = ucname;
-    }
-
 
     public String getROW_UCNAME() {
         return this.COLUMN_UCNAME;

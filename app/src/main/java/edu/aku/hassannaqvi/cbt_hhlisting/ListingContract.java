@@ -31,6 +31,37 @@ public class ListingContract {
     public String hh10;
     public String hh11;
     public String hh12d;
+    public String hh12m;
+    public String hh12;
+    public String hh13;
+    public String hhChildNm;
+    public String DeviceID;
+    public String GPSLat;
+    public String GPSLng;
+    public String GPSTime;
+    public String GPSAcc;
+    public String Round = "1";
+    public String fStatus = "3";
+    public ListingContract() {
+    }
+    public ListingContract(String ID) {
+        this.ID = ID;
+    }
+    public ListingContract(String hh01, String hh02, String hh03, String hh04, String hh04x, String hh05, String hh06, String hh07, String DeviceID, String GPSLat, String GPSLng, String GPSTime, String GPSAcc) {
+        this.hh01 = hh01;
+        this.hh02 = hh02;
+        this.hh03 = hh03;
+        this.hh04 = hh04;
+        this.hh04x = hh04x;
+        this.hh05 = hh05;
+        this.hh06 = hh06;
+        this.hh07 = hh07;
+        this.DeviceID = DeviceID;
+        this.GPSLat = GPSLat;
+        this.GPSLng = GPSLng;
+        this.GPSTime = GPSTime;
+        this.GPSAcc = GPSAcc;
+    }
 
     public String getHh12d() {
         return hh12d;
@@ -46,42 +77,6 @@ public class ListingContract {
 
     public void setHh12m(String hh12m) {
         this.hh12m = hh12m;
-    }
-
-    public String hh12m;
-    public String hh12;
-    public String hh13;
-    public String hhChildNm;
-    public String DeviceID;
-    public String GPSLat;
-    public String GPSLng;
-    public String GPSTime;
-    public String GPSAcc;
-    public String Round = "1";
-    public String fStatus = "3";
-
-
-    public ListingContract() {
-    }
-
-    public ListingContract(String ID) {
-        this.ID = ID;
-    }
-
-    public ListingContract(String hh01, String hh02, String hh03, String hh04, String hh04x, String hh05, String hh06, String hh07, String DeviceID, String GPSLat, String GPSLng, String GPSTime, String GPSAcc) {
-        this.hh01 = hh01;
-        this.hh02 = hh02;
-        this.hh03 = hh03;
-        this.hh04 = hh04;
-        this.hh04x = hh04x;
-        this.hh05 = hh05;
-        this.hh06 = hh06;
-        this.hh07 = hh07;
-        this.DeviceID = DeviceID;
-        this.GPSLat = GPSLat;
-        this.GPSLng = GPSLng;
-        this.GPSTime = GPSTime;
-        this.GPSAcc = GPSAcc;
     }
 
     public String getID() {
