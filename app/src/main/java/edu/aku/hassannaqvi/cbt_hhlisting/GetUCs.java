@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.aku.hassannaqvi.pssp_hhlisting.UCsContract.UcTable;
+import edu.aku.hassannaqvi.cbt_hhlisting.UCsContract.UcTable;
 
 /**
  * Created by hassan.naqvi on 4/28/2016.

@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import edu.aku.hassannaqvi.pssp_hhlisting.VillagesContract.VillageTable;
+import edu.aku.hassannaqvi.cbt_hhlisting.VillagesContract.VillageTable;
 /**
  * Created by javed.khan on 1/2/2017.
  */
