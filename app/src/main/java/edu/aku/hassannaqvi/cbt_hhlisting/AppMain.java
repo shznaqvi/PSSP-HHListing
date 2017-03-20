@@ -42,6 +42,12 @@ public class AppMain extends Application {
     public static SharedPreferences sharedPref;
     protected static LocationManager locationManager;
 
+    public static String tehsilCode;
+    public static Boolean UCsCodeFlag = true;
+    public static int UCsCode;
+    public static Boolean VillageCodeFlag = true;
+    public static int VillageCode;
+
     public static void updatePSU(String psuCode, String structureNo) {
 
         SharedPreferences.Editor editor = sharedPref.edit();

@@ -158,8 +158,8 @@ public class AddMarriedWomenActivity extends Activity {
                 : mw03f.isChecked() ? "6"
                 : "default"
         );
-        AppMain.pw.setMw04(mw04.isChecked() ? "1" : "2");
-        AppMain.pw.setMw05(mw05.getText().toString());
+//        AppMain.pw.setMw04(mw04.isChecked() ? "1" : "2");
+//        AppMain.pw.setMw05(mw05.getText().toString());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
     }
@@ -206,7 +206,7 @@ public class AddMarriedWomenActivity extends Activity {
         FormsDBHelper db = new FormsDBHelper(this);
         Long rowId;
 
-        rowId = db.addMwra(AppMain.pw);
+        rowId = db.addPw(AppMain.pw);
 
         AppMain.pw.setID(rowId);
 
@@ -215,7 +215,7 @@ public class AddMarriedWomenActivity extends Activity {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
             AppMain.pw.setUID(
                     (AppMain.lc.getDeviceID() + AppMain.pw.getID()));
-            db.updateMwra();
+            db.updatePw();
             Toast.makeText(this, "Current Form No: " + AppMain.lc.getUID(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();

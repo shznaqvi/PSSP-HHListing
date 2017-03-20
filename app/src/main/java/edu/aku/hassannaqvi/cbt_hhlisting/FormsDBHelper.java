@@ -490,6 +490,55 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allDC;
     }
 
+    public Collection<UCsContract> getAllUCsByTehsil(String tehsil_code) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                UcTable._ID,
+                UcTable.COLUMN_UC_NAME,
+                UcTable.COLUMN_UC_CODE,
+                UcTable.COLUMN_TEHSIL_CODE,
+        };
+
+        String whereClause = UcTable.COLUMN_TEHSIL_CODE + " = ?";
+        String[] whereArgs = {tehsil_code};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                UcTable._ID + " ASC";
+
+        Collection<UCsContract> allUCsC = new ArrayList<>();
+        try {
+            c = db.query(
+                    UcTable.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+
+            UCsContract uc1 = new UCsContract();
+            allUCsC.add(uc1.setDefaultVal("", "..."));
+
+            while (c.moveToNext()) {
+                UCsContract ucsc = new UCsContract();
+                allUCsC.add(ucsc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allUCsC;
+    }
+
     public Collection<HFacilitiesContract> getAllHFacilities() {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -609,6 +658,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     having,                    // don't filter by row groups
                     orderBy                    // The sort order
             );
+
+            VillagesContract uc1 = new VillagesContract();
+            allPC.add(uc1.setDefaultVal("", "..."));
+
             while (c.moveToNext()) {
                 VillagesContract pc = new VillagesContract();
                 allPC.add(pc.hydrate(c));
@@ -1013,7 +1066,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 values.put(HFacilityTable.COLUMN_HFACILITY_CODE, hc.gethFacilityCode());
                 values.put(HFacilityTable.COLUMN_HFACILITY_NAME, hc.gethFacilityName());
-                values.put(HFacilityTable.COLUMN_TEHSIL_CODE, hc.gethFacilityName());
+                values.put(HFacilityTable.COLUMN_TEHSIL_CODE, hc.getTehsilCode());
 
                 db.insert(HFacilityTable.TABLE_NAME, null, values);
             }

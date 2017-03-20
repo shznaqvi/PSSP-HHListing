@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -83,7 +84,6 @@ public class setupActivity extends Activity {
 
     @BindView(R.id.btnChangeVillage)
     ToggleButton btnChangeVillage;
-
 
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
@@ -177,21 +177,77 @@ public class setupActivity extends Activity {
 
         final FormsDBHelper db = new FormsDBHelper(getApplicationContext());
 
-        List<String> UCs =new ArrayList<>();
-        Map<String,String> getAllUCs =new HashMap<>();
-        Collection<UCsContract> allUcs = db.getAllUcs();
+        final List<String> UCs = new ArrayList<>();
+        final Map<String, String> getAllUCs = new HashMap<>();
+        Collection<UCsContract> allUcs = db.getAllUCsByTehsil(AppMain.tehsilCode);
         for (UCsContract aUCs : allUcs) {
-            getAllUCs.put(aUCs.getUcName(),aUCs.getUcCode());
+            getAllUCs.put(aUCs.getUcName(), aUCs.getUcCode());
             UCs.add(aUCs.getUcName());
         }
 
-        lhwaUCname.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,UCs));
+        lhwaUCname.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, UCs));
+
+        lhwaUCname.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                List<String> VillagesName = new ArrayList<>();
+                Map<String, String> getAllVillages = new HashMap<>();
+                Collection<VillagesContract> allVillages = db.getAllVillagesByUc(getAllUCs.get(UCs.get(position)));
+                for (VillagesContract aVillages : allVillages) {
+                    getAllVillages.put(aVillages.getVillageName(), aVillages.getVillageCode());
+                    VillagesName.add(aVillages.getVillageName());
+                }
+                lhwcVillage.setAdapter(new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, VillagesName));
+
+                if (AppMain.UCsCodeFlag) {
+                    AppMain.UCsCode = position;
+                }
+
+                if (!AppMain.UCsCodeFlag) {
+                    lhwaUCname.setSelection(AppMain.UCsCode);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        lhwcVillage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                if (getAllUCs.get(UCs.get(position)) == "..."){
+//                    btnChangeVillage.setChecked(true);
+//                    lhwaUCname.setEnabled(true);
+////                    lhwcVillage.setEnabled(true);
+//                }else {
+//                    btnChangeVillage.setChecked(false);
+//                    lhwaUCname.setEnabled(false);
+//                    lhwcVillage.setEnabled(false);
+//                }
+
+                if (AppMain.VillageCodeFlag) {
+                    AppMain.VillageCode = position;
+                }
+
+                if (!AppMain.VillageCodeFlag) {
+                    lhwcVillage.setSelection(AppMain.VillageCode);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         if (lhwaUCname.getItemAtPosition(0) == "...") {
             btnChangeVillage.setChecked(true);
             lhwaUCname.setEnabled(true);
             lhwcVillage.setEnabled(true);
-        }else {
+        } else {
             btnChangeVillage.setChecked(false);
             lhwaUCname.setEnabled(false);
             lhwcVillage.setEnabled(false);
@@ -206,12 +262,17 @@ public class setupActivity extends Activity {
 
                     lhwaUCname.setEnabled(true);
                     lhwcVillage.setEnabled(true);
-                }
-                else {
+
+                    AppMain.UCsCodeFlag = true;
+                    AppMain.VillageCodeFlag = true;
+                } else {
                     Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 
                     lhwaUCname.setEnabled(false);
                     lhwcVillage.setEnabled(false);
+
+                    AppMain.UCsCodeFlag = false;
+                    AppMain.VillageCodeFlag = false;
                 }
 
             }
@@ -321,6 +382,12 @@ public class setupActivity extends Activity {
 //        } else {
 //            hh02.setError(null);
 //        }
+        if (btnChangeVillage.isChecked()) {
+            Toast.makeText(this, "Error(Invalid): Close the Edit Mode", Toast.LENGTH_LONG).show();
+            Log.i(TAG, "btnChangeVillage():Close the Edit Mode");
+            return false;
+        }
+
         if (hhadd.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Invalid):Data Required", Toast.LENGTH_LONG).show();
             hhadd.setError("Error(Invalid):Data Required");
@@ -365,6 +432,7 @@ public class setupActivity extends Activity {
         } else {
             hh06.setError(null);
         }
+
         return true;
     }
 

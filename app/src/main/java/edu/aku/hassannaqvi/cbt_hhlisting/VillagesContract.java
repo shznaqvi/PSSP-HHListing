@@ -37,6 +37,13 @@ public class VillagesContract {
         return this;
     }
 
+    public VillagesContract setDefaultVal(String code,String name) {
+        this.villageCode = code;
+        this.villageName = name;
+
+        return this;
+    }
+
     public String getVillageCode() {
         return villageCode;
     }
@@ -66,7 +73,7 @@ public class VillagesContract {
         public static final String TABLE_NAME = "villages";
         public static final String URI = "villages";
         public static final String COLUMN_NAME_NULLABLE = "nullColumnHack";
-        public static final String _ID = "_ID";
+        public static final String _ID = "_id";
         public static final String COLUMN_VILLAGE_CODE = "village_code";
         public static final String COLUMN_VILLAGE_NAME = "village_name";
         public static final String COLUMN_UC_CODE = "uc_code";

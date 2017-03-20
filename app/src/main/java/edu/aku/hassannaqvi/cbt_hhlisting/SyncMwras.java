@@ -78,7 +78,7 @@ public class SyncMwras extends AsyncTask<Void, Void, String> {
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             FormsDBHelper db = new FormsDBHelper(mContext);
-            Collection<PWContract> mwras = db.getAllMwras();
+            Collection<PWContract> mwras = db.getAllPws();
             Log.d(TAG, String.valueOf(mwras.size()));
 //            pd.setMessage("Total Forms: " );
             for (PWContract mwra : mwras) {

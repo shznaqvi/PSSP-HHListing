@@ -34,6 +34,13 @@
 
         </Spinner>
 
+        <Spinner
+            android:id="@+id/MN03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
         <Button
             android:id="@+id/openForm"
             android:layout_width="match_parent"

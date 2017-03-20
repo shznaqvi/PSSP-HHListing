@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.InetSocketAddress;
@@ -24,7 +23,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,10 +44,14 @@ public class MainActivity extends Activity {
     Spinner mN01;
     @BindView(R.id.MN02)
     Spinner mN02;
+    @BindView(R.id.MN03)
+    Spinner mN03;
 //    @BindView(R.id.ucN)
 //    TextView ucN;
 //    @BindView(R.id.psuN)
 //    TextView psuN;
+
+    Map<String,String> tehsils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,29 +64,47 @@ public class MainActivity extends Activity {
         // database handler
         final FormsDBHelper db = new FormsDBHelper(getApplicationContext());
 
-
         // Spinner Drop down elements
-        List<String> hfNames = new ArrayList<>();
-        final List<String> hfCodes = new ArrayList<>();
-        Collection<HFacilitiesContract> hfc = db.getAllHFacilities();
-        Log.d(TAG, "onCreate: " + hfc.size());
-        for (HFacilitiesContract hf : hfc) {
-            hfNames.add(hf.gethFacilityName());
-            hfCodes.add(hf.gethFacilityCode());
+        tehsils = new HashMap<>();
+        final List<String> Tname = new ArrayList<>();
+        Collection<TehsilsContract> Tc = db.getAllTehsil();
+        Log.d(TAG, "onCreate: " + Tc.size());
+        for (TehsilsContract hf : Tc) {
+            tehsils.put(hf.getTehsil_name(),hf.getTehsil_code());
+            Tname.add(hf.getTehsil_name());
         }
 
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, hfNames);
+        mN01.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,Tname));
 
-        // Drop down layout style - list view with radio button
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        mN01.setAdapter(dataAdapter);
+        final List<String> hfCodes =new ArrayList<>();
 
         mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Spinner Drop down elements
+                List<String> hfNames = new ArrayList<>();
+
+                AppMain.tehsilCode = tehsils.get(Tname.get(position));
+
+                Collection<HFacilitiesContract> hfc = db.getAllHFacilitiesByTehsil(AppMain.tehsilCode);
+                Log.d(TAG, "onCreate: " + hfc.size());
+                for (HFacilitiesContract hf : hfc) {
+                    hfNames.add(hf.gethFacilityName());
+                    hfCodes.add(hf.gethFacilityCode());
+                }
+
+                // attaching data adapter to spinner
+                mN02.setAdapter(new ArrayAdapter<>(getBaseContext(),
+                        android.R.layout.simple_spinner_dropdown_item, hfNames));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 AppMain.hh01txt = hfCodes.get(position);
@@ -96,7 +119,7 @@ public class MainActivity extends Activity {
 
                 psuAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mN02.setAdapter(psuAdapter);
+                mN03.setAdapter(psuAdapter);
 
             }
 
@@ -106,7 +129,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mN03.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 AppMain.hh02txt = lhwName.get(position);
@@ -163,7 +186,7 @@ public class MainActivity extends Activity {
     public void openForm(View view) {
 
 
-        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
+        if (mN02.getSelectedItem() != null && mN03.getSelectedItem() != null) {
 
 //            Intent oF = new Intent(this, setupActivity.class);
 
