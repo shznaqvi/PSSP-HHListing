@@ -14,24 +14,25 @@ public class ListingContract {
     public String ID;
     public String UID;
     public String hhDT;
-    public String hh01;
-    public String hh02;
-    public String hh03;
-    public String hhadd;
-    public String hh04;
-    public String hh04x;
-    public String hh05;
-    public String hh06;
-    public String hh07;
+    public String hh01; // District/UC
+    public String hh02; // Cluster
+    public String hh03; // Structure No.
+    public String hhadd; // Address/Landmark
+    public String hh04; // Type of Structure
+    public String hh04x; // Type Other Text
+    public String hh05; // Is Multi-family?
+    public String hh06; // No. of Family
+    public String hh07; // Ext.
     public String hh07n;
-    public String hh08;
-    public String hh09;
-    public String hh09a;
-    public String hh09b;
-    public String hh10;
-    public String hh11;
-    public String hh12d;
-    public String hh12m;
+    public String hh08; // Head of Household
+    public String hh09; // Contact No.
+    public String hh09a; // Any pregnant woman?
+    public String hh09b; // No. Pregnant woman
+    //====================
+    public String hh10; // Child U-6m
+    public String hh11; // No. of Children
+    public String hh12d; // Days
+    public String hh12m; // Months
     public String hh12;
     public String hh13;
     public String hhChildNm;
