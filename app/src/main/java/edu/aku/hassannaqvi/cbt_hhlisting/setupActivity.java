@@ -206,6 +206,11 @@ public class setupActivity extends Activity {
 
                 if (!AppMain.UCsCodeFlag) {
                     lhwaUCname.setSelection(AppMain.UCsCode);
+
+                    btnChangeVillage.setChecked(false);
+                    lhwaUCname.setEnabled(false);
+                    lhwcVillage.setEnabled(false);
+
                 }
             }
 
@@ -218,15 +223,6 @@ public class setupActivity extends Activity {
         lhwcVillage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if (getAllUCs.get(UCs.get(position)) == "..."){
-//                    btnChangeVillage.setChecked(true);
-//                    lhwaUCname.setEnabled(true);
-////                    lhwcVillage.setEnabled(true);
-//                }else {
-//                    btnChangeVillage.setChecked(false);
-//                    lhwaUCname.setEnabled(false);
-//                    lhwcVillage.setEnabled(false);
-//                }
 
                 if (AppMain.VillageCodeFlag) {
                     AppMain.VillageCode = position;
