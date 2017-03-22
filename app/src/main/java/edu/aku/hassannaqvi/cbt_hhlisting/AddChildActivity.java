@@ -87,8 +87,8 @@ public class AddChildActivity extends Activity {
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
             AppMain.lc.setHhChildNm(null);
-            AppMain.lc.setHh12d(null);
-            AppMain.lc.setHh12m(null);
+//            AppMain.lc.setHh12d(null);
+//            AppMain.lc.setHh12m(null);
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
@@ -97,8 +97,8 @@ public class AddChildActivity extends Activity {
 
     private void SaveDraft() {
         AppMain.lc.setHhChildNm(icName.getText().toString());
-        AppMain.lc.setHh12d(icAgeD.getText().toString());
-        AppMain.lc.setHh12m(icAgeM.getText().toString());
+//        AppMain.lc.setHh12d(icAgeD.getText().toString());
+//        AppMain.lc.setHh12m(icAgeM.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
     }

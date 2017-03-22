@@ -13,7 +13,7 @@
     <string name="hh04f"> Empty/Close/Under construction </string>
     <string name="hh04g"> No More Structures </string>
     <string name="hh04x"> Others(Specify...) </string>
-    <string name="hh05"> Is there any other family living in this house? </string>
+    <string name="hh05"> Is more than one family living in this house? </string>
     <string name="hh06"> Count of Families </string>
     <string name="hh07"> Family No. (Ext.) </string>
     <string name="hh08"> Name of Household Head </string>
@@ -25,14 +25,27 @@
     <string name="pw03"> Expected Date of Delivery </string>
     <string name="hh10"> Is there any under 6 months old child in this family? </string>
     <string name="hh11"> Count of children under 6 months old </string>
-    <string name="child_name"> Name of Child </string>
-    <string name="child_age"> Age of Child </string>
+    <string name="hh12"> Name of Child </string>
+    <string name="hh13"> Age of Child </string>
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
     <string name="txtName">qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM</string>
 
+    <!--sidra-->
+
+
+    <string name="hh12d">عورت جو نالو</string>
+    <string name="hh12m">گذريل 1 سال ۾ ويم ٿيو؟</string>
+    <string name="mw03a">ضايع ٿي ويو</string>
+    <string name="mw03b">مرده ٻار جي پيدائش</string>
+    <string name="mw03c">زنده ٻار جي پيدائش</string>
+    <string name="mw03d">ٻن مرده ٻارن جي پيدائش</string>
+    <string name="mw03e">هڪ مرده ۽ هڪ زنده ٻارجي پيدائش</string>
+    <string name="mw03f">ٻن زنده ٻارن جي پيدائش</string>
+    <string name="mw04"> ڇا(عورت جو نالو) حمل سان آهي؟ </string>
+    <string name="mw05">حمل کي ڪيترو عرصو ٿيو آهي؟(مهينا لکو)</string>
 
 
     <!--Ali-->
@@ -42,9 +55,6 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_incorrect_password">This password is incorrect</string>
-
-    <string name="hh12m">ماہ</string>
-    <string name="hh12d">دن</string>
 
     <string name="lhwa">UC name</string>
     <string name="lhwb">LHW name and code</string>

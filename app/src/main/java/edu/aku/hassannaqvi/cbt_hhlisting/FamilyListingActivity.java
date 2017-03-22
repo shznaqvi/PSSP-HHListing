@@ -40,6 +40,8 @@ public class FamilyListingActivity extends Activity {
     @BindView(R.id.btnAddMWRA)
     Button btnAddMWRA;
 
+    FormsDBHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class FamilyListingActivity extends Activity {
         ButterKnife.bind(this);
 
 
-        txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
+        txtFamilyListing.setText("Family Listing: " + AppMain.household);
         AppMain.lc.setHhChildNm(null);
 
         /*if (AppMain.fCount < AppMain.fTotal) {
@@ -58,6 +60,9 @@ public class FamilyListingActivity extends Activity {
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
 */
+
+        db = new FormsDBHelper(this);
+
         hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -112,6 +117,9 @@ public class FamilyListingActivity extends Activity {
         if (formValidation()) {
             SaveDraft();
             if (UpdateDB()) {
+
+                db.addForm(AppMain.lc);
+
                 Intent closeA = new Intent(this, ClosingActivity.class);
                 startActivity(closeA);
             } else {
@@ -128,6 +136,9 @@ public class FamilyListingActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
+
+                db.addForm(AppMain.lc);
+
                 AppMain.pwTotal = Integer.parseInt(hh09b.getText().toString());
                 AppMain.pwCount = 1;
                 Toast.makeText(this, AppMain.pwCount + ":" + AppMain.pwTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();

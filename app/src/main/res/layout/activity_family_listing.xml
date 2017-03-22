@@ -4,7 +4,7 @@
     android:id="@+id/activity_household_listing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
+    android:layoutDirection="ltr"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -177,7 +177,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="contNextQuestion"
             android:text="Continue to Next Question"
             android:visibility="visible" />
 
@@ -186,7 +185,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="addMWRA"
             android:text="Add Married Women"
             android:visibility="gone" />
         <!--

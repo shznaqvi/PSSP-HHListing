@@ -10,7 +10,7 @@ import org.json.JSONObject;
  */
 public class ListingContract {
 
-    public static String userName;
+    public String userName;
     public String ID;
     public String UID;
     public String hhDT;
@@ -31,8 +31,6 @@ public class ListingContract {
     //====================
     public String hh10; // Child U-6m
     public String hh11; // No. of Children
-    public String hh12d; // Days
-    public String hh12m; // Months
     public String hh12;
     public String hh13;
     public String hhChildNm;
@@ -64,20 +62,12 @@ public class ListingContract {
         this.GPSAcc = GPSAcc;
     }
 
-    public String getHh12d() {
-        return hh12d;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setHh12d(String hh12d) {
-        this.hh12d = hh12d;
-    }
-
-    public String getHh12m() {
-        return hh12m;
-    }
-
-    public void setHh12m(String hh12m) {
-        this.hh12m = hh12m;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getID() {
@@ -86,6 +76,14 @@ public class ListingContract {
 
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getHhDT() {
@@ -240,14 +238,6 @@ public class ListingContract {
         this.hh13 = hh13;
     }
 
-    public String getUID() {
-        return UID;
-    }
-
-    public void setUID(String UID) {
-        this.UID = UID;
-    }
-
     public String getHhChildNm() {
         return hhChildNm;
     }
@@ -304,14 +294,6 @@ public class ListingContract {
         Round = round;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        ListingContract.userName = userName;
-    }
-
     public String getfStatus() {
         return fStatus;
     }
@@ -351,7 +333,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
-        json.put(ListingEntry.COLUMN_NAME_USERNAME, userName);
+        json.put(ListingEntry.COLUMN_NAME_USERNAME, hh10);
         json.put(ListingEntry.COLUMN_NAME_FORMSTATUS, fStatus);
 
         return json;

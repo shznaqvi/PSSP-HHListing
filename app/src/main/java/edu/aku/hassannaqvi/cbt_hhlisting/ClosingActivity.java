@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -28,6 +29,8 @@ public class ClosingActivity extends Activity {
     Switch hh10;
     @BindView(R.id.hh11)
     EditText hh11;
+    @BindView(R.id.txtHouseholdListing)
+    TextView txtHouseholdListing;
     @BindView(R.id.hh12)
     Switch hh12;
     @BindView(R.id.hh13)
@@ -47,6 +50,8 @@ public class ClosingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_closing);
         ButterKnife.bind(this);
+
+        txtHouseholdListing.setText("Household Information "+AppMain.household);
 
         if (AppMain.fCount < AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);

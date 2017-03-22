@@ -4,7 +4,7 @@
     android:id="@+id/activity_add_married_women"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
+    android:layoutDirection="ltr"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -36,15 +36,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/mw01" />
+                android:text="@string/pw01" />
 
             <EditText
-                android:id="@+id/mw01"
+                android:id="@+id/pw01"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="24"
-                android:digits="@string/txtMsg"
+                android:digits="@string/txtName"
                 android:inputType="text"
                 android:maxLength="24" />
 
@@ -59,118 +59,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/mw02" />
-
-            <Switch
-                android:id="@+id/mw02"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="1"
-                android:textOff="@string/no"
-                android:textOn="@string/yes" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fldGrpmw03"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/mw03" />
-
-            <RadioGroup
-                android:id="@+id/mw03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <RadioButton
-                    android:id="@+id/mw03a"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mw03a" />
-
-                <RadioButton
-                    android:id="@+id/mw03b"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mw03b" />
-
-                <RadioButton
-                    android:id="@+id/mw03c"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mw03c" />
-
-                <RadioButton
-                    android:id="@+id/mw03d"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mw03d" />
-
-                <RadioButton
-                    android:id="@+id/mw03e"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mw03e" />
-
-                <RadioButton
-                    android:id="@+id/mw03f"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mw03f" />
-            </RadioGroup>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/mw04" />
-
-            <Switch
-                android:id="@+id/mw04"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="1"
-                android:textOff="@string/no"
-                android:textOn="@string/yes" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fldGrpmw05"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/mw05" />
+                android:text="@string/pw02" />
 
             <EditText
-                android:id="@+id/mw05"
+                android:id="@+id/pw02"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
-                android:digits="123456789"
-                android:inputType="number"
-                android:maxLength="1" />
+                android:layout_weight="24"
+                android:digits="@string/txtName"
+                android:inputType="text"
+                android:maxLength="24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/pw03" />
+
+            <DatePicker
+                android:id="@+id/pw03"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"></DatePicker>
 
         </LinearLayout>
 

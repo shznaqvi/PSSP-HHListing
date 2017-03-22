@@ -23,6 +23,7 @@ import edu.aku.hassannaqvi.cbt_hhlisting.TehsilsContract.TehsilTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.UCsContract.UcTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.UsersContract.singleUser;
 import edu.aku.hassannaqvi.cbt_hhlisting.VillagesContract.VillageTable;
+import edu.aku.hassannaqvi.cbt_hhlisting.ChildContract.ChildTable;
 
 
 /**
@@ -96,6 +97,22 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 PwTable.PW_SYNCED_DATE + " TEXT" +
                 " );";
 
+        final String SQL_CREATE_CHILD_TABLE = "CREATE TABLE " + ChildTable.TABLE_NAME + " (" +
+                ChildTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ChildTable.C_UUID + " TEXT," +
+                ChildTable.C_UID + " TEXT," +
+                ChildTable.C_MWDT + " TEXT," +
+                ChildTable.C_USERNAME + " TEXT," +
+                ChildTable.C_CHILDNAME + " TEXT," +
+                ChildTable.C_PWHH12D + " TEXT," +
+                ChildTable.C_PWHH12M + " TEXT," +
+                ChildTable.C_DEVICE_ID + " TEXT," +
+                ChildTable.C_LHW_CODE + " TEXT," +
+                ChildTable.C_HOUSEHOLD + " TEXT," +
+                ChildTable.C_SYNCED + " TEXT," +
+                ChildTable.C_SYNCED_DATE + " TEXT" +
+                " );";
+
         final String SQL_CREATE_TEHSIL_TABLE = "CREATE TABLE " + TehsilTable.TABLE_NAME + " (" +
                 TehsilTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 TehsilTable.COLUMN_TEHSIL_CODE + " TEXT, " +
@@ -139,6 +156,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_PW_TABLE);
+        db.execSQL(SQL_CREATE_CHILD_TABLE);
         db.execSQL(SQL_CREATE_TEHSIL_TABLE);
         db.execSQL(SQL_CREATE_UC_TABLE);
         db.execSQL(SQL_CREATE_VILLAGE_TABLE);
@@ -158,6 +176,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + HFacilityTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + LHWTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ChildTable.TABLE_NAME);
         onCreate(db);
     }
 
@@ -235,9 +254,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(PwTable.PW_PWDT, pw.getMwDT());
         values.put(PwTable.PW_PWVILLAGECODE, pw.getMwVillageCode());
         values.put(PwTable.PW_PWSTRUCTURENO, pw.getMwStructureNo());
-        values.put(PwTable.PW_PW01, pw.getMw01());
-        values.put(PwTable.PW_PW02, pw.getMw02());
-        values.put(PwTable.PW_PW03, pw.getMw03());
+        values.put(PwTable.PW_PW01, pw.getPw01());
+        values.put(PwTable.PW_PW02, pw.getPw02());
+        values.put(PwTable.PW_PW03, pw.getPw03());
         values.put(PwTable.PW_DEVICE_ID, pw.getDeviceId());
         values.put(PwTable.PW_LHW_CODE, pw.getLhwCode());
         values.put(PwTable.PW_HOUSEHOLD, pw.getHousehold());

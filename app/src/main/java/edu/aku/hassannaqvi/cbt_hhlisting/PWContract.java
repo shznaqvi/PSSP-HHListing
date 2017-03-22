@@ -13,14 +13,15 @@ import org.json.JSONObject;
 public class PWContract {
 
     public Long ID;
+    public String userName;
     public String UUID;
     public String UID;
-    public String mwDT;
+    public String mwDT; //Form Date Time
     public String mwVillageCode;
     public String mwStructureNo;
-    public String mw01;
-    public String mw02;
-    public String mw03;
+    public String pw01;
+    public String pw02;
+    public String pw03;
     public String deviceId;
     public String lhwCode;
     public String household;
@@ -38,9 +39,9 @@ public class PWContract {
         this.mwDT = jsonObject.getString(PwTable.PW_PWDT);
         this.mwVillageCode = jsonObject.getString(PwTable.PW_PWVILLAGECODE);
         this.mwStructureNo = jsonObject.getString(PwTable.PW_PWSTRUCTURENO);
-        this.mw01 = jsonObject.getString(PwTable.PW_PW01);
-        this.mw02 = jsonObject.getString(PwTable.PW_PW02);
-        this.mw03 = jsonObject.getString(PwTable.PW_PW03);
+        this.pw01 = jsonObject.getString(PwTable.PW_PW01);
+        this.pw02 = jsonObject.getString(PwTable.PW_PW02);
+        this.pw03 = jsonObject.getString(PwTable.PW_PW03);
         this.deviceId = jsonObject.getString(PwTable.PW_DEVICE_ID);
         this.lhwCode = jsonObject.getString(PwTable.PW_LHW_CODE);
         this.household = jsonObject.getString(PwTable.PW_HOUSEHOLD);
@@ -57,9 +58,9 @@ public class PWContract {
         this.mwDT = cursor.getString(cursor.getColumnIndex(PwTable.PW_PWDT));
         this.mwVillageCode = cursor.getString(cursor.getColumnIndex(PwTable.PW_PWVILLAGECODE));
         this.mwStructureNo = cursor.getString(cursor.getColumnIndex(PwTable.PW_PWSTRUCTURENO));
-        this.mw01 = cursor.getString(cursor.getColumnIndex(PwTable.PW_PW01));
-        this.mw02 = cursor.getString(cursor.getColumnIndex(PwTable.PW_PW02));
-        this.mw03 = cursor.getString(cursor.getColumnIndex(PwTable.PW_PW03));
+        this.pw01 = cursor.getString(cursor.getColumnIndex(PwTable.PW_PW01));
+        this.pw02 = cursor.getString(cursor.getColumnIndex(PwTable.PW_PW02));
+        this.pw03 = cursor.getString(cursor.getColumnIndex(PwTable.PW_PW03));
         this.deviceId = cursor.getString(cursor.getColumnIndex(PwTable.PW_DEVICE_ID));
         this.lhwCode = cursor.getString(cursor.getColumnIndex(PwTable.PW_LHW_CODE));
         this.household = cursor.getString(cursor.getColumnIndex(PwTable.PW_HOUSEHOLD));
@@ -117,28 +118,28 @@ public class PWContract {
         this.mwStructureNo = mwStructureNo;
     }
 
-    public String getMw01() {
-        return mw01;
+    public String getPw01() {
+        return pw01;
     }
 
-    public void setMw01(String mw01) {
-        this.mw01 = mw01;
+    public void setPw01(String pw01) {
+        this.pw01 = pw01;
     }
 
-    public String getMw02() {
-        return mw02;
+    public String getPw02() {
+        return pw02;
     }
 
-    public void setMw02(String mw02) {
-        this.mw02 = mw02;
+    public void setPw02(String pw02) {
+        this.pw02 = pw02;
     }
 
-    public String getMw03() {
-        return mw03;
+    public String getPw03() {
+        return pw03;
     }
 
-    public void setMw03(String mw03) {
-        this.mw03 = mw03;
+    public void setPw03(String pw03) {
+        this.pw03 = pw03;
     }
 
     public String getDeviceId() {
@@ -190,9 +191,9 @@ public class PWContract {
         json.put(PwTable.PW_PWDT, this.mwDT == null ? JSONObject.NULL : this.mwDT);
         json.put(PwTable.PW_PWVILLAGECODE, this.mwVillageCode == null ? JSONObject.NULL : this.mwVillageCode);
         json.put(PwTable.PW_PWSTRUCTURENO, this.mwStructureNo == null ? JSONObject.NULL : this.mwStructureNo);
-        json.put(PwTable.PW_PW01, this.mw01 == null ? JSONObject.NULL : this.mw01);
-        json.put(PwTable.PW_PW02, this.mw02 == null ? JSONObject.NULL : this.mw02);
-        json.put(PwTable.PW_PW03, this.mw03 == null ? JSONObject.NULL : this.mw03);
+        json.put(PwTable.PW_PW01, this.pw01 == null ? JSONObject.NULL : this.pw01);
+        json.put(PwTable.PW_PW02, this.pw02 == null ? JSONObject.NULL : this.pw02);
+        json.put(PwTable.PW_PW03, this.pw03 == null ? JSONObject.NULL : this.pw03);
         json.put(PwTable.PW_DEVICE_ID, this.deviceId == null ? JSONObject.NULL : this.deviceId);
         json.put(PwTable.PW_LHW_CODE, this.lhwCode == null ? JSONObject.NULL : this.lhwCode);
         json.put(PwTable.PW_HOUSEHOLD, this.household == null ? JSONObject.NULL : this.household);

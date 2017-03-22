@@ -365,6 +365,7 @@ public class setupActivity extends Activity {
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03().toString());
 
+        AppMain.household = AppMain.hh03txt + "-" + AppMain.hh07txt;
 
     }
 
@@ -420,7 +421,7 @@ public class setupActivity extends Activity {
             hh06.setError(null);
         }
 
-        if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) < 1) {
+        if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) < 2) {
             Toast.makeText(this, "Answers do not match!", Toast.LENGTH_LONG).show();
             hh06.setError("Answers do not match!");
             Log.i(TAG, "Answers do not match!");

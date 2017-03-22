@@ -26,12 +26,26 @@ public class AppMain extends Application {
     //public static String _IP = "http://43.245.131.159:3000"; //Production server
     public static String PROJECT_URI = _IP + "/cbt/"; //Production server
     public static String TAG = "AppMain";
+
+    private static final long MILLIS_IN_SECOND = 1000;
+    private static final long SECONDS_IN_MINUTE = 60;
+    private static final long MINUTES_IN_HOUR = 60;
+    private static final long HOURS_IN_DAY = 24;
+    public static final long MILLISECONDS_IN_DAY = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY;
+    private static final long DAYS_IN_YEAR = 365;
+    public static final long MILLISECONDS_IN_YEAR = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAYS_IN_YEAR;
+
+
+    public static String UserName;
     public static ListingContract lc;
     public static PWContract pw;
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static int hh03txt = 0;
     public static String hh07txt;
+
+    public static String household;
+
     public static int fCount = 0;
     public static int fTotal = 0;
     public static int cCount = 0;
