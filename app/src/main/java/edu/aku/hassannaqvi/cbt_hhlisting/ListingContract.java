@@ -13,7 +13,7 @@ public class ListingContract {
     public String userName;
     public String ID;
     public String UID;
-    public String UUID;
+    public String lhwcode;
     public String hhDT;
     public String hh01; // District/UC
     public String hh02; // Cluster
@@ -61,12 +61,12 @@ public class ListingContract {
         this.GPSAcc = GPSAcc;
     }
 
-    public String getUUID() {
-        return UUID;
+    public String getLhwcode() {
+        return lhwcode;
     }
 
-    public void setUUID(String UUID) {
-        this.UUID = UUID;
+    public void setLhwcode(String lhwcode) {
+        this.lhwcode = lhwcode;
     }
 
     public String getUserName() {
@@ -289,7 +289,7 @@ public class ListingContract {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
         json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
-        json.put(ListingEntry.COLUMN_UUID, this.UUID);
+        json.put(ListingEntry.COLUMN_LHWCODE, this.lhwcode);
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
@@ -326,7 +326,7 @@ public class ListingContract {
         public static final String TABLE_NAME = "listings";
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
         public static final String _ID = "_id";
-        public static final String COLUMN_UUID = "uuid";
+        public static final String COLUMN_LHWCODE = "lhw_code";
         public static final String COLUMN_NAME_UID = "uid";
         public static final String COLUMN_NAME_HHDATETIME = "hhdt";
         public static final String COLUMN_NAME_HH01 = "hh01";

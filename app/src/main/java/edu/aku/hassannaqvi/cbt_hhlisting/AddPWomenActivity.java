@@ -69,6 +69,7 @@ public class AddPWomenActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
+                finish();
                 Intent closeA = new Intent(this, ClosingActivity.class);
                 startActivity(closeA);
             }
@@ -85,6 +86,7 @@ public class AddPWomenActivity extends Activity {
             if (UpdateDB()) {
                 AppMain.pwCount++;
                 Toast.makeText(this, AppMain.pwCount + ":" + AppMain.pwTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
+                finish();
                 Intent mwraA = new Intent(this, AddPWomenActivity.class);
                 startActivity(mwraA);
             }

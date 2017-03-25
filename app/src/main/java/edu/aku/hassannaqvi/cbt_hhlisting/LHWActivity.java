@@ -51,6 +51,9 @@ public class LHWActivity extends Activity {
 
             SaveDraft();
 //            if (UpdateDB()) {
+
+            AppMain.ClusterActivityFlag = true;
+
             finish();
             startActivity(new Intent(this, setupActivity.class));
 //            }

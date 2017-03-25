@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -324,12 +323,11 @@ public class setupActivity extends Activity {
 
         AppMain.lc = new ListingContract();
 
-        AppMain.lc.setUUID(AppMain.clc.getUID());
-
         AppMain.lc.setHhDT(dtToday);
         AppMain.lc.setHh01(AppMain.hh01txt);
         AppMain.lc.setHh02(AppMain.hh02txt);
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
+        AppMain.lc.setLhwcode(AppMain.hh02txt);
         AppMain.lc.setHhadd(hhadd.getText().toString());
         switch (hh04.getCheckedRadioButtonId()) {
             case R.id.hh04a:
@@ -512,20 +510,24 @@ public class setupActivity extends Activity {
     }
 
     private boolean UpdateClusterContract(){
-        long updcount = db.addCluster(AppMain.clc);
 
-        AppMain.clc.setID(updcount);
+        if (AppMain.ClusterActivityFlag) {
 
-        if (updcount != 0) {
-            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+            long updcount = db.addCluster(AppMain.clc);
 
-            AppMain.clc.setUID(AppMain.clc.getDeviceId() + AppMain.clc.getID());
+            AppMain.clc.setID(updcount);
 
-            db.updateClc();
+            if (updcount != 0) {
+                Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+
+                AppMain.clc.setUID(AppMain.clc.getDeviceId() + AppMain.clc.getID());
+
+                db.updateClc();
 
 
-        } else {
-            Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+            }
         }
         return true;
     }

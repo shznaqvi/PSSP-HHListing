@@ -53,15 +53,15 @@ public class AddChildActivity extends Activity {
 
         dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
-        AppMain.cCount++;
+//        AppMain.cCount++;
 
-        txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + (AppMain.cCount) + " of " + AppMain.cTotal + ")");
-        if (AppMain.cCount <= (AppMain.cTotal-1)) {
+        txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + (AppMain.cCount + 1) + " of " + AppMain.cTotal + ")");
+        if (AppMain.cCount < (AppMain.cTotal-1)) {
             btnAddChild.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
             btnAddFamilty.setVisibility(View.GONE);
 //        } else if (AppMain.cCount >= AppMain.cTotal && AppMain.fCount < AppMain.fTotal) {
-        } else if (AppMain.cCount >= AppMain.cTotal && AppMain.fCount < AppMain.fTotal) {
+        } else if (AppMain.cCount >= (AppMain.cTotal - 1) && AppMain.fCount <= AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
             btnAddChild.setVisibility(View.GONE);
@@ -81,7 +81,7 @@ public class AddChildActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-//                AppMain.cCount++;
+                AppMain.cCount++;
 
                 finish();
                 Intent fA = new Intent(this, AddChildActivity.class);

@@ -257,6 +257,7 @@ public class FamilyListingActivity extends Activity {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
             AppMain.lc.setUID(
                     (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+            db.updateForm();
             Toast.makeText(this, "Current Form No: " + AppMain.lc.getUID(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();

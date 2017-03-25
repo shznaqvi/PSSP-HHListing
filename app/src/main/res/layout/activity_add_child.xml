@@ -53,7 +53,7 @@
             android:layout_weight="1"
             android:hint="@string/noBISP"
             android:inputType="number"
-            android:maxLength="2" />
+            android:maxLength="1" />
 
         <EditText
             android:id="@+id/icAgeD"

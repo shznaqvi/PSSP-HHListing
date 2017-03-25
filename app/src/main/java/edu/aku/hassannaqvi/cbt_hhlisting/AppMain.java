@@ -64,6 +64,8 @@ public class AppMain extends Application {
     public static Boolean VillageCodeFlag = true;
     public static int VillageCode;
 
+    public static Boolean ClusterActivityFlag = false;
+
     public static void updatePSU(String psuCode, String structureNo) {
 
         SharedPreferences.Editor editor = sharedPref.edit();
