@@ -31,18 +31,12 @@ public class ClosingActivity extends Activity {
     EditText hh11;
     @BindView(R.id.txtHouseholdListing)
     TextView txtHouseholdListing;
-    @BindView(R.id.hh12)
-    Switch hh12;
-    @BindView(R.id.hh13)
-    EditText hh13;
     @BindView(R.id.btnAddFamily)
-    Button btnAddFamilty;
+    Button btnAddFamily;
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
     @BindView(R.id.fldGrpHH11)
     LinearLayout fldGrpHH11;
-    @BindView(R.id.fldGrpHH13)
-    LinearLayout fldGrpHH13;
     private String TAG = "ClosingActivity";
 
     @Override
@@ -53,66 +47,72 @@ public class ClosingActivity extends Activity {
 
         txtHouseholdListing.setText("Household Information "+AppMain.household);
 
-        if (AppMain.fCount < AppMain.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-        } else {
-            btnAddFamilty.setVisibility(View.GONE);
+        AppMain.fCount++;
+
+        if (AppMain.fCount > AppMain.fTotal) {
+            btnAddFamily.setVisibility(View.GONE);
             btnAddHousehold.setVisibility(View.VISIBLE);
+        } else {
+            btnAddFamily.setVisibility(View.VISIBLE);
+            btnAddHousehold.setVisibility(View.GONE);
         }
 
         hh10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    btnAddFamily.setVisibility(View.GONE);
+                    btnAddHousehold.setVisibility(View.VISIBLE);
+
                     fldGrpHH11.setVisibility(View.VISIBLE);
                     btnAddHousehold.setText("Add Child");
+
                 } else {
+
+                    if (AppMain.fTotal < 1) {
+                        btnAddFamily.setVisibility(View.GONE);
+                        btnAddHousehold.setVisibility(View.VISIBLE);
+                        btnAddHousehold.setText("Goto Next Household");
+                    } else {
+                        btnAddFamily.setVisibility(View.VISIBLE);
+                        btnAddHousehold.setVisibility(View.GONE);
+                        btnAddHousehold.setText("Add Next Family");
+                    }
+
                     fldGrpHH11.setVisibility(View.GONE);
                     hh11.setText(null);
 
-                    btnAddHousehold.setText("Goto Next Household");
-                }
-            }
-        });
-        hh12.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    fldGrpHH13.setVisibility(View.VISIBLE);
-                } else {
-                    fldGrpHH13.setVisibility(View.GONE);
-                    hh13.setText(null);
+
                 }
             }
         });
 
-        hh11.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                if (hh11.getText().toString().isEmpty()) {
-                    hh11.setError("Invalid(Error): Data required");
-                } else {
-                    hh11.setError(null);
-                    if (Integer.parseInt(hh11.getText().toString()) < 1) {
-                        hh11.setError("Invalid(Error): Child greater then 0");
-                    } else {
-                        hh11.setError(null);
-                    }
-                }
-            }
-        });
+//        hh11.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//                if (hh11.getText().toString().isEmpty()) {
+//                    hh11.setError("Invalid(Error): Data required");
+//                } else {
+//                    hh11.setError(null);
+//                    if (Integer.parseInt(hh11.getText().toString()) < 1) {
+//                        hh11.setError("Invalid(Error): Child greater then 0");
+//                    } else {
+//                        hh11.setError(null);
+//                    }
+//                }
+//            }
+//        });
     }
 
     @OnClick(R.id.btnAddFamily)
@@ -125,8 +125,9 @@ public class ClosingActivity extends Activity {
                 AppMain.cTotal = 0;
                 AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
-                AppMain.fCount++;
+//                AppMain.fCount++;
 
+                finish();
                 Intent fA = new Intent(this, FamilyListingActivity.class);
                 startActivity(fA);
                 try {
@@ -159,9 +160,11 @@ public class ClosingActivity extends Activity {
                     AppMain.cTotal = 0;
                     AppMain.pwCount = 0;
                     AppMain.pwTotal = 0;
+                    finish();
                     startActivity(new Intent(this, setupActivity.class));
                 } else {
                     AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
+                    finish();
                     startActivity(new Intent(this, AddChildActivity.class));
                 }
 
@@ -187,8 +190,6 @@ public class ClosingActivity extends Activity {
 
         AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
         AppMain.lc.setHh11(hh11.getText().toString());
-        AppMain.lc.setHh12(hh12.isChecked() ? "1" : "2");
-        AppMain.lc.setHh13(hh13.getText().toString());
         AppMain.lc.setUID(AppMain.lc.getDeviceID() + AppMain.lc.getID());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
@@ -212,16 +213,6 @@ public class ClosingActivity extends Activity {
                 return false;
             } else {
                 hh11.setError(null);
-            }
-        }
-        if (hh12.isChecked()) {
-            if (hh13.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Error(Invalid):Cannot be Empty", Toast.LENGTH_LONG).show();
-                hh13.setError("Error(Invalid):Cannot be Empty");
-                Log.i(TAG, "hh13:Cannot be Empty");
-                return false;
-            } else {
-                hh13.setError(null);
             }
         }
         return true;

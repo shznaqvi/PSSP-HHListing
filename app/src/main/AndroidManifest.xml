@@ -51,7 +51,7 @@
             android:theme="@style/Theme.AppCompat"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="edu.aku.hassannaqvi.cbt_hhlisting.AddMarriedWomenActivity"
+            android:name="edu.aku.hassannaqvi.cbt_hhlisting.AddPWomenActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="edu.aku.hassannaqvi.cbt_hhlisting.ClosingActivity"

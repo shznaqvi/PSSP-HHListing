@@ -24,6 +24,7 @@ import edu.aku.hassannaqvi.cbt_hhlisting.UCsContract.UcTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.UsersContract.singleUser;
 import edu.aku.hassannaqvi.cbt_hhlisting.VillagesContract.VillageTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.ChildContract.ChildTable;
+import edu.aku.hassannaqvi.cbt_hhlisting.ClusterContract.ClusterTable;
 
 
 /**
@@ -37,7 +38,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "cbt-hhl.db";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
-    public static String DB_PW_ID;
+    public static String DB_PW_ID,DB_CC_ID,DB_CLC_ID;
 
 
     public FormsDBHelper(Context context) {
@@ -50,6 +51,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         // Create a table to hold Listings.
         final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE " + ListingEntry.TABLE_NAME + " (" +
                 ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ListingEntry.COLUMN_UUID + " TEXT," +
                 ListingEntry.COLUMN_NAME_UID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
@@ -68,16 +70,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09B + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_CHILD_NAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
+                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
                 ListingEntry.COLUMN_NAME_ROUND + " TEXT, " +
-                ListingEntry.COLUMN_NAME_FORMSTATUS + " TEXT, " +
-                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
+                ListingEntry.COLUMN_NAME_FORMSTATUS + " TEXT " +
                 " );";
 
         final String SQL_CREATE_PW_TABLE = "CREATE TABLE " + PwTable.TABLE_NAME + " (" +
@@ -101,16 +100,30 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ChildTable.C_UUID + " TEXT," +
                 ChildTable.C_UID + " TEXT," +
-                ChildTable.C_MWDT + " TEXT," +
+                ChildTable.C_CDT + " TEXT," +
                 ChildTable.C_USERNAME + " TEXT," +
                 ChildTable.C_CHILDNAME + " TEXT," +
-                ChildTable.C_PWHH12D + " TEXT," +
-                ChildTable.C_PWHH12M + " TEXT," +
+                ChildTable.C_CCHH12D + " TEXT," +
+                ChildTable.C_CCHH12M + " TEXT," +
                 ChildTable.C_DEVICE_ID + " TEXT," +
                 ChildTable.C_LHW_CODE + " TEXT," +
                 ChildTable.C_HOUSEHOLD + " TEXT," +
                 ChildTable.C_SYNCED + " TEXT," +
                 ChildTable.C_SYNCED_DATE + " TEXT" +
+                " );";
+        
+        final String SQL_CREATE_CLUSTER_TABLE = "CREATE TABLE " + ClusterTable.TABLE_NAME + " (" +
+                ClusterTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ClusterTable.C_UID + " TEXT," +
+                ClusterTable.C_clDT + " TEXT," +
+                ClusterTable.C_USERNAME + " TEXT," +
+                ClusterTable.C_LHWPH + " TEXT," +
+                ClusterTable.C_NO_HH + " TEXT," +
+                ClusterTable.C_NO_BISP + " TEXT," +
+                ClusterTable.C_DEVICE_ID + " TEXT," +
+                ClusterTable.C_LHW_CODE + " TEXT," +
+                ClusterTable.C_SYNCED + " TEXT," +
+                ClusterTable.C_SYNCED_DATE + " TEXT" +
                 " );";
 
         final String SQL_CREATE_TEHSIL_TABLE = "CREATE TABLE " + TehsilTable.TABLE_NAME + " (" +
@@ -157,6 +170,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_PW_TABLE);
         db.execSQL(SQL_CREATE_CHILD_TABLE);
+        db.execSQL(SQL_CREATE_CLUSTER_TABLE);
         db.execSQL(SQL_CREATE_TEHSIL_TABLE);
         db.execSQL(SQL_CREATE_UC_TABLE);
         db.execSQL(SQL_CREATE_VILLAGE_TABLE);
@@ -177,6 +191,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + LHWTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ChildTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ClusterTable.TABLE_NAME);
         onCreate(db);
     }
 
@@ -203,6 +218,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
+        values.put(ListingEntry.COLUMN_UUID, lc.getUUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
@@ -221,7 +237,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
-        values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
@@ -240,6 +255,66 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
+    public Long addChild(ChildContract cc) {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+
+//        values.put(ClusterTable._ID, cc.getID());
+        values.put(ChildTable.C_UUID, cc.getUUID());
+        values.put(ChildTable.C_UID, cc.getUID());
+        values.put(ChildTable.C_CDT, cc.getcDT());
+        values.put(ChildTable.C_USERNAME, cc.getUserName());
+        values.put(ChildTable.C_CHILDNAME, cc.getChildName());
+        values.put(ChildTable.C_CCHH12D, cc.getHh12d());
+        values.put(ChildTable.C_CCHH12M, cc.getHh12m());
+        values.put(ChildTable.C_DEVICE_ID, cc.getDeviceId());
+        values.put(ChildTable.C_LHW_CODE, cc.getLhwCode());
+        values.put(ChildTable.C_HOUSEHOLD, cc.getHousehold());
+        values.put(ChildTable.C_SYNCED, cc.getSynced());
+        values.put(ChildTable.C_SYNCED_DATE, cc.getSyncedDate());
+
+        long newRowId;
+        newRowId = db.insert(
+                ChildTable.TABLE_NAME,
+                ChildTable.C_NULLABLE,
+                values);
+        DB_CC_ID = String.valueOf(newRowId);
+
+        return newRowId;
+    } 
+    
+    public Long addCluster(ClusterContract clc) {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+
+        values.put(ClusterTable.C_clDT, clc.getClDT());
+        values.put(ClusterTable.C_USERNAME, clc.getUserName());
+        values.put(ClusterTable.C_LHWPH, clc.getLhwPh());
+        values.put(ClusterTable.C_NO_HH, clc.getNoHH());
+        values.put(ClusterTable.C_NO_BISP, clc.getNoBISP());
+        values.put(ClusterTable.C_DEVICE_ID, clc.getDeviceId());
+        values.put(ClusterTable.C_LHW_CODE, clc.getLhwCode());
+        values.put(ClusterTable.C_SYNCED, clc.getSynced());
+        values.put(ClusterTable.C_SYNCED_DATE, clc.getSyncedDate());
+
+        long newRowId;
+        newRowId = db.insert(
+                ClusterTable.TABLE_NAME,
+                ClusterTable.C_NULLABLE,
+                values);
+        DB_CLC_ID = String.valueOf(newRowId);
+
+        return newRowId;
+    }
+    
     public Long addPw(PWContract pw) {
 
         // Gets the data repository in write mode
@@ -248,7 +323,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
 
-        values.put(PwTable.PW_ID, pw.getID());
+//        values.put(PwTable._ID, pw.getID());
         values.put(PwTable.PW_UUID, pw.getUUID());
         values.put(PwTable.PW_UID, pw.getUID());
         values.put(PwTable.PW_PWDT, pw.getMwDT());
@@ -292,6 +367,43 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
+    public int updateCc() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ChildTable.C_UID, AppMain.cc.getUID());
+
+
+// Which row to update, based on the ID
+        String selection = ChildTable._ID + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(AppMain.cc.getID())};
+
+        int count = db.update(ChildTable.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
+    }
+    
+    public int updateClc() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ClusterTable.C_UID, AppMain.clc.getUID());
+
+// Which row to update, based on the ID
+        String selection = ClusterTable._ID + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(AppMain.clc.getID())};
+
+        int count = db.update(ClusterTable.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
+    }
+
     public int updatePw() {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -319,8 +431,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_UID, AppMain.lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HH10, AppMain.lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, AppMain.lc.getHh11());
-        values.put(ListingEntry.COLUMN_NAME_HH12, AppMain.lc.getHh12());
-        values.put(ListingEntry.COLUMN_NAME_HH13, AppMain.lc.getHh13());
         values.put(ListingEntry.COLUMN_NAME_FORMSTATUS, "1");
 
 
@@ -342,6 +452,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String[] columns = {
                 ListingEntry._ID,
                 ListingEntry.COLUMN_NAME_UID,
+                ListingEntry.COLUMN_UUID,
                 ListingEntry.COLUMN_NAME_HHDATETIME,
                 ListingEntry.COLUMN_NAME_HH01,
                 ListingEntry.COLUMN_NAME_HH02,
@@ -359,9 +470,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09B,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
-                ListingEntry.COLUMN_NAME_HH12,
-                ListingEntry.COLUMN_NAME_HH13,
-                ListingEntry.COLUMN_NAME_CHILD_NAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
@@ -408,7 +516,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
-                PwTable.PW_ID,
+                PwTable._ID,
                 PwTable.PW_UUID,
                 PwTable.PW_UID,
                 PwTable.PW_PWDT,
@@ -836,6 +944,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(ListingEntry._ID, lc.getID());
         values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
+        values.put(ListingEntry.COLUMN_UUID, lc.getUUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
@@ -853,9 +962,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
-        values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
-        values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
-        values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
@@ -870,6 +976,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private ListingContract hydrate(Cursor c) {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
         lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
+        lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_UUID))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
@@ -887,9 +994,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh09b(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09B))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
-        lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
-        lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
-        lc.setHhChildNm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CHILD_NAME))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));

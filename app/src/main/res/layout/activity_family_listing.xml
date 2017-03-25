@@ -139,35 +139,35 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="24dp"
-              android:text="@string/hh12m" />
+              android:text="@string/noBISP" />
 
 
              <EditText
-                 android:id="@+id/hh12m"
+                 android:id="@+id/noBISP"
                  android:layout_width="0dp"
                  android:layout_height="wrap_content"
                  android:layout_marginTop="24dp"
                  android:layout_weight="1"
                  android:inputType="number"
                  android:maxLength="2"
-                 android:hint="@string/hh12m"
+                 android:hint="@string/noBISP"
                   />
 
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="24dp"
-              android:text="@string/hh12d" />
+              android:text="@string/noHH" />
 
           <EditText
-                 android:id="@+id/hh12d"
+                 android:id="@+id/noHH"
                  android:layout_width="0dp"
                  android:layout_height="wrap_content"
                  android:layout_marginTop="24dp"
                  android:layout_weight="1"
                  android:inputType="number"
                  android:maxLength="2"
-                android:hint="@string/hh12d"
+                android:hint="@string/noHH"
                   />
 
          </LinearLayout>

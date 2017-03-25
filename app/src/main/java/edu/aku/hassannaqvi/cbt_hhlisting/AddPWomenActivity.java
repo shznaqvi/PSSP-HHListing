@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddMarriedWomenActivity extends Activity {
+public class AddPWomenActivity extends Activity {
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
     @BindView(R.id.activity_add_married_women)
@@ -39,17 +39,17 @@ public class AddMarriedWomenActivity extends Activity {
     @BindView(R.id.btnAddMWRA)
     Button btnAddMWRA;
 
-    private String TAG = "AddMarriedWomenActivity";
+    private String TAG = "AddPWomenActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_married_women);
+        setContentView(R.layout.activity_add_p_women);
         ButterKnife.bind(this);
-        txtMwraListing.setText("MWRA Listing: " + AppMain.household + " (" + AppMain.pwCount + " of " + AppMain.pwTotal + ")");
+        txtMwraListing.setText("PW Listing: " + AppMain.household + " (" + AppMain.pwCount + " of " + AppMain.pwTotal + ")");
 
-        pw03.setMinDate((long) (new Date().getTime() - ((AppMain.MILLISECONDS_IN_YEAR * 0.9) + AppMain.MILLISECONDS_IN_DAY)));
-        pw03.setMaxDate(new Date().getTime() + AppMain.MILLISECONDS_IN_DAY);
+        pw03.setMinDate(System.currentTimeMillis() - 1000);
+        pw03.setMaxDate(new Date().getTime() + AppMain.MILLISECONDS_IN_DAY * 30 * 9);
 
 
         if (AppMain.pwCount < AppMain.pwTotal) {
@@ -85,7 +85,7 @@ public class AddMarriedWomenActivity extends Activity {
             if (UpdateDB()) {
                 AppMain.pwCount++;
                 Toast.makeText(this, AppMain.pwCount + ":" + AppMain.pwTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
-                Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
+                Intent mwraA = new Intent(this, AddPWomenActivity.class);
                 startActivity(mwraA);
             }
 
@@ -102,7 +102,7 @@ public class AddMarriedWomenActivity extends Activity {
         AppMain.pw.setMwDT(dtToday);
         AppMain.pw.setMwVillageCode(AppMain.lc.getHh02());
         Log.d(TAG, "SaveDraft-hh02: " + AppMain.lc.getHh02());
-        AppMain.pw.setMwStructureNo(AppMain.lc.getHh03() + "-" + AppMain.lc.getHh07());
+        AppMain.pw.setMwStructureNo(AppMain.lc.getHh03());
         Log.d(TAG, "SaveDraft-hh07: " + AppMain.lc.getHh07());
 
         AppMain.pw.setPw01(pw01.getText().toString());
@@ -114,15 +114,19 @@ public class AddMarriedWomenActivity extends Activity {
 
         AppMain.pw.setPw03(dateFormat.format(cal.getTime()));
 
+        AppMain.pw.setDeviceId(AppMain.lc.getDeviceID());
+        AppMain.pw.setLhwCode(AppMain.hh02txt );
+        AppMain.pw.setHousehold(AppMain.household);
+
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
     }
 
     private boolean formValidation() {
 
         if (pw01.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Empty(hh12d):" + getResources().getString(R.string.pw01), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Empty(noHH):" + getResources().getString(R.string.pw01), Toast.LENGTH_LONG).show();
             pw01.setError("Cannot be empty");
-            Log.i(TAG, "hh12d not given");
+            Log.i(TAG, "noHH not given");
             return false;
         } else {
             pw01.setError(null);
@@ -136,6 +140,16 @@ public class AddMarriedWomenActivity extends Activity {
 
         } else {
             pw02.setError(null);
+
+            if (Integer.parseInt(pw02.getText().toString()) < 1 || Integer.parseInt(pw02.getText().toString()) > 49) {
+                Toast.makeText(this, "Invalid(mw04):" + getResources().getString(R.string.pw02), Toast.LENGTH_LONG).show();
+                pw02.setError("Invalid:Range 1 - 49");
+                Log.i(TAG, "Invalid(mw04):Range 1 - 49");
+                return false;
+
+            } else {
+                pw02.setError(null);
+            }
         }
 
 
@@ -150,11 +164,10 @@ public class AddMarriedWomenActivity extends Activity {
 
         AppMain.pw.setID(rowId);
 
-
         if (rowId != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
             AppMain.pw.setUID(
-                    (AppMain.lc.getDeviceID() + AppMain.pw.getID()));
+                    (AppMain.pw.getDeviceId() + AppMain.pw.getID()));
             db.updatePw();
             Toast.makeText(this, "Current Form No: " + AppMain.lc.getUID(), Toast.LENGTH_SHORT).show();
         } else {

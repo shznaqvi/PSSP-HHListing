@@ -3,12 +3,16 @@ package edu.aku.hassannaqvi.cbt_hhlisting;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,12 +32,15 @@ public class LHWActivity extends Activity {
     @BindView(R.id.lhwg)
     EditText lhwg;
 
+    String dtToday;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lhw);
         ButterKnife.bind(this);
 
+        dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
     }
 
     @OnClick(R.id.next)
@@ -43,30 +50,47 @@ public class LHWActivity extends Activity {
         if (formValidation()) {
 
             SaveDraft();
-            if (UpdateDB()) {
-                startActivity(new Intent(this, setupActivity.class));
-            }
+//            if (UpdateDB()) {
+            finish();
+            startActivity(new Intent(this, setupActivity.class));
+//            }
 
         }
 
     }
 
     private boolean UpdateDB() {
-        /*FormsDBHelper db = new FormsDBHelper(this);
-        long updcount = db.addForm(AppMain.lc);
+        FormsDBHelper db = new FormsDBHelper(this);
+        long updcount = db.addCluster(AppMain.clc);
+
+        AppMain.clc.setID(updcount);
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.lc.setHhChildNm(null);
-            AppMain.lc.setHh12d(null);
-            AppMain.lc.setHh12m(null);
+
+            AppMain.clc.setUID(AppMain.clc.getDeviceId() + AppMain.clc.getID());
+
+            db.updateClc();
+
+
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
-        }*/
+        }
         return true;
     }
 
     private void SaveDraft() {
+        AppMain.clc = new ClusterContract();
+
+        AppMain.clc.setClDT(dtToday);
+        AppMain.clc.setUserName(AppMain.userName);
+        AppMain.clc.setLhwPh(lhwe.getText().toString());
+        AppMain.clc.setNoHH(lhwf.getText().toString());
+        AppMain.clc.setNoBISP(lhwg.getText().toString());
+        AppMain.clc.setDeviceId(Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID));
+        AppMain.clc.setLhwCode(AppMain.hh02txt);
+
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure ");
     }
@@ -109,9 +133,9 @@ public class LHWActivity extends Activity {
             lhwg.setError(null);
 
             if (Integer.parseInt(lhwg.getText().toString()) < 1 || Integer.parseInt(lhwg.getText().toString()) > Integer.parseInt(lhwf.getText().toString())) {
-                Toast.makeText(this, "Invalid(Error):Range 1-"+Integer.parseInt(lhwf.getText().toString()), Toast.LENGTH_LONG).show();
-                lhwg.setError("Invalid(Error):Range 1-"+Integer.parseInt(lhwf.getText().toString()));
-                Log.i(TAG, "lhwg: Range 1-"+Integer.parseInt(lhwf.getText().toString()));
+                Toast.makeText(this, "Error(Invalid)", Toast.LENGTH_LONG).show();
+                lhwg.setError("Error(Invalid)");
+                Log.i(TAG, "lhwg: Error(Invalid)");
                 return false;
             } else {
                 lhwg.setError(null);

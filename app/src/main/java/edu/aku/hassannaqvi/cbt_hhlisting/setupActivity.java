@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -85,7 +86,7 @@ public class setupActivity extends Activity {
     @BindView(R.id.btnChangeVillage)
     ToggleButton btnChangeVillage;
 
-
+    FormsDBHelper db;
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
     private String TAG = "Setup Activity";
@@ -98,6 +99,8 @@ public class setupActivity extends Activity {
 
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+
+        db = new FormsDBHelper(this);
 
         if (AppMain.hh02txt == null) {
             AppMain.hh03txt = 1;
@@ -284,9 +287,16 @@ public class setupActivity extends Activity {
         }
         if (formValidation()) {
             SaveDraft();
-            AppMain.fCount++;
-            Intent fA = new Intent(this, FamilyListingActivity.class);
-            startActivity(fA);
+            if (UpdateClusterContract()) {
+                AppMain.fCount++;
+
+                AppMain.UCsCodeFlag = false;
+                AppMain.VillageCodeFlag = false;
+
+                finish();
+                Intent fA = new Intent(this, FamilyListingActivity.class);
+                startActivity(fA);
+            }
         }
 
     }
@@ -295,6 +305,7 @@ public class setupActivity extends Activity {
     void onBtnChangePSUClick() {
 
         AppMain.hh02txt = null;
+        finish();
         Intent fA = new Intent(this, MainActivity.class);
         startActivity(fA);
 
@@ -312,6 +323,9 @@ public class setupActivity extends Activity {
     private void SaveDraft() {
 
         AppMain.lc = new ListingContract();
+
+        AppMain.lc.setUUID(AppMain.clc.getUID());
+
         AppMain.lc.setHhDT(dtToday);
         AppMain.lc.setHh01(AppMain.hh01txt);
         AppMain.lc.setHh02(AppMain.hh02txt);
@@ -379,15 +393,38 @@ public class setupActivity extends Activity {
 //        } else {
 //            hh02.setError(null);
 //        }
-        if (btnChangeVillage.isChecked()) {
-            Toast.makeText(this, "Error(Invalid): Close the Edit Mode", Toast.LENGTH_LONG).show();
-            Log.i(TAG, "btnChangeVillage():Close the Edit Mode");
+
+        TextView txt_uc = (TextView) lhwaUCname.getSelectedView();
+        if (lhwaUCname.getSelectedItem().toString().contains("...")) {
+            Toast.makeText(this, "Error(Required):Data Required", Toast.LENGTH_LONG).show();
+            txt_uc.setTextColor(Color.RED);
+            txt_uc.setText("Data Required");
+            txt_uc.setError("Error(Required):Data Required");
             return false;
+        } else {
+            txt_uc.setError(null);
         }
 
+        TextView txt_village = (TextView) lhwcVillage.getSelectedView();
+        if (lhwcVillage.getSelectedItem().toString().contains("...")) {
+            Toast.makeText(this, "Error(Required):Data Required", Toast.LENGTH_LONG).show();
+            txt_village.setTextColor(Color.RED);
+            txt_village.setText("Data Required");
+            txt_village.setError("Error(Required):Data Required");
+            return false;
+        } else {
+            txt_village.setError(null);
+        }
+
+//        if (btnChangeVillage.isChecked()) {
+//            Toast.makeText(this, "Error(Invalid): Close the Edit Mode", Toast.LENGTH_LONG).show();
+//            Log.i(TAG, "btnChangeVillage():Close the Edit Mode");
+//            return false;
+//        }
+
         if (hhadd.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Error(Invalid):Data Required", Toast.LENGTH_LONG).show();
-            hhadd.setError("Error(Invalid):Data Required");
+            Toast.makeText(this, "Error(Required):Data Required", Toast.LENGTH_LONG).show();
+            hhadd.setError("Error(Required):Data Required");
             Log.i(TAG, "hhadd:Data Required");
             return false;
         } else {
@@ -395,8 +432,8 @@ public class setupActivity extends Activity {
         }
 
         if (hh04.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Error(Invalid):Please one option", Toast.LENGTH_LONG).show();
-            hh04x.setError("Error(Invalid):Please one option");
+            Toast.makeText(this, "Error(Required):Please one option", Toast.LENGTH_LONG).show();
+            hh04x.setError("Error(Required):Please one option");
             Log.i(TAG, "hh04x:Please one option");
             return false;
         } else {
@@ -422,9 +459,9 @@ public class setupActivity extends Activity {
         }
 
         if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) < 2) {
-            Toast.makeText(this, "Answers do not match!", Toast.LENGTH_LONG).show();
-            hh06.setError("Answers do not match!");
-            Log.i(TAG, "Answers do not match!");
+            Toast.makeText(this, "Error(Invalid):Greater than 1", Toast.LENGTH_LONG).show();
+            hh06.setError("Error(Invalid):Greater than 1");
+            Log.i(TAG, "hh06:Greater than 1");
             return false;
         } else {
             hh06.setError(null);
@@ -441,20 +478,27 @@ public class setupActivity extends Activity {
         if (formValidation()) {
 
             SaveDraft();
-            if (UpdateDB()) {
-                AppMain.fCount = 0;
-                AppMain.fTotal = 0;
-                AppMain.cCount = 0;
-                AppMain.cTotal = 0;
-                Intent fA = new Intent(this, setupActivity.class);
-                startActivity(fA);
+            if (UpdateClusterContract()) {
+                if (UpdateDB()) {
 
+                    AppMain.UCsCodeFlag = false;
+                    AppMain.VillageCodeFlag = false;
+
+                    AppMain.fCount = 0;
+                    AppMain.fTotal = 0;
+                    AppMain.cCount = 0;
+                    AppMain.cTotal = 0;
+                    finish();
+                    Intent fA = new Intent(this, setupActivity.class);
+                    startActivity(fA);
+
+                }
             }
         }
     }
 
     private boolean UpdateDB() {
-        FormsDBHelper db = new FormsDBHelper(this);
+
         Log.d(TAG, "UpdateDB: Structure" + AppMain.lc.getHh03().toString());
 
         long updcount = db.addForm(AppMain.lc);
@@ -466,6 +510,26 @@ public class setupActivity extends Activity {
         }
         return true;
     }
+
+    private boolean UpdateClusterContract(){
+        long updcount = db.addCluster(AppMain.clc);
+
+        AppMain.clc.setID(updcount);
+
+        if (updcount != 0) {
+            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+
+            AppMain.clc.setUID(AppMain.clc.getDeviceId() + AppMain.clc.getID());
+
+            db.updateClc();
+
+
+        } else {
+            Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+        }
+        return true;
+    }
+
 
     @Override
     public void onBackPressed() {

@@ -69,52 +69,52 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
 
-        <TextView
-            android:layout_width="231dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_weight="0.25"
-            android:text="@string/hh12" />
+        <!--<TextView-->
+            <!--android:layout_width="231dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="24dp"-->
+            <!--android:layout_weight="0.25"-->
+            <!--android:text="@string/hh14" />-->
 
-        <Switch
-            android:id="@+id/hh12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_weight="1"
-            android:textOff="@string/no"
-            android:textOn="@string/yes" />
-    </LinearLayout>
+        <!--<Switch-->
+            <!--android:id="@+id/hh12"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="24dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textOff="@string/no"-->
+            <!--android:textOn="@string/yes" />-->
+    <!--</LinearLayout>-->
 
-    <LinearLayout
-        android:id="@+id/fldGrpHH13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/fldGrpHH13"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:visibility="gone">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/hh13" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="24dp"-->
+            <!--android:text="@string/hh15" />-->
 
-        <EditText
-            android:id="@+id/hh13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_weight="1"
-            android:digits="qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM"
-            android:inputType="text"
-            android:maxLength="24" />
+        <!--<EditText-->
+            <!--android:id="@+id/hh13"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="24dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:digits="qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM"-->
+            <!--android:inputType="text"-->
+            <!--android:maxLength="24" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <Button
         android:id="@+id/btnAddFamily"

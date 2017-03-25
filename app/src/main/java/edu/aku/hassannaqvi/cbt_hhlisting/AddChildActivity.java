@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -39,16 +42,25 @@ public class AddChildActivity extends Activity {
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
 
+    FormsDBHelper db;
+    String dtToday;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_child);
         ButterKnife.bind(this);
-        txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + (AppMain.cCount + 1) + " of " + AppMain.cTotal + ")");
-        if (AppMain.cCount < (AppMain.cTotal-1)) {
+
+        dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
+
+        AppMain.cCount++;
+
+        txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + (AppMain.cCount) + " of " + AppMain.cTotal + ")");
+        if (AppMain.cCount <= (AppMain.cTotal-1)) {
             btnAddChild.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
             btnAddFamilty.setVisibility(View.GONE);
+//        } else if (AppMain.cCount >= AppMain.cTotal && AppMain.fCount < AppMain.fTotal) {
         } else if (AppMain.cCount >= AppMain.cTotal && AppMain.fCount < AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
@@ -59,6 +71,8 @@ public class AddChildActivity extends Activity {
             btnAddChild.setVisibility(View.GONE);
         }
 
+        db = new FormsDBHelper(this);
+
     }
 
     @OnClick(R.id.btnAddChild)
@@ -67,10 +81,9 @@ public class AddChildActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                AppMain.cCount++;
+//                AppMain.cCount++;
 
-                AppMain.lc.setHhChildNm(null);
-
+                finish();
                 Intent fA = new Intent(this, AddChildActivity.class);
                 startActivity(fA);
             }
@@ -79,16 +92,16 @@ public class AddChildActivity extends Activity {
     }
 
     private boolean UpdateDB() {
-        FormsDBHelper db = new FormsDBHelper(this);
+        long updcount = db.addChild(AppMain.cc);
 
-
-        long updcount = db.addForm(AppMain.lc);
+        AppMain.cc.setID(updcount);
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.lc.setHhChildNm(null);
-//            AppMain.lc.setHh12d(null);
-//            AppMain.lc.setHh12m(null);
+            AppMain.cc.setUID(
+                    (AppMain.cc.getDeviceId() + AppMain.cc.getID()));
+            db.updateCc();
+            Toast.makeText(this, "Current Form No: " + AppMain.cc.getUID(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
@@ -96,9 +109,18 @@ public class AddChildActivity extends Activity {
     }
 
     private void SaveDraft() {
-        AppMain.lc.setHhChildNm(icName.getText().toString());
-//        AppMain.lc.setHh12d(icAgeD.getText().toString());
-//        AppMain.lc.setHh12m(icAgeM.getText().toString());
+
+        AppMain.cc = new ChildContract();
+
+        AppMain.cc.setUUID(AppMain.lc.getUID());
+        AppMain.cc.setcDT(dtToday);
+        AppMain.cc.setUserName(AppMain.userName);
+        AppMain.cc.setChildName(icName.getText().toString());
+        AppMain.cc.setHh12d(icAgeD.getText().toString());
+        AppMain.cc.setHh12m(icAgeM.getText().toString());
+        AppMain.cc.setDeviceId(AppMain.lc.getDeviceID());
+        AppMain.cc.setLhwCode(AppMain.hh02txt );
+        AppMain.cc.setHousehold(AppMain.household);
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
     }
@@ -120,7 +142,7 @@ public class AddChildActivity extends Activity {
             Log.i(TAG, "Invalid(Error):Please enter age");
             return false;
         }
-        if (Integer.valueOf(icAgeM.getText().toString()) < 1 || Integer.valueOf(icAgeM.getText().toString()) > 11) {
+        if (Integer.valueOf(icAgeM.getText().toString()) < 0 || Integer.valueOf(icAgeM.getText().toString()) > 5) {
             Toast.makeText(this, "Invalid(Error):Invalid Age Months", Toast.LENGTH_LONG).show();
             icAgeM.setError("Invalid(Error):Invalid enter age");
             Log.i(TAG, "Invalid(Error):Please enter age");
@@ -168,6 +190,7 @@ public class AddChildActivity extends Activity {
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
                 AppMain.fCount++;
 
+                finish();
                 Intent fA = new Intent(this, FamilyListingActivity.class);
                 startActivity(fA);
                 try {
@@ -190,6 +213,9 @@ public class AddChildActivity extends Activity {
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
+
+                finish();
+
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
 

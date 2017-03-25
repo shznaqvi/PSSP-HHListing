@@ -36,9 +36,11 @@ public class AppMain extends Application {
     public static final long MILLISECONDS_IN_YEAR = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAYS_IN_YEAR;
 
 
-    public static String UserName;
+    public static String userName;
     public static ListingContract lc;
     public static PWContract pw;
+    public static ChildContract cc;
+    public static ClusterContract clc;
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static int hh03txt = 0;
@@ -114,9 +116,11 @@ public class AppMain extends Application {
             SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
 
+            String dt = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(sharedPref.getString("Time", "0"))).toString();
+
             Location bestLocation = new Location("storedProvider");
             bestLocation.setAccuracy(Float.parseFloat(sharedPref.getString("Accuracy", "0")));
-            bestLocation.setTime(Long.parseLong(sharedPref.getString("Time", "0")));
+            bestLocation.setTime(Long.parseLong(sharedPref.getString(dt, "0")));
             bestLocation.setLatitude(Float.parseFloat(sharedPref.getString("Latitude", "0")));
             bestLocation.setLongitude(Float.parseFloat(sharedPref.getString("Longitude", "0")));
 
@@ -125,13 +129,13 @@ public class AppMain extends Application {
                 editor.putString("Latitude", String.valueOf(location.getLatitude()));
                 editor.putString("Accuracy", String.valueOf(location.getAccuracy()));
                 editor.putString("Time", String.valueOf(location.getTime()));
-                String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();
-                Toast.makeText(getApplicationContext(),
-                        "GPS Commit! LAT: " + String.valueOf(location.getLongitude()) +
-                                " LNG: " + String.valueOf(location.getLatitude()) +
-                                " Accuracy: " + String.valueOf(location.getAccuracy()) +
-                                " Time: " + date,
-                        Toast.LENGTH_SHORT).show();
+//                String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();
+//                Toast.makeText(getApplicationContext(),
+//                        "GPS Commit! LAT: " + String.valueOf(location.getLongitude()) +
+//                                " LNG: " + String.valueOf(location.getLatitude()) +
+//                                " Accuracy: " + String.valueOf(location.getAccuracy()) +
+//                                " Time: " + date,
+//                        Toast.LENGTH_SHORT).show();
 
                 editor.apply();
             }
@@ -207,11 +211,18 @@ public class AppMain extends Application {
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (location != null) {
-                String message = String.format(
-                        "Current Location \n Longitude: %1$s \n Latitude: %2$s",
-                        location.getLongitude(), location.getLatitude()
-                );
-                Toast.makeText(AppMain.this, message,
+//                String message = String.format(
+//                        "Current Location \n Longitude: %1$s \n Latitude: %2$s",
+//                        location.getLongitude(), location.getLatitude()
+//                );
+//                Toast.makeText(AppMain.this, message,
+//                        Toast.LENGTH_SHORT).show();
+                String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();
+                Toast.makeText(getApplicationContext(),
+                        "GPS Commit! LAT: " + String.valueOf(location.getLongitude()) +
+                                " LNG: " + String.valueOf(location.getLatitude()) +
+                                " Accuracy: " + String.valueOf(location.getAccuracy()) +
+                                " Time: " + date,
                         Toast.LENGTH_SHORT).show();
             }
 

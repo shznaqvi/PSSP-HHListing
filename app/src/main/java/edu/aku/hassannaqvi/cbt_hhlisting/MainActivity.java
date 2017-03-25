@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 //    @BindView(R.id.psuN)
 //    TextView psuN;
 
-    Map<String,String> tehsils;
+    Map<String,String> tehsils,lhws;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +110,10 @@ public class MainActivity extends Activity {
                 AppMain.hh01txt = hfCodes.get(position);
 
                 lhwName = new ArrayList<String>();
+                lhws = new HashMap<String, String>();
                 Collection<LHWsContract> lhwc = db.getAllLhwsByHf(hfCodes.get(position));
                 for (LHWsContract lhw : lhwc) {
+                    lhws.put(""+(lhw.getLHWName()+" ("+lhw.getLHWCode()+")"),lhw.getLHWCode());
                     lhwName.add(lhw.getLHWName()+" ("+lhw.getLHWCode()+")");
                 }
                 ArrayAdapter<String> psuAdapter = new ArrayAdapter<String>(MainActivity.this,
@@ -132,7 +134,7 @@ public class MainActivity extends Activity {
         mN03.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                AppMain.hh02txt = lhwName.get(position);
+                AppMain.hh02txt = lhws.get(lhwName.get(position));
                 /*Collection<LHWsContract> lhwc = db.getAllLhwsByHf(AppMain.hh01txt);
                 for (LHWsContract l : lhwc) {
                     Log.d(TAG, "onItemSelected: " + l.getLHWCode() + " -" + AppMain.hh02txt);
@@ -288,4 +290,10 @@ public class MainActivity extends Activity {
 
         }
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();
+//
+//    }
 }

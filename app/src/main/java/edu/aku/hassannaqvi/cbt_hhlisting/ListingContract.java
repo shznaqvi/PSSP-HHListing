@@ -13,6 +13,7 @@ public class ListingContract {
     public String userName;
     public String ID;
     public String UID;
+    public String UUID;
     public String hhDT;
     public String hh01; // District/UC
     public String hh02; // Cluster
@@ -31,9 +32,7 @@ public class ListingContract {
     //====================
     public String hh10; // Child U-6m
     public String hh11; // No. of Children
-    public String hh12;
-    public String hh13;
-    public String hhChildNm;
+
     public String DeviceID;
     public String GPSLat;
     public String GPSLng;
@@ -60,6 +59,14 @@ public class ListingContract {
         this.GPSLng = GPSLng;
         this.GPSTime = GPSTime;
         this.GPSAcc = GPSAcc;
+    }
+
+    public String getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(String UUID) {
+        this.UUID = UUID;
     }
 
     public String getUserName() {
@@ -222,30 +229,6 @@ public class ListingContract {
         this.hh11 = hh11;
     }
 
-    public String getHh12() {
-        return hh12;
-    }
-
-    public void setHh12(String hh12) {
-        this.hh12 = hh12;
-    }
-
-    public String getHh13() {
-        return hh13;
-    }
-
-    public void setHh13(String hh13) {
-        this.hh13 = hh13;
-    }
-
-    public String getHhChildNm() {
-        return hhChildNm;
-    }
-
-    public void setHhChildNm(String hhChildNm) {
-        this.hhChildNm = hhChildNm;
-    }
-
     public String getDeviceID() {
         return DeviceID;
     }
@@ -306,6 +289,7 @@ public class ListingContract {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
         json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
+        json.put(ListingEntry.COLUMN_UUID, this.UUID);
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
@@ -323,10 +307,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH09B, this.hh09b);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
-        json.put(ListingEntry.COLUMN_NAME_HH12, this.hh12);
-        json.put(ListingEntry.COLUMN_NAME_HH13, this.hh13);
 
-        json.put(ListingEntry.COLUMN_NAME_CHILD_NAME, this.hhChildNm);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
         json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
         json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
@@ -345,6 +326,7 @@ public class ListingContract {
         public static final String TABLE_NAME = "listings";
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
         public static final String _ID = "_id";
+        public static final String COLUMN_UUID = "uuid";
         public static final String COLUMN_NAME_UID = "uid";
         public static final String COLUMN_NAME_HHDATETIME = "hhdt";
         public static final String COLUMN_NAME_HH01 = "hh01";
@@ -363,10 +345,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH09B = "hh09b";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
-        public static final String COLUMN_NAME_HH12 = "hh12";
-        public static final String COLUMN_NAME_HH13 = "hh13";
 
-        public static final String COLUMN_NAME_CHILD_NAME = "child_name";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
         public static final String COLUMN_NAME_GPSLng = "gpslng";

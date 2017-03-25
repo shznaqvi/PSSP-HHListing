@@ -33,7 +33,7 @@ public class PWContract {
     }
 
     public PWContract Sync(JSONObject jsonObject) throws JSONException {
-        this.ID = jsonObject.getLong(PwTable.PW_ID);
+        this.ID = jsonObject.getLong(PwTable._ID);
         this.UUID = jsonObject.getString(PwTable.PW_UUID);
         this.UID = jsonObject.getString(PwTable.PW_UID);
         this.mwDT = jsonObject.getString(PwTable.PW_PWDT);
@@ -52,7 +52,7 @@ public class PWContract {
     }
 
     public PWContract Hydrate(Cursor cursor) {
-        this.ID = cursor.getLong(cursor.getColumnIndex(PwTable.PW_ID));
+        this.ID = cursor.getLong(cursor.getColumnIndex(PwTable._ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(PwTable.PW_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(PwTable.PW_UID));
         this.mwDT = cursor.getString(cursor.getColumnIndex(PwTable.PW_PWDT));
@@ -185,7 +185,7 @@ public class PWContract {
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
 
-        json.put(PwTable.PW_ID, this.ID == null ? JSONObject.NULL : this.ID);
+        json.put(PwTable._ID, this.ID == null ? JSONObject.NULL : this.ID);
         json.put(PwTable.PW_UUID, this.UUID == null ? JSONObject.NULL : this.UUID);
         json.put(PwTable.PW_UID, this.UID == null ? JSONObject.NULL : this.UID);
         json.put(PwTable.PW_PWDT, this.mwDT == null ? JSONObject.NULL : this.mwDT);
@@ -208,7 +208,7 @@ public class PWContract {
 
         public static final String TABLE_NAME = "pw";
         public static final String PW_NULLABLE = "NULLHACK";
-        public static final String PW_ID = "_id";
+        public static final String _ID = "_id";
         public static final String PW_UUID = "uuid";
         public static final String PW_UID = "uid";
         public static final String PW_PWDT = "pwdt";

@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.cbt_hhlisting.AddMarriedWomenActivity">
+    tools:context="edu.aku.hassannaqvi.cbt_hhlisting.AddPWomenActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:background="#d6d6d6"
-            android:text="Information of MWRA"
+            android:text="Information of PW"
             android:textAlignment="center" />
 
 
@@ -67,9 +67,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="24"
-                android:digits="@string/txtName"
-                android:inputType="text"
-                android:maxLength="24" />
+                android:digits="0123456789"
+                android:inputType="number"
+                android:maxLength="2" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,6 +85,7 @@
 
             <DatePicker
                 android:id="@+id/pw03"
+                android:calendarViewShown="false"
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"></DatePicker>
@@ -97,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:onClick="addMWRA"
-            android:text="Add Married Women"
+            android:text="Add Pregnant Women"
             android:visibility="gone" />
 
         <Button

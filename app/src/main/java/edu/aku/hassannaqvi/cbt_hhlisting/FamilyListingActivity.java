@@ -48,15 +48,15 @@ public class FamilyListingActivity extends Activity {
         setContentView(R.layout.activity_family_listing);
         ButterKnife.bind(this);
 
+        AppMain.household = AppMain.hh03txt + "-" + AppMain.hh07txt;
 
         txtFamilyListing.setText("Family Listing: " + AppMain.household);
-        AppMain.lc.setHhChildNm(null);
 
         /*if (AppMain.fCount < AppMain.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
+            btnAddFamily.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
         } else {
-            btnAddFamilty.setVisibility(View.GONE);
+            btnAddFamily.setVisibility(View.GONE);
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
 */
@@ -87,17 +87,17 @@ public class FamilyListingActivity extends Activity {
                 if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
                     Toast.makeText(FamilyListingActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
                     btnAddMWRA.setVisibility(View.VISIBLE);
-                    /*btnAddFamilty.setVisibility(View.GONE);
+                    /*btnAddFamily.setVisibility(View.GONE);
                     btnAddHousehold.setVisibility(View.GONE);*/
                     btnContNextQ.setVisibility(View.GONE);
                 } else {
                     btnAddMWRA.setVisibility(View.GONE);
                     btnContNextQ.setVisibility(View.VISIBLE);
                    /* if (AppMain.fCount < AppMain.fTotal) {
-                        btnAddFamilty.setVisibility(View.VISIBLE);
+                        btnAddFamily.setVisibility(View.VISIBLE);
                         btnAddHousehold.setVisibility(View.GONE);
                     } else {
-                        btnAddFamilty.setVisibility(View.GONE);
+                        btnAddFamily.setVisibility(View.GONE);
                         btnAddHousehold.setVisibility(View.VISIBLE);
                     }*/
 
@@ -118,8 +118,8 @@ public class FamilyListingActivity extends Activity {
             SaveDraft();
             if (UpdateDB()) {
 
-                db.addForm(AppMain.lc);
-
+//                db.addForm(AppMain.lc);
+                finish();
                 Intent closeA = new Intent(this, ClosingActivity.class);
                 startActivity(closeA);
             } else {
@@ -137,13 +137,16 @@ public class FamilyListingActivity extends Activity {
             SaveDraft();
             if (UpdateDB()) {
 
-                db.addForm(AppMain.lc);
+//                db.addForm(AppMain.lc);
 
                 AppMain.pwTotal = Integer.parseInt(hh09b.getText().toString());
                 AppMain.pwCount = 1;
                 Toast.makeText(this, AppMain.pwCount + ":" + AppMain.pwTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
-                Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
-                startActivity(mwraA);
+
+                finish();
+
+                Intent pwA = new Intent(this, AddPWomenActivity.class);
+                startActivity(pwA);
             } else {
                 Toast.makeText(this, "Saving Draft... Failed!", Toast.LENGTH_LONG).show();
             }
@@ -197,7 +200,7 @@ public class FamilyListingActivity extends Activity {
 
         if (!hh09b.getText().toString().isEmpty() && Integer.valueOf(hh09b.getText().toString()) < 1) {
             Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
-            hh09.setError("Invalid Value!");
+            hh09b.setError("Invalid Value!");
             Log.i(TAG, "Invalid Value!");
             return false;
         } else {
@@ -250,7 +253,6 @@ public class FamilyListingActivity extends Activity {
 
         AppMain.lc.setID(String.valueOf(rowId));
 
-
         if (rowId != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
             AppMain.lc.setUID(
@@ -265,18 +267,37 @@ public class FamilyListingActivity extends Activity {
     public void setGPS() {
         SharedPreferences GPSPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
 
-        // CONVERTING GPS TIMESTAMP TO DATETIME FORMAT
-        String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
+//        String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
 
-        AppMain.lc.setGPSLat(GPSPref.getString("Latitude", "0"));
-        AppMain.lc.setGPSLng(GPSPref.getString("Longitude", "0"));
-        AppMain.lc.setGPSAcc(GPSPref.getString("Accuracy", "0"));
-        AppMain.lc.setGPSTime(GPSPref.getString(date, "0")); // Timestamp is converted to date above
+        try {
+            String lat = GPSPref.getString("Latitude", "0");
+            String lang = GPSPref.getString("Longitude", "0");
+            String acc = GPSPref.getString("Accuracy", "0");
+            String dt = GPSPref.getString("Time", "0");
 
-        Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+            if (lat == "0" && lang == "0") {
+                Toast.makeText(this, "Could not obtained GPS points", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+            }
+
+            String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
+
+            AppMain.lc.setGPSLat(GPSPref.getString("Latitude", "0"));
+            AppMain.lc.setGPSLng(GPSPref.getString("Longitude", "0"));
+            AppMain.lc.setGPSAcc(GPSPref.getString("Accuracy", "0"));
+//            AppMain.fc.setGpsTime(GPSPref.getString(date, "0")); // Timestamp is converted to date above
+            AppMain.lc.setGPSTime(date); // Timestamp is converted to date above
+
+            Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Log.e(TAG, "setGPS: " + e.getMessage());
+        }
+
     }
-    
-    
+
+
     @Override
     public void onBackPressed() {
         Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();

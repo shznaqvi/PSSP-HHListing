@@ -15,7 +15,7 @@ public class ChildContract {
     public Long ID;
     public String UUID;
     public String UID;
-    public String mwDT;
+    public String cDT;
     public String userName; // username
     public String childName; // child name
     public String hh12d; // Days
@@ -31,14 +31,14 @@ public class ChildContract {
     }
 
     public ChildContract Sync(JSONObject jsonObject) throws JSONException {
-        this.ID = jsonObject.getLong(ChildTable.C_ID);
+        this.ID = jsonObject.getLong(ChildTable._ID);
         this.UUID = jsonObject.getString(ChildTable.C_UUID);
         this.UID = jsonObject.getString(ChildTable.C_UID);
-        this.mwDT = jsonObject.getString(ChildTable.C_MWDT);
+        this.cDT = jsonObject.getString(ChildTable.C_CDT);
         this.userName = jsonObject.getString(ChildTable.C_USERNAME);
         this.childName = jsonObject.getString(ChildTable.C_CHILDNAME);
-        this.hh12d = jsonObject.getString(ChildTable.C_PWHH12D);
-        this.hh12m = jsonObject.getString(ChildTable.C_PWHH12M);
+        this.hh12d = jsonObject.getString(ChildTable.C_CCHH12D);
+        this.hh12m = jsonObject.getString(ChildTable.C_CCHH12M);
         this.deviceId = jsonObject.getString(ChildTable.C_DEVICE_ID);
         this.lhwCode = jsonObject.getString(ChildTable.C_LHW_CODE);
         this.household = jsonObject.getString(ChildTable.C_HOUSEHOLD);
@@ -49,14 +49,14 @@ public class ChildContract {
     }
 
     public ChildContract Hydrate(Cursor cursor) {
-        this.ID = cursor.getLong(cursor.getColumnIndex(ChildTable.C_ID));
+        this.ID = cursor.getLong(cursor.getColumnIndex(ChildTable._ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(ChildTable.C_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(ChildTable.C_UID));
-        this.mwDT = cursor.getString(cursor.getColumnIndex(ChildTable.C_MWDT));
+        this.cDT = cursor.getString(cursor.getColumnIndex(ChildTable.C_CDT));
         this.userName = cursor.getString(cursor.getColumnIndex(ChildTable.C_USERNAME));
         this.childName = cursor.getString(cursor.getColumnIndex(ChildTable.C_CHILDNAME));
-        this.hh12d = cursor.getString(cursor.getColumnIndex(ChildTable.C_PWHH12D));
-        this.hh12m = cursor.getString(cursor.getColumnIndex(ChildTable.C_PWHH12M));
+        this.hh12d = cursor.getString(cursor.getColumnIndex(ChildTable.C_CCHH12D));
+        this.hh12m = cursor.getString(cursor.getColumnIndex(ChildTable.C_CCHH12M));
         this.deviceId = cursor.getString(cursor.getColumnIndex(ChildTable.C_DEVICE_ID));
         this.lhwCode = cursor.getString(cursor.getColumnIndex(ChildTable.C_LHW_CODE));
         this.household = cursor.getString(cursor.getColumnIndex(ChildTable.C_HOUSEHOLD));
@@ -90,12 +90,12 @@ public class ChildContract {
         this.UID = UID;
     }
 
-    public String getMwDT() {
-        return mwDT;
+    public String getcDT() {
+        return cDT;
     }
 
-    public void setMwDT(String mwDT) {
-        this.mwDT = mwDT;
+    public void setcDT(String cDT) {
+        this.cDT = cDT;
     }
 
     public String getUserName() {
@@ -173,14 +173,14 @@ public class ChildContract {
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
 
-        json.put(ChildTable.C_ID, this.ID == null ? JSONObject.NULL : this.ID);
+        json.put(ChildTable._ID, this.ID == null ? JSONObject.NULL : this.ID);
         json.put(ChildTable.C_UUID, this.UUID == null ? JSONObject.NULL : this.UUID);
         json.put(ChildTable.C_UID, this.UID == null ? JSONObject.NULL : this.UID);
-        json.put(ChildTable.C_MWDT, this.mwDT == null ? JSONObject.NULL : this.mwDT);
+        json.put(ChildTable.C_CDT, this.cDT == null ? JSONObject.NULL : this.cDT);
         json.put(ChildTable.C_USERNAME, this.userName == null ? JSONObject.NULL : this.userName);
         json.put(ChildTable.C_CHILDNAME, this.childName == null ? JSONObject.NULL : this.childName);
-        json.put(ChildTable.C_PWHH12D, this.hh12d == null ? JSONObject.NULL : this.hh12d);
-        json.put(ChildTable.C_PWHH12M, this.hh12m == null ? JSONObject.NULL : this.hh12m);
+        json.put(ChildTable.C_CCHH12D, this.hh12d == null ? JSONObject.NULL : this.hh12d);
+        json.put(ChildTable.C_CCHH12M, this.hh12m == null ? JSONObject.NULL : this.hh12m);
         json.put(ChildTable.C_DEVICE_ID, this.deviceId == null ? JSONObject.NULL : this.deviceId);
         json.put(ChildTable.C_LHW_CODE, this.lhwCode == null ? JSONObject.NULL : this.lhwCode);
         json.put(ChildTable.C_HOUSEHOLD, this.household == null ? JSONObject.NULL : this.household);
@@ -195,14 +195,14 @@ public class ChildContract {
 
         public static final String TABLE_NAME = "cw";
         public static final String C_NULLABLE = "NULLHACK";
-        public static final String C_ID = "_id";
+        public static final String _ID = "_id";
         public static final String C_UUID = "uuid";
         public static final String C_UID = "uid";
-        public static final String C_MWDT = "mwDT";
+        public static final String C_CDT = "cDT";
         public static final String C_USERNAME = "hh10";
         public static final String C_CHILDNAME = "hh11";
-        public static final String C_PWHH12D = "hh12d";
-        public static final String C_PWHH12M = "hh12m";
+        public static final String C_CCHH12D = "hh11d";
+        public static final String C_CCHH12M = "hh11m";
         public static final String C_DEVICE_ID = "deviceid";
         public static final String C_LHW_CODE = "lhw_code";
         public static final String C_HOUSEHOLD = "household";
