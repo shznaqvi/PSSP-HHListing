@@ -54,7 +54,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
     }
 
-    private String downloadUrl(String myurl) throws IOException {
+    private String syncData(String myurl) throws IOException {
         String line = "No Response";
 
         HttpURLConnection connection = null;
@@ -132,7 +132,8 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return downloadUrl(AppMain._IP + "/src/forms/");
+
+            return syncData(AppMain.PROJECT_URI + ListingContract.ListingEntry.URI);
         } catch (IOException e) {
             return "Unable to upload data. Server may be down.";
         }

@@ -324,6 +324,8 @@ public class ListingContract {
     public static abstract class ListingEntry implements BaseColumns {
 
         public static final String TABLE_NAME = "listings";
+        public static final String URI = "listings";
+
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
         public static final String _ID = "_id";
         public static final String COLUMN_LHWCODE = "lhw_code";
@@ -354,6 +356,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_ROUND = "round";
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_FORMSTATUS = "status";
+
 
     }
 }
