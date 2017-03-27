@@ -174,7 +174,7 @@ public class ClusterContract {
         public static final String _ID = "_id";
         public static final String C_UID = "uid";
         public static final String C_clDT = "clDT";
-        public static final String C_USERNAME = "hh10";
+        public static final String C_USERNAME = "user";
         public static final String C_LHWPH = "hh11";
         public static final String C_NO_HH = "noHH";
         public static final String C_NO_BISP = "noBISP";

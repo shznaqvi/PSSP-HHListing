@@ -71,6 +71,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_LHWCODE + " TEXT," +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
+                ListingEntry.COLUMN_NAME_USERNAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
@@ -90,6 +91,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 PwTable.PW_PW02 + " TEXT," +
                 PwTable.PW_PW03 + " TEXT," +
                 PwTable.PW_DEVICE_ID + " TEXT," +
+                PwTable.PW_USERNAME + " TEXT," +
                 PwTable.PW_LHW_CODE + " TEXT," +
                 PwTable.PW_HOUSEHOLD + " TEXT," +
                 PwTable.PW_SYNCED + " TEXT," +
@@ -238,6 +240,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
+        values.put(ListingEntry.COLUMN_NAME_USERNAME, lc.getUserName());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
@@ -332,6 +335,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(PwTable.PW_PW01, pw.getPw01());
         values.put(PwTable.PW_PW02, pw.getPw02());
         values.put(PwTable.PW_PW03, pw.getPw03());
+        values.put(PwTable.PW_USERNAME, pw.getUserName());
         values.put(PwTable.PW_DEVICE_ID, pw.getDeviceId());
         values.put(PwTable.PW_LHW_CODE, pw.getLhwCode());
         values.put(PwTable.PW_HOUSEHOLD, pw.getHousehold());
@@ -471,6 +475,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_DEVICEID,
+                ListingEntry.COLUMN_NAME_USERNAME,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
                 ListingEntry.COLUMN_NAME_GPSTime,
@@ -624,6 +629,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 PwTable.PW_UUID,
                 PwTable.PW_UID,
                 PwTable.PW_PWDT,
+                PwTable.PW_USERNAME,
                 PwTable.PW_PWVILLAGECODE,
                 PwTable.PW_PWSTRUCTURENO,
                 PwTable.PW_PW01,
@@ -1099,6 +1105,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
+        lc.setUserName(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_USERNAME))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));

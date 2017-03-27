@@ -199,7 +199,7 @@ public class ChildContract {
         public static final String C_UUID = "uuid";
         public static final String C_UID = "uid";
         public static final String C_CDT = "cDT";
-        public static final String C_USERNAME = "hh10";
+        public static final String C_USERNAME = "username";
         public static final String C_CHILDNAME = "hh11";
         public static final String C_CCHH12D = "hh11d";
         public static final String C_CCHH12M = "hh11m";

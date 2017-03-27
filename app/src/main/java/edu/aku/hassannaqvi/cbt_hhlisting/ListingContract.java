@@ -314,7 +314,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
-        json.put(ListingEntry.COLUMN_NAME_USERNAME, hh10);
+        json.put(ListingEntry.COLUMN_NAME_USERNAME, this.userName);
         json.put(ListingEntry.COLUMN_NAME_FORMSTATUS, fStatus);
 
         return json;

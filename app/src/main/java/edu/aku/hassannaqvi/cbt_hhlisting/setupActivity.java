@@ -364,6 +364,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh07(AppMain.hh07txt);
 
         AppMain.lc.setDeviceID(deviceId);
+        AppMain.lc.setUserName(AppMain.userName);
 
         SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
         AppMain.lc.setGPSLat(sharedPref.getString("Latitude", ""));

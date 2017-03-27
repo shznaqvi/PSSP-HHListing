@@ -13,7 +13,7 @@ import org.json.JSONObject;
 public class PWContract {
 
     public Long ID;
-    public String userName;
+    public String userName; //username
     public String UUID;
     public String UID;
     public String mwDT; //Form Date Time
@@ -47,6 +47,7 @@ public class PWContract {
         this.household = jsonObject.getString(PwTable.PW_HOUSEHOLD);
         this.synced = jsonObject.getString(PwTable.PW_SYNCED);
         this.syncedDate = jsonObject.getString(PwTable.PW_SYNCED_DATE);
+        this.userName = jsonObject.getString(PwTable.PW_USERNAME);
 
         return this;
     }
@@ -66,8 +67,17 @@ public class PWContract {
         this.household = cursor.getString(cursor.getColumnIndex(PwTable.PW_HOUSEHOLD));
         this.synced = cursor.getString(cursor.getColumnIndex(PwTable.PW_SYNCED));
         this.syncedDate = cursor.getString(cursor.getColumnIndex(PwTable.PW_SYNCED_DATE));
+        this.userName = cursor.getString(cursor.getColumnIndex(PwTable.PW_USERNAME));
 
         return this;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Long getID() {
@@ -211,6 +221,7 @@ public class PWContract {
         public static final String _ID = "_id";
         public static final String PW_UUID = "uuid";
         public static final String PW_UID = "uid";
+        public static final String PW_USERNAME = "username";
         public static final String PW_PWDT = "pwdt";
         public static final String PW_PWVILLAGECODE = "pwvillagecode";
         public static final String PW_PWSTRUCTURENO = "pwstructureno";

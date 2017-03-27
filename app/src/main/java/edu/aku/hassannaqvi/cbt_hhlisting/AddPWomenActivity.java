@@ -119,6 +119,7 @@ public class AddPWomenActivity extends Activity {
         AppMain.pw.setDeviceId(AppMain.lc.getDeviceID());
         AppMain.pw.setLhwCode(AppMain.hh02txt );
         AppMain.pw.setHousehold(AppMain.household);
+        AppMain.pw.setUserName(AppMain.userName);
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
     }
