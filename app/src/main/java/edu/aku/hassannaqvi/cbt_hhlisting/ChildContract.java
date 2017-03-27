@@ -48,7 +48,7 @@ public class ChildContract {
         return this;
     }
 
-    public ChildContract Hydrate(Cursor cursor) {
+    public ChildContract hydrate(Cursor cursor) {
         this.ID = cursor.getLong(cursor.getColumnIndex(ChildTable._ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(ChildTable.C_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(ChildTable.C_UID));

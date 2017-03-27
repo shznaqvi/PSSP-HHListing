@@ -512,6 +512,110 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allLC;
     }
 
+    public Collection<ChildContract> getAllChild() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ChildContract Child = new ChildContract();
+        Cursor c = null;
+        String[] columns = {
+                ChildTable._ID,
+                ChildTable.C_UUID,
+                ChildTable.C_UID,
+                ChildTable.C_CDT,
+                ChildTable.C_USERNAME,
+                ChildTable.C_CHILDNAME,
+                ChildTable.C_CCHH12D,
+                ChildTable.C_CCHH12M,
+                ChildTable.C_DEVICE_ID,
+                ChildTable.C_LHW_CODE,
+                ChildTable.C_HOUSEHOLD,
+                ChildTable.C_SYNCED,
+                ChildTable.C_SYNCED_DATE
+        };
+
+        String whereClause = null;
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                ChildTable._ID + " ASC";
+
+        Collection<ChildContract> allChild = new ArrayList<ChildContract>();
+        try {
+            c = db.query(
+                    ChildTable.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                allChild.add(Child.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allChild;
+    }
+
+    public Collection<ClusterContract> getAllClustersInfo() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ClusterContract ClustersInfo = new ClusterContract();
+        Cursor c = null;
+        String[] columns = {
+                ClusterTable._ID,
+                ClusterTable.C_UID,
+                ClusterTable.C_clDT,
+                ClusterTable.C_USERNAME,
+                ClusterTable.C_LHWPH,
+                ClusterTable.C_NO_HH,
+                ClusterTable.C_NO_BISP,
+                ClusterTable.C_DEVICE_ID,
+                ClusterTable.C_LHW_CODE,
+                ClusterTable.C_SYNCED,
+                ClusterTable.C_SYNCED_DATE
+        };
+
+        String whereClause = null;
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                ClusterTable._ID + " ASC";
+
+        Collection<ClusterContract> allCluster = new ArrayList<ClusterContract>();
+        try {
+            c = db.query(
+                    ClusterTable.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                allCluster.add(ClustersInfo.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allCluster;
+    }
+
     public Collection<PWContract> getAllPws() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
