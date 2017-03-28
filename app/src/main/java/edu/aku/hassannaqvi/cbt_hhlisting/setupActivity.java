@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -324,9 +325,9 @@ public class setupActivity extends Activity {
         AppMain.lc = new ListingContract();
 
         AppMain.lc.setHhDT(dtToday);
-        AppMain.lc.setHh01(AppMain.hh01txt);
-        AppMain.lc.setHh02(AppMain.hh02txt);
-        AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
+        AppMain.lc.setHh01(AppMain.hh01txt);    //HF Code
+        AppMain.lc.setHh02(""+AppMain.UCsCode+"-"+AppMain.VillageCode); //UC + VILLAGE
+        AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));    //Structure no
         AppMain.lc.setLhwcode(AppMain.hh02txt);
         AppMain.lc.setHhadd(hhadd.getText().toString());
         switch (hh04.getCheckedRadioButtonId()) {
@@ -366,12 +367,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setDeviceID(deviceId);
         AppMain.lc.setUserName(AppMain.userName);
 
-        SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
-        AppMain.lc.setGPSLat(sharedPref.getString("Latitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Longitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Accuracy", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Time", ""));
-
+        setGPS();
 
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
 
@@ -379,6 +375,38 @@ public class setupActivity extends Activity {
         Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03().toString());
 
         AppMain.household = AppMain.hh03txt + "-" + AppMain.hh07txt;
+
+    }
+
+    public void setGPS() {
+        SharedPreferences GPSPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+
+//        String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
+
+        try {
+            String lat = GPSPref.getString("Latitude", "0");
+            String lang = GPSPref.getString("Longitude", "0");
+            String acc = GPSPref.getString("Accuracy", "0");
+            String dt = GPSPref.getString("Time", "0");
+
+            if (lat == "0" && lang == "0") {
+                Toast.makeText(this, "Could not obtained GPS points", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+            }
+
+            String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
+
+            AppMain.lc.setGPSLat(GPSPref.getString("Latitude", "0"));
+            AppMain.lc.setGPSLng(GPSPref.getString("Longitude", "0"));
+            AppMain.lc.setGPSAcc(GPSPref.getString("Accuracy", "0"));
+            AppMain.lc.setGPSTime(date); // Timestamp is converted to date above
+
+            Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Log.e(TAG, "setGPS: " + e.getMessage());
+        }
 
     }
 
@@ -502,8 +530,15 @@ public class setupActivity extends Activity {
 
         long updcount = db.addForm(AppMain.lc);
 
+        AppMain.lc.setID(String.valueOf(updcount));
+
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+
+            AppMain.lc.setUID(
+                    (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+            db.updateForm();
+
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }

@@ -17,7 +17,9 @@ public class PWContract {
     public String UUID;
     public String UID;
     public String mwDT; //Form Date Time
-    public String mwVillageCode;
+    public String tehsil;   //Tehsil
+    public String hh01; // HF
+    public String hh02; //UC + Village Code
     public String mwStructureNo;
     public String pw01;
     public String pw02;
@@ -37,12 +39,14 @@ public class PWContract {
         this.UUID = jsonObject.getString(PwTable.PW_UUID);
         this.UID = jsonObject.getString(PwTable.PW_UID);
         this.mwDT = jsonObject.getString(PwTable.PW_PWDT);
-        this.mwVillageCode = jsonObject.getString(PwTable.PW_PWVILLAGECODE);
         this.mwStructureNo = jsonObject.getString(PwTable.PW_PWSTRUCTURENO);
         this.pw01 = jsonObject.getString(PwTable.PW_PW01);
         this.pw02 = jsonObject.getString(PwTable.PW_PW02);
         this.pw03 = jsonObject.getString(PwTable.PW_PW03);
         this.deviceId = jsonObject.getString(PwTable.PW_DEVICE_ID);
+        this.tehsil = jsonObject.getString(PwTable.PW_NAME_TEHSIL);
+        this.hh01 = jsonObject.getString(PwTable.PW_NAME_HH01);
+        this.hh02 = jsonObject.getString(PwTable.PW_NAME_HH02);
         this.lhwCode = jsonObject.getString(PwTable.PW_LHW_CODE);
         this.household = jsonObject.getString(PwTable.PW_HOUSEHOLD);
         this.synced = jsonObject.getString(PwTable.PW_SYNCED);
@@ -57,7 +61,9 @@ public class PWContract {
         this.UUID = cursor.getString(cursor.getColumnIndex(PwTable.PW_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(PwTable.PW_UID));
         this.mwDT = cursor.getString(cursor.getColumnIndex(PwTable.PW_PWDT));
-        this.mwVillageCode = cursor.getString(cursor.getColumnIndex(PwTable.PW_PWVILLAGECODE));
+        this.tehsil = cursor.getString(cursor.getColumnIndex(PwTable.PW_NAME_TEHSIL));
+        this.hh01 = cursor.getString(cursor.getColumnIndex(PwTable.PW_NAME_HH01));
+        this.hh02 = cursor.getString(cursor.getColumnIndex(PwTable.PW_NAME_HH02));
         this.mwStructureNo = cursor.getString(cursor.getColumnIndex(PwTable.PW_PWSTRUCTURENO));
         this.pw01 = cursor.getString(cursor.getColumnIndex(PwTable.PW_PW01));
         this.pw02 = cursor.getString(cursor.getColumnIndex(PwTable.PW_PW02));
@@ -112,12 +118,28 @@ public class PWContract {
         this.mwDT = mwDT;
     }
 
-    public String getMwVillageCode() {
-        return mwVillageCode;
+    public String getTehsil() {
+        return tehsil;
     }
 
-    public void setMwVillageCode(String mwVillageCode) {
-        this.mwVillageCode = mwVillageCode;
+    public void setTehsil(String tehsil) {
+        this.tehsil = tehsil;
+    }
+
+    public String getHh01() {
+        return hh01;
+    }
+
+    public void setHh01(String hh01) {
+        this.hh01 = hh01;
+    }
+
+    public String getHh02() {
+        return hh02;
+    }
+
+    public void setHh02(String hh02) {
+        this.hh02 = hh02;
     }
 
     public String getMwStructureNo() {
@@ -199,7 +221,9 @@ public class PWContract {
         json.put(PwTable.PW_UUID, this.UUID == null ? JSONObject.NULL : this.UUID);
         json.put(PwTable.PW_UID, this.UID == null ? JSONObject.NULL : this.UID);
         json.put(PwTable.PW_PWDT, this.mwDT == null ? JSONObject.NULL : this.mwDT);
-        json.put(PwTable.PW_PWVILLAGECODE, this.mwVillageCode == null ? JSONObject.NULL : this.mwVillageCode);
+        json.put(PwTable.PW_NAME_TEHSIL, this.tehsil == null ? JSONObject.NULL : this.tehsil);
+        json.put(PwTable.PW_NAME_HH01, this.hh01 == null ? JSONObject.NULL : this.hh01);
+        json.put(PwTable.PW_NAME_HH02, this.hh02 == null ? JSONObject.NULL : this.hh02);
         json.put(PwTable.PW_PWSTRUCTURENO, this.mwStructureNo == null ? JSONObject.NULL : this.mwStructureNo);
         json.put(PwTable.PW_PW01, this.pw01 == null ? JSONObject.NULL : this.pw01);
         json.put(PwTable.PW_PW02, this.pw02 == null ? JSONObject.NULL : this.pw02);
@@ -223,7 +247,9 @@ public class PWContract {
         public static final String PW_UID = "uid";
         public static final String PW_USERNAME = "username";
         public static final String PW_PWDT = "pwdt";
-        public static final String PW_PWVILLAGECODE = "pwvillagecode";
+        public static final String PW_NAME_TEHSIL = "tehsil";
+        public static final String PW_NAME_HH01 = "hh01";
+        public static final String PW_NAME_HH02 = "hh02";
         public static final String PW_PWSTRUCTURENO = "pwstructureno";
         public static final String PW_PW01 = "pw01";
         public static final String PW_PW02 = "pw02";

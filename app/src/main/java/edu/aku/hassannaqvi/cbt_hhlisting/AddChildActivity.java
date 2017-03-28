@@ -116,9 +116,12 @@ public class AddChildActivity extends Activity {
         AppMain.cc.setcDT(dtToday);
         AppMain.cc.setUserName(AppMain.userName);
         AppMain.cc.setChildName(icName.getText().toString());
-        AppMain.cc.setHh12d(icAgeD.getText().toString());
-        AppMain.cc.setHh12m(icAgeM.getText().toString());
+        AppMain.cc.setCc12d(icAgeD.getText().toString());
+        AppMain.cc.setCc12m(icAgeM.getText().toString());
         AppMain.cc.setDeviceId(AppMain.lc.getDeviceID());
+        AppMain.cc.setTehsil(AppMain.tehsilCode);
+        AppMain.cc.setHh01(AppMain.lc.getHh01());
+        AppMain.cc.setHh02(AppMain.lc.getHh02());
         AppMain.cc.setLhwCode(AppMain.hh02txt );
         AppMain.cc.setHousehold(AppMain.household);
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();

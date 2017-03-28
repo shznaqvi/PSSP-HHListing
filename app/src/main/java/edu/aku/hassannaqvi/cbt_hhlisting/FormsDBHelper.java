@@ -85,7 +85,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 PwTable.PW_UUID + " TEXT," +
                 PwTable.PW_UID + " TEXT," +
                 PwTable.PW_PWDT + " TEXT," +
-                PwTable.PW_PWVILLAGECODE + " TEXT," +
+                PwTable.PW_NAME_TEHSIL + " TEXT," +
+                PwTable.PW_NAME_HH01 + " TEXT," +
+                PwTable.PW_NAME_HH02 + " TEXT," +
                 PwTable.PW_PWSTRUCTURENO + " TEXT," +
                 PwTable.PW_PW01 + " TEXT," +
                 PwTable.PW_PW02 + " TEXT," +
@@ -108,6 +110,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildTable.C_CCHH12D + " TEXT," +
                 ChildTable.C_CCHH12M + " TEXT," +
                 ChildTable.C_DEVICE_ID + " TEXT," +
+                ChildTable.C_NAME_TEHSIL + " TEXT," +
+                ChildTable.C_NAME_HH01 + " TEXT," +
+                ChildTable.C_NAME_HH02 + " TEXT," +
                 ChildTable.C_LHW_CODE + " TEXT," +
                 ChildTable.C_HOUSEHOLD + " TEXT," +
                 ChildTable.C_SYNCED + " TEXT," +
@@ -227,7 +232,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
 
-        AppMain.updatePSU(lc.getHh02(), lc.getHh03());
+        AppMain.updatePSU(lc.getLhwcode(), lc.getHh03());
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
         values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());
@@ -272,9 +277,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ChildTable.C_CDT, cc.getcDT());
         values.put(ChildTable.C_USERNAME, cc.getUserName());
         values.put(ChildTable.C_CHILDNAME, cc.getChildName());
-        values.put(ChildTable.C_CCHH12D, cc.getHh12d());
-        values.put(ChildTable.C_CCHH12M, cc.getHh12m());
+        values.put(ChildTable.C_CCHH12D, cc.getCc12d());
+        values.put(ChildTable.C_CCHH12M, cc.getCc12m());
         values.put(ChildTable.C_DEVICE_ID, cc.getDeviceId());
+        values.put(ChildTable.C_NAME_TEHSIL, cc.getTehsil());
+        values.put(ChildTable.C_NAME_HH01, cc.getHh01());
+        values.put(ChildTable.C_NAME_HH02, cc.getHh02());
         values.put(ChildTable.C_LHW_CODE, cc.getLhwCode());
         values.put(ChildTable.C_HOUSEHOLD, cc.getHousehold());
         values.put(ChildTable.C_SYNCED, cc.getSynced());
@@ -330,7 +338,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(PwTable.PW_UUID, pw.getUUID());
         values.put(PwTable.PW_UID, pw.getUID());
         values.put(PwTable.PW_PWDT, pw.getMwDT());
-        values.put(PwTable.PW_PWVILLAGECODE, pw.getMwVillageCode());
+        values.put(PwTable.PW_NAME_TEHSIL, pw.getTehsil());
+        values.put(PwTable.PW_NAME_HH01, pw.getHh01());
+        values.put(PwTable.PW_NAME_HH02, pw.getHh02());
         values.put(PwTable.PW_PWSTRUCTURENO, pw.getMwStructureNo());
         values.put(PwTable.PW_PW01, pw.getPw01());
         values.put(PwTable.PW_PW02, pw.getPw02());
@@ -531,6 +541,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildTable.C_CCHH12D,
                 ChildTable.C_CCHH12M,
                 ChildTable.C_DEVICE_ID,
+                ChildTable.C_NAME_TEHSIL,
+                ChildTable.C_NAME_HH01,
+                ChildTable.C_NAME_HH02,
                 ChildTable.C_LHW_CODE,
                 ChildTable.C_HOUSEHOLD,
                 ChildTable.C_SYNCED,
@@ -630,7 +643,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 PwTable.PW_UID,
                 PwTable.PW_PWDT,
                 PwTable.PW_USERNAME,
-                PwTable.PW_PWVILLAGECODE,
+                PwTable.PW_NAME_TEHSIL,
+                PwTable.PW_NAME_HH01,
+                PwTable.PW_NAME_HH02,
                 PwTable.PW_PWSTRUCTURENO,
                 PwTable.PW_PW01,
                 PwTable.PW_PW02,

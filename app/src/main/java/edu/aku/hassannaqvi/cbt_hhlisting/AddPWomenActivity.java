@@ -102,7 +102,9 @@ public class AddPWomenActivity extends Activity {
 
         AppMain.pw.setUUID(AppMain.lc.getUID());
         AppMain.pw.setMwDT(dtToday);
-        AppMain.pw.setMwVillageCode(AppMain.lc.getHh02());
+        AppMain.pw.setTehsil(AppMain.tehsilCode);
+        AppMain.pw.setHh01(AppMain.lc.getHh01());
+        AppMain.pw.setHh02(AppMain.lc.getHh02());
         Log.d(TAG, "SaveDraft-hh02: " + AppMain.lc.getHh02());
         AppMain.pw.setMwStructureNo(AppMain.lc.getHh03());
         Log.d(TAG, "SaveDraft-hh07: " + AppMain.lc.getHh07());
@@ -117,7 +119,7 @@ public class AddPWomenActivity extends Activity {
         AppMain.pw.setPw03(dateFormat.format(cal.getTime()));
 
         AppMain.pw.setDeviceId(AppMain.lc.getDeviceID());
-        AppMain.pw.setLhwCode(AppMain.hh02txt );
+        AppMain.pw.setLhwCode(AppMain.hh02txt);
         AppMain.pw.setHousehold(AppMain.household);
         AppMain.pw.setUserName(AppMain.userName);
 
