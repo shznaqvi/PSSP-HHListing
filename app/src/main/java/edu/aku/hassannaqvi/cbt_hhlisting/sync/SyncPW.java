@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.cbt_hhlisting;
+package edu.aku.hassannaqvi.cbt_hhlisting.sync;
 
 /**
  * Created by hassan.naqvi on 10/19/2016.
@@ -22,17 +22,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
+import edu.aku.hassannaqvi.cbt_hhlisting.AppMain;
+import edu.aku.hassannaqvi.cbt_hhlisting.FormsDBHelper;
+import edu.aku.hassannaqvi.cbt_hhlisting.PWContract;
+
 /**
  * Created by hassan.naqvi on 7/26/2016.
  */
-public class SyncMwras extends AsyncTask<Void, Void, String> {
+public class SyncPW extends AsyncTask<Void, Void, String> {
 
-    private static final String TAG = "SyncMwras";
+    private static final String TAG = "SyncPW";
     private Context mContext;
     private ProgressDialog pd;
 
 
-    public SyncMwras(Context context) {
+    public SyncPW(Context context) {
         mContext = context;
     }
 
@@ -78,12 +82,12 @@ public class SyncMwras extends AsyncTask<Void, Void, String> {
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             FormsDBHelper db = new FormsDBHelper(mContext);
-            Collection<PWContract> mwras = db.getAllPws();
-            Log.d(TAG, String.valueOf(mwras.size()));
+            Collection<PWContract> pw = db.getAllPws();
+            Log.d(TAG, String.valueOf(pw.size()));
 //            pd.setMessage("Total Forms: " );
-            for (PWContract mwra : mwras) {
+            for (PWContract pwc : pw) {
 
-                jsonSync.put(mwra.toJSONObject());
+                jsonSync.put(pwc.toJSONObject());
                 //wr.writeBytes(jsonParam.toString().replace("\uFEFF", "") + "\n");
 
             }

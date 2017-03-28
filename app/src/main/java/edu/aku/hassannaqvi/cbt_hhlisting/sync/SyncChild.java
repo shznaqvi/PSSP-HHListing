@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.cbt_hhlisting;
+package edu.aku.hassannaqvi.cbt_hhlisting.sync;
 
 /**
  * Created by hassan.naqvi on 10/19/2016.
@@ -22,17 +22,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
+import edu.aku.hassannaqvi.cbt_hhlisting.AppMain;
+import edu.aku.hassannaqvi.cbt_hhlisting.ChildContract;
+import edu.aku.hassannaqvi.cbt_hhlisting.FormsDBHelper;
+
 /**
  * Created by hassan.naqvi on 7/26/2016.
  */
-public class SyncForms extends AsyncTask<Void, Void, String> {
+public class SyncChild extends AsyncTask<Void, Void, String> {
 
-    private static final String TAG = "SyncForms";
+    private static final String TAG = "SyncChild";
     private Context mContext;
     private ProgressDialog pd;
 
 
-    public SyncForms(Context context) {
+    public SyncChild(Context context) {
         mContext = context;
     }
 
@@ -54,14 +58,13 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
     }
 
-    private String syncData(String myurl) throws IOException {
+    private String downloadUrl(String myurl) throws IOException {
         String line = "No Response";
 
         HttpURLConnection connection = null;
         try {
             String request = myurl;
             //String request = "http://10.1.42.30:3000/forms";
-            pd.setTitle("Connecting to... " + request);
             //pd.show();
             URL url = new URL(request);
             connection = (HttpURLConnection) url.openConnection();
@@ -79,12 +82,12 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             FormsDBHelper db = new FormsDBHelper(mContext);
-            Collection<ListingContract> listings = db.getAllListings();
-            Log.d(TAG, String.valueOf(listings.size()));
+            Collection<ChildContract> child = db.getAllChild();
+            Log.d(TAG, String.valueOf(child.size()));
 //            pd.setMessage("Total Forms: " );
-            for (ListingContract lc : listings) {
+            for (ChildContract pwc : child) {
 
-                jsonSync.put(lc.toJSONObject());
+                jsonSync.put(pwc.toJSONObject());
                 //wr.writeBytes(jsonParam.toString().replace("\uFEFF", "") + "\n");
 
             }
@@ -132,8 +135,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-
-            return syncData(AppMain.PROJECT_URI + ListingContract.ListingEntry.URI);
+            return downloadUrl(AppMain._IP + "/src/mwras/");
         } catch (IOException e) {
             return "Unable to upload data. Server may be down.";
         }
@@ -143,7 +145,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         pd.setMessage("Server Response: " + result);
-        pd.setTitle("Done!... Synced Forms");
+        pd.setTitle("Done!... Synced MWRAs");
         //pd.show();
     }
 }

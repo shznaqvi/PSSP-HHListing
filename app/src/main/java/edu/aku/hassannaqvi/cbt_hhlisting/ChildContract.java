@@ -18,9 +18,12 @@ public class ChildContract {
     public String cDT;
     public String userName; // username
     public String childName; // child name
-    public String hh12d; // Days
-    public String hh12m; // Months
+    public String cc12d; // Days
+    public String cc12m; // Months
     public String deviceId;
+    public String tehsil;   //Tehsil
+    public String hh01; // HF
+    public String hh02; // UC + Village
     public String lhwCode;
     public String household; //Structure no + Ext
     public String synced;
@@ -37,9 +40,12 @@ public class ChildContract {
         this.cDT = jsonObject.getString(ChildTable.C_CDT);
         this.userName = jsonObject.getString(ChildTable.C_USERNAME);
         this.childName = jsonObject.getString(ChildTable.C_CHILDNAME);
-        this.hh12d = jsonObject.getString(ChildTable.C_CCHH12D);
-        this.hh12m = jsonObject.getString(ChildTable.C_CCHH12M);
+        this.cc12d = jsonObject.getString(ChildTable.C_CCHH12D);
+        this.cc12m = jsonObject.getString(ChildTable.C_CCHH12M);
         this.deviceId = jsonObject.getString(ChildTable.C_DEVICE_ID);
+        this.tehsil = jsonObject.getString(ChildTable.C_NAME_TEHSIL);
+        this.hh01 = jsonObject.getString(ChildTable.C_NAME_HH01);
+        this.hh02 = jsonObject.getString(ChildTable.C_NAME_HH02);
         this.lhwCode = jsonObject.getString(ChildTable.C_LHW_CODE);
         this.household = jsonObject.getString(ChildTable.C_HOUSEHOLD);
         this.synced = jsonObject.getString(ChildTable.C_SYNCED);
@@ -48,16 +54,19 @@ public class ChildContract {
         return this;
     }
 
-    public ChildContract Hydrate(Cursor cursor) {
+    public ChildContract hydrate(Cursor cursor) {
         this.ID = cursor.getLong(cursor.getColumnIndex(ChildTable._ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(ChildTable.C_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(ChildTable.C_UID));
         this.cDT = cursor.getString(cursor.getColumnIndex(ChildTable.C_CDT));
         this.userName = cursor.getString(cursor.getColumnIndex(ChildTable.C_USERNAME));
         this.childName = cursor.getString(cursor.getColumnIndex(ChildTable.C_CHILDNAME));
-        this.hh12d = cursor.getString(cursor.getColumnIndex(ChildTable.C_CCHH12D));
-        this.hh12m = cursor.getString(cursor.getColumnIndex(ChildTable.C_CCHH12M));
+        this.cc12d = cursor.getString(cursor.getColumnIndex(ChildTable.C_CCHH12D));
+        this.cc12m = cursor.getString(cursor.getColumnIndex(ChildTable.C_CCHH12M));
         this.deviceId = cursor.getString(cursor.getColumnIndex(ChildTable.C_DEVICE_ID));
+        this.tehsil = cursor.getString(cursor.getColumnIndex(ChildTable.C_NAME_TEHSIL));
+        this.hh01 = cursor.getString(cursor.getColumnIndex(ChildTable.C_NAME_HH01));
+        this.hh02 = cursor.getString(cursor.getColumnIndex(ChildTable.C_NAME_HH02));
         this.lhwCode = cursor.getString(cursor.getColumnIndex(ChildTable.C_LHW_CODE));
         this.household = cursor.getString(cursor.getColumnIndex(ChildTable.C_HOUSEHOLD));
         this.synced = cursor.getString(cursor.getColumnIndex(ChildTable.C_SYNCED));
@@ -114,20 +123,20 @@ public class ChildContract {
         this.childName = childName;
     }
 
-    public String getHh12d() {
-        return hh12d;
+    public String getCc12d() {
+        return cc12d;
     }
 
-    public void setHh12d(String hh12d) {
-        this.hh12d = hh12d;
+    public void setCc12d(String cc12d) {
+        this.cc12d = cc12d;
     }
 
-    public String getHh12m() {
-        return hh12m;
+    public String getCc12m() {
+        return cc12m;
     }
 
-    public void setHh12m(String hh12m) {
-        this.hh12m = hh12m;
+    public void setCc12m(String cc12m) {
+        this.cc12m = cc12m;
     }
 
     public String getDeviceId() {
@@ -136,6 +145,30 @@ public class ChildContract {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public String getTehsil() {
+        return tehsil;
+    }
+
+    public void setTehsil(String tehsil) {
+        this.tehsil = tehsil;
+    }
+
+    public String getHh01() {
+        return hh01;
+    }
+
+    public void setHh01(String hh01) {
+        this.hh01 = hh01;
+    }
+
+    public String getHh02() {
+        return hh02;
+    }
+
+    public void setHh02(String hh02) {
+        this.hh02 = hh02;
     }
 
     public String getLhwCode() {
@@ -179,9 +212,12 @@ public class ChildContract {
         json.put(ChildTable.C_CDT, this.cDT == null ? JSONObject.NULL : this.cDT);
         json.put(ChildTable.C_USERNAME, this.userName == null ? JSONObject.NULL : this.userName);
         json.put(ChildTable.C_CHILDNAME, this.childName == null ? JSONObject.NULL : this.childName);
-        json.put(ChildTable.C_CCHH12D, this.hh12d == null ? JSONObject.NULL : this.hh12d);
-        json.put(ChildTable.C_CCHH12M, this.hh12m == null ? JSONObject.NULL : this.hh12m);
+        json.put(ChildTable.C_CCHH12D, this.cc12d == null ? JSONObject.NULL : this.cc12d);
+        json.put(ChildTable.C_CCHH12M, this.cc12m == null ? JSONObject.NULL : this.cc12m);
         json.put(ChildTable.C_DEVICE_ID, this.deviceId == null ? JSONObject.NULL : this.deviceId);
+        json.put(ChildTable.C_NAME_TEHSIL, this.tehsil == null ? JSONObject.NULL : this.tehsil);
+        json.put(ChildTable.C_NAME_HH01, this.hh01 == null ? JSONObject.NULL : this.hh01);
+        json.put(ChildTable.C_NAME_HH02, this.hh02 == null ? JSONObject.NULL : this.hh02);
         json.put(ChildTable.C_LHW_CODE, this.lhwCode == null ? JSONObject.NULL : this.lhwCode);
         json.put(ChildTable.C_HOUSEHOLD, this.household == null ? JSONObject.NULL : this.household);
         json.put(ChildTable.C_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
@@ -198,12 +234,15 @@ public class ChildContract {
         public static final String _ID = "_id";
         public static final String C_UUID = "uuid";
         public static final String C_UID = "uid";
-        public static final String C_CDT = "cDT";
-        public static final String C_USERNAME = "hh10";
-        public static final String C_CHILDNAME = "hh11";
-        public static final String C_CCHH12D = "hh11d";
-        public static final String C_CCHH12M = "hh11m";
+        public static final String C_CDT = "form_date";
+        public static final String C_USERNAME = "username";
+        public static final String C_CHILDNAME = "child_name";
+        public static final String C_CCHH12D = "cc12d";
+        public static final String C_CCHH12M = "cc12m";
         public static final String C_DEVICE_ID = "deviceid";
+        public static final String C_NAME_TEHSIL = "tehsil";
+        public static final String C_NAME_HH01 = "hh01";
+        public static final String C_NAME_HH02 = "hh02";
         public static final String C_LHW_CODE = "lhw_code";
         public static final String C_HOUSEHOLD = "household";
         public static final String C_SYNCED = "synced";

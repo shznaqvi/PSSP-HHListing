@@ -16,11 +16,9 @@ public class ClusterContract {
     public String UID;
     public String clDT;
     public String userName; // username
-
     public String lhwPh;
     public String noHH;
     public String noBISP;
-
     public String deviceId;
     public String lhwCode;
     public String synced;
@@ -46,7 +44,7 @@ public class ClusterContract {
         return this;
     }
 
-    public ClusterContract Hydrate(Cursor cursor) {
+    public ClusterContract hydrate(Cursor cursor) {
         this.ID = cursor.getLong(cursor.getColumnIndex(ClusterTable._ID));
         this.UID = cursor.getString(cursor.getColumnIndex(ClusterTable.C_UID));
         this.clDT = cursor.getString(cursor.getColumnIndex(ClusterTable.C_clDT));
@@ -176,7 +174,7 @@ public class ClusterContract {
         public static final String _ID = "_id";
         public static final String C_UID = "uid";
         public static final String C_clDT = "clDT";
-        public static final String C_USERNAME = "hh10";
+        public static final String C_USERNAME = "user";
         public static final String C_LHWPH = "hh11";
         public static final String C_NO_HH = "noHH";
         public static final String C_NO_BISP = "noBISP";

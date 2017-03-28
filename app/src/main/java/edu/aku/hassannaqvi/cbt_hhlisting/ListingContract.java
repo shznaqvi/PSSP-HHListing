@@ -15,8 +15,8 @@ public class ListingContract {
     public String UID;
     public String lhwcode;
     public String hhDT;
-    public String hh01; // District/UC
-    public String hh02; // Cluster
+    public String hh01; // HF
+    public String hh02; // UC + Village
     public String hh03; // Structure No.
     public String hhadd; // Address/Landmark
     public String hh04; // Type of Structure
@@ -314,7 +314,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
-        json.put(ListingEntry.COLUMN_NAME_USERNAME, hh10);
+        json.put(ListingEntry.COLUMN_NAME_USERNAME, this.userName);
         json.put(ListingEntry.COLUMN_NAME_FORMSTATUS, fStatus);
 
         return json;

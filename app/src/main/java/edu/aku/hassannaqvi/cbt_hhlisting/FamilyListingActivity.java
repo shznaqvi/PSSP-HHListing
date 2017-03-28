@@ -161,12 +161,9 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
         AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());
 
-        setGPS();
-
+//        setGPS();
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        //Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
-
     }
 
     private boolean formValidation() {
@@ -265,38 +262,38 @@ public class FamilyListingActivity extends Activity {
         return true;
     }
 
-    public void setGPS() {
-        SharedPreferences GPSPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
-
-//        String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
-
-        try {
-            String lat = GPSPref.getString("Latitude", "0");
-            String lang = GPSPref.getString("Longitude", "0");
-            String acc = GPSPref.getString("Accuracy", "0");
-            String dt = GPSPref.getString("Time", "0");
-
-            if (lat == "0" && lang == "0") {
-                Toast.makeText(this, "Could not obtained GPS points", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
-            }
-
-            String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
-
-            AppMain.lc.setGPSLat(GPSPref.getString("Latitude", "0"));
-            AppMain.lc.setGPSLng(GPSPref.getString("Longitude", "0"));
-            AppMain.lc.setGPSAcc(GPSPref.getString("Accuracy", "0"));
-//            AppMain.fc.setGpsTime(GPSPref.getString(date, "0")); // Timestamp is converted to date above
-            AppMain.lc.setGPSTime(date); // Timestamp is converted to date above
-
-            Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
-
-        } catch (Exception e) {
-            Log.e(TAG, "setGPS: " + e.getMessage());
-        }
-
-    }
+//    public void setGPS() {
+//        SharedPreferences GPSPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+//
+////        String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
+//
+//        try {
+//            String lat = GPSPref.getString("Latitude", "0");
+//            String lang = GPSPref.getString("Longitude", "0");
+//            String acc = GPSPref.getString("Accuracy", "0");
+//            String dt = GPSPref.getString("Time", "0");
+//
+//            if (lat == "0" && lang == "0") {
+//                Toast.makeText(this, "Could not obtained GPS points", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
+//
+//            AppMain.lc.setGPSLat(GPSPref.getString("Latitude", "0"));
+//            AppMain.lc.setGPSLng(GPSPref.getString("Longitude", "0"));
+//            AppMain.lc.setGPSAcc(GPSPref.getString("Accuracy", "0"));
+////            AppMain.fc.setGpsTime(GPSPref.getString(date, "0")); // Timestamp is converted to date above
+//            AppMain.lc.setGPSTime(date); // Timestamp is converted to date above
+//
+//            Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+//
+//        } catch (Exception e) {
+//            Log.e(TAG, "setGPS: " + e.getMessage());
+//        }
+//
+//    }
 
 
     @Override
