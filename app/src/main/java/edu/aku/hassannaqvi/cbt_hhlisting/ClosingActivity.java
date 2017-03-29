@@ -47,9 +47,9 @@ public class ClosingActivity extends Activity {
 
         txtHouseholdListing.setText("Household Information "+AppMain.household);
 
-        AppMain.fCount++;
+//        AppMain.fCount++;
 
-        if (AppMain.fCount > AppMain.fTotal) {
+        if (AppMain.fCount >= AppMain.fTotal) {
             btnAddFamily.setVisibility(View.GONE);
             btnAddHousehold.setVisibility(View.VISIBLE);
         } else {
@@ -69,7 +69,7 @@ public class ClosingActivity extends Activity {
 
                 } else {
 
-                    if (AppMain.fTotal < 1) {
+                    if (AppMain.fCount >= AppMain.fTotal) {
                         btnAddFamily.setVisibility(View.GONE);
                         btnAddHousehold.setVisibility(View.VISIBLE);
                         btnAddHousehold.setText("Goto Next Household");
@@ -125,7 +125,7 @@ public class ClosingActivity extends Activity {
                 AppMain.cTotal = 0;
                 AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
-//                AppMain.fCount++;
+                AppMain.fCount++;
 
                 finish();
                 Intent fA = new Intent(this, FamilyListingActivity.class);

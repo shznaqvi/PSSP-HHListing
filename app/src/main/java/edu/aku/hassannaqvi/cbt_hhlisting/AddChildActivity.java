@@ -61,7 +61,8 @@ public class AddChildActivity extends Activity {
             btnAddHousehold.setVisibility(View.GONE);
             btnAddFamilty.setVisibility(View.GONE);
 //        } else if (AppMain.cCount >= AppMain.cTotal && AppMain.fCount < AppMain.fTotal) {
-        } else if (AppMain.cCount >= (AppMain.cTotal - 1) && AppMain.fCount <= AppMain.fTotal) {
+        }
+        else if (AppMain.fCount < AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
             btnAddChild.setVisibility(View.GONE);
@@ -159,7 +160,7 @@ public class AddChildActivity extends Activity {
             Log.i(TAG, "Invalid(Error):Please enter age");
             return false;
         }
-        if (Integer.valueOf(icAgeM.getText().toString()) < 1 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
+        if (Integer.valueOf(icAgeD.getText().toString()) < 1 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
             Toast.makeText(this, "Invalid(Error):Invalid Age Days", Toast.LENGTH_LONG).show();
             icAgeD.setError("Invalid(Error):Invalid enter age");
             Log.i(TAG, "Invalid(Error):Please enter age");
