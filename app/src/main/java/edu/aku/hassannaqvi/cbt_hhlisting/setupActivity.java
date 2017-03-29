@@ -91,6 +91,9 @@ public class setupActivity extends Activity {
 
     private String TAG = "Setup Activity";
 
+    Map<String, String> getAllUCs,getAllVillages;
+    List<String> UCs,VillagesName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,8 +183,8 @@ public class setupActivity extends Activity {
 
         final FormsDBHelper db = new FormsDBHelper(getApplicationContext());
 
-        final List<String> UCs = new ArrayList<>();
-        final Map<String, String> getAllUCs = new HashMap<>();
+        UCs = new ArrayList<>();
+        getAllUCs = new HashMap<>();
         Collection<UCsContract> allUcs = db.getAllUCsByTehsil(AppMain.tehsilCode);
         for (UCsContract aUCs : allUcs) {
             getAllUCs.put(aUCs.getUcName(), aUCs.getUcCode());
@@ -194,8 +197,8 @@ public class setupActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                List<String> VillagesName = new ArrayList<>();
-                Map<String, String> getAllVillages = new HashMap<>();
+                VillagesName = new ArrayList<>();
+                getAllVillages = new HashMap<>();
                 Collection<VillagesContract> allVillages = db.getAllVillagesByUc(getAllUCs.get(UCs.get(position)));
                 for (VillagesContract aVillages : allVillages) {
                     getAllVillages.put(aVillages.getVillageName(), aVillages.getVillageCode());
@@ -326,7 +329,7 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setHhDT(dtToday);
         AppMain.lc.setHh01(AppMain.hh01txt);    //HF Code
-        AppMain.lc.setHh02(""+AppMain.UCsCode+"-"+AppMain.VillageCode); //UC + VILLAGE
+        AppMain.lc.setHh02(""+getAllUCs.get(UCs.get(AppMain.UCsCode))+"-"+getAllVillages.get(VillagesName.get(AppMain.VillageCode))); //UC + VILLAGE
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));    //Structure no
         AppMain.lc.setLhwcode(AppMain.hh02txt);
         AppMain.lc.setHhadd(hhadd.getText().toString());
