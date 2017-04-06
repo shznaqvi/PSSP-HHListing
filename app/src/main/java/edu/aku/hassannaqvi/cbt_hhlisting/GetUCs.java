@@ -104,6 +104,8 @@ public class GetUCs extends AsyncTask<String, String, String> {
                 pd.setTitle("Error... Syncing UCs");
             }
             pd.show();
+            if (pd != null)
+                pd.dismiss();
         }
 
 

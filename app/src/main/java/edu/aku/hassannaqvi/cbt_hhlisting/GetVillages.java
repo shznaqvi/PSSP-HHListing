@@ -103,6 +103,8 @@ public class GetVillages extends AsyncTask<String, String, String> {
             }
             db.getAllVillage();
             pd.show();
+            if (pd != null)
+                pd.dismiss();
         }
     }
 }

@@ -249,6 +249,10 @@ public class MainActivity extends Activity {
             editor.putString("LastSyncDB", dtToday);
 
             editor.apply();
+
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         } /*else {
             Toast.makeText(getApplicationContext(), "Network Not Available", Toast.LENGTH_SHORT).show();
         }*/
