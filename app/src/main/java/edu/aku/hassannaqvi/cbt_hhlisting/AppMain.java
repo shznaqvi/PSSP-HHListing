@@ -22,11 +22,6 @@ public class AppMain extends Application {
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     private static final int TWO_MINUTES = 1000 * 60 * 2;
-    public static String _IP = "http://10.1.42.139:3000"; // Testing Server
-    //public static String _IP = "http://43.245.131.159:3000"; //Production server
-    public static String PROJECT_URI = _IP + "/cbt/"; //Production server
-    public static String TAG = "AppMain";
-
     private static final long MILLIS_IN_SECOND = 1000;
     private static final long SECONDS_IN_MINUTE = 60;
     private static final long MINUTES_IN_HOUR = 60;
@@ -34,8 +29,10 @@ public class AppMain extends Application {
     public static final long MILLISECONDS_IN_DAY = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY;
     private static final long DAYS_IN_YEAR = 365;
     public static final long MILLISECONDS_IN_YEAR = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAYS_IN_YEAR;
-
-
+    //public static String _IP = "http://10.1.42.139:3000"; // Testing Server
+    public static String _IP = "http://43.245.131.159:3000"; //Production server
+    public static String PROJECT_URI = _IP + "/cbt/"; //Production server
+    public static String TAG = "AppMain";
     public static String userName;
     public static ListingContract lc;
     public static PWContract pw;
@@ -56,15 +53,13 @@ public class AppMain extends Application {
     public static int pwCount = 0;
     public static int pwTotal = 0;
     public static SharedPreferences sharedPref;
-    protected static LocationManager locationManager;
-
     public static String tehsilCode;
     public static Boolean UCsCodeFlag = true;
     public static int UCsCode;
     public static Boolean VillageCodeFlag = true;
     public static int VillageCode;
-
     public static Boolean ClusterActivityFlag = false;
+    protected static LocationManager locationManager;
 
     public static void updatePSU(String psuCode, String structureNo) {
 
