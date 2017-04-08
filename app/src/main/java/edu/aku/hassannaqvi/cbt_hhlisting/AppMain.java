@@ -31,7 +31,7 @@ public class AppMain extends Application {
     public static final long MILLISECONDS_IN_YEAR = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAYS_IN_YEAR;
     //public static String _IP = "http://10.1.42.139:3000"; // Testing Server
     public static String _IP = "http://43.245.131.159:3000"; //Production server
-    public static String PROJECT_URI = _IP + "/cbt"; //Production server
+    public static String PROJECT_URI = _IP + "/cbt/"; //Production server
     public static String TAG = "AppMain";
     public static String userName;
     public static ListingContract lc;

@@ -60,10 +60,10 @@ public class GetUCs extends AsyncTask<String, String, String> {
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-                String line="";
+                String line;
                 while ((line = reader.readLine()) != null) {
                     //pd.show();
-                    Log.i(TAG, "UCs In: " + line);
+                    Log.i(TAG, "UC In: " + line);
                     result.append(line);
                 }
             } else {
@@ -104,8 +104,8 @@ public class GetUCs extends AsyncTask<String, String, String> {
                 pd.setTitle("Error... Syncing UCs");
             }
             pd.show();
-            if (pd != null)
-                pd.dismiss();
+//            if (pd != null)
+//                pd.dismiss();
         }
 
 

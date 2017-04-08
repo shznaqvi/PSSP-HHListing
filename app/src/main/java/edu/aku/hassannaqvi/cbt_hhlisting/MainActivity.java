@@ -29,6 +29,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.aku.hassannaqvi.cbt_hhlisting.sync.SyncListings;
+import edu.aku.hassannaqvi.cbt_hhlisting.sync.SyncPW;
 
 public class MainActivity extends Activity {
 
@@ -211,17 +213,17 @@ public class MainActivity extends Activity {
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
 
-            /*SyncListings ff = new SyncListings(this);
-            Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
-            ff.execute();*/
+            SyncListings ff = new SyncListings(this);
+            Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
+            ff.execute();
 
-            /*SyncPW mm = new SyncPW(this);
-            Toast.makeText(getApplicationContext(), "Syncing Mwras", Toast.LENGTH_SHORT).show();
-            mm.execute();*/
+            SyncPW mm = new SyncPW(this);
+            Toast.makeText(getApplicationContext(), "Syncing PW", Toast.LENGTH_SHORT).show();
+            mm.execute();
 
-            /*GetUsers u = new GetUsers(this);
+            GetUsers u = new GetUsers(this);
             Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
-            u.execute();*/
+            u.execute();
 
             GetTehsil gt = new GetTehsil(this);
             Toast.makeText(getApplicationContext(), "Syncing Tehsils", Toast.LENGTH_SHORT).show();

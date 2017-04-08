@@ -229,7 +229,7 @@ public class ChildrenContract {
 
     public static abstract class ChildTable implements BaseColumns {
 
-        public static final String URI = "/children";
+        public static final String URI = "children";
         public static final String TABLE_NAME = "child";
         public static final String NULLABLE = "NULLHACK";
 

@@ -239,7 +239,7 @@ public class PWsContract {
     }
 
     public static abstract class PwTable implements BaseColumns {
-        public static final String URI = "/pws";
+        public static final String URI = "pws";
         public static final String TABLE_NAME = "pws";
         public static final String NULLHACK = "NULLHACK";
 

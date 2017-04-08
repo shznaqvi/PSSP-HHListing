@@ -101,8 +101,8 @@ public class GetTehsil extends AsyncTask<String, String, String> {
             }
             db.getAllTehsil();
             pd.show();
-            if (pd != null)
-                pd.dismiss();
+//            if (pd != null)
+//                pd.dismiss();
         }
     }
 }

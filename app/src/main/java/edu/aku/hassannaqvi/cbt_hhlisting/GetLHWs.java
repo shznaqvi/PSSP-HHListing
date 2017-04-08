@@ -104,8 +104,8 @@ public class GetLHWs extends AsyncTask<String, String, String> {
                 pd.setTitle("Error... Syncing LHWs");
             }
             pd.show();
-            if (pd != null)
-                pd.dismiss();
+//            if (pd != null)
+//                pd.dismiss();
         }
 
 

@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 public class UCsContract {
 
-    private static String TAG = "";
+    private static String TAG = "UCS";
 
     private String ucCode;
     private String ucName;

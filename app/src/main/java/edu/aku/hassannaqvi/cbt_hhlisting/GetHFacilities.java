@@ -104,8 +104,8 @@ public class GetHFacilities extends AsyncTask<String, String, String> {
                 pd.setTitle("Error... Syncing Health Facilities");
             }
             pd.show();
-            if (pd != null)
-                pd.dismiss();
+//            if (pd != null)
+//                pd.dismiss();
         }
 
 

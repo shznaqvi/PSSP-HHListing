@@ -168,7 +168,7 @@ public class ClusterContract {
     }
 
     public static abstract class ClusterTable implements BaseColumns {
-        public static final String URI = "/clusterinfo";
+        public static final String URI = "clusterinfo";
         public static final String TABLE_NAME = "clusterinfo";
         public static final String C_NULLABLE = "NULLHACK";
 
