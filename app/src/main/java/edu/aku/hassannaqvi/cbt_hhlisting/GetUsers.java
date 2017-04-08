@@ -51,8 +51,9 @@ public class GetUsers extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/src/users/");
+            URL url = new URL(AppMain.PROJECT_URI + UsersContract.singleUser.URI);
             Log.d(TAG, "doInBackground: " + url);
+            urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
