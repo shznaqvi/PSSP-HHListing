@@ -231,8 +231,6 @@ public class PWsContract {
         json.put(PwTable.PW_DEVICE_ID, this.deviceId == null ? JSONObject.NULL : this.deviceId);
         json.put(PwTable.PW_LHW_CODE, this.lhwCode == null ? JSONObject.NULL : this.lhwCode);
         json.put(PwTable.PW_HOUSEHOLD, this.household == null ? JSONObject.NULL : this.household);
-        json.put(PwTable.PW_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
-        json.put(PwTable.PW_SYNCED_DATE, this.syncedDate == null ? JSONObject.NULL : this.syncedDate);
 
         return json;
 

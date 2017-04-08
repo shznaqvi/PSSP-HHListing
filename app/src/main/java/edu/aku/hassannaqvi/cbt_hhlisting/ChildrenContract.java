@@ -220,8 +220,6 @@ public class ChildrenContract {
         json.put(ChildTable.C_NAME_HH02, this.hh02 == null ? JSONObject.NULL : this.hh02);
         json.put(ChildTable.C_LHW_CODE, this.lhwCode == null ? JSONObject.NULL : this.lhwCode);
         json.put(ChildTable.C_HOUSEHOLD, this.household == null ? JSONObject.NULL : this.household);
-        json.put(ChildTable.C_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
-        json.put(ChildTable.C_SYNCED_DATE, this.syncedDate == null ? JSONObject.NULL : this.syncedDate);
 
         return json;
 

@@ -29,6 +29,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.aku.hassannaqvi.cbt_hhlisting.sync.SyncChildren;
 import edu.aku.hassannaqvi.cbt_hhlisting.sync.SyncListings;
 import edu.aku.hassannaqvi.cbt_hhlisting.sync.SyncPW;
 
@@ -217,9 +218,13 @@ public class MainActivity extends Activity {
             Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
             ff.execute();
 
-            SyncPW mm = new SyncPW(this);
+            SyncPW pm = new SyncPW(this);
             Toast.makeText(getApplicationContext(), "Syncing PW", Toast.LENGTH_SHORT).show();
-            mm.execute();
+            pm.execute();
+
+            SyncChildren cc = new SyncChildren(this);
+            Toast.makeText(getApplicationContext(), "Syncing PW", Toast.LENGTH_SHORT).show();
+            cc.execute();
 
             GetUsers u = new GetUsers(this);
             Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
