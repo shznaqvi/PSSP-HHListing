@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * Created by hasan on 1/7/2017.
  */
 
-public class PWContract {
+public class PWsContract {
 
     public Long ID;
     public String userName; //username
@@ -31,10 +31,10 @@ public class PWContract {
     public String syncedDate;
 
 
-    public PWContract() {
+    public PWsContract() {
     }
 
-    public PWContract Sync(JSONObject jsonObject) throws JSONException {
+    public PWsContract Sync(JSONObject jsonObject) throws JSONException {
         this.ID = jsonObject.getLong(PwTable._ID);
         this.UUID = jsonObject.getString(PwTable.PW_UUID);
         this.UID = jsonObject.getString(PwTable.PW_UID);
@@ -56,7 +56,7 @@ public class PWContract {
         return this;
     }
 
-    public PWContract Hydrate(Cursor cursor) {
+    public PWsContract Hydrate(Cursor cursor) {
         this.ID = cursor.getLong(cursor.getColumnIndex(PwTable._ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(PwTable.PW_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(PwTable.PW_UID));
@@ -239,9 +239,10 @@ public class PWContract {
     }
 
     public static abstract class PwTable implements BaseColumns {
+        public static final String URI = "/pws";
+        public static final String TABLE_NAME = "pws";
+        public static final String NULLHACK = "NULLHACK";
 
-        public static final String TABLE_NAME = "pw";
-        public static final String PW_NULLABLE = "NULLHACK";
         public static final String _ID = "_id";
         public static final String PW_UUID = "uuid";
         public static final String PW_UID = "uid";
@@ -259,5 +260,6 @@ public class PWContract {
         public static final String PW_HOUSEHOLD = "household";
         public static final String PW_SYNCED = "synced";
         public static final String PW_SYNCED_DATE = "synced_date";
+
     }
 }

@@ -111,7 +111,7 @@ public class AddChildActivity extends Activity {
 
     private void SaveDraft() {
 
-        AppMain.cc = new ChildContract();
+        AppMain.cc = new ChildrenContract();
 
         AppMain.cc.setUUID(AppMain.lc.getUID());
         AppMain.cc.setcDT(dtToday);

@@ -211,7 +211,7 @@ public class MainActivity extends Activity {
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
 
-            /*SyncForms ff = new SyncForms(this);
+            /*SyncListings ff = new SyncListings(this);
             Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
             ff.execute();*/
 

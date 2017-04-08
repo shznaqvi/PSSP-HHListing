@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * Created by hasan on 1/7/2017.
  */
 
-public class ChildContract {
+public class ChildrenContract {
 
     public Long ID;
     public String UUID;
@@ -30,10 +30,10 @@ public class ChildContract {
     public String syncedDate;
 
 
-    public ChildContract() {
+    public ChildrenContract() {
     }
 
-    public ChildContract Sync(JSONObject jsonObject) throws JSONException {
+    public ChildrenContract Sync(JSONObject jsonObject) throws JSONException {
         this.ID = jsonObject.getLong(ChildTable._ID);
         this.UUID = jsonObject.getString(ChildTable.C_UUID);
         this.UID = jsonObject.getString(ChildTable.C_UID);
@@ -54,7 +54,7 @@ public class ChildContract {
         return this;
     }
 
-    public ChildContract hydrate(Cursor cursor) {
+    public ChildrenContract hydrate(Cursor cursor) {
         this.ID = cursor.getLong(cursor.getColumnIndex(ChildTable._ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(ChildTable.C_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(ChildTable.C_UID));
@@ -229,8 +229,10 @@ public class ChildContract {
 
     public static abstract class ChildTable implements BaseColumns {
 
-        public static final String TABLE_NAME = "cw";
-        public static final String C_NULLABLE = "NULLHACK";
+        public static final String URI = "/children";
+        public static final String TABLE_NAME = "child";
+        public static final String NULLABLE = "NULLHACK";
+
         public static final String _ID = "_id";
         public static final String C_UUID = "uuid";
         public static final String C_UID = "uid";
@@ -241,11 +243,12 @@ public class ChildContract {
         public static final String C_CCHH12M = "cc12m";
         public static final String C_DEVICE_ID = "deviceid";
         public static final String C_NAME_TEHSIL = "tehsil";
-        public static final String C_NAME_HH01 = "hh01";
-        public static final String C_NAME_HH02 = "hh02";
+        public static final String C_NAME_HH01 = "hfacility";
+        public static final String C_NAME_HH02 = "uc_village";
         public static final String C_LHW_CODE = "lhw_code";
         public static final String C_HOUSEHOLD = "household";
         public static final String C_SYNCED = "synced";
         public static final String C_SYNCED_DATE = "synced_date";
+
     }
 }

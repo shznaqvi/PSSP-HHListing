@@ -24,7 +24,7 @@ import java.util.Collection;
 
 import edu.aku.hassannaqvi.cbt_hhlisting.AppMain;
 import edu.aku.hassannaqvi.cbt_hhlisting.FormsDBHelper;
-import edu.aku.hassannaqvi.cbt_hhlisting.PWContract;
+import edu.aku.hassannaqvi.cbt_hhlisting.PWsContract;
 
 /**
  * Created by hassan.naqvi on 7/26/2016.
@@ -82,10 +82,10 @@ public class SyncPW extends AsyncTask<Void, Void, String> {
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             FormsDBHelper db = new FormsDBHelper(mContext);
-            Collection<PWContract> pw = db.getAllPws();
+            Collection<PWsContract> pw = db.getAllPws();
             Log.d(TAG, String.valueOf(pw.size()));
 //            pd.setMessage("Total Forms: " );
-            for (PWContract pwc : pw) {
+            for (PWsContract pwc : pw) {
 
                 jsonSync.put(pwc.toJSONObject());
                 //wr.writeBytes(jsonParam.toString().replace("\uFEFF", "") + "\n");
@@ -135,7 +135,7 @@ public class SyncPW extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return downloadUrl(AppMain._IP + "/src/mwras/");
+            return downloadUrl(AppMain.PROJECT_URI + PWsContract.PwTable.URI);
         } catch (IOException e) {
             return "Unable to upload data. Server may be down.";
         }

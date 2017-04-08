@@ -98,7 +98,7 @@ public class AddPWomenActivity extends Activity {
 
     private void SaveDraft() {
 
-        AppMain.pw = new PWContract();
+        AppMain.pw = new PWsContract();
 
         AppMain.pw.setUUID(AppMain.lc.getUID());
         AppMain.pw.setMwDT(dtToday);

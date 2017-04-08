@@ -15,16 +15,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import edu.aku.hassannaqvi.cbt_hhlisting.ChildrenContract.ChildTable;
+import edu.aku.hassannaqvi.cbt_hhlisting.ClusterContract.ClusterTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.HFacilitiesContract.HFacilityTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.LHWsContract.LHWTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.ListingContract.ListingEntry;
-import edu.aku.hassannaqvi.cbt_hhlisting.PWContract.PwTable;
+import edu.aku.hassannaqvi.cbt_hhlisting.PWsContract.PwTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.TehsilsContract.TehsilTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.UCsContract.UcTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.UsersContract.singleUser;
 import edu.aku.hassannaqvi.cbt_hhlisting.VillagesContract.VillageTable;
-import edu.aku.hassannaqvi.cbt_hhlisting.ChildContract.ChildTable;
-import edu.aku.hassannaqvi.cbt_hhlisting.ClusterContract.ClusterTable;
 
 
 /**
@@ -121,16 +121,16 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         
         final String SQL_CREATE_CLUSTER_TABLE = "CREATE TABLE " + ClusterTable.TABLE_NAME + " (" +
                 ClusterTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                ClusterTable.C_UID + " TEXT," +
-                ClusterTable.C_clDT + " TEXT," +
-                ClusterTable.C_USERNAME + " TEXT," +
-                ClusterTable.C_LHWPH + " TEXT," +
-                ClusterTable.C_NO_HH + " TEXT," +
-                ClusterTable.C_NO_BISP + " TEXT," +
-                ClusterTable.C_DEVICE_ID + " TEXT," +
-                ClusterTable.C_LHW_CODE + " TEXT," +
-                ClusterTable.C_SYNCED + " TEXT," +
-                ClusterTable.C_SYNCED_DATE + " TEXT" +
+                ClusterTable.CI_UID + " TEXT," +
+                ClusterTable.CI_clDT + " TEXT," +
+                ClusterTable.CI_USERNAME + " TEXT," +
+                ClusterTable.CI_LHWPH + " TEXT," +
+                ClusterTable.CI_NO_HH + " TEXT," +
+                ClusterTable.CI_NO_BISP + " TEXT," +
+                ClusterTable.CI_DEVICE_ID + " TEXT," +
+                ClusterTable.CI_LHW_CODE + " TEXT," +
+                ClusterTable.CI_SYNCED + " TEXT," +
+                ClusterTable.CI_SYNCED_DATE + " TEXT" +
                 " );";
 
         final String SQL_CREATE_TEHSIL_TABLE = "CREATE TABLE " + TehsilTable.TABLE_NAME + " (" +
@@ -263,7 +263,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    public Long addChild(ChildContract cc) {
+    public Long addChild(ChildrenContract cc) {
 
         // Gets the data repository in write mode
         SQLiteDatabase db = this.getWritableDatabase();
@@ -291,7 +291,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         long newRowId;
         newRowId = db.insert(
                 ChildTable.TABLE_NAME,
-                ChildTable.C_NULLABLE,
+                ChildTable.NULLABLE,
                 values);
         DB_CC_ID = String.valueOf(newRowId);
 
@@ -306,15 +306,15 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
 
-        values.put(ClusterTable.C_clDT, clc.getClDT());
-        values.put(ClusterTable.C_USERNAME, clc.getUserName());
-        values.put(ClusterTable.C_LHWPH, clc.getLhwPh());
-        values.put(ClusterTable.C_NO_HH, clc.getNoHH());
-        values.put(ClusterTable.C_NO_BISP, clc.getNoBISP());
-        values.put(ClusterTable.C_DEVICE_ID, clc.getDeviceId());
-        values.put(ClusterTable.C_LHW_CODE, clc.getLhwCode());
-        values.put(ClusterTable.C_SYNCED, clc.getSynced());
-        values.put(ClusterTable.C_SYNCED_DATE, clc.getSyncedDate());
+        values.put(ClusterTable.CI_clDT, clc.getClDT());
+        values.put(ClusterTable.CI_USERNAME, clc.getUserName());
+        values.put(ClusterTable.CI_LHWPH, clc.getLhwPh());
+        values.put(ClusterTable.CI_NO_HH, clc.getNoHH());
+        values.put(ClusterTable.CI_NO_BISP, clc.getNoBISP());
+        values.put(ClusterTable.CI_DEVICE_ID, clc.getDeviceId());
+        values.put(ClusterTable.CI_LHW_CODE, clc.getLhwCode());
+        values.put(ClusterTable.CI_SYNCED, clc.getSynced());
+        values.put(ClusterTable.CI_SYNCED_DATE, clc.getSyncedDate());
 
         long newRowId;
         newRowId = db.insert(
@@ -325,8 +325,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         return newRowId;
     }
-    
-    public Long addPw(PWContract pw) {
+
+    public Long addPw(PWsContract pw) {
 
         // Gets the data repository in write mode
         SQLiteDatabase db = this.getWritableDatabase();
@@ -355,7 +355,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         long newRowId;
         newRowId = db.insert(
                 PwTable.TABLE_NAME,
-                PwTable.PW_NULLABLE,
+                PwTable.NULLHACK,
                 values);
         DB_PW_ID = String.valueOf(newRowId);
 
@@ -405,7 +405,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 // New value for one column
         ContentValues values = new ContentValues();
-        values.put(ClusterTable.C_UID, AppMain.clc.getUID());
+        values.put(ClusterTable.CI_UID, AppMain.clc.getUID());
 
 // Which row to update, based on the ID
         String selection = ClusterTable._ID + " LIKE ?";
@@ -527,9 +527,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allLC;
     }
 
-    public Collection<ChildContract> getAllChild() {
+    public Collection<ChildrenContract> getAllChild() {
         SQLiteDatabase db = this.getReadableDatabase();
-        ChildContract Child = new ChildContract();
+        ChildrenContract Child = new ChildrenContract();
         Cursor c = null;
         String[] columns = {
                 ChildTable._ID,
@@ -558,7 +558,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String orderBy =
                 ChildTable._ID + " ASC";
 
-        Collection<ChildContract> allChild = new ArrayList<ChildContract>();
+        Collection<ChildrenContract> allChild = new ArrayList<ChildrenContract>();
         try {
             c = db.query(
                     ChildTable.TABLE_NAME,  // The table to query
@@ -589,16 +589,16 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Cursor c = null;
         String[] columns = {
                 ClusterTable._ID,
-                ClusterTable.C_UID,
-                ClusterTable.C_clDT,
-                ClusterTable.C_USERNAME,
-                ClusterTable.C_LHWPH,
-                ClusterTable.C_NO_HH,
-                ClusterTable.C_NO_BISP,
-                ClusterTable.C_DEVICE_ID,
-                ClusterTable.C_LHW_CODE,
-                ClusterTable.C_SYNCED,
-                ClusterTable.C_SYNCED_DATE
+                ClusterTable.CI_UID,
+                ClusterTable.CI_clDT,
+                ClusterTable.CI_USERNAME,
+                ClusterTable.CI_LHWPH,
+                ClusterTable.CI_NO_HH,
+                ClusterTable.CI_NO_BISP,
+                ClusterTable.CI_DEVICE_ID,
+                ClusterTable.CI_LHW_CODE,
+                ClusterTable.CI_SYNCED,
+                ClusterTable.CI_SYNCED_DATE
         };
 
         String whereClause = null;
@@ -634,7 +634,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allCluster;
     }
 
-    public Collection<PWContract> getAllPws() {
+    public Collection<PWsContract> getAllPws() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -666,7 +666,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String orderBy =
                 PwTable._ID + " ASC";
 
-        Collection<PWContract> allPW = new ArrayList<PWContract>();
+        Collection<PWsContract> allPW = new ArrayList<PWsContract>();
         try {
             c = db.query(
                     PwTable.TABLE_NAME,  // The table to query
@@ -678,7 +678,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     orderBy                    // The sort order
             );
             while (c.moveToNext()) {
-                PWContract pw = new PWContract();
+                PWsContract pw = new PWsContract();
                 allPW.add(pw.Hydrate(c));
             }
         } finally {

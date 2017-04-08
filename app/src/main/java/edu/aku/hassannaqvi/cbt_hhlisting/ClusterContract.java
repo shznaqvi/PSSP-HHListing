@@ -30,32 +30,32 @@ public class ClusterContract {
 
     public ClusterContract Sync(JSONObject jsonObject) throws JSONException {
         this.ID = jsonObject.getLong(ClusterTable._ID);
-        this.UID = jsonObject.getString(ClusterTable.C_UID);
-        this.clDT = jsonObject.getString(ClusterTable.C_clDT);
-        this.userName = jsonObject.getString(ClusterTable.C_USERNAME);
-        this.lhwPh = jsonObject.getString(ClusterTable.C_LHWPH);
-        this.noHH = jsonObject.getString(ClusterTable.C_NO_HH);
-        this.noBISP = jsonObject.getString(ClusterTable.C_NO_BISP);
-        this.deviceId = jsonObject.getString(ClusterTable.C_DEVICE_ID);
-        this.lhwCode = jsonObject.getString(ClusterTable.C_LHW_CODE);
-        this.synced = jsonObject.getString(ClusterTable.C_SYNCED);
-        this.syncedDate = jsonObject.getString(ClusterTable.C_SYNCED_DATE);
+        this.UID = jsonObject.getString(ClusterTable.CI_UID);
+        this.clDT = jsonObject.getString(ClusterTable.CI_clDT);
+        this.userName = jsonObject.getString(ClusterTable.CI_USERNAME);
+        this.lhwPh = jsonObject.getString(ClusterTable.CI_LHWPH);
+        this.noHH = jsonObject.getString(ClusterTable.CI_NO_HH);
+        this.noBISP = jsonObject.getString(ClusterTable.CI_NO_BISP);
+        this.deviceId = jsonObject.getString(ClusterTable.CI_DEVICE_ID);
+        this.lhwCode = jsonObject.getString(ClusterTable.CI_LHW_CODE);
+        this.synced = jsonObject.getString(ClusterTable.CI_SYNCED);
+        this.syncedDate = jsonObject.getString(ClusterTable.CI_SYNCED_DATE);
 
         return this;
     }
 
     public ClusterContract hydrate(Cursor cursor) {
         this.ID = cursor.getLong(cursor.getColumnIndex(ClusterTable._ID));
-        this.UID = cursor.getString(cursor.getColumnIndex(ClusterTable.C_UID));
-        this.clDT = cursor.getString(cursor.getColumnIndex(ClusterTable.C_clDT));
-        this.userName = cursor.getString(cursor.getColumnIndex(ClusterTable.C_USERNAME));
-        this.lhwPh = cursor.getString(cursor.getColumnIndex(ClusterTable.C_LHWPH));
-        this.noHH = cursor.getString(cursor.getColumnIndex(ClusterTable.C_NO_HH));
-        this.noBISP = cursor.getString(cursor.getColumnIndex(ClusterTable.C_NO_BISP));
-        this.deviceId = cursor.getString(cursor.getColumnIndex(ClusterTable.C_DEVICE_ID));
-        this.lhwCode = cursor.getString(cursor.getColumnIndex(ClusterTable.C_LHW_CODE));
-        this.synced = cursor.getString(cursor.getColumnIndex(ClusterTable.C_SYNCED));
-        this.syncedDate = cursor.getString(cursor.getColumnIndex(ClusterTable.C_SYNCED_DATE));
+        this.UID = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_UID));
+        this.clDT = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_clDT));
+        this.userName = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_USERNAME));
+        this.lhwPh = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_LHWPH));
+        this.noHH = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_NO_HH));
+        this.noBISP = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_NO_BISP));
+        this.deviceId = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_DEVICE_ID));
+        this.lhwCode = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_LHW_CODE));
+        this.synced = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_SYNCED));
+        this.syncedDate = cursor.getString(cursor.getColumnIndex(ClusterTable.CI_SYNCED_DATE));
 
         return this;
     }
@@ -152,35 +152,37 @@ public class ClusterContract {
         JSONObject json = new JSONObject();
 
         json.put(ClusterTable._ID, this.ID == null ? JSONObject.NULL : this.ID);
-        json.put(ClusterTable.C_UID, this.UID == null ? JSONObject.NULL : this.UID);
-        json.put(ClusterTable.C_clDT, this.clDT == null ? JSONObject.NULL : this.clDT);
-        json.put(ClusterTable.C_USERNAME, this.userName == null ? JSONObject.NULL : this.userName);
-        json.put(ClusterTable.C_LHWPH, this.lhwPh == null ? JSONObject.NULL : this.lhwPh);
-        json.put(ClusterTable.C_NO_HH, this.noHH == null ? JSONObject.NULL : this.noHH);
-        json.put(ClusterTable.C_NO_BISP, this.noBISP == null ? JSONObject.NULL : this.noBISP);
-        json.put(ClusterTable.C_DEVICE_ID, this.deviceId == null ? JSONObject.NULL : this.deviceId);
-        json.put(ClusterTable.C_LHW_CODE, this.lhwCode == null ? JSONObject.NULL : this.lhwCode);
-        json.put(ClusterTable.C_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
-        json.put(ClusterTable.C_SYNCED_DATE, this.syncedDate == null ? JSONObject.NULL : this.syncedDate);
+        json.put(ClusterTable.CI_UID, this.UID == null ? JSONObject.NULL : this.UID);
+        json.put(ClusterTable.CI_clDT, this.clDT == null ? JSONObject.NULL : this.clDT);
+        json.put(ClusterTable.CI_USERNAME, this.userName == null ? JSONObject.NULL : this.userName);
+        json.put(ClusterTable.CI_LHWPH, this.lhwPh == null ? JSONObject.NULL : this.lhwPh);
+        json.put(ClusterTable.CI_NO_HH, this.noHH == null ? JSONObject.NULL : this.noHH);
+        json.put(ClusterTable.CI_NO_BISP, this.noBISP == null ? JSONObject.NULL : this.noBISP);
+        json.put(ClusterTable.CI_DEVICE_ID, this.deviceId == null ? JSONObject.NULL : this.deviceId);
+        json.put(ClusterTable.CI_LHW_CODE, this.lhwCode == null ? JSONObject.NULL : this.lhwCode);
+        json.put(ClusterTable.CI_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
+        json.put(ClusterTable.CI_SYNCED_DATE, this.syncedDate == null ? JSONObject.NULL : this.syncedDate);
 
         return json;
 
     }
 
     public static abstract class ClusterTable implements BaseColumns {
-
-        public static final String TABLE_NAME = "clc";
+        public static final String URI = "/clusterinfo";
+        public static final String TABLE_NAME = "clusterinfo";
         public static final String C_NULLABLE = "NULLHACK";
-        public static final String _ID = "_id";
-        public static final String C_UID = "uid";
-        public static final String C_clDT = "clDT";
-        public static final String C_USERNAME = "user";
-        public static final String C_LHWPH = "hh11";
-        public static final String C_NO_HH = "noHH";
-        public static final String C_NO_BISP = "noBISP";
-        public static final String C_DEVICE_ID = "deviceid";
-        public static final String C_LHW_CODE = "lhw_code";
-        public static final String C_SYNCED = "synced";
-        public static final String C_SYNCED_DATE = "synced_date";
+
+        public static final String _ID = "id";
+        public static final String CI_UID = "uid";
+        public static final String CI_LHW_CODE = "lhw_code";
+        public static final String CI_clDT = "cidate";
+        public static final String CI_USERNAME = "username";
+        public static final String CI_LHWPH = "lhw_ph";
+        public static final String CI_NO_HH = "hh_count";
+        public static final String CI_NO_BISP = "bisp_count";
+        public static final String CI_DEVICE_ID = "deviceid";
+        public static final String CI_SYNCED = "synced";
+        public static final String CI_SYNCED_DATE = "synced_date";
+
     }
 }

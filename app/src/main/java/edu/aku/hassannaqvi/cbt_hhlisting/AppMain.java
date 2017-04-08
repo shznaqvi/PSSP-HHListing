@@ -35,8 +35,8 @@ public class AppMain extends Application {
     public static String TAG = "AppMain";
     public static String userName;
     public static ListingContract lc;
-    public static PWContract pw;
-    public static ChildContract cc;
+    public static PWsContract pw;
+    public static ChildrenContract cc;
     public static ClusterContract clc;
     public static String hh01txt = "0000";  //hf code
     public static String hh02txt;   //LHW code

@@ -25,7 +25,6 @@ import java.util.Collection;
 import edu.aku.hassannaqvi.cbt_hhlisting.AppMain;
 import edu.aku.hassannaqvi.cbt_hhlisting.ClusterContract;
 import edu.aku.hassannaqvi.cbt_hhlisting.FormsDBHelper;
-import edu.aku.hassannaqvi.cbt_hhlisting.PWContract;
 
 /**
  * Created by hassan.naqvi on 7/26/2016.
@@ -136,7 +135,7 @@ public class SyncClusterInfo extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return downloadUrl(AppMain._IP + "/src/mwras/");
+            return downloadUrl(AppMain.PROJECT_URI + ClusterContract.ClusterTable.URI);
         } catch (IOException e) {
             return "Unable to upload data. Server may be down.";
         }

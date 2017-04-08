@@ -324,7 +324,7 @@ public class ListingContract {
     public static abstract class ListingEntry implements BaseColumns {
 
         public static final String TABLE_NAME = "listings";
-        public static final String URI = "listings";
+        public static final String URI = "/listings";
 
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
         public static final String _ID = "_id";
@@ -347,7 +347,6 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH09B = "hh09b";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
-
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
         public static final String COLUMN_NAME_GPSLng = "gpslng";
