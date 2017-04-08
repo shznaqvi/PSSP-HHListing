@@ -30,6 +30,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.aku.hassannaqvi.cbt_hhlisting.sync.SyncChildren;
+import edu.aku.hassannaqvi.cbt_hhlisting.sync.SyncClusterInfo;
 import edu.aku.hassannaqvi.cbt_hhlisting.sync.SyncListings;
 import edu.aku.hassannaqvi.cbt_hhlisting.sync.SyncPW;
 
@@ -223,8 +224,12 @@ public class MainActivity extends Activity {
             pm.execute();
 
             SyncChildren cc = new SyncChildren(this);
-            Toast.makeText(getApplicationContext(), "Syncing PW", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Syncing Children", Toast.LENGTH_SHORT).show();
             cc.execute();
+
+            SyncClusterInfo ci = new SyncClusterInfo(this);
+            Toast.makeText(getApplicationContext(), "Syncing ClusterInfo", Toast.LENGTH_SHORT).show();
+            ci.execute();
 
             GetUsers u = new GetUsers(this);
             Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
@@ -260,9 +265,9 @@ public class MainActivity extends Activity {
             Intent intent = getIntent();
             finish();
             startActivity(intent);
-        } /*else {
+        } else {
             Toast.makeText(getApplicationContext(), "Network Not Available", Toast.LENGTH_SHORT).show();
-        }*/
+        }
     }
 
     private boolean isNetworkAvailable() {
