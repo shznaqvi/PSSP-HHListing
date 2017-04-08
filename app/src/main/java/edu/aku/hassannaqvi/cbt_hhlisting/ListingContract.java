@@ -1,6 +1,7 @@
 package edu.aku.hassannaqvi.cbt_hhlisting;
 
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,19 +63,24 @@ public class ListingContract {
     }
 
     public String getLhwcode() {
+        Log.d("LHW", "getLhwcode: " + lhwcode);
         return lhwcode;
     }
 
     public void setLhwcode(String lhwcode) {
         this.lhwcode = lhwcode;
+        Log.d("LHW", "setLhwcode: " + lhwcode);
     }
 
     public String getUserName() {
+        Log.d("USER", "getUserName: " + userName);
+
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
+        Log.d("USER", "setUserName: " + userName);
     }
 
     public String getID() {

@@ -1101,7 +1101,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private ListingContract hydrate(Cursor c) {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
         lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
-        lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_LHWCODE))));
+        lc.setLhwcode(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_LHWCODE))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
