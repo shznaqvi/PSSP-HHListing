@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Contracts;
 
 import android.database.Cursor;
 import android.provider.BaseColumns;

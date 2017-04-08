@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,6 +28,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.aku.hassannaqvi.pssp_hhlisting.AndroidDatabaseManager;
+import edu.aku.hassannaqvi.pssp_hhlisting.AppMain;
+import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.DistrictsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.PSUsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.FormsDBHelper;
+import edu.aku.hassannaqvi.pssp_hhlisting.Get.GetDistricts;
+import edu.aku.hassannaqvi.pssp_hhlisting.Get.GetPSUs;
+import edu.aku.hassannaqvi.pssp_hhlisting.Get.GetUsers;
+import edu.aku.hassannaqvi.pssp_hhlisting.R;
+import edu.aku.hassannaqvi.pssp_hhlisting.SyncListing;
 
 public class MainActivity extends Activity {
 
@@ -180,18 +190,21 @@ public class MainActivity extends Activity {
 
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
-            SyncForms ff = new SyncForms(this);
-            Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
+            SyncListing ff = new SyncListing(this);
+            Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
             ff.execute();
-
 
             GetDistricts gd = new GetDistricts(this);
             Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
             gd.execute();
+
             GetPSUs gp = new GetPSUs(this);
             Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
             gp.execute();
 
+            GetUsers gu = new GetUsers(this);
+            Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
+            gu.execute();
 
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = syncPref.edit();

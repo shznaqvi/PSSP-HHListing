@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,10 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.aku.hassannaqvi.pssp_hhlisting.AppMain;
+import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.ListingContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.FormsDBHelper;
+import edu.aku.hassannaqvi.pssp_hhlisting.R;
 
 public class setupActivity extends Activity {
 
@@ -35,8 +40,6 @@ public class setupActivity extends Activity {
     TextView hh01;
     @BindView(R.id.hh02)
     EditText hh02;
-    @BindView(R.id.hhadd)
-    EditText hhadd;
     @BindView(R.id.hh03)
     TextView hh03;
     @BindView(R.id.hh04)
@@ -191,7 +194,6 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh01(AppMain.hh01txt);
         AppMain.lc.setHh02(AppMain.hh02txt);
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
-        AppMain.lc.setHhadd(hhadd.getText().toString());
         switch (hh04.getCheckedRadioButtonId()) {
             case R.id.hh04a:
                 AppMain.lc.setHh04("1");
@@ -221,6 +223,7 @@ public class setupActivity extends Activity {
                 AppMain.lc.setHh04("xx");
                 break;
         }
+        AppMain.lc.setUser(AppMain.userEmail);
         AppMain.lc.setHh04x(hh04x88.getText().toString());
         AppMain.lc.setHh05(hh05.isChecked() ? "1" : "2");
         AppMain.lc.setHh06(hh06.getText().toString());
@@ -228,18 +231,45 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setDeviceID(deviceId);
 
-        SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
-        AppMain.lc.setGPSLat(sharedPref.getString("Latitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Longitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Accuracy", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Time", ""));
-
+        setGPS();
 
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03().toString());
 
+    }
+
+    public void setGPS() {
+        SharedPreferences GPSPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+
+//        String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
+
+        try {
+            String lat = GPSPref.getString("Latitude", "0");
+            String lang = GPSPref.getString("Longitude", "0");
+            String acc = GPSPref.getString("Accuracy", "0");
+            String dt = GPSPref.getString("Time", "0");
+
+            if (lat == "0" && lang == "0") {
+                Toast.makeText(this, "Could not obtained GPS points", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+            }
+
+            String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(GPSPref.getString("Time", "0"))).toString();
+
+            AppMain.lc.setGPSLat(GPSPref.getString("Latitude", "0"));
+            AppMain.lc.setGPSLng(GPSPref.getString("Longitude", "0"));
+            AppMain.lc.setGPSAcc(GPSPref.getString("Accuracy", "0"));
+//            AppMain.fc.setGpsTime(GPSPref.getString(date, "0")); // Timestamp is converted to date above
+            AppMain.lc.setGPSTime(date); // Timestamp is converted to date above
+
+            Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Log.e(TAG, "setGPS: " + e.getMessage());
+        }
 
     }
 
@@ -281,9 +311,9 @@ public class setupActivity extends Activity {
         }
 
         if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) <= 1) {
-            Toast.makeText(this, "Answers do not match!", Toast.LENGTH_LONG).show();
-            hh06.setError("Answers do not match!");
-            Log.i(TAG, "Answers do not match!");
+            Toast.makeText(this, "Greater then 1!", Toast.LENGTH_LONG).show();
+            hh06.setError("Greater then 1!");
+            Log.i(TAG, "hh06:Greater then 1!");
             return false;
         } else {
             hh06.setError(null);
@@ -317,8 +347,16 @@ public class setupActivity extends Activity {
 
         long updcount = db.addForm(AppMain.lc);
 
+        AppMain.lc.setID(String.valueOf(updcount));
+
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+
+            AppMain.lc.setUID(
+                    (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+
+            db.updateListingUID();
+
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }

@@ -8,7 +8,11 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.View;
+
+import java.util.Map;
+
+import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.ListingContract;
 
 /**
  * Created by hassan.naqvi on 10/15/2016.
@@ -21,8 +25,11 @@ public class AppMain extends Application {
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     private static final int TWO_MINUTES = 1000 * 60 * 2;
-    //public static String _IP = "http://192.168.1.10:3000"; // Testing Server
-    public static String _IP = "http://43.245.131.159:3000"; //Production server
+    //public static String _HOST_URL = "http://192.168.1.10:3000"; // Testing Server
+    public static final String _IP = "43.245.131.159"; // Test PHP server
+    public static final Integer _PORT = 3000; // Port - with colon (:)
+    public static String _HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT ;
+
     public static String TAG = "AppMain";
     public static ListingContract lc;
     public static String hh01txt = "0000";
@@ -36,6 +43,10 @@ public class AppMain extends Application {
     public static int cTotal = 0;
     public static SharedPreferences sharedPref;
     protected static LocationManager locationManager;
+
+    public static String userEmail;
+
+    Location location;
 
     public static void updatePSU(String psuCode, String structureNo) {
 
@@ -76,23 +87,99 @@ public class AppMain extends Application {
                 LocationManager.GPS_PROVIDER,
                 MINIMUM_TIME_BETWEEN_UPDATES,
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                new GPSLocationListener() // Implement this class from code
+                new MyLocationListener()
         );
 
         sharedPref = getSharedPreferences("PSUCodes", Context.MODE_PRIVATE);
 
     }
 
-    public class GPSLocationListener implements LocationListener {
-        public void onLocationChanged(Location location) {
+    protected void showCurrentLocation() {
 
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        if (location != null) {
+            String message = String.format(
+                    "Current Location \n Longitude: %1$s \n Latitude: %2$s",
+                    location.getLongitude(), location.getLatitude()
+            );
+            //Toast.makeText(getApplicationContext(), message,
+            //Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void showGPSCoordinates(View v) {
+        showCurrentLocation();
+
+
+    }
+
+    /**
+     * Checks whether two providers are the same
+     */
+    private boolean isSameProvider(String provider1, String provider2) {
+        if (provider1 == null) {
+            return provider2 == null;
+        }
+        return provider1.equals(provider2);
+    }
+
+    protected boolean isBetterLocation(Location location, Location currentBestLocation) {
+        if (currentBestLocation == null) {
+            // A new location is always better than no location
+            return true;
+        }
+
+        // Check whether the new location fix is newer or older
+        long timeDelta = location.getTime() - currentBestLocation.getTime();
+        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
+        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
+        boolean isNewer = timeDelta > 0;
+
+        // If it's been more than two minutes since the current location, use the new location
+        // because the user has likely moved
+        if (isSignificantlyNewer) {
+            return true;
+            // If the new location is more than two minutes older, it must be worse
+        } else if (isSignificantlyOlder) {
+            return false;
+        }
+
+        // Check whether the new location fix is more or less accurate
+        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
+        boolean isLessAccurate = accuracyDelta > 0;
+        boolean isMoreAccurate = accuracyDelta < 0;
+        boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+
+        // Check if the old and new location are from the same provider
+        boolean isFromSameProvider = isSameProvider(location.getProvider(),
+                currentBestLocation.getProvider());
+
+        // Determine location quality using a combination of timeliness and accuracy
+        if (isMoreAccurate) {
+            return true;
+        } else if (isNewer && !isLessAccurate) {
+            return true;
+        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+            return true;
+        }
+        return false;
+    }
+
+    private class MyLocationListener implements LocationListener {
+
+        public void onLocationChanged(Location location) {
 
             SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
 
+            String dt = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(sharedPref.getString("Time", "0"))).toString();
+
             Location bestLocation = new Location("storedProvider");
             bestLocation.setAccuracy(Float.parseFloat(sharedPref.getString("Accuracy", "0")));
-            bestLocation.setTime(Long.parseLong(sharedPref.getString("Time", "0")));
+            bestLocation.setTime(Long.parseLong(sharedPref.getString(dt, "0")));
+//                bestLocation.setTime(Long.parseLong(dt));
             bestLocation.setLatitude(Float.parseFloat(sharedPref.getString("Latitude", "0")));
             bestLocation.setLongitude(Float.parseFloat(sharedPref.getString("Longitude", "0")));
 
@@ -101,70 +188,25 @@ public class AppMain extends Application {
                 editor.putString("Latitude", String.valueOf(location.getLatitude()));
                 editor.putString("Accuracy", String.valueOf(location.getAccuracy()));
                 editor.putString("Time", String.valueOf(location.getTime()));
-                String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();
-                Toast.makeText(getApplicationContext(),
-                        "GPS Commit! LAT: " + String.valueOf(location.getLongitude()) +
-                                " LNG: " + String.valueOf(location.getLatitude()) +
-                                " Accuracy: " + String.valueOf(location.getAccuracy()) +
-                                " Time: " + date,
-                        Toast.LENGTH_SHORT).show();
+//                    editor.putString("Time", DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString());
+
+//                String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();
+//                Toast.makeText(getApplicationContext(),
+//                        "GPS Commit! LAT: " + String.valueOf(location.getLongitude()) +
+//                                " LNG: " + String.valueOf(location.getLatitude()) +
+//                                " Accuracy: " + String.valueOf(location.getAccuracy()) +
+//                                " Time: " + date,
+//                        Toast.LENGTH_SHORT).show();
 
                 editor.apply();
             }
+
+
+            Map<String, ?> allEntries = sharedPref.getAll();
+            for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                Log.d("Map", entry.getKey() + ": " + entry.getValue().toString());
+            }
         }
-
-        protected boolean isBetterLocation(Location location, Location currentBestLocation) {
-            if (currentBestLocation == null) {
-                // A new location is always better than no location
-                return true;
-            }
-
-            // Check whether the new location fix is newer or older
-            long timeDelta = location.getTime() - currentBestLocation.getTime();
-            boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
-            boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
-            boolean isNewer = timeDelta > 0;
-
-            // If it's been more than two minutes since the current location, use the new location
-            // because the user has likely moved
-            if (isSignificantlyNewer) {
-                return true;
-                // If the new location is more than two minutes older, it must be worse
-            } else if (isSignificantlyOlder) {
-                return false;
-            }
-
-            // Check whether the new location fix is more or less accurate
-            int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
-            boolean isLessAccurate = accuracyDelta > 0;
-            boolean isMoreAccurate = accuracyDelta < 0;
-            boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-
-            // Check if the old and new location are from the same provider
-            boolean isFromSameProvider = isSameProvider(location.getProvider(),
-                    currentBestLocation.getProvider());
-
-            // Determine location quality using a combination of timeliness and accuracy
-            if (isMoreAccurate) {
-                return true;
-            } else if (isNewer && !isLessAccurate) {
-                return true;
-            } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-                return true;
-            }
-            return false;
-        }
-
-        /**
-         * Checks whether two providers are the same
-         */
-        private boolean isSameProvider(String provider1, String provider2) {
-            if (provider1 == null) {
-                return provider2 == null;
-            }
-            return provider1.equals(provider2);
-        }
-
 
         public void onStatusChanged(String s, int i, Bundle b) {
             showCurrentLocation();
@@ -175,21 +217,6 @@ public class AppMain extends Application {
         }
 
         public void onProviderEnabled(String s) {
-
-        }
-
-        protected void showCurrentLocation() {
-
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            if (location != null) {
-                String message = String.format(
-                        "Current Location \n Longitude: %1$s \n Latitude: %2$s",
-                        location.getLongitude(), location.getLatitude()
-                );
-                Toast.makeText(AppMain.this, message,
-                        Toast.LENGTH_SHORT).show();
-            }
 
         }
 

@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Get;
 
 /**
  * Created by hassan.naqvi on 10/31/2016.
@@ -19,6 +19,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+
+import edu.aku.hassannaqvi.pssp_hhlisting.AppMain;
+import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.PSUsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.FormsDBHelper;
 
 /**
  * Created by hassan.naqvi on 4/28/2016.
@@ -50,7 +54,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/psus/");
+            URL url = new URL(AppMain._HOST_URL + "/psus/");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();

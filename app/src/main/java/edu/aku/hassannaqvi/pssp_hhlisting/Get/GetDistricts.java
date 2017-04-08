@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Get;
 
 /**
  * Created by hassan.naqvi on 10/31/2016.
@@ -19,6 +19,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+
+import edu.aku.hassannaqvi.pssp_hhlisting.AppMain;
+import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.DistrictsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.FormsDBHelper;
 
 /**
  * Created by hassan.naqvi on 4/28/2016.
@@ -53,7 +57,7 @@ public class GetDistricts extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/districts/");
+            URL url = new URL(AppMain._HOST_URL + "/districts/");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();

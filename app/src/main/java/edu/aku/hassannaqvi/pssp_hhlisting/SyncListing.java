@@ -22,17 +22,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.ListingContract;
+
 /**
  * Created by hassan.naqvi on 7/26/2016.
  */
-public class SyncForms extends AsyncTask<Void, Void, String> {
+public class SyncListing extends AsyncTask<Void, Void, String> {
 
-    private static final String TAG = "SyncForms";
+    private static final String TAG = "SyncListing";
     private Context mContext;
     private ProgressDialog pd;
 
 
-    public SyncForms(Context context) {
+    public SyncListing(Context context) {
         mContext = context;
     }
 
@@ -132,7 +134,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return downloadUrl(AppMain._IP + "/forms/");
+            return downloadUrl(AppMain._HOST_URL + "/forms/");
         } catch (IOException e) {
             return "Unable to upload data. Server may be down.";
         }

@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Contracts;
 
 import android.provider.BaseColumns;
 
@@ -16,7 +16,6 @@ public class ListingContract {
     public String hh01;
     public String hh02;
     public String hh03;
-    public String hhadd;
     public String hh04;
     public String hh04x;
     public String hh05;
@@ -36,6 +35,8 @@ public class ListingContract {
     public String GPSTime;
     public String GPSAcc;
     public String Round = "2";
+
+    private String user = "0000"; // User Name
 
     public ListingContract() {
     }
@@ -98,14 +99,6 @@ public class ListingContract {
 
     public void setHh03(String hh03) {
         this.hh03 = hh03;
-    }
-
-    public String getHhadd() {
-        return hhadd;
-    }
-
-    public void setHhadd(String hhadd) {
-        this.hhadd = hhadd;
     }
 
     public String getHh04() {
@@ -268,6 +261,14 @@ public class ListingContract {
         Round = round;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -276,7 +277,6 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
         json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03);
-        json.put(ListingEntry.COLUMN_NAME_HHADD, this.hhadd);
         json.put(ListingEntry.COLUMN_NAME_HH04, this.hh04);
         json.put(ListingEntry.COLUMN_NAME_HH04x, this.hh04x);
         json.put(ListingEntry.COLUMN_NAME_HH05, this.hh05);
@@ -296,6 +296,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
+        json.put(ListingEntry.COLUMN_USER, this.user);
 
         return json;
     }
@@ -310,7 +311,6 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH01 = "hh01";
         public static final String COLUMN_NAME_HH02 = "hh02";
         public static final String COLUMN_NAME_HH03 = "hh03";
-        public static final String COLUMN_NAME_HHADD = "hhadd";
         public static final String COLUMN_NAME_HH04 = "hh04";
         public static final String COLUMN_NAME_HH04x = "hh04x";
         public static final String COLUMN_NAME_HH05 = "hh05";
@@ -330,5 +330,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSTime = "gpstime";
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
         public static final String COLUMN_NAME_ROUND = "round";
+
+        public static final String COLUMN_USER = "user";
     }
 }
