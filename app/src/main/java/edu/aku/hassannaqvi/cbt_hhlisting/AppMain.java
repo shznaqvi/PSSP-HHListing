@@ -57,7 +57,7 @@ public class AppMain extends Application {
     public static Boolean UCsCodeFlag = true;
     public static int UCsCode;
     public static Boolean VillageCodeFlag = true;
-    public static int VillageCode;
+    public static String VillageCode;
     public static Boolean ClusterActivityFlag = false;
     protected static LocationManager locationManager;
 

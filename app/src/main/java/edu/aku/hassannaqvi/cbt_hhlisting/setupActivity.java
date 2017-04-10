@@ -45,7 +45,7 @@ public class setupActivity extends Activity {
     @BindView(R.id.lhwaUCname)
     Spinner lhwaUCname;
     @BindView(R.id.lhwcVillage)
-    Spinner lhwcVillage;
+    EditText lhwcVillage;
     @BindView(R.id.hhadd)
     EditText hhadd;
     @BindView(R.id.hh03)
@@ -197,14 +197,14 @@ public class setupActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                VillagesName = new ArrayList<>();
-                getAllVillages = new HashMap<>();
-                Collection<VillagesContract> allVillages = db.getAllVillagesByUc(getAllUCs.get(UCs.get(position)));
-                for (VillagesContract aVillages : allVillages) {
-                    getAllVillages.put(aVillages.getVillageName(), aVillages.getVillageCode());
-                    VillagesName.add(aVillages.getVillageName());
-                }
-                lhwcVillage.setAdapter(new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, VillagesName));
+//                VillagesName = new ArrayList<>();
+//                getAllVillages = new HashMap<>();
+//                Collection<VillagesContract> allVillages = db.getAllVillagesByUc(getAllUCs.get(UCs.get(position)));
+//                for (VillagesContract aVillages : allVillages) {
+//                    getAllVillages.put(aVillages.getVillageName(), aVillages.getVillageCode());
+//                    VillagesName.add(aVillages.getVillageName());
+//                }
+//                lhwcVillage.setAdapter(new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, VillagesName));
 
                 if (AppMain.UCsCodeFlag) {
                     AppMain.UCsCode = position;
@@ -217,6 +217,8 @@ public class setupActivity extends Activity {
                     lhwaUCname.setEnabled(false);
                     lhwcVillage.setEnabled(false);
 
+                    lhwcVillage.setText(AppMain.VillageCode);
+
                 }
             }
 
@@ -226,24 +228,24 @@ public class setupActivity extends Activity {
             }
         });
 
-        lhwcVillage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (AppMain.VillageCodeFlag) {
-                    AppMain.VillageCode = position;
-                }
-
-                if (!AppMain.VillageCodeFlag) {
-                    lhwcVillage.setSelection(AppMain.VillageCode);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        lhwcVillage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                if (AppMain.VillageCodeFlag) {
+//                    AppMain.VillageCode = position;
+//                }
+//
+//                if (!AppMain.VillageCodeFlag) {
+//                    lhwcVillage.setSelection(AppMain.VillageCode);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         if (lhwaUCname.getItemAtPosition(0) == "...") {
             btnChangeVillage.setChecked(true);
@@ -329,10 +331,15 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setHhDT(dtToday);
         AppMain.lc.setHh01(AppMain.hh01txt);    //HF Code
-        AppMain.lc.setHh02(""+getAllUCs.get(UCs.get(AppMain.UCsCode))+"-"+getAllVillages.get(VillagesName.get(AppMain.VillageCode))); //UC + VILLAGE
+//        AppMain.lc.setHh02(""+getAllUCs.get(UCs.get(AppMain.UCsCode))+"-"+getAllVillages.get(VillagesName.get(AppMain.VillageCode))); //UC + VILLAGE
+        AppMain.lc.setHh02(""+getAllUCs.get(UCs.get(AppMain.UCsCode))); //UC
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));    //Structure no
         AppMain.lc.setLhwcode(AppMain.hh02txt);
-        AppMain.lc.setHhadd(hhadd.getText().toString());
+
+        AppMain.VillageCode = lhwcVillage.getText().toString();
+
+        AppMain.lc.setHhadd(hhadd.getText().toString()+"-"+AppMain.VillageCode);  //Address + Village Name
+
         switch (hh04.getCheckedRadioButtonId()) {
             case R.id.hh04a:
                 AppMain.lc.setHh04("1");
@@ -435,15 +442,23 @@ public class setupActivity extends Activity {
             txt_uc.setError(null);
         }
 
-        TextView txt_village = (TextView) lhwcVillage.getSelectedView();
-        if (lhwcVillage.getSelectedItem().toString().contains("...")) {
+//        TextView txt_village = (TextView) lhwcVillage.getSelectedView();
+//        if (lhwcVillage.getSelectedItem().toString().contains("...")) {
+//            Toast.makeText(this, "Error(Required):Data Required", Toast.LENGTH_LONG).show();
+//            txt_village.setTextColor(Color.RED);
+//            txt_village.setText("Data Required");
+//            txt_village.setError("Error(Required):Data Required");
+//            return false;
+//        } else {
+//            txt_village.setError(null);
+//        }
+        if (lhwcVillage.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Required):Data Required", Toast.LENGTH_LONG).show();
-            txt_village.setTextColor(Color.RED);
-            txt_village.setText("Data Required");
-            txt_village.setError("Error(Required):Data Required");
+            lhwcVillage.setError("Error(Required):Data Required");
+            Log.i(TAG, "lhwcVillage:Data Required");
             return false;
         } else {
-            txt_village.setError(null);
+            lhwcVillage.setError(null);
         }
 
 //        if (btnChangeVillage.isChecked()) {

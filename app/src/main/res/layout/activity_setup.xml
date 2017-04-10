@@ -55,12 +55,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lhwc" />
 
-            <Spinner
+            <EditText
                 android:id="@+id/lhwcVillage"
                 android:layout_width="0dp"
+                android:hint="Village"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"></Spinner>
-
+                android:layout_weight="2" />
             <!--<Button-->
             <!--android:id="@+id/btnChangeVillage"-->
             <!--android:layout_width="0dp"-->
