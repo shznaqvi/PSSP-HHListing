@@ -160,8 +160,6 @@ public class ClusterContract {
         json.put(ClusterTable.CI_NO_BISP, this.noBISP == null ? JSONObject.NULL : this.noBISP);
         json.put(ClusterTable.CI_DEVICE_ID, this.deviceId == null ? JSONObject.NULL : this.deviceId);
         json.put(ClusterTable.CI_LHW_CODE, this.lhwCode == null ? JSONObject.NULL : this.lhwCode);
-        json.put(ClusterTable.CI_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
-        json.put(ClusterTable.CI_SYNCED_DATE, this.syncedDate == null ? JSONObject.NULL : this.syncedDate);
 
         return json;
 
