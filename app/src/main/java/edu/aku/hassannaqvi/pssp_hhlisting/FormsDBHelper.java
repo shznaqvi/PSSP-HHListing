@@ -68,7 +68,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH12m + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12d + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CHILD_NAME + " TEXT, " +
-                ListingEntry.COLUMN_USER + " TEXT, " +
+                ListingEntry.COLUMN_USERNAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
@@ -216,7 +216,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH12d, lc.getHh12d());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
-        values.put(ListingEntry.COLUMN_USER, lc.getUser());
+        values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
@@ -293,7 +293,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH12m,
                 ListingEntry.COLUMN_NAME_HH12d,
                 ListingEntry.COLUMN_NAME_CHILD_NAME,
-                ListingEntry.COLUMN_USER,
+                ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
@@ -449,7 +449,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
-        values.put(ListingEntry.COLUMN_USER, lc.getUser());
+        values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
 
         return values;
     }
@@ -480,7 +480,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
         lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
         lc.setRound(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ROUND))));
-        lc.setUser(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USER))));
+        lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
 
         return lc;
     }
