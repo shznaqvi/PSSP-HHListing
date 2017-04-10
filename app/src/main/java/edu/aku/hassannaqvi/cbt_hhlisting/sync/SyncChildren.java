@@ -145,7 +145,7 @@ public class SyncChildren extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         pd.setMessage("Server Response: " + result);
-        pd.setTitle("Done!... Synced MWRAs");
+        pd.setTitle("Done!... Synced Children");
         //pd.show();
     }
 }
