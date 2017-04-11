@@ -17,7 +17,7 @@ public class ListingContract {
     public String lhwcode;
     public String hhDT;
     public String hh01; // HF
-    public String hh02; // UC + Village
+    public String hh02; // UC
     public String hh03; // Structure No.
     public String hhadd; // Address/Landmark
     public String hh04; // Type of Structure
