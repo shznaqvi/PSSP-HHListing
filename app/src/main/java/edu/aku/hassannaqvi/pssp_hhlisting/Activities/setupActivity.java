@@ -223,7 +223,7 @@ public class setupActivity extends Activity {
                 AppMain.lc.setHh04("xx");
                 break;
         }
-        AppMain.lc.setUser(AppMain.userEmail);
+        AppMain.lc.setUsername(AppMain.userEmail);
         AppMain.lc.setHh04x(hh04x88.getText().toString());
         AppMain.lc.setHh05(hh05.isChecked() ? "1" : "2");
         AppMain.lc.setHh06(hh06.getText().toString());

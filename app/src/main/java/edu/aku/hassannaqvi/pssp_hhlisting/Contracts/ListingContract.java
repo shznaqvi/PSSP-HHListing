@@ -36,7 +36,7 @@ public class ListingContract {
     public String GPSAcc;
     public String Round = "2";
 
-    private String user = "0000"; // User Name
+    private String username = "0000"; // User Name
 
     public ListingContract() {
     }
@@ -261,12 +261,12 @@ public class ListingContract {
         Round = round;
     }
 
-    public String getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public JSONObject toJSONObject() throws JSONException {
@@ -296,7 +296,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
-        json.put(ListingEntry.COLUMN_USER, this.user);
+        json.put(ListingEntry.COLUMN_USERNAME, this.username);
 
         return json;
     }
@@ -331,6 +331,6 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
         public static final String COLUMN_NAME_ROUND = "round";
 
-        public static final String COLUMN_USER = "user";
+        public static final String COLUMN_USERNAME = "username";
     }
 }
