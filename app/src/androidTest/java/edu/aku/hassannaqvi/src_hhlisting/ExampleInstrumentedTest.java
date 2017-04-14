@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.src_hhlisting;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

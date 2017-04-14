@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.src_hhlisting;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,14 +20,14 @@ import java.util.ArrayList;
  * Created by javed.khan on 1/2/2017.
  */
 
-public class GetVillages extends AsyncTask<String, String, String> {
+public class GetTehsil extends AsyncTask<String, String, String> {
 
-    private final String TAG = "GetVillages()";
+    private final String TAG = "GetTehsil()";
     HttpURLConnection urlConnection;
     private Context mContext;
     private ProgressDialog pd;
 
-    public GetVillages(Context context) {
+    public GetTehsil(Context context) {
         mContext = context;
     }
 
@@ -36,7 +36,7 @@ public class GetVillages extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Getting Villages");
+        pd.setTitle("Getting Tehsil");
         pd.setMessage("Preparing...");
         pd.show();
     }
@@ -47,7 +47,8 @@ public class GetVillages extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/linelisting/getvillagesll.php");
+            URL url = new URL(AppMain._IP + "/linelisting/gettehsilll.php");
+
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();
@@ -58,7 +59,7 @@ public class GetVillages extends AsyncTask<String, String, String> {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "Villages In: " + line);
+                    Log.i(TAG, "Tehsil In: " + line);
                     result.append(line);
                 }
             } else {
@@ -66,7 +67,6 @@ public class GetVillages extends AsyncTask<String, String, String> {
             }
         } catch (Exception e) {
             e.printStackTrace();
-
 
         } finally {
             urlConnection.disconnect();
@@ -90,17 +90,17 @@ public class GetVillages extends AsyncTask<String, String, String> {
                 districtArrayList = new ArrayList<DistrictsContract>();
                 //JSONObject jsonObject = new JSONObject(json);
                 JSONArray jsonArray = new JSONArray(json);
-                db.syncVillages(jsonArray);
+                db.syncTehsil(jsonArray);
 
-                pd.setMessage("Received: " + jsonArray.length() + " Villages");
-                pd.setTitle("Done... Synced Villages");
+                pd.setMessage("Received: " + jsonArray.length() + " Tehsil");
+                pd.setTitle("Done... Synced Tehsil");
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                pd.setMessage("Received: 0 Villages");
-                pd.setTitle("Error... Syncing Villages");
+                pd.setMessage("Received: 0 Tehsil");
+                pd.setTitle("Error... Syncing Tehsil");
             }
-            db.getAllVillage();
+            db.getAllTehsil();
             pd.show();
         }
     }

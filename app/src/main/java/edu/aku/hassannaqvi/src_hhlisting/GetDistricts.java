@@ -1,9 +1,8 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.src_hhlisting;
 
 /**
- * Created by hasan on 12/31/2016.
+ * Created by hassan.naqvi on 10/31/2016.
  */
-
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -24,26 +23,29 @@ import java.util.ArrayList;
 /**
  * Created by hassan.naqvi on 4/28/2016.
  */
-public class GetUsers extends AsyncTask<String, String, String> {
+public class GetDistricts extends AsyncTask<String, String, String> {
 
     private final String TAG = "GetUsers()";
     HttpURLConnection urlConnection;
     private Context mContext;
     private ProgressDialog pd;
 
-    public GetUsers(Context context) {
+
+    public GetDistricts(Context context) {
         mContext = context;
     }
+
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Syncing Users");
-        pd.setMessage("Getting connected to server...");
+        pd.setTitle("Getting Districts");
+        pd.setMessage("Preparing...");
         pd.show();
 
     }
+
 
     @Override
     protected String doInBackground(String... args) {
@@ -51,29 +53,30 @@ public class GetUsers extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/src/users/");
+            URL url = new URL(AppMain._IP + "/src/districts/");
             Log.d(TAG, "doInBackground: " + url);
 
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                //pd.show();
+
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "User In: " + line);
+                    Log.i(TAG, "District In: " + line);
                     result.append(line);
                 }
+            } else {
+                result.append("URL not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
-
-
         } finally {
             urlConnection.disconnect();
         }
-
 
         return result.toString();
     }
@@ -82,44 +85,28 @@ public class GetUsers extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
 
         //Do something with the JSON string
-
-        String json = result;
-        //json = json.replaceAll("\\[", "").replaceAll("\\]","");
-        Log.d(TAG, result);
-        if (json.length() > 0) {
-            ArrayList<UsersContract> userArrayList;
+        if (result != "URL not found") {
+            String json = result;
+            //json = json.replaceAll("\\[", "").replaceAll("\\]","");
+            Log.d(TAG, result);
+            ArrayList<DistrictsContract> districtArrayList;
             FormsDBHelper db = new FormsDBHelper(mContext);
             try {
-                userArrayList = new ArrayList<UsersContract>();
+                districtArrayList = new ArrayList<DistrictsContract>();
                 //JSONObject jsonObject = new JSONObject(json);
                 JSONArray jsonArray = new JSONArray(json);
-                db.syncUser(jsonArray);
-                pd.setMessage("Received: " + jsonArray.length());
-                pd.show();
+                db.syncDistrict(jsonArray);
+
+                pd.setMessage("Received: " + jsonArray.length() + " Districts");
+                pd.setTitle("Done... Synced Districts");
+
             } catch (JSONException e) {
                 e.printStackTrace();
+                pd.setMessage("Received: 0 Districts");
+                pd.setTitle("Error... Syncing Districts");
             }
-            db.getAllUsers();
-        } else {
-            pd.setMessage("Received: " + json.length() + "");
+            db.getAllDistricts();
             pd.show();
         }
     }
-
-
-/*        try {
-            JSONObject obj = new JSONObject(json);
-            Log.d("My App", obj.toString());
-        } catch (Throwable t) {
-            Log.e("My App", "Could not parse malformed JSON: \"" + json + "\"");
-        }*/
-
-//        ArrayList<String> listdata = new ArrayList<String>();
-//        JSONArray jArray = (JSONArray)jsonObject;
-//        if (jArray != null) {
-//            for (int i=0;i<jArray.length();i++){
-//                listdata.add(jArray.get(i).toString());
-//            }
-//        }
-
 }

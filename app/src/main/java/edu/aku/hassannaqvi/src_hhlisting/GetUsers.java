@@ -1,8 +1,9 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.src_hhlisting;
 
 /**
- * Created by hassan.naqvi on 10/31/2016.
+ * Created by hasan on 12/31/2016.
  */
+
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -23,14 +24,14 @@ import java.util.ArrayList;
 /**
  * Created by hassan.naqvi on 4/28/2016.
  */
-public class GetPSUs extends AsyncTask<String, String, String> {
+public class GetUsers extends AsyncTask<String, String, String> {
 
-    private final String TAG = "GetUCs()";
+    private final String TAG = "GetUsers()";
     HttpURLConnection urlConnection;
     private Context mContext;
     private ProgressDialog pd;
 
-    public GetPSUs(Context context) {
+    public GetUsers(Context context) {
         mContext = context;
     }
 
@@ -38,9 +39,10 @@ public class GetPSUs extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Getting UCs");
-        pd.setMessage("Preparing...");
+        pd.setTitle("Syncing Users");
+        pd.setMessage("Getting connected to server...");
         pd.show();
+
     }
 
     @Override
@@ -49,25 +51,20 @@ public class GetPSUs extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/src/psus/");
+            URL url = new URL(AppMain._IP + "/src/users/");
             Log.d(TAG, "doInBackground: " + url);
+
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                //pd.show();
-
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    //pd.show();
-                    Log.i(TAG, "UCs In: " + line);
+                    Log.i(TAG, "User In: " + line);
                     result.append(line);
                 }
-            } else {
-                result.append("URL not found");
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,29 +82,29 @@ public class GetPSUs extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
 
         //Do something with the JSON string
-        if (result != "URL not found") {
 
-            String json = result;
-            //json = json.replaceAll("\\[", "").replaceAll("\\]","");
-            //Log.d(TAG, result);
-            ArrayList<PSUsContract> PSUArrayList;
+        String json = result;
+        //json = json.replaceAll("\\[", "").replaceAll("\\]","");
+        Log.d(TAG, result);
+        if (json.length() > 0) {
+            ArrayList<UsersContract> userArrayList;
             FormsDBHelper db = new FormsDBHelper(mContext);
             try {
-                PSUArrayList = new ArrayList<PSUsContract>();
+                userArrayList = new ArrayList<UsersContract>();
                 //JSONObject jsonObject = new JSONObject(json);
                 JSONArray jsonArray = new JSONArray(json);
-                pd.setMessage("Received: " + jsonArray.length() + " UCs");
-                pd.setTitle("Done... Synced UCs");
-                db.syncPSU(jsonArray);
+                db.syncUser(jsonArray);
+                pd.setMessage("Received: " + jsonArray.length());
+                pd.show();
             } catch (JSONException e) {
                 e.printStackTrace();
-                pd.setMessage("Received: 0 UCs");
-                pd.setTitle("Error... Syncing UCs");
             }
-            db.getAllDistricts();
+            db.getAllUsers();
+        } else {
+            pd.setMessage("Received: " + json.length() + "");
             pd.show();
         }
-
+    }
 
 
 /*        try {
@@ -125,5 +122,4 @@ public class GetPSUs extends AsyncTask<String, String, String> {
 //            }
 //        }
 
-    }
 }
