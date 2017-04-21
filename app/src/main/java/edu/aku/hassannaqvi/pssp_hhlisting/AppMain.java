@@ -39,6 +39,7 @@ public class AppMain extends Application {
     public static int mwraCount = 0;
     public static int mwraTotal = 0;
     public static SharedPreferences sharedPref;
+    public static String username;
     protected static LocationManager locationManager;
 
     public static void updatePSU(String psuCode, String structureNo) {

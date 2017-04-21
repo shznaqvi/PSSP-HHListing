@@ -188,6 +188,7 @@ public class setupActivity extends Activity {
 
         AppMain.lc = new ListingContract();
         AppMain.lc.setHhDT(dtToday);
+        AppMain.lc.setHh07n(AppMain.username);
         AppMain.lc.setHh01(AppMain.hh01txt);
         AppMain.lc.setHh02(AppMain.hh02txt);
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
