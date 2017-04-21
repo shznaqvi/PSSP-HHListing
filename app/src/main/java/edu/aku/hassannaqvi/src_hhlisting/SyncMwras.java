@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.src_hhlisting;
 
 /**
  * Created by hassan.naqvi on 10/19/2016.
@@ -25,14 +25,14 @@ import java.util.Collection;
 /**
  * Created by hassan.naqvi on 7/26/2016.
  */
-public class SyncForms extends AsyncTask<Void, Void, String> {
+public class SyncMwras extends AsyncTask<Void, Void, String> {
 
-    private static final String TAG = "SyncForms";
+    private static final String TAG = "SyncMwras";
     private Context mContext;
     private ProgressDialog pd;
 
 
-    public SyncForms(Context context) {
+    public SyncMwras(Context context) {
         mContext = context;
     }
 
@@ -61,7 +61,6 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
         try {
             String request = myurl;
             //String request = "http://10.1.42.30:3000/forms";
-            pd.setTitle("Connecting to... " + request);
             //pd.show();
             URL url = new URL(request);
             connection = (HttpURLConnection) url.openConnection();
@@ -79,12 +78,12 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             FormsDBHelper db = new FormsDBHelper(mContext);
-            Collection<ListingContract> listings = db.getAllListings();
-            Log.d(TAG, String.valueOf(listings.size()));
+            Collection<MWRAContract> mwras = db.getAllMwras();
+            Log.d(TAG, String.valueOf(mwras.size()));
 //            pd.setMessage("Total Forms: " );
-            for (ListingContract lc : listings) {
+            for (MWRAContract mwra : mwras) {
 
-                jsonSync.put(lc.toJSONObject());
+                jsonSync.put(mwra.toJSONObject());
                 //wr.writeBytes(jsonParam.toString().replace("\uFEFF", "") + "\n");
 
             }
@@ -132,7 +131,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return downloadUrl(AppMain._IP + "/src/forms/");
+            return downloadUrl(AppMain._IP + "/src/mwras/");
         } catch (IOException e) {
             return "Unable to upload data. Server may be down.";
         }
@@ -142,7 +141,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         pd.setMessage("Server Response: " + result);
-        pd.setTitle("Done!... Synced Forms");
+        pd.setTitle("Done!... Synced MWRAs");
         //pd.show();
     }
 }
