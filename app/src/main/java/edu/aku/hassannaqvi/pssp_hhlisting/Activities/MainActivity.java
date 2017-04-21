@@ -174,12 +174,16 @@ public class MainActivity extends Activity {
 
     public void openForm(View view) {
         Intent oF = new Intent(this, setupActivity.class);
+        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
 
         if (AppMain.PSUExist(AppMain.hh02txt)) {
             Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
             alertPSU();
         } else {
             startActivity(oF);
+        }
+        } else {
+            Toast.makeText(this, "Please Sync Data!", Toast.LENGTH_SHORT).show();
         }
     }
 
