@@ -166,6 +166,9 @@ public class setupActivity extends Activity {
         if (formValidation()) {
             SaveDraft();
             AppMain.fCount++;
+
+            finish();
+
             Intent fA = new Intent(this, FamilyListingActivity.class);
             startActivity(fA);
         }
@@ -176,8 +179,11 @@ public class setupActivity extends Activity {
     void onBtnChangePSUClick() {
 
         AppMain.hh02txt = null;
-        Intent fA = new Intent(this, MainActivity.class);
-        startActivity(fA);
+
+        finish();
+
+//        Intent fA = new Intent(this, MainActivity.class);
+//        startActivity(fA);
 
     }
 
@@ -227,12 +233,15 @@ public class setupActivity extends Activity {
 
         SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
         AppMain.lc.setGPSLat(sharedPref.getString("Latitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Longitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Accuracy", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Time", ""));
+        AppMain.lc.setGPSLng(sharedPref.getString("Longitude", ""));
+        AppMain.lc.setGPSAcc(sharedPref.getString("Accuracy", ""));
+        AppMain.lc.setGPSTime(sharedPref.getString("Time", ""));
 
 
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
+
+
+        AppMain.lc.setUserName(AppMain.userName);
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03().toString());

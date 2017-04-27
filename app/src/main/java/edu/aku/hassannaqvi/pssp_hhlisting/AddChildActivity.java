@@ -99,6 +99,10 @@ public class AddChildActivity extends Activity {
         AppMain.lc.setHhChildNm(icName.getText().toString());
         AppMain.lc.setHh12d(icAgeD.getText().toString());
         AppMain.lc.setHh12m(icAgeM.getText().toString());
+
+        AppMain.lc.setUserName(AppMain.userName);
+
+
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
     }
@@ -166,6 +170,7 @@ public class AddChildActivity extends Activity {
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
                 AppMain.fCount++;
 
+                finish();
                 Intent fA = new Intent(this, FamilyListingActivity.class);
                 startActivity(fA);
                 try {

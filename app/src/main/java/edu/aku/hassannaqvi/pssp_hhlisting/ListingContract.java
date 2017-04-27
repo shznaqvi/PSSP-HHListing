@@ -35,7 +35,7 @@ public class ListingContract {
     public String GPSTime;
     public String GPSAcc;
     public String Round = "1";
-    public static String userName;
+    public String userName;
 
 
     public ListingContract() {
