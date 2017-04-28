@@ -160,13 +160,25 @@ public class AddChildActivity extends Activity {
             Log.i(TAG, "Invalid(Error):Please enter age");
             return false;
         }
-        if (Integer.valueOf(icAgeD.getText().toString()) < 1 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
-            Toast.makeText(this, "Invalid(Error):Invalid Age Days", Toast.LENGTH_LONG).show();
-            icAgeD.setError("Invalid(Error):Invalid enter age");
-            Log.i(TAG, "Invalid(Error):Please enter age");
-            return false;
-        } else {
-            icAgeD.setError(null);
+
+        if (Integer.valueOf(icAgeM.getText().toString()) != 0) {
+            if (Integer.valueOf(icAgeD.getText().toString()) < 0 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
+                Toast.makeText(this, "Invalid(Error):Invalid Age Days", Toast.LENGTH_LONG).show();
+                icAgeD.setError("Invalid(Error):Invalid enter age");
+                Log.i(TAG, "Invalid(Error):Please enter age");
+                return false;
+            } else {
+                icAgeD.setError(null);
+            }
+        }else {
+            if (Integer.valueOf(icAgeD.getText().toString()) < 1 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
+                Toast.makeText(this, "Invalid(Error):Invalid Age Days", Toast.LENGTH_LONG).show();
+                icAgeD.setError("Invalid(Error):Invalid enter age");
+                Log.i(TAG, "Invalid(Error):Please enter age");
+                return false;
+            } else {
+                icAgeD.setError(null);
+            }
         }
 //        if (Integer.valueOf(icAgeD.getText().toString()) == 0 && Integer.valueOf(icAgeM.getText().toString()) == 0) {
 //            Toast.makeText(this, "Invalid Age ", Toast.LENGTH_LONG).show();
