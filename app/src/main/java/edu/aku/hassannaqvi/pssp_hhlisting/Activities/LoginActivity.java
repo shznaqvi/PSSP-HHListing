@@ -11,6 +11,7 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.LocationManager;
@@ -18,8 +19,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +36,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +58,12 @@ import edu.aku.hassannaqvi.pssp_hhlisting.R;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+
+
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+
+    String DirectoryName;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -123,10 +137,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
+
+        dbBackup();
+
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+
+                editor.putBoolean("flag", true);
+                editor.commit();
+
+                dbBackup();
+
             }
         });
         
@@ -207,6 +230,67 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 //            }
 //        });
 
+    }
+
+    public void dbBackup() {
+
+        sharedPref = getSharedPreferences("pssplinelisting", MODE_PRIVATE);
+        editor = sharedPref.edit();
+
+        if (sharedPref.getBoolean("flag", false)) {
+
+            String dt = sharedPref.getString("dt", new SimpleDateFormat("dd-MM-yy").format(new Date()).toString());
+
+            if (dt != new SimpleDateFormat("dd-MM-yy").format(new Date()).toString()) {
+                editor.putString("dt", new SimpleDateFormat("dd-MM-yy").format(new Date()).toString());
+
+                editor.commit();
+            }
+
+            File folder = new File(Environment.getExternalStorageDirectory() + File.separator + "DMU-PSSPLINELISTING");
+            boolean success = true;
+            if (!folder.exists()) {
+                success = folder.mkdirs();
+            }
+            if (success) {
+
+                DirectoryName = folder.getPath() + File.separator + sharedPref.getString("dt", "");
+                folder = new File(DirectoryName);
+                if (!folder.exists()) {
+                    success = folder.mkdirs();
+                }
+                if (success) {
+
+                    try {
+                        File dbFile = new File(this.getDatabasePath(FormsDBHelper.DATABASE_NAME).getPath());
+                        FileInputStream fis = new FileInputStream(dbFile);
+
+                        String outFileName = DirectoryName + File.separator +
+                                FormsDBHelper.DB_NAME;
+
+                        // Open the empty db as the output stream
+                        OutputStream output = new FileOutputStream(outFileName);
+
+                        // Transfer bytes from the inputfile to the outputfile
+                        byte[] buffer = new byte[1024];
+                        int length;
+                        while ((length = fis.read(buffer)) > 0) {
+                            output.write(buffer, 0, length);
+                        }
+                        // Close the streams
+                        output.flush();
+                        output.close();
+                        fis.close();
+                    } catch (IOException e) {
+                        Log.e("dbBackup:", e.getMessage());
+                    }
+
+                }
+
+            } else {
+                Toast.makeText(this, "Not create folder", Toast.LENGTH_SHORT).show();
+            }
+        }
 
     }
 
