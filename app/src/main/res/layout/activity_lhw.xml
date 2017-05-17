@@ -55,7 +55,7 @@
             android:layout_marginTop="24dp"
             android:hint="@string/lhwf"
             android:inputType="number"
-            android:maxLength="2" />
+            android:maxLength="3" />
 
         <TextView
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             android:layout_marginTop="24dp"
             android:hint="@string/lhwg"
             android:inputType="number"
-            android:maxLength="2" />
+            android:maxLength="3" />
 
 
         <Button
