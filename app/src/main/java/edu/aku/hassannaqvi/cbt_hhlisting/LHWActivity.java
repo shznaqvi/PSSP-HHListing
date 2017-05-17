@@ -7,7 +7,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +28,8 @@ public class LHWActivity extends Activity {
     EditText lhwe;
     @BindView(R.id.lhwf)
     EditText lhwf;
-    @BindView(R.id.lhwg)
-    EditText lhwg;
+  /*  @BindView(R.id.lhwg)
+    EditText lhwg;*/
 
     String dtToday;
 
@@ -89,7 +88,9 @@ public class LHWActivity extends Activity {
         AppMain.clc.setUserName(AppMain.userName);
         AppMain.clc.setLhwPh(lhwe.getText().toString());
         AppMain.clc.setNoHH(lhwf.getText().toString());
-        AppMain.clc.setNoBISP(lhwg.getText().toString());
+
+        AppMain.clc.setNoBISP("");
+
         AppMain.clc.setDeviceId(Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID));
         AppMain.clc.setLhwCode(AppMain.hh02txt);
@@ -127,7 +128,7 @@ public class LHWActivity extends Activity {
             }
         }
 
-        if (lhwg.getText().toString().isEmpty()) {
+       /* if (lhwg.getText().toString().isEmpty()) {
             Toast.makeText(this, "Invalid(Error):Data required", Toast.LENGTH_LONG).show();
             lhwg.setError("Invalid(Error):Data required");
             Log.i(TAG, "lhwg: Data req");
@@ -143,7 +144,7 @@ public class LHWActivity extends Activity {
             } else {
                 lhwg.setError(null);
             }
-        }
+        }*/
         return true;
     }
 
