@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,7 +42,7 @@ public class AddChildActivity extends Activity {
     Button btnAddFamilty;
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
-
+    DatePicker hhdob;
     FormsDBHelper db;
     String dtToday;
 
@@ -50,7 +51,8 @@ public class AddChildActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_child);
         ButterKnife.bind(this);
-
+        hhdob.setMaxDate(System.currentTimeMillis());
+        hhdob.setMinDate(System.currentTimeMillis() - (AppMain.MILLISECONDS_IN_DAY * 30) * 7);
         dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
 //        AppMain.cCount++;
@@ -112,6 +114,7 @@ public class AddChildActivity extends Activity {
     private void SaveDraft() {
 
         AppMain.cc = new ChildrenContract();
+        String DOB = new SimpleDateFormat("dd-MM-yyyy").format(hhdob.getCalendarView().getDate());
 
         AppMain.cc.setUUID(AppMain.lc.getUID());
         AppMain.cc.setcDT(dtToday);
@@ -119,6 +122,7 @@ public class AddChildActivity extends Activity {
         AppMain.cc.setChildName(icName.getText().toString());
         AppMain.cc.setCc12d(icAgeD.getText().toString());
         AppMain.cc.setCc12m(icAgeM.getText().toString());
+        AppMain.cc.setCcDob(DOB);
         AppMain.cc.setDeviceId(AppMain.lc.getDeviceID());
         AppMain.cc.setTehsil(AppMain.tehsilCode);
         AppMain.cc.setHh01(AppMain.lc.getHh01());
@@ -146,7 +150,7 @@ public class AddChildActivity extends Activity {
             Log.i(TAG, "Invalid(Error):Please enter age");
             return false;
         }
-        if (Integer.valueOf(icAgeM.getText().toString()) < 0 || Integer.valueOf(icAgeM.getText().toString()) > 5) {
+        if (Integer.valueOf(icAgeM.getText().toString()) < 0 || Integer.valueOf(icAgeM.getText().toString()) > 6) {
             Toast.makeText(this, "Invalid(Error):Invalid Age Months", Toast.LENGTH_LONG).show();
             icAgeM.setError("Invalid(Error):Invalid enter age");
             Log.i(TAG, "Invalid(Error):Please enter age");

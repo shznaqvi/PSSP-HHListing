@@ -109,6 +109,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildTable.C_CHILDNAME + " TEXT," +
                 ChildTable.C_CCHH12D + " TEXT," +
                 ChildTable.C_CCHH12M + " TEXT," +
+                ChildTable.C_CCDOB + " TEXT," +
                 ChildTable.C_DEVICE_ID + " TEXT," +
                 ChildTable.C_NAME_TEHSIL + " TEXT," +
                 ChildTable.C_NAME_HH01 + " TEXT," +
@@ -279,6 +280,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ChildTable.C_CHILDNAME, cc.getChildName());
         values.put(ChildTable.C_CCHH12D, cc.getCc12d());
         values.put(ChildTable.C_CCHH12M, cc.getCc12m());
+        values.put(ChildTable.C_CCDOB, cc.getCcDob());
         values.put(ChildTable.C_DEVICE_ID, cc.getDeviceId());
         values.put(ChildTable.C_NAME_TEHSIL, cc.getTehsil());
         values.put(ChildTable.C_NAME_HH01, cc.getHh01());
@@ -540,6 +542,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildTable.C_CHILDNAME,
                 ChildTable.C_CCHH12D,
                 ChildTable.C_CCHH12M,
+                ChildTable.C_CCDOB,
                 ChildTable.C_DEVICE_ID,
                 ChildTable.C_NAME_TEHSIL,
                 ChildTable.C_NAME_HH01,

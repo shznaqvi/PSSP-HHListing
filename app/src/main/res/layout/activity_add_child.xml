@@ -32,8 +32,8 @@
         android:id="@+id/icName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hh12"
-        android:digits="@string/txtName"/>
+        android:digits="@string/txtName"
+        android:hint="@string/hh12" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,6 +65,22 @@
             android:inputType="number"
             android:maxLength="2" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/hhDob" />
+
+    <DatePicker
+        android:id="@+id/hhdob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:paddingTop="8dp"
+        android:spinnersShown="true" />
 
     <Button
         android:id="@+id/btnAddChild"

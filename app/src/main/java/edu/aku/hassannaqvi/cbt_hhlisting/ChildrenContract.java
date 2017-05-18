@@ -20,6 +20,7 @@ public class ChildrenContract {
     public String childName; // child name
     public String cc12d; // Days
     public String cc12m; // Months
+    public String ccDob; // Date of Birth
     public String deviceId;
     public String tehsil;   //Tehsil
     public String hh01; // HF
@@ -42,6 +43,7 @@ public class ChildrenContract {
         this.childName = jsonObject.getString(ChildTable.C_CHILDNAME);
         this.cc12d = jsonObject.getString(ChildTable.C_CCHH12D);
         this.cc12m = jsonObject.getString(ChildTable.C_CCHH12M);
+        this.ccDob = jsonObject.getString(ChildTable.C_CCHH12M);
         this.deviceId = jsonObject.getString(ChildTable.C_DEVICE_ID);
         this.tehsil = jsonObject.getString(ChildTable.C_NAME_TEHSIL);
         this.hh01 = jsonObject.getString(ChildTable.C_NAME_HH01);
@@ -63,6 +65,7 @@ public class ChildrenContract {
         this.childName = cursor.getString(cursor.getColumnIndex(ChildTable.C_CHILDNAME));
         this.cc12d = cursor.getString(cursor.getColumnIndex(ChildTable.C_CCHH12D));
         this.cc12m = cursor.getString(cursor.getColumnIndex(ChildTable.C_CCHH12M));
+        this.ccDob = cursor.getString(cursor.getColumnIndex(ChildTable.C_CCDOB));
         this.deviceId = cursor.getString(cursor.getColumnIndex(ChildTable.C_DEVICE_ID));
         this.tehsil = cursor.getString(cursor.getColumnIndex(ChildTable.C_NAME_TEHSIL));
         this.hh01 = cursor.getString(cursor.getColumnIndex(ChildTable.C_NAME_HH01));
@@ -171,6 +174,14 @@ public class ChildrenContract {
         this.hh02 = hh02;
     }
 
+    public String getCcDob() {
+        return ccDob;
+    }
+
+    public void setCcDob(String ccDob) {
+        this.ccDob = ccDob;
+    }
+
     public String getLhwCode() {
         return lhwCode;
     }
@@ -214,6 +225,7 @@ public class ChildrenContract {
         json.put(ChildTable.C_CHILDNAME, this.childName == null ? JSONObject.NULL : this.childName);
         json.put(ChildTable.C_CCHH12D, this.cc12d == null ? JSONObject.NULL : this.cc12d);
         json.put(ChildTable.C_CCHH12M, this.cc12m == null ? JSONObject.NULL : this.cc12m);
+        json.put(ChildTable.C_CCDOB, this.ccDob == null ? JSONObject.NULL : this.ccDob);
         json.put(ChildTable.C_DEVICE_ID, this.deviceId == null ? JSONObject.NULL : this.deviceId);
         json.put(ChildTable.C_NAME_TEHSIL, this.tehsil == null ? JSONObject.NULL : this.tehsil);
         json.put(ChildTable.C_NAME_HH01, this.hh01 == null ? JSONObject.NULL : this.hh01);
@@ -239,6 +251,7 @@ public class ChildrenContract {
         public static final String C_CHILDNAME = "child_name";
         public static final String C_CCHH12D = "cc12d";
         public static final String C_CCHH12M = "cc12m";
+        public static final String C_CCDOB = "ccdob";
         public static final String C_DEVICE_ID = "deviceid";
         public static final String C_NAME_TEHSIL = "tehsil";
         public static final String C_NAME_HH01 = "hfacility";
