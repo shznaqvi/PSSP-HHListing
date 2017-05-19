@@ -35,7 +35,36 @@
         android:digits="@string/txtName"
         android:hint="@string/hh12" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Date of Birth / Age" />
+
+    <RadioGroup
+        android:id="@+id/icdobage"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <RadioButton
+            android:id="@+id/icdob01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="@string/icdob01" />
+
+        <RadioButton
+            android:id="@+id/icAge02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/icage02" />
+
+    </RadioGroup>
+
     <LinearLayout
+        android:id="@+id/icage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -66,6 +95,12 @@
             android:maxLength="2" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/icdob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,6 +116,8 @@
         android:datePickerMode="spinner"
         android:paddingTop="8dp"
         android:spinnersShown="true" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnAddChild"

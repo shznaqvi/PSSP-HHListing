@@ -70,6 +70,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_LHWCODE + " TEXT," +
+                ListingEntry.COLUMN_NAME_BENEFICITERY1 + " TEXT," +
+                ListingEntry.COLUMN_NAME_BENEFICITERY2 + " TEXT," +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_USERNAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
@@ -247,6 +249,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_USERNAME, lc.getUserName());
+        values.put(ListingEntry.COLUMN_NAME_BENEFICITERY1, lc.getBnf1());
+        values.put(ListingEntry.COLUMN_NAME_BENEFICITERY2, lc.getBnf2());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
@@ -488,6 +492,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_USERNAME,
+                ListingEntry.COLUMN_NAME_BENEFICITERY1,
+                ListingEntry.COLUMN_NAME_BENEFICITERY2,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
                 ListingEntry.COLUMN_NAME_GPSTime,
@@ -1124,6 +1130,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setUserName(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_USERNAME))));
+        lc.setBnf1(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_BENEFICITERY1))));
+        lc.setBnf2(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_BENEFICITERY2))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));

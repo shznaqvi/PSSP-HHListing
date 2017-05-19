@@ -67,5 +67,9 @@
     <string name="lhwg">count of BISP beneficiary households in your catchment area</string>
     <string name="lhwh">Date of Visit</string>
     <string name="hhDob">تاریخ پِیدائش</string>
+    <string name="icdob01"> Date of Birth </string>
+    <string name="icage02"> Age </string>
+
+
 
 </resources>

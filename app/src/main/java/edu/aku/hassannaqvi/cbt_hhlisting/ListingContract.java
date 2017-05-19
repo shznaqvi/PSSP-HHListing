@@ -41,6 +41,8 @@ public class ListingContract {
     public String GPSAcc;
     public String Round = "1";
     public String fStatus = "3";
+    public String bnf1 = "";
+    public String bnf2 = "";
     public ListingContract() {
     }
     public ListingContract(String ID) {
@@ -291,6 +293,22 @@ public class ListingContract {
         this.fStatus = fStatus;
     }
 
+    public String getBnf1() {
+        return bnf1;
+    }
+
+    public void setBnf1(String bnf1) {
+        this.bnf1 = bnf1;
+    }
+
+    public String getBnf2() {
+        return bnf2;
+    }
+
+    public void setBnf2(String bnf2) {
+        this.bnf2 = bnf2;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -322,6 +340,8 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
         json.put(ListingEntry.COLUMN_NAME_USERNAME, this.userName);
         json.put(ListingEntry.COLUMN_NAME_FORMSTATUS, fStatus);
+        json.put(ListingEntry.COLUMN_NAME_BENEFICITERY1, bnf1);
+        json.put(ListingEntry.COLUMN_NAME_BENEFICITERY2, bnf2);
 
         return json;
     }
@@ -361,7 +381,8 @@ public class ListingContract {
         public static final String COLUMN_NAME_ROUND = "round";
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_FORMSTATUS = "status";
-
+        public static final String COLUMN_NAME_BENEFICITERY1 = "bnf1";
+        public static final String COLUMN_NAME_BENEFICITERY2 = "bnf2";
 
     }
 }
