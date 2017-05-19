@@ -20,6 +20,7 @@ import org.json.JSONException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,8 +77,6 @@ public class AddChildActivity extends Activity {
         hhdob.setMinDate(new Date().getTime() - ((AppMain.MILLISECONDS_IN_DAY * 30) * 7));
         dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
-        final int currentAge = (year - (hhdob.getYear())) * 12 + (month - (hhdob.getMonth()));
-
 //        AppMain.cCount++;
 
         txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + (AppMain.cCount + 1) + " of " + AppMain.cTotal + ")");
@@ -98,8 +97,6 @@ public class AddChildActivity extends Activity {
         }
 
         db = new FormsDBHelper(this);
-
-        icAgeM.setText(String.valueOf(currentAge));
 
         icdobage.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -160,8 +157,24 @@ public class AddChildActivity extends Activity {
         AppMain.cc.setcDT(dtToday);
         AppMain.cc.setUserName(AppMain.userName);
         AppMain.cc.setChildName(icName.getText().toString());
-        AppMain.cc.setCc12d(icAgeD.getText().toString());
-        AppMain.cc.setCc12m(icAgeM.getText().toString());
+        if (icAge02.isChecked()) {
+            AppMain.cc.setCc12d(icAgeD.getText().toString());
+            AppMain.cc.setCc12m(icAgeM.getText().toString());
+        }else {
+
+            Calendar cal = Calendar.getInstance();
+            cal.set(hhdob.getYear(), hhdob.getMonth(), hhdob.getDayOfMonth());
+            Date date1 = new Date();
+            Date date2 = cal.getTime();
+            long diff = date1.getTime() - date2.getTime();
+            long currentAge = (diff / (24 * 60 * 60 * 1000))/30;
+            double ageindays = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+            ageindays = Math.round(ageindays % 30.475);
+
+            AppMain.cc.setCc12d(String.valueOf(ageindays));
+            AppMain.cc.setCc12m(String.valueOf(currentAge));
+        }
         AppMain.cc.setCcDob(DOB);
         AppMain.cc.setDeviceId(AppMain.lc.getDeviceID());
         AppMain.cc.setTehsil(AppMain.tehsilCode);
@@ -186,44 +199,47 @@ public class AddChildActivity extends Activity {
             icName.setError(null);
         }
 
-        if (icAgeM.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Invalid(Error):Please enter Age Months", Toast.LENGTH_LONG).show();
-            icAgeM.setError("Invalid(Error):Please enter age");
-            Log.i(TAG, "Invalid(Error):Please enter age");
-            return false;
-        }
-        if (Integer.valueOf(icAgeM.getText().toString()) < 0 || Integer.valueOf(icAgeM.getText().toString()) > 6) {
-            Toast.makeText(this, "Invalid(Error):Invalid Age Months", Toast.LENGTH_LONG).show();
-            icAgeM.setError("Invalid(Error):Invalid enter age");
-            Log.i(TAG, "Invalid(Error):Please enter age");
-            return false;
-        } else {
-            icAgeM.setError(null);
-        }
-        if (icAgeD.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Invalid(Error):Please enter Age Days", Toast.LENGTH_LONG).show();
-            icAgeD.setError("Invalid(Error):Please enter age");
-            Log.i(TAG, "Invalid(Error):Please enter age");
-            return false;
-        }
+        if (icAge02.isChecked()) {
 
-        if (Integer.valueOf(icAgeM.getText().toString()) != 0) {
-            if (Integer.valueOf(icAgeD.getText().toString()) < 0 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
-                Toast.makeText(this, "Invalid(Error):Invalid Age Days", Toast.LENGTH_LONG).show();
-                icAgeD.setError("Invalid(Error):Invalid enter age");
+            if (icAgeM.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Invalid(Error):Please enter Age Months", Toast.LENGTH_LONG).show();
+                icAgeM.setError("Invalid(Error):Please enter age");
                 Log.i(TAG, "Invalid(Error):Please enter age");
                 return false;
-            } else {
-                icAgeD.setError(null);
             }
-        }else {
-            if (Integer.valueOf(icAgeD.getText().toString()) < 1 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
-                Toast.makeText(this, "Invalid(Error):Invalid Age Days", Toast.LENGTH_LONG).show();
-                icAgeD.setError("Invalid(Error):Invalid enter age");
+            if (Integer.valueOf(icAgeM.getText().toString()) < 0 || Integer.valueOf(icAgeM.getText().toString()) > 6) {
+                Toast.makeText(this, "Invalid(Error):Invalid Age Months", Toast.LENGTH_LONG).show();
+                icAgeM.setError("Invalid(Error):Invalid enter age");
                 Log.i(TAG, "Invalid(Error):Please enter age");
                 return false;
             } else {
-                icAgeD.setError(null);
+                icAgeM.setError(null);
+            }
+            if (icAgeD.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Invalid(Error):Please enter Age Days", Toast.LENGTH_LONG).show();
+                icAgeD.setError("Invalid(Error):Please enter age");
+                Log.i(TAG, "Invalid(Error):Please enter age");
+                return false;
+            }
+
+            if (Integer.valueOf(icAgeM.getText().toString()) != 0) {
+                if (Integer.valueOf(icAgeD.getText().toString()) < 0 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
+                    Toast.makeText(this, "Invalid(Error):Invalid Age Days", Toast.LENGTH_LONG).show();
+                    icAgeD.setError("Invalid(Error):Invalid enter age");
+                    Log.i(TAG, "Invalid(Error):Please enter age");
+                    return false;
+                } else {
+                    icAgeD.setError(null);
+                }
+            } else {
+                if (Integer.valueOf(icAgeD.getText().toString()) < 1 || Integer.valueOf(icAgeD.getText().toString()) > 29) {
+                    Toast.makeText(this, "Invalid(Error):Invalid Age Days", Toast.LENGTH_LONG).show();
+                    icAgeD.setError("Invalid(Error):Invalid enter age");
+                    Log.i(TAG, "Invalid(Error):Please enter age");
+                    return false;
+                } else {
+                    icAgeD.setError(null);
+                }
             }
         }
 //        if (Integer.valueOf(icAgeD.getText().toString()) == 0 && Integer.valueOf(icAgeM.getText().toString()) == 0) {
