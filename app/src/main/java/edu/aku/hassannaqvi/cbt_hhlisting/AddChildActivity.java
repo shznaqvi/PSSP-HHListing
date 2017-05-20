@@ -31,8 +31,6 @@ public class AddChildActivity extends Activity {
     public static String TAG = "ChildListingActivity";
 
 
-    @BindView(R.id.activity_add_child)
-    LinearLayout activityAddChild;
     @BindView(R.id.txtChildListing)
     TextView txtChildListing;
     @BindView(R.id.icName)
