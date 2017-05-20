@@ -166,13 +166,13 @@ public class AddChildActivity extends Activity {
             Date date2 = cal.getTime();
             long diff = date1.getTime() - date2.getTime();
             long ageInYears = (diff / (24*60*60*1000)) / 365;
-            long currentAge = (diff / (24 * 60 * 60 * 1000))/30;
+            long ageInMonths = (diff / (24 * 60 * 60 * 1000))/30;
             double ageindays = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
             ageindays = Math.round(ageindays % 30.475);
 
             AppMain.cc.setCc12d(String.valueOf(ageindays));
-            AppMain.cc.setCc12m(String.valueOf(currentAge));
+            AppMain.cc.setCc12m(String.valueOf(ageInMonths));
         }
         AppMain.cc.setCcDob(DOB);
         AppMain.cc.setDeviceId(AppMain.lc.getDeviceID());
