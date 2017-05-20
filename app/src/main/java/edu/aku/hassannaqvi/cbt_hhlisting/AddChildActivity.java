@@ -165,6 +165,7 @@ public class AddChildActivity extends Activity {
             Date date1 = new Date();
             Date date2 = cal.getTime();
             long diff = date1.getTime() - date2.getTime();
+            long ageInYears = (diff / (24*60*60*1000)) / 365;
             long currentAge = (diff / (24 * 60 * 60 * 1000))/30;
             double ageindays = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
