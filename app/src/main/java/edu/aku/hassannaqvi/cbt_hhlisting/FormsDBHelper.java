@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import edu.aku.hassannaqvi.cbt_hhlisting.ChildrenContract.ChildTable;
 import edu.aku.hassannaqvi.cbt_hhlisting.ClusterContract.ClusterTable;
@@ -535,7 +536,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allLC;
     }
 
-    public Collection<ChildrenContract> getAllChild() {
+    public Collection<ChildrenContract> getAllChildren() {
         SQLiteDatabase db = this.getReadableDatabase();
         ChildrenContract Child = new ChildrenContract();
         Cursor c = null;
@@ -643,7 +644,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allCluster;
     }
 
-    public Collection<PWsContract> getAllPws() {
+    public Collection<PWsContract> getAllPWs() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -1394,6 +1395,63 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
 
         }
+    }
+
+    public void updateSyncedPW(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(PwTable.PW_SYNCED, true);
+        values.put(PwTable.PW_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = PwTable._ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                PwTable.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
+    public void updateSyncedChildren(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ChildTable.C_SYNCED, true);
+        values.put(ChildTable.C_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = ChildTable._ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                ChildTable.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
+    public void updateSyncedClusterInfo(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ClusterTable.CI_SYNCED, true);
+        values.put(ClusterTable.CI_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = ClusterTable._ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                ClusterTable.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
     }
 
 
