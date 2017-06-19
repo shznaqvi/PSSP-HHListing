@@ -31,7 +31,7 @@ import edu.aku.hassannaqvi.cbt_hhlisting.FormsDBHelper;
  */
 public class SyncClusterInfo extends AsyncTask<Void, Void, String> {
 
-    private static final String TAG = "SyncPW";
+    private static final String TAG = "SyncClusterInfo";
     private Context mContext;
     private ProgressDialog pd;
 
@@ -53,7 +53,7 @@ public class SyncClusterInfo extends AsyncTask<Void, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Please wait... Processing Forms");
+        pd.setTitle("Please wait... Processing ClusterInfo");
         pd.show();
 
     }

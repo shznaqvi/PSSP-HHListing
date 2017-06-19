@@ -311,38 +311,36 @@ public class ListingContract {
 
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put(ListingEntry._ID, this.ID);
-        json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
-        json.put(ListingEntry.COLUMN_LHWCODE, this.lhwcode);
-        json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
-        json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
-        json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
-        json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03);
-        json.put(ListingEntry.COLUMN_NAME_HHADD, this.hhadd);
-        json.put(ListingEntry.COLUMN_NAME_HH04, this.hh04);
-        json.put(ListingEntry.COLUMN_NAME_HH04x, this.hh04x);
-        json.put(ListingEntry.COLUMN_NAME_HH05, this.hh05);
-        json.put(ListingEntry.COLUMN_NAME_HH06, this.hh06);
-        json.put(ListingEntry.COLUMN_NAME_HH07, this.hh07);
-        json.put(ListingEntry.COLUMN_NAME_HH07n, this.hh07n);
-        json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
-        json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
-        json.put(ListingEntry.COLUMN_NAME_HH09A, this.hh09a);
-        json.put(ListingEntry.COLUMN_NAME_HH09B, this.hh09b);
-        json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
-        json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
-
-        json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
-        json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
-        json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
-        json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
-        json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
-        json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
-        json.put(ListingEntry.COLUMN_NAME_USERNAME, this.userName);
-        json.put(ListingEntry.COLUMN_NAME_FORMSTATUS, fStatus);
-        json.put(ListingEntry.COLUMN_NAME_BENEFICITERY1, bnf1);
-        json.put(ListingEntry.COLUMN_NAME_BENEFICITERY2, bnf2);
-
+        json.put(ListingEntry._ID, this.ID == null ? JSONObject.NULL : this.ID);
+        json.put(ListingEntry.COLUMN_NAME_UID, this.UID == null ? JSONObject.NULL : this.UID);
+        json.put(ListingEntry.COLUMN_LHWCODE, this.lhwcode == null ? JSONObject.NULL : this.lhwcode);
+        json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT == null ? JSONObject.NULL : this.hhDT);
+        json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01 == null ? JSONObject.NULL : this.hh01);
+        json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02 == null ? JSONObject.NULL : this.hh02);
+        json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03 == null ? JSONObject.NULL : this.hh03);
+        json.put(ListingEntry.COLUMN_NAME_HHADD, this.hhadd == null ? JSONObject.NULL : this.hhadd);
+        json.put(ListingEntry.COLUMN_NAME_HH04, this.hh04 == null ? JSONObject.NULL : this.hh04);
+        json.put(ListingEntry.COLUMN_NAME_HH04x, this.hh04x == null ? JSONObject.NULL : this.hh04x);
+        json.put(ListingEntry.COLUMN_NAME_HH05, this.hh05 == null ? JSONObject.NULL : this.hh05);
+        json.put(ListingEntry.COLUMN_NAME_HH06, this.hh06 == null ? JSONObject.NULL : this.hh06);
+        json.put(ListingEntry.COLUMN_NAME_HH07, this.hh07 == null ? JSONObject.NULL : this.hh07);
+        json.put(ListingEntry.COLUMN_NAME_HH07n, this.hh07n == null ? JSONObject.NULL : this.hh07n);
+        json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08 == null ? JSONObject.NULL : this.hh08);
+        json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09 == null ? JSONObject.NULL : this.hh09);
+        json.put(ListingEntry.COLUMN_NAME_HH09A, this.hh09a == null ? JSONObject.NULL : this.hh09a);
+        json.put(ListingEntry.COLUMN_NAME_HH09B, this.hh09b == null ? JSONObject.NULL : this.hh09b);
+        json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10 == null ? JSONObject.NULL : this.hh10);
+        json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11 == null ? JSONObject.NULL : this.hh11);
+        json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID == null ? JSONObject.NULL : this.DeviceID);
+        json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat == null ? JSONObject.NULL : this.GPSLat);
+        json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng == null ? JSONObject.NULL : this.GPSLng);
+        json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime == null ? JSONObject.NULL : this.GPSTime);
+        json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc == null ? JSONObject.NULL : this.GPSAcc);
+        json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round == null ? JSONObject.NULL : this.Round);
+        json.put(ListingEntry.COLUMN_NAME_USERNAME, this.userName == null ? JSONObject.NULL : this.userName);
+        json.put(ListingEntry.COLUMN_NAME_FORMSTATUS, this.fStatus == null ? JSONObject.NULL : this.fStatus);
+        json.put(ListingEntry.COLUMN_NAME_BENEFICITERY1, this.bnf1 == null ? JSONObject.NULL : this.bnf1);
+        json.put(ListingEntry.COLUMN_NAME_BENEFICITERY2, this.bnf2 == null ? JSONObject.NULL : this.bnf2);
         return json;
     }
 
