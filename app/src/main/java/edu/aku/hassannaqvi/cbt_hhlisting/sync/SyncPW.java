@@ -82,7 +82,7 @@ public class SyncPW extends AsyncTask<Void, Void, String> {
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             FormsDBHelper db = new FormsDBHelper(mContext);
-            Collection<PWsContract> pw = db.getAllPws();
+            Collection<PWsContract> pw = db.getAllPWs();
             Log.d(TAG, String.valueOf(pw.size()));
 //            pd.setMessage("Total Forms: " );
             for (PWsContract pwc : pw) {

@@ -9,11 +9,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -84,7 +82,7 @@ public class SyncChildren extends AsyncTask<Void, Void, String> {
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             FormsDBHelper db = new FormsDBHelper(mContext);
-            Collection<ChildrenContract> child = db.getAllChild();
+            Collection<ChildrenContract> child = db.getAllChildren();
             Log.d(TAG, String.valueOf(child.size()));
 //            pd.setMessage("Total Forms: " );
             for (ChildrenContract pwc : child) {
