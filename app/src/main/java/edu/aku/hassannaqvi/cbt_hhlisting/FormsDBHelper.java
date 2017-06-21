@@ -538,7 +538,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
     public Collection<ChildrenContract> getAllChildren() {
         SQLiteDatabase db = this.getReadableDatabase();
-        ChildrenContract Child = new ChildrenContract();
         Cursor c = null;
         String[] columns = {
                 ChildTable._ID,
@@ -580,6 +579,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     orderBy                    // The sort order
             );
             while (c.moveToNext()) {
+                ChildrenContract Child = new ChildrenContract();
                 allChild.add(Child.hydrate(c));
             }
         } finally {
@@ -595,7 +595,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
     public Collection<ClusterContract> getAllClustersInfo() {
         SQLiteDatabase db = this.getReadableDatabase();
-        ClusterContract ClustersInfo = new ClusterContract();
         Cursor c = null;
         String[] columns = {
                 ClusterTable._ID,
@@ -631,6 +630,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     orderBy                    // The sort order
             );
             while (c.moveToNext()) {
+                ClusterContract ClustersInfo = new ClusterContract();
                 allCluster.add(ClustersInfo.hydrate(c));
             }
         } finally {
