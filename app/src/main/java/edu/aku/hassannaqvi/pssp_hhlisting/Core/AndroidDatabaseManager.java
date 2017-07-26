@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Core;
 
 //all required import files
 

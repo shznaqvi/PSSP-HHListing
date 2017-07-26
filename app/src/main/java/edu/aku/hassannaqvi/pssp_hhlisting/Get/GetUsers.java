@@ -21,9 +21,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import edu.aku.hassannaqvi.pssp_hhlisting.AppMain;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.UsersContract;
-import edu.aku.hassannaqvi.pssp_hhlisting.FormsDBHelper;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.FormsDBHelper;
 
 /**
  * Created by hassan.naqvi on 4/28/2016.

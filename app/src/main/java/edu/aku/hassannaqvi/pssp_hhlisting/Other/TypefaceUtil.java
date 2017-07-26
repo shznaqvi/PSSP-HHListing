@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Other;
 
 /**
  * Created by hassan.naqvi on 10/19/2016.

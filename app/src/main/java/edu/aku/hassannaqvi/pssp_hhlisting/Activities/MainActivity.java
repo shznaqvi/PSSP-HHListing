@@ -9,10 +9,12 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,16 +30,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.aku.hassannaqvi.pssp_hhlisting.AndroidDatabaseManager;
-import edu.aku.hassannaqvi.pssp_hhlisting.AppMain;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.AndroidDatabaseManager;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.DistrictsContract;
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.PSUsContract;
-import edu.aku.hassannaqvi.pssp_hhlisting.FormsDBHelper;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.pssp_hhlisting.Get.GetDistricts;
 import edu.aku.hassannaqvi.pssp_hhlisting.Get.GetPSUs;
 import edu.aku.hassannaqvi.pssp_hhlisting.Get.GetUsers;
 import edu.aku.hassannaqvi.pssp_hhlisting.R;
-import edu.aku.hassannaqvi.pssp_hhlisting.SyncListing;
+import edu.aku.hassannaqvi.pssp_hhlisting.Sync.SyncListing;
 
 public class MainActivity extends Activity {
 
@@ -60,6 +62,11 @@ public class MainActivity extends Activity {
     @BindView(R.id.psuN)
     TextView psuN;
 
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+    AlertDialog.Builder builder;
+    String m_Text = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +74,40 @@ public class MainActivity extends Activity {
         ButterKnife.bind(this);
 
         AppMain.lc = null;
+
+        /*Tag Info Start*/
+        sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
+        editor = sharedPref.edit();
+
+        builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Tag Name");
+
+        final EditText input = new EditText(MainActivity.this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString();
+                if (!m_Text.equals("")) {
+                    editor.putString("tagName", m_Text);
+                    editor.commit();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        if (sharedPref.getString("tagName", null) == "" || sharedPref.getString("tagName", null) == null) {
+            builder.show();
+        }
+        /*Tag End*/
+
 
         // database handler
         final FormsDBHelper db = new FormsDBHelper(getApplicationContext());
@@ -173,15 +214,51 @@ public class MainActivity extends Activity {
     }
 
     public void openForm(View view) {
+
+        if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {
+            NextSetupActivity();
+        } else {
+
+            builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Tag Name");
+
+            final EditText input = new EditText(MainActivity.this);
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    m_Text = input.getText().toString();
+                    if (!m_Text.equals("")) {
+                        editor.putString("tagName", m_Text);
+                        editor.commit();
+
+                        NextSetupActivity();
+                    }
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
+        }
+    }
+
+    public void NextSetupActivity(){
         Intent oF = new Intent(this, setupActivity.class);
         if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
 
-        if (AppMain.PSUExist(AppMain.hh02txt)) {
-            Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
-            alertPSU();
-        } else {
-            startActivity(oF);
-        }
+            if (AppMain.PSUExist(AppMain.hh02txt)) {
+                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                alertPSU();
+            } else {
+                startActivity(oF);
+            }
         } else {
             Toast.makeText(this, "Please Sync Data!", Toast.LENGTH_SHORT).show();
         }

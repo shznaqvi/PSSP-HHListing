@@ -26,9 +26,9 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.pssp_hhlisting.AppMain;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.ListingContract;
-import edu.aku.hassannaqvi.pssp_hhlisting.FormsDBHelper;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.pssp_hhlisting.R;
 
 public class setupActivity extends Activity {
@@ -190,6 +190,8 @@ public class setupActivity extends Activity {
     private void SaveDraft() {
 
         AppMain.lc = new ListingContract();
+        SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
+        AppMain.lc.setTagId(sharedPref.getString("tagName", null));
         AppMain.lc.setHhDT(dtToday);
         AppMain.lc.setHh01(AppMain.hh01txt);
         AppMain.lc.setHh02(AppMain.hh02txt);

@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Core;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,6 +13,7 @@ import android.view.View;
 import java.util.Map;
 
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.ListingContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.Other.TypefaceUtil;
 
 /**
  * Created by hassan.naqvi on 10/15/2016.

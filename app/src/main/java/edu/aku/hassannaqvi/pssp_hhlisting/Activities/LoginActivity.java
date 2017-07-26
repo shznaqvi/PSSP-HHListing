@@ -49,8 +49,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.aku.hassannaqvi.pssp_hhlisting.AppMain;
-import edu.aku.hassannaqvi.pssp_hhlisting.FormsDBHelper;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.AppMain;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.pssp_hhlisting.R;
 
 

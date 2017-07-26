@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Core;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,8 +23,6 @@ import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.PSUsContract;
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.PSUsContract.singlePSU;
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.UsersContract.singleUser;
-
-import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 
 
 /**
@@ -71,6 +69,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_CHILD_NAME + " TEXT, " +
                 ListingEntry.COLUMN_USERNAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
+                ListingEntry.COLUMN_TAGID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
@@ -201,7 +200,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
 
         AppMain.updatePSU(lc.getHh02(), lc.getHh03());
-        Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(lc.getHh02(), "0"));
+        Log.d(TAG, "PSUExist (Test): " + AppMain.sharedPref.getString(lc.getHh02(), "0"));
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
         values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());
@@ -223,6 +222,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
+        values.put(ListingEntry.COLUMN_TAGID, lc.getTagId());
 
         long newRowId;
         newRowId = db.insert(
@@ -296,6 +296,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_CHILD_NAME,
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
+                ListingEntry.COLUMN_TAGID,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
                 ListingEntry.COLUMN_NAME_GPSTime,
@@ -451,6 +452,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
         values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
+        values.put(ListingEntry.COLUMN_TAGID, lc.getTagId());
 
         return values;
     }
@@ -481,6 +483,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
         lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
         lc.setRound(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ROUND))));
+        lc.setTagId(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_TAGID))));
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
 
         return lc;

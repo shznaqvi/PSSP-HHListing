@@ -1,8 +1,10 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.Other;
 
 import android.content.Context;
 
 import java.util.ArrayList;
+
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.pssphhlDBHelperController;
 
 public class listings extends pssphhlDBHelperController {
     public static final String _id = "_id";

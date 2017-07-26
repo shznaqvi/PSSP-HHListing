@@ -17,8 +17,8 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.pssp_hhlisting.AppMain;
-import edu.aku.hassannaqvi.pssp_hhlisting.FormsDBHelper;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.AppMain;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.pssp_hhlisting.R;
 
 public class FamilyListingActivity extends Activity {
