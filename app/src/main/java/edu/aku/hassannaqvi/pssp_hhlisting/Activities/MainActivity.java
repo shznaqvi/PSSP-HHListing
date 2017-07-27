@@ -8,13 +8,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -66,6 +70,8 @@ public class MainActivity extends Activity {
     SharedPreferences.Editor editor;
     AlertDialog.Builder builder;
     String m_Text = "";
+    private Boolean exit = false;
+    FormsDBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +86,10 @@ public class MainActivity extends Activity {
         editor = sharedPref.edit();
 
         builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Tag Name");
+        ImageView img = new ImageView(getApplicationContext());
+        img.setImageResource(R.drawable.tagimg);
+        img.setPadding(0,15,0,15);
+        builder.setCustomTitle(img);
 
         final EditText input = new EditText(MainActivity.this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -110,9 +119,13 @@ public class MainActivity extends Activity {
 
 
         // database handler
-        final FormsDBHelper db = new FormsDBHelper(getApplicationContext());
+        db = new FormsDBHelper(getApplicationContext());
 
+        spinnersFill();
 
+    }
+
+    public void spinnersFill(){
         // Spinner Drop down elements
         List<String> districtNames = new ArrayList<String>();
         final List<String> districtCodes = new ArrayList<String>();
@@ -220,7 +233,10 @@ public class MainActivity extends Activity {
         } else {
 
             builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Tag Name");
+            ImageView img = new ImageView(getApplicationContext());
+            img.setImageResource(R.drawable.tagimg);
+            img.setPadding(0,15,0,15);
+            builder.setCustomTitle(img);
 
             final EditText input = new EditText(MainActivity.this);
             input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -271,21 +287,8 @@ public class MainActivity extends Activity {
 
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
-            SyncListing ff = new SyncListing(this);
-            Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
-            ff.execute();
 
-            GetDistricts gd = new GetDistricts(this);
-            Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
-            gd.execute();
-
-            GetPSUs gp = new GetPSUs(this);
-            Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
-            gp.execute();
-
-            GetUsers gu = new GetUsers(this);
-            Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
-            gu.execute();
+            new syncData(this).execute();
 
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = syncPref.edit();
@@ -334,4 +337,73 @@ public class MainActivity extends Activity {
 
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+
+            startActivity(new Intent(this, LoginActivity.class));
+
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+        }
+    }
+
+    public class syncData extends AsyncTask<String, String, String> {
+
+        private Context mContext;
+
+        public syncData(Context mContext) {
+            this.mContext = mContext;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    SyncListing ff = new SyncListing(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
+                    ff.execute();
+
+                    GetDistricts gd = new GetDistricts(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
+                    gd.execute();
+
+                    GetPSUs gp = new GetPSUs(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
+                    gp.execute();
+
+                    GetUsers gu = new GetUsers(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
+                    gu.execute();
+                }
+            });
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    spinnersFill();
+                }
+            },1200);
+        }
+    }
+
+
 }
