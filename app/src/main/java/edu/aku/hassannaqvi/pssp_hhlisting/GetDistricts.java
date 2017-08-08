@@ -53,7 +53,8 @@ public class GetDistricts extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/mccpelp1/districts/");
+//            URL url = new URL(AppMain._IP + "/mccpelp1/districts/");
+            URL url = new URL(AppMain._IP + "/mccp/districts/");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();
