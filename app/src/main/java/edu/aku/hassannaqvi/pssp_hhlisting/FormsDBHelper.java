@@ -31,7 +31,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     // Change this when you change the database schema.
     private static final int DATABASE_VERSION = 4;
     // The name of database.
-    private static final String DATABASE_NAME = "pssp-hhl.db";
+    private static final String DATABASE_NAME = "mccp-hhl.db";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
