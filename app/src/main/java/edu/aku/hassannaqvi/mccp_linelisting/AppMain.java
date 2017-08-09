@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.mccp_linelisting;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -36,10 +36,9 @@ public class AppMain extends Application {
     public static int cTotal = 0;
     public static SharedPreferences sharedPref;
     public static SharedPreferences sharedPrefLoc;
-    protected static LocationManager locationManager;
     public static String userName;
-
     public static Context contextOfApplication;
+    protected static LocationManager locationManager;
 
     public static void updatePSU(String psuCode, String structureNo) {
 
@@ -68,6 +67,10 @@ public class AppMain extends Application {
         }
     }
 
+    public static Context getContextOfApplication() {
+        return contextOfApplication;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -87,10 +90,6 @@ public class AppMain extends Application {
 
         contextOfApplication = getApplicationContext();
 
-    }
-
-    public static Context getContextOfApplication(){
-        return contextOfApplication;
     }
 
     public class GPSLocationListener implements LocationListener {

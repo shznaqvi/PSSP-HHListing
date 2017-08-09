@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.mccp_linelisting;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -50,6 +50,7 @@ public class MainActivity extends Activity {
     TextView ucN;
     @BindView(R.id.psuN)
     TextView psuN;
+    private Boolean exit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,8 +253,6 @@ public class MainActivity extends Activity {
 
         }
     }
-
-    private Boolean exit = false;
 
     @Override
     public void onBackPressed() {

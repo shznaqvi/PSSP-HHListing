@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.mccp_linelisting;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("edu.aku.hassannaqvi.pssp_hhlisting", appContext.getPackageName());
+        assertEquals("edu.aku.hassannaqvi.mccp_linelisting", appContext.getPackageName());
     }
 }

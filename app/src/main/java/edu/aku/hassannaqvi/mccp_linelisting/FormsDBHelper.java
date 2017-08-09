@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.mccp_linelisting;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,12 +15,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import edu.aku.hassannaqvi.pssp_hhlisting.DistrictsContract.singleDistrict;
-import edu.aku.hassannaqvi.pssp_hhlisting.ListingContract.ListingEntry;
-import edu.aku.hassannaqvi.pssp_hhlisting.PSUsContract.singlePSU;
-import edu.aku.hassannaqvi.pssp_hhlisting.UsersContract.singleUser;
+import edu.aku.hassannaqvi.mccp_linelisting.DistrictsContract.singleDistrict;
+import edu.aku.hassannaqvi.mccp_linelisting.ListingContract.ListingEntry;
+import edu.aku.hassannaqvi.mccp_linelisting.PSUsContract.singlePSU;
+import edu.aku.hassannaqvi.mccp_linelisting.UsersContract.singleUser;
 
-import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
+import static edu.aku.hassannaqvi.mccp_linelisting.AppMain.sharedPref;
 
 
 /**
