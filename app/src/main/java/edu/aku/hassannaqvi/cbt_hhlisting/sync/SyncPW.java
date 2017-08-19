@@ -22,9 +22,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
-import edu.aku.hassannaqvi.cbt_hhlisting.AppMain;
-import edu.aku.hassannaqvi.cbt_hhlisting.FormsDBHelper;
-import edu.aku.hassannaqvi.cbt_hhlisting.PWsContract;
+import edu.aku.hassannaqvi.cbt_hhlisting.core.AppMain;
+import edu.aku.hassannaqvi.cbt_hhlisting.core.FormsDBHelper;
+import edu.aku.hassannaqvi.cbt_hhlisting.contract.PWsContract;
 
 /**
  * Created by hassan.naqvi on 7/26/2016.

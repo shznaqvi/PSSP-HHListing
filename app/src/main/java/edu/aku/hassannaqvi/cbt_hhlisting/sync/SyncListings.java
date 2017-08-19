@@ -9,9 +9,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -22,9 +24,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
-import edu.aku.hassannaqvi.cbt_hhlisting.AppMain;
-import edu.aku.hassannaqvi.cbt_hhlisting.FormsDBHelper;
-import edu.aku.hassannaqvi.cbt_hhlisting.ListingContract;
+import edu.aku.hassannaqvi.cbt_hhlisting.core.AppMain;
+import edu.aku.hassannaqvi.cbt_hhlisting.core.FormsDBHelper;
+import edu.aku.hassannaqvi.cbt_hhlisting.contract.ListingContract;
 
 /**
  * Created by hassan.naqvi on 7/26/2016.
@@ -146,8 +148,33 @@ public class SyncListings extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        pd.setMessage("Server Response: " + result);
-        pd.setTitle("Done!... Synced Forms");
-        //pd.show();
+        int sSynced = 0;
+        String sSyncedError = "";
+        JSONArray json = null;
+        try {
+            json = new JSONArray(result);
+            FormsDBHelper db = new FormsDBHelper(mContext);
+            for (int i = 0; i < json.length(); i++) {
+                JSONObject jsonObject = new JSONObject(json.getString(i));
+                if (jsonObject.getString("status").equals("1") && jsonObject.getString("error").equals("0")) {
+                    db.updateSyncedForms(jsonObject.getString("id"));
+                    sSynced++;
+                } else {
+                    sSyncedError += "\nError: " + jsonObject.getString("message").toString();
+                }
+            }
+            Toast.makeText(mContext, sSynced + " Forms synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
+
+            pd.setMessage(sSynced + " Forms synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError);
+            pd.setTitle("Done uploading Forms data");
+            pd.show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(mContext, "Failed Sync " + result, Toast.LENGTH_SHORT).show();
+
+            pd.setMessage(result);
+            pd.setTitle("Forms Sync Failed");
+            pd.show();
+        }
     }
 }
