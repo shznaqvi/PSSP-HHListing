@@ -1,0 +1,430 @@
+package edu.aku.hassannaqvi.tmk_hhlisting.Activities;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.InputType;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetTalukas;
+import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetUCs;
+import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetVillages;
+import edu.aku.hassannaqvi.tmk_hhlisting.contracts.TalukasContract;
+import edu.aku.hassannaqvi.tmk_hhlisting.contracts.UCsContract;
+import edu.aku.hassannaqvi.tmk_hhlisting.contracts.VillagesContract;
+import edu.aku.hassannaqvi.tmk_hhlisting.core.AndroidDatabaseManager;
+import edu.aku.hassannaqvi.tmk_hhlisting.core.MainApp;
+import edu.aku.hassannaqvi.tmk_hhlisting.contracts.PSUsContract;
+import edu.aku.hassannaqvi.tmk_hhlisting.core.FormsDBHelper;
+import edu.aku.hassannaqvi.tmk_hhlisting.R;
+import edu.aku.hassannaqvi.tmk_hhlisting.Sync.SyncListing;
+
+public class MainActivity extends Activity {
+
+    public static String TAG = "MainActivity";
+
+    private static String ipAddress = "192.168.1.10";
+    private static String port = "3000";
+
+    public List<String> psuCode;
+
+    ArrayList<String> lablesTalukas;
+    Collection<TalukasContract> TalukasList;
+    Map<String, String> talukasMap;
+
+    ArrayList<String> lablesUCs;
+    Collection<UCsContract> UcsList;
+    Map<String, String> ucsMap;
+
+    ArrayList<String> lablesVillages;
+    Collection<VillagesContract> VillagesList;
+    Map<String, VillagesContract> villagesMap;
+
+    String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
+    @BindView(R.id.MN00)
+    Spinner mN00;
+    @BindView(R.id.MN01)
+    Spinner mN01;
+    @BindView(R.id.MN02)
+    Spinner mN02;
+    @BindView(R.id.districtN)
+    TextView talukaN;
+    @BindView(R.id.ucN)
+    TextView ucN;
+    @BindView(R.id.psuN)
+    TextView villageN;
+
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+    AlertDialog.Builder builder;
+    String m_Text = "";
+    private Boolean exit = false;
+    FormsDBHelper db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        MainApp.lc = null;
+
+        /*Tag Info Start*/
+        sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
+        editor = sharedPref.edit();
+
+        builder = new AlertDialog.Builder(MainActivity.this);
+        ImageView img = new ImageView(getApplicationContext());
+        img.setImageResource(R.drawable.tagimg);
+        img.setPadding(0, 15, 0, 15);
+        builder.setCustomTitle(img);
+
+        final EditText input = new EditText(MainActivity.this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString();
+                if (!m_Text.equals("")) {
+                    editor.putString("tagName", m_Text);
+                    editor.commit();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        if (sharedPref.getString("tagName", null) == "" || sharedPref.getString("tagName", null) == null) {
+            builder.show();
+        }
+        /*Tag End*/
+
+
+        // database handler
+        db = new FormsDBHelper(getApplicationContext());
+
+        spinnersFill(this);
+
+    }
+
+    public void spinnersFill(Context context) {
+        final Context mContext = context;
+
+        // Populate Talukas list
+        TalukasList = db.getAllTalukas();
+
+        lablesTalukas = new ArrayList<>();
+        talukasMap = new HashMap<>();
+
+        for (TalukasContract taluka : TalukasList) {
+            lablesTalukas.add(taluka.getTaluka());
+
+            talukasMap.put(taluka.getTaluka(), taluka.getID());
+        }
+
+        mN00.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesTalukas));
+
+        mN00.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // Populate UCs list
+                MainApp.talukaCode = Integer.valueOf(talukasMap.get(mN00.getSelectedItem().toString()));
+
+                lablesUCs = new ArrayList<>();
+                ucsMap = new HashMap<>();
+
+                UcsList = db.getAllUCs(String.valueOf(MainApp.talukaCode));
+                for (UCsContract ucs : UcsList) {
+                    lablesUCs.add(ucs.getUcs());
+                    ucsMap.put(ucs.getUcs(), ucs.getID());
+                }
+
+                talukaN.setText(mN00.getSelectedItem().toString());
+
+                mN01.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesUCs));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                MainApp.ucCode = Integer.valueOf(ucsMap.get(mN01.getSelectedItem().toString()));
+
+                lablesVillages = new ArrayList<>();
+                villagesMap = new HashMap<>();
+
+                VillagesList = db.getVillage(String.valueOf(MainApp.talukaCode), String.valueOf(MainApp.ucCode));
+                for (VillagesContract villages : VillagesList) {
+                    lablesVillages.add(villages.getClustercode());
+                    villagesMap.put(villages.getClustercode(), new VillagesContract(villages));
+                }
+
+                ucN.setText(mN01.getSelectedItem().toString());
+
+                mN02.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesVillages));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                MainApp.clusterCode = mN02.getSelectedItem().toString();
+                villageN.setText(villagesMap.get(mN02.getSelectedItem().toString()).getVillagename());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void alertPSU() {
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Intent oF = new Intent(MainActivity.this, setupActivity.class);
+                        startActivity(oF);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+
+                        break;
+                }
+            }
+
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Do you want to continue?");
+        builder.setMessage("PSU data already exist.").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("Cancel", dialogClickListener).show();
+    }
+
+    public void openForm(View view) {
+
+        if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {
+            NextSetupActivity();
+        } else {
+
+            builder = new AlertDialog.Builder(MainActivity.this);
+            ImageView img = new ImageView(getApplicationContext());
+            img.setImageResource(R.drawable.tagimg);
+            img.setPadding(0, 15, 0, 15);
+            builder.setCustomTitle(img);
+
+            final EditText input = new EditText(MainActivity.this);
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    m_Text = input.getText().toString();
+                    if (!m_Text.equals("")) {
+                        editor.putString("tagName", m_Text);
+                        editor.commit();
+
+                        NextSetupActivity();
+                    }
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
+        }
+    }
+
+    public void NextSetupActivity() {
+        Intent oF = new Intent(this, setupActivity.class);
+        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
+
+            if (MainApp.PSUExist(MainApp.clusterCode)) {
+                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                alertPSU();
+            } else {
+                startActivity(oF);
+            }
+        } else {
+            Toast.makeText(this, "Please Sync Data!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void openDB(View view) {
+        Intent dbmanager = new Intent(this, AndroidDatabaseManager.class);
+        startActivity(dbmanager);
+    }
+
+    public void syncFunction(View view) {
+        if (isNetworkAvailable()) {
+
+            new syncData(this).execute();
+
+            SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = syncPref.edit();
+
+            editor.putString("LastSyncDB", dtToday);
+
+            editor.apply();
+        } /*else {
+            Toast.makeText(getApplicationContext(), "Network Not Available", Toast.LENGTH_SHORT).show();
+        }*/
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void openDBManager(View v) {
+        Intent dbmanager = new Intent(getApplicationContext(), AndroidDatabaseManager.class);
+        startActivity(dbmanager);
+    }
+
+    private boolean isHostAvailable() {
+
+        if (isNetworkAvailable()) {
+            try {
+                SocketAddress sockaddr = new InetSocketAddress(ipAddress, 3000);
+                // Create an unbound socket
+                Socket sock = new Socket();
+
+                // This method will block no more than timeoutMs.
+                // If the timeout occurs, SocketTimeoutException is thrown.
+                int timeoutMs = 2000;   // 2 seconds
+                sock.connect(sockaddr, timeoutMs);
+                return true;
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Server Not Available for Update", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Network not available for Update", Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+
+            startActivity(new Intent(this, LoginActivity.class));
+
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+        }
+    }
+
+    public class syncData extends AsyncTask<String, String, String> {
+
+        private Context mContext;
+
+        public syncData(Context mContext) {
+            this.mContext = mContext;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    Toast.makeText(MainActivity.this, "Sync Talukas", Toast.LENGTH_LONG).show();
+                    new GetTalukas(mContext).execute();
+                    Toast.makeText(MainActivity.this, "Sync UC's", Toast.LENGTH_LONG).show();
+                    new GetUCs(mContext).execute();
+                    Toast.makeText(MainActivity.this, "Sync Villages", Toast.LENGTH_LONG).show();
+                    new GetVillages(mContext).execute();
+
+                    /*SyncListing ff = new SyncListing(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
+                    ff.execute();*/
+                }
+            });
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    spinnersFill(mContext);
+                }
+            }, 1200);
+        }
+    }
+
+
+}

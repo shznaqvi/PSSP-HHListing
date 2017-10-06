@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="72dp"
-    tools:context="edu.aku.hassannaqvi.pssp_hhlisting.Activities.LoginActivity">
+    tools:context="edu.aku.hassannaqvi.tmk_hhlisting.Activities.LoginActivity">
 
     <!-- Login progress -->
     <ProgressBar
@@ -37,7 +37,7 @@
                 android:gravity="center_horizontal"
 
                 android:keepScreenOn="true"
-                android:text="SEROPREVALENCE SURVEY PAKISTAN 2016 - 2017 Round - 2"
+                android:text="@string/app_name"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
                 android:textStyle="bold" />
