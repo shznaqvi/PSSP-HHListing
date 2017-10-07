@@ -234,7 +234,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     public void dbBackup() {
 
-        sharedPref = getSharedPreferences("pssplinelisting", MODE_PRIVATE);
+        sharedPref = getSharedPreferences("tmklinelisting", MODE_PRIVATE);
         editor = sharedPref.edit();
 
         if (sharedPref.getBoolean("flag", false)) {
@@ -247,7 +247,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 editor.commit();
             }
 
-            File folder = new File(Environment.getExternalStorageDirectory() + File.separator + "DMU-PSSPLINELISTING");
+            File folder = new File(Environment.getExternalStorageDirectory() + File.separator + "DMU-TMK-LINELISTING");
             boolean success = true;
             if (!folder.exists()) {
                 success = folder.mkdirs();
