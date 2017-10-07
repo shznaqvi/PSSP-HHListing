@@ -168,6 +168,8 @@ public class MainActivity extends Activity {
                 lablesUCs = new ArrayList<>();
                 ucsMap = new HashMap<>();
 
+                lablesUCs.add("Select UC..");
+
                 UcsList = db.getAllUCs(String.valueOf(MainApp.talukaCode));
                 for (UCsContract ucs : UcsList) {
                     lablesUCs.add(ucs.getUcs());
@@ -190,10 +192,14 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                MainApp.ucCode = Integer.valueOf(ucsMap.get(mN01.getSelectedItem().toString()));
+                if (mN01.getSelectedItemPosition()!=0) {
+                    MainApp.ucCode = Integer.valueOf(ucsMap.get(mN01.getSelectedItem().toString()));
+                }
 
                 lablesVillages = new ArrayList<>();
                 villagesMap = new HashMap<>();
+
+                lablesVillages.add("Select Cluster Code..");
 
                 VillagesList = db.getVillage(String.valueOf(MainApp.talukaCode), String.valueOf(MainApp.ucCode));
                 for (VillagesContract villages : VillagesList) {
@@ -216,8 +222,11 @@ public class MainActivity extends Activity {
         mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                MainApp.clusterCode = mN02.getSelectedItem().toString();
-                villageN.setText(villagesMap.get(mN02.getSelectedItem().toString()).getVillagename());
+
+                if (mN02.getSelectedItemPosition()!=0) {
+                    MainApp.clusterCode = mN02.getSelectedItem().toString();
+                    villageN.setText(villagesMap.get(mN02.getSelectedItem().toString()).getVillagename());
+                }
             }
 
             @Override
@@ -398,6 +407,11 @@ public class MainActivity extends Activity {
 
                 @Override
                 public void run() {
+
+                    SyncListing ff = new SyncListing(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
+                    ff.execute();
+
                     Toast.makeText(MainActivity.this, "Sync Talukas", Toast.LENGTH_LONG).show();
                     new GetTalukas(mContext).execute();
                     Toast.makeText(MainActivity.this, "Sync UC's", Toast.LENGTH_LONG).show();
@@ -405,9 +419,6 @@ public class MainActivity extends Activity {
                     Toast.makeText(MainActivity.this, "Sync Villages", Toast.LENGTH_LONG).show();
                     new GetVillages(mContext).execute();
 
-                    /*SyncListing ff = new SyncListing(mContext);
-                    Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
-                    ff.execute();*/
                 }
             });
 

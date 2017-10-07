@@ -70,9 +70,16 @@ public class FamilyListingActivity extends Activity {
                 if (isChecked) {
                     hh11.setVisibility(View.VISIBLE);
                     hh11.requestFocus();
+
+                    hh12.setEnabled(true);
                 } else {
                     hh11.setVisibility(View.INVISIBLE);
                     hh11.setText(null);
+
+                    hh12.setEnabled(false);
+                    hh13.setText(null);
+                    hh13.setVisibility(View.INVISIBLE);
+                    hh12.setChecked(false);
                 }
             }
         });
@@ -215,6 +222,18 @@ public class FamilyListingActivity extends Activity {
             hh13.setError(null);
         }
 
+        if (hh12.isChecked() && hh10.isChecked()) {
+            if (Integer.parseInt(hh13.getText().toString()) > Integer.parseInt(hh11.getText().toString())) {
+                Toast.makeText(this, "Not greater then child of age less then 5", Toast.LENGTH_LONG).show();
+                hh13.setError("Not greater then child of age less then 5");
+                Log.i(TAG, "Not greater then child of age less then 5");
+                return false;
+            } else {
+                hh13.setError(null);
+            }
+        }
+
+
         return true;
     }
 
@@ -230,6 +249,8 @@ public class FamilyListingActivity extends Activity {
                 MainApp.hh07txt = String.valueOf((char) (MainApp.hh07txt.charAt(0) + 1));
                 MainApp.lc.setHh07(MainApp.hh07txt.toString());
                 MainApp.fCount++;
+
+                finish();
 
                 Intent fA = new Intent(this, FamilyListingActivity.class);
                 startActivity(fA);
@@ -249,6 +270,9 @@ public class FamilyListingActivity extends Activity {
                 MainApp.fTotal = 0;
                 MainApp.cCount = 0;
                 MainApp.cTotal = 0;
+
+                finish();
+
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
 

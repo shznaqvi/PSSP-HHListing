@@ -171,6 +171,9 @@ public class setupActivity extends Activity {
         if (formValidation()) {
             SaveDraft();
             MainApp.fCount++;
+
+            finish();
+
             Intent fA = new Intent(this, FamilyListingActivity.class);
             startActivity(fA);
         }
@@ -181,6 +184,9 @@ public class setupActivity extends Activity {
     void onBtnChangePSUClick() {
 
         MainApp.clusterCode = null;
+
+        finish();
+
         Intent fA = new Intent(this, MainActivity.class);
         startActivity(fA);
 
@@ -334,6 +340,9 @@ public class setupActivity extends Activity {
                 MainApp.fTotal = 0;
                 MainApp.cCount = 0;
                 MainApp.cTotal = 0;
+
+                finish();
+
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
 

@@ -113,7 +113,8 @@
                 android:layout_weight="4"
                 android:text="@string/hh12"
                 android:textOff="@string/no"
-                android:textOn="@string/yes" />
+                android:textOn="@string/yes"
+                android:enabled="false"/>
 
             <EditText
                 android:id="@+id/hh13"
