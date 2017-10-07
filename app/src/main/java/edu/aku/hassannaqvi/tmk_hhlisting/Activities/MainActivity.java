@@ -194,6 +194,8 @@ public class MainActivity extends Activity {
 
                 if (mN01.getSelectedItemPosition()!=0) {
                     MainApp.ucCode = Integer.valueOf(ucsMap.get(mN01.getSelectedItem().toString()));
+                }else {
+                    MainApp.ucCode = 0;
                 }
 
                 lablesVillages = new ArrayList<>();
@@ -302,7 +304,7 @@ public class MainActivity extends Activity {
 
     public void NextSetupActivity() {
         Intent oF = new Intent(this, setupActivity.class);
-        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
+        if (mN00.getSelectedItem() != null && mN01.getSelectedItemPosition()!=0 && mN02.getSelectedItemPosition()!=0) {
 
             if (MainApp.PSUExist(MainApp.clusterCode)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
@@ -311,7 +313,7 @@ public class MainActivity extends Activity {
                 startActivity(oF);
             }
         } else {
-            Toast.makeText(this, "Please Sync Data!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please Sync Data or select values from drop down!", Toast.LENGTH_SHORT).show();
         }
     }
 

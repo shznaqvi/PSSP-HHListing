@@ -54,7 +54,6 @@ public class FamilyListingActivity extends Activity {
 
 
         txtFamilyListing.setText("Family Listing: " + MainApp.hh03txt + "-" + MainApp.hh07txt);
-        MainApp.lc.setHh00(null);
 
         if (MainApp.fCount < MainApp.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);

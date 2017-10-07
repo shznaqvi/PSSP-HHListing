@@ -170,6 +170,7 @@ public class setupActivity extends Activity {
         }
         if (formValidation()) {
             SaveDraft();
+
             MainApp.fCount++;
 
             finish();

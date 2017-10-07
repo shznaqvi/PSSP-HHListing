@@ -33,7 +33,7 @@ import edu.aku.hassannaqvi.tmk_hhlisting.contracts.VillagesContract.singleVillag
 
 
 /**
- * Created by hassan.naqvi on 10/18/2016.
+ * Created by hassan.naqvi on 10/18/2016 modified 10/07/2017.
  */
 public class FormsDBHelper extends SQLiteOpenHelper {
 
@@ -58,6 +58,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ListingEntry.COLUMN_NAME_UID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH00 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
@@ -66,14 +67,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
+//                ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH00 + " TEXT, " +
                 ListingEntry.COLUMN_USERNAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_TAGID + " TEXT, " +
@@ -239,7 +239,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
+//        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
@@ -318,7 +318,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
-                ListingEntry.COLUMN_NAME_HH07n,
+//                ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
                 ListingEntry.COLUMN_NAME_HH10,
@@ -676,7 +676,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
+//        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
@@ -708,7 +708,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh05(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH05))));
         lc.setHh06(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH06))));
         lc.setHh07(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07))));
-        lc.setHh07n(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07n))));
+//        lc.setHh07n(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07n))));
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
