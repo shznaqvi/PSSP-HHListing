@@ -586,7 +586,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleVillages.COLUMN_VILLAGE_CODE + " ASC";
+                singleVillages.COLUMN_VILLAGE_NAME + " ASC";
 
         Collection<VillagesContract> allDC = new ArrayList<>();
         try {
@@ -628,7 +628,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleTalukas.COLUMN_TALUKA_CODE + " ASC";
+                singleTalukas.COLUMN_TALUKA + " ASC";
 
         Collection<TalukasContract> allDC = new ArrayList<>();
         try {
@@ -671,7 +671,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleUCs.COLUMN_UCCODE + " ASC";
+                singleUCs.COLUMN_UCS + " ASC";
 
         Collection<UCsContract> allDC = new ArrayList<>();
         try {
@@ -714,7 +714,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleAreas.COLUMN_AREACODE + " ASC";
+                singleAreas.COLUMN_AREA + " ASC";
 
         Collection<AreasContract> allAC = new ArrayList<>();
         try {

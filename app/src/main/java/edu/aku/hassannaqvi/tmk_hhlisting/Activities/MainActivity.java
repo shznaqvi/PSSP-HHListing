@@ -37,6 +37,7 @@ import butterknife.ButterKnife;
 import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetAreas;
 import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetTalukas;
 import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetUCs;
+import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetUsers;
 import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetVillages;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.AreasContract;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.TalukasContract;
@@ -174,9 +175,9 @@ public class MainActivity extends Activity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // Populate UCs list
 
-                if (mN00.getSelectedItemPosition()!=0) {
+                if (mN00.getSelectedItemPosition() != 0) {
                     MainApp.talukaCode = Integer.valueOf(talukasMap.get(mN00.getSelectedItem().toString()));
-                }else {
+                } else {
                     MainApp.talukaCode = 0;
                 }
 
@@ -207,9 +208,9 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (mN01.getSelectedItemPosition()!=0) {
+                if (mN01.getSelectedItemPosition() != 0) {
                     MainApp.ucCode = Integer.valueOf(ucsMap.get(mN01.getSelectedItem().toString()));
-                }else {
+                } else {
                     MainApp.ucCode = 0;
                 }
 
@@ -240,9 +241,9 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if (mN02.getSelectedItemPosition()!=0) {
+                if (mN02.getSelectedItemPosition() != 0) {
                     MainApp.areaCode = Integer.valueOf(AreasMap.get(mN02.getSelectedItem().toString()));
-                }else {
+                } else {
                     MainApp.areaCode = 0;
                 }
 
@@ -273,8 +274,8 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (mN03.getSelectedItemPosition()!=0) {
-                    MainApp.villageCode = mN03.getSelectedItem().toString();
+                if (mN03.getSelectedItemPosition() != 0) {
+                    MainApp.villageCode = villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode();
                     villageN.setText(villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode());
                 }
             }
@@ -352,7 +353,7 @@ public class MainActivity extends Activity {
 
     public void NextSetupActivity() {
         Intent oF = new Intent(this, setupActivity.class);
-        if (mN00.getSelectedItem() != null && mN01.getSelectedItemPosition()!=0 && mN03.getSelectedItemPosition()!=0) {
+        if (mN00.getSelectedItemPosition() != 0 && mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0 && mN03.getSelectedItemPosition() != 0) {
 
             if (MainApp.PSUExist(MainApp.villageCode)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
@@ -470,6 +471,10 @@ public class MainActivity extends Activity {
                     new GetAreas(mContext).execute();
                     Toast.makeText(MainActivity.this, "Sync Villages", Toast.LENGTH_LONG).show();
                     new GetVillages(mContext).execute();
+
+                    GetUsers user = new GetUsers(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing User", Toast.LENGTH_SHORT).show();
+                    user.execute();
 
                 }
             });

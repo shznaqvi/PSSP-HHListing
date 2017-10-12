@@ -339,5 +339,7 @@ public class ListingContract {
         public static final String COLUMN_TAGID = "tagId";
 
         public static final String COLUMN_USERNAME = "username";
+
+        public static final String _URL = "listings.php";
     }
 }

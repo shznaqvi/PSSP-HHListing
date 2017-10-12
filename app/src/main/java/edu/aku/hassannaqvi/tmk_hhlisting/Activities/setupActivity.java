@@ -99,7 +99,8 @@ public class setupActivity extends Activity {
         }
         MainApp.hh07txt = "X";
         hh01.setText(getString(R.string.hh01) + ": " + MainApp.hh01txt);
-        hh03.setText(String.valueOf(MainApp.hh03txt));
+        hh03.setText(hh02.getText().toString().substring(0, 5) + "-" + hh02.getText().toString().substring(6)
+                + "-" + String.valueOf(MainApp.hh03txt));
         hh07.setText(getString(R.string.hh07) + ": " + MainApp.hh07txt);
 
 

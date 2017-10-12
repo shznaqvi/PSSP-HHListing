@@ -188,10 +188,19 @@ public class FamilyListingActivity extends Activity {
             hh09.setError(null);
         }
 
-        if (hh14.getText().toString().isEmpty()) {
+        /*if (hh14.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):"+R.string.hh14, Toast.LENGTH_LONG).show();
             hh14.setError("Data required");
             Log.i(TAG, "hh14: This data is required.");
+            return false;
+        } else {
+            hh14.setError(null);
+        }*/
+
+        if (!hh14.getText().toString().isEmpty() && Integer.valueOf(hh14.getText().toString()) < 1) {
+            Toast.makeText(this, "Invalid Value!"+R.string.hh14, Toast.LENGTH_LONG).show();
+            hh14.setError("Invalid Value!");
+            Log.i(TAG, "Invalid Value!");
             return false;
         } else {
             hh14.setError(null);
