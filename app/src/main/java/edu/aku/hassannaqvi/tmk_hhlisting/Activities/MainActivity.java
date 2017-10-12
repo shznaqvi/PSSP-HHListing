@@ -159,6 +159,8 @@ public class MainActivity extends Activity {
         lablesTalukas = new ArrayList<>();
         talukasMap = new HashMap<>();
 
+        lablesTalukas.add("Select Talukas..");
+
         for (TalukasContract taluka : TalukasList) {
             lablesTalukas.add(taluka.getTaluka());
 
@@ -171,7 +173,12 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // Populate UCs list
-                MainApp.talukaCode = Integer.valueOf(talukasMap.get(mN00.getSelectedItem().toString()));
+
+                if (mN00.getSelectedItemPosition()!=0) {
+                    MainApp.talukaCode = Integer.valueOf(talukasMap.get(mN00.getSelectedItem().toString()));
+                }else {
+                    MainApp.talukaCode = 0;
+                }
 
                 lablesUCs = new ArrayList<>();
                 ucsMap = new HashMap<>();
@@ -246,8 +253,8 @@ public class MainActivity extends Activity {
 
                 VillagesList = db.getAllVillage(String.valueOf(MainApp.areaCode));
                 for (VillagesContract villages : VillagesList) {
-                    lablesVillages.add(villages.getVillagecode());
-                    villagesMap.put(villages.getVillagecode(), new VillagesContract(villages));
+                    lablesVillages.add(villages.getVillagename());
+                    villagesMap.put(villages.getVillagename(), new VillagesContract(villages));
                 }
 
                 areaN.setText(mN02.getSelectedItem().toString());
