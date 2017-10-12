@@ -39,6 +39,8 @@ public class FamilyListingActivity extends Activity {
     Switch hh12;
     @BindView(R.id.hh13)
     EditText hh13;
+    @BindView(R.id.hh14)
+    EditText hh14;
     @BindView(R.id.btnAddChild)
     Button btnAddChild;
     @BindView(R.id.btnAddFamily)
@@ -156,6 +158,7 @@ public class FamilyListingActivity extends Activity {
 
         MainApp.lc.setHh08(hh08.getText().toString());
         MainApp.lc.setHh09(hh09.getText().toString());
+        MainApp.lc.setHh14(hh14.getText().toString());
         MainApp.lc.setHh10(hh10.isChecked() ? "1" : "2");
         MainApp.lc.setHh11(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString());
         MainApp.lc.setHh12(hh12.isChecked() ? "1" : "2");
@@ -168,34 +171,43 @@ public class FamilyListingActivity extends Activity {
     private boolean formValidation() {
 
         if (hh08.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter name", Toast.LENGTH_LONG).show();
-            hh08.setError("Please enter name");
-            Log.i(TAG, "Please enter name");
+            Toast.makeText(this, "Error(Empty):"+R.string.hh08, Toast.LENGTH_LONG).show();
+            hh08.setError("Data required");
+            Log.i(TAG, "hh08: This data is required.");
             return false;
         } else {
             hh08.setError(null);
         }
 
         if (hh09.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter contact number", Toast.LENGTH_LONG).show();
-            hh09.setError("Please enter contact number");
-            Log.i(TAG, "Please enter contact number");
+            Toast.makeText(this, "Error(Empty):"+R.string.hh09, Toast.LENGTH_LONG).show();
+            hh09.setError("Data required");
+            Log.i(TAG, "hh09: This data is required.");
             return false;
         } else {
             hh09.setError(null);
         }
 
+        if (hh14.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Error(Empty):"+R.string.hh14, Toast.LENGTH_LONG).show();
+            hh14.setError("Data required");
+            Log.i(TAG, "hh14: This data is required.");
+            return false;
+        } else {
+            hh14.setError(null);
+        }
+
         if (hh10.isChecked() && hh11.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            hh11.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
+            Toast.makeText(this, "Error(Empty):"+R.string.hh11, Toast.LENGTH_LONG).show();
+            hh11.setError("Data required");
+            Log.i(TAG, "hh11: This data is required.");
             return false;
         } else {
             hh11.setError(null);
         }
 
         if (!hh11.getText().toString().isEmpty() && Integer.valueOf(hh11.getText().toString()) < 1) {
-            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid Value!"+R.string.hh11, Toast.LENGTH_LONG).show();
             hh11.setError("Invalid Value!");
             Log.i(TAG, "Invalid Value!");
             return false;
@@ -204,21 +216,32 @@ public class FamilyListingActivity extends Activity {
         }
 
         if (hh12.isChecked() && hh13.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            hh13.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
+            Toast.makeText(this, "Error(Empty):"+R.string.hh13, Toast.LENGTH_LONG).show();
+            hh13.setError("Data required");
+            Log.i(TAG, "hh13: This data is required.");
             return false;
         } else {
             hh13.setError(null);
         }
 
         if (!hh13.getText().toString().isEmpty() && Integer.valueOf(hh13.getText().toString()) < 1) {
-            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid Value!"+R.string.hh13, Toast.LENGTH_LONG).show();
             hh13.setError("Invalid Value!");
             Log.i(TAG, "Invalid Value!");
             return false;
         } else {
             hh13.setError(null);
+        }
+
+        if(hh10.isChecked()){
+            if (Integer.parseInt(hh14.getText().toString()) <= Integer.parseInt(hh11.getText().toString())) {
+                Toast.makeText(this, "Family member must be greater then child.", Toast.LENGTH_LONG).show();
+                hh14.setError("Family member must be greater then child.");
+                Log.i(TAG, "Family member must be greater then child.");
+                return false;
+            } else {
+                hh14.setError(null);
+            }
         }
 
         if (hh12.isChecked() && hh10.isChecked()) {

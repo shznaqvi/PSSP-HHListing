@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class UCsContract {
 
     private static final String TAG = "UCs_CONTRACT";
-    String ID;
+    String uccode;
     String ucs;
     String taluka_code;
 
@@ -19,25 +19,25 @@ public class UCsContract {
     }
 
     public UCsContract Sync(JSONObject jsonObject) throws JSONException {
-        this.ID = jsonObject.getString(singleUCs.COLUMN_ID);
+        this.uccode = jsonObject.getString(singleUCs.COLUMN_UCCODE);
         this.ucs = jsonObject.getString(singleUCs.COLUMN_UCS);
         this.taluka_code = jsonObject.getString(singleUCs.COLUMN_TALUKA_CODE);
         return this;
     }
 
     public UCsContract HydrateUCs(Cursor cursor) {
-        this.ID = cursor.getString(cursor.getColumnIndex(singleUCs.COLUMN_ID));
+        this.uccode = cursor.getString(cursor.getColumnIndex(singleUCs.COLUMN_UCCODE));
         this.ucs = cursor.getString(cursor.getColumnIndex(singleUCs.COLUMN_UCS));
         this.taluka_code = cursor.getString(cursor.getColumnIndex(singleUCs.COLUMN_TALUKA_CODE));
         return this;
     }
 
-    public String getID() {
-        return ID;
+    public String getUccode() {
+        return uccode;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setUccode(String uccode) {
+        this.uccode = uccode;
     }
 
     public String getUcs() {
@@ -59,7 +59,7 @@ public class UCsContract {
     public JSONObject toJSONObject() throws JSONException {
 
         JSONObject json = new JSONObject();
-        json.put(singleUCs.COLUMN_ID, this.ID == null ? JSONObject.NULL : this.ID);
+        json.put(singleUCs.COLUMN_UCCODE, this.uccode == null ? JSONObject.NULL : this.uccode);
         json.put(singleUCs.COLUMN_UCS, this.ucs == null ? JSONObject.NULL : this.ucs);
         json.put(singleUCs.COLUMN_TALUKA_CODE, this.taluka_code == null ? JSONObject.NULL : this.taluka_code);
         return json;
@@ -69,8 +69,8 @@ public class UCsContract {
     public static abstract class singleUCs implements BaseColumns {
 
         public static final String TABLE_NAME = "ucs";
-        public static final String COLUMN_ID = "_id";
-        public static final String COLUMN_UCS = "union_council";
+        public static final String COLUMN_UCCODE = "uc_code";
+        public static final String COLUMN_UCS = "uc_name";
         public static final String COLUMN_TALUKA_CODE = "taluka_code";
 
         public static final String _URI = "ucs.php";

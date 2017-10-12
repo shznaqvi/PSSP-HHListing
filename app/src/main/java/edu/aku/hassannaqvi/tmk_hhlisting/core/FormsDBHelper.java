@@ -26,6 +26,8 @@ import edu.aku.hassannaqvi.tmk_hhlisting.contracts.UsersContract.singleUser;
 
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.TalukasContract;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.TalukasContract.singleTalukas;
+import edu.aku.hassannaqvi.tmk_hhlisting.contracts.AreasContract;
+import edu.aku.hassannaqvi.tmk_hhlisting.contracts.AreasContract.singleAreas;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.UCsContract;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.UCsContract.singleUCs;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.VillagesContract;
@@ -60,6 +62,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH00 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH01A + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
@@ -67,9 +70,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
-//                ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH14 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
@@ -103,20 +106,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 + singleUser.ROW_PASSWORD + " TEXT );";
 
         final String SQL_CREATE_VILLAGES = "CREATE TABLE " + singleVillages.TABLE_NAME + "("
-                + singleVillages.COLUMN_ID + " TEXT,"
+//                + singleVillages.COLUMN_ID + " TEXT,"
                 + singleVillages.COLUMN_VILLAGE_NAME + " TEXT,"
-                + singleVillages.COLUMN_UC + " TEXT,"
-                + singleVillages.COLUMN_TALUKA + " TEXT,"
-                + singleVillages.COLUMN_CLUSTER_CODE + " TEXT );";
+                + singleVillages.COLUMN_AREA_CODE + " TEXT,"
+//                + singleVillages.COLUMN_TALUKA + " TEXT,"
+                + singleVillages.COLUMN_VILLAGE_CODE + " TEXT );";
 
         final String SQL_CREATE_TALUKAS = "CREATE TABLE " + singleTalukas.TABLE_NAME + "("
-                + singleTalukas.COLUMN_ID + " TEXT,"
+                + singleTalukas.COLUMN_TALUKA_CODE + " TEXT,"
                 + singleTalukas.COLUMN_TALUKA + " TEXT );";
 
         final String SQL_CREATE_UCS = "CREATE TABLE " + singleUCs.TABLE_NAME + "("
-                + singleUCs.COLUMN_ID + " TEXT,"
+                + singleUCs.COLUMN_UCCODE + " TEXT,"
                 + singleUCs.COLUMN_TALUKA_CODE + " TEXT,"
                 + singleUCs.COLUMN_UCS + " TEXT );";
+
+        final String SQL_CREATE_AREAS = "CREATE TABLE " + singleAreas.TABLE_NAME + "("
+                + singleAreas.COLUMN_AREACODE + " TEXT,"
+                + singleAreas.COLUMN_UC_CODE + " TEXT,"
+                + singleAreas.COLUMN_AREA + " TEXT );";
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
@@ -127,6 +135,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_VILLAGES);
         db.execSQL(SQL_CREATE_TALUKAS);
         db.execSQL(SQL_CREATE_UCS);
+        db.execSQL(SQL_CREATE_AREAS);
     }
 
     @Override
@@ -140,6 +149,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + singleTalukas.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUCs.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleVillages.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singleAreas.TABLE_NAME);
 
         onCreate(db);
     }
@@ -228,6 +238,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
+        values.put(ListingEntry.COLUMN_NAME_HH01A, lc.getHh01A());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
 
@@ -239,7 +250,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-//        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
+        values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
@@ -311,6 +322,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_UID,
                 ListingEntry.COLUMN_NAME_HHDATETIME,
                 ListingEntry.COLUMN_NAME_HH01,
+                ListingEntry.COLUMN_NAME_HH01A,
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
@@ -318,7 +330,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
-//                ListingEntry.COLUMN_NAME_HH07n,
+                ListingEntry.COLUMN_NAME_HH14,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
                 ListingEntry.COLUMN_NAME_HH10,
@@ -469,11 +481,11 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
 
-                values.put(singleVillages.COLUMN_ID, Vc.getID());
+//                values.put(singleVillages.COLUMN_ID, Vc.getID());
                 values.put(singleVillages.COLUMN_VILLAGE_NAME, Vc.getVillagename());
-                values.put(singleVillages.COLUMN_UC, Vc.getUc());
-                values.put(singleVillages.COLUMN_TALUKA, Vc.getTaluka());
-                values.put(singleVillages.COLUMN_CLUSTER_CODE, Vc.getClustercode());
+                values.put(singleVillages.COLUMN_AREA_CODE, Vc.getArea_code());
+//                values.put(singleVillages.COLUMN_TALUKA, Vc.getTaluka());
+                values.put(singleVillages.COLUMN_VILLAGE_CODE, Vc.getVillagecode());
 
                 db.insert(singleVillages.TABLE_NAME, null, values);
             }
@@ -496,7 +508,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
 
-                values.put(singleTalukas.COLUMN_ID, Vc.getID());
+                values.put(singleTalukas.COLUMN_TALUKA_CODE, Vc.getTalukacode());
                 values.put(singleTalukas.COLUMN_TALUKA, Vc.getTaluka());
 
                 db.insert(singleTalukas.TABLE_NAME, null, values);
@@ -520,7 +532,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
 
-                values.put(singleUCs.COLUMN_ID, Vc.getID());
+                values.put(singleUCs.COLUMN_UCCODE, Vc.getUccode());
                 values.put(singleUCs.COLUMN_UCS, Vc.getUcs());
                 values.put(singleUCs.COLUMN_TALUKA_CODE, Vc.getTaluka_code());
 
@@ -532,25 +544,49 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Collection<VillagesContract> getVillage(String taluka, String uc) {
+    public void syncAreas(JSONArray Areaslist) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(singleAreas.TABLE_NAME, null, null);
+        try {
+            JSONArray jsonArray = Areaslist;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectCC = jsonArray.getJSONObject(i);
+
+                AreasContract Vc = new AreasContract();
+                Vc.Sync(jsonObjectCC);
+
+                ContentValues values = new ContentValues();
+
+                values.put(singleAreas.COLUMN_AREACODE, Vc.getAreacode());
+                values.put(singleAreas.COLUMN_AREA, Vc.getArea());
+                values.put(singleAreas.COLUMN_UC_CODE, Vc.getUc_code());
+
+                db.insert(singleAreas.TABLE_NAME, null, values);
+            }
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+    }
+
+    public Collection<VillagesContract> getAllVillage(String areacode) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
-                singleVillages.COLUMN_ID,
+//                singleVillages.COLUMN_ID,
                 singleVillages.COLUMN_VILLAGE_NAME,
-                singleVillages.COLUMN_UC,
-                singleVillages.COLUMN_TALUKA,
-                singleVillages.COLUMN_CLUSTER_CODE,
+                singleVillages.COLUMN_AREA_CODE,
+//                singleVillages.COLUMN_TALUKA,
+                singleVillages.COLUMN_VILLAGE_CODE,
         };
 
-        String whereClause = singleVillages.COLUMN_TALUKA + " =? AND " +
-                singleVillages.COLUMN_UC + " =?";
-        String[] whereArgs = {taluka, uc};
+        String whereClause = singleVillages.COLUMN_AREA_CODE + " =?";
+        String[] whereArgs = {areacode};
         String groupBy = null;
         String having = null;
 
         String orderBy =
-                singleVillages.COLUMN_ID + " ASC";
+                singleVillages.COLUMN_VILLAGE_CODE + " ASC";
 
         Collection<VillagesContract> allDC = new ArrayList<>();
         try {
@@ -582,7 +618,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
-                singleTalukas.COLUMN_ID,
+                singleTalukas.COLUMN_TALUKA_CODE,
                 singleTalukas.COLUMN_TALUKA
         };
 
@@ -592,7 +628,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleTalukas.COLUMN_ID + " ASC";
+                singleTalukas.COLUMN_TALUKA_CODE + " ASC";
 
         Collection<TalukasContract> allDC = new ArrayList<>();
         try {
@@ -624,7 +660,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
-                singleUCs.COLUMN_ID,
+                singleUCs.COLUMN_UCCODE,
                 singleUCs.COLUMN_UCS,
                 singleUCs.COLUMN_TALUKA_CODE
         };
@@ -635,7 +671,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleUCs.COLUMN_ID + " ASC";
+                singleUCs.COLUMN_UCCODE + " ASC";
 
         Collection<UCsContract> allDC = new ArrayList<>();
         try {
@@ -663,12 +699,56 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allDC;
     }
 
+    public Collection<AreasContract> getAllAreas(String UCCode) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singleAreas.COLUMN_AREACODE,
+                singleAreas.COLUMN_AREA,
+                singleAreas.COLUMN_UC_CODE
+        };
+
+        String whereClause = singleAreas.COLUMN_UC_CODE + "=?";
+        String[] whereArgs = new String[]{UCCode};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                singleAreas.COLUMN_AREACODE + " ASC";
+
+        Collection<AreasContract> allAC = new ArrayList<>();
+        try {
+            c = db.query(
+                    singleAreas.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                AreasContract dc = new AreasContract();
+                allAC.add(dc.HydrateUCs(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allAC;
+    }
+
     private ContentValues getContentValues(ListingContract lc) {
         ContentValues values = new ContentValues();
         values.put(ListingEntry._ID, lc.getID());
         values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
+        values.put(ListingEntry.COLUMN_NAME_HH01A, lc.getHh01A());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
@@ -676,7 +756,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-//        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
+        values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
@@ -701,6 +781,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
+        lc.setHh01A(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01A))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
         lc.setHh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH03))));
         lc.setHh04(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04))));
@@ -708,7 +789,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh05(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH05))));
         lc.setHh06(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH06))));
         lc.setHh07(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07))));
-//        lc.setHh07n(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07n))));
+        lc.setHh14(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH14))));
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));

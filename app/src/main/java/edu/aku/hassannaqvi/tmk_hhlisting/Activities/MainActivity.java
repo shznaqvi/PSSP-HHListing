@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,15 +34,16 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetAreas;
 import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetTalukas;
 import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetUCs;
 import edu.aku.hassannaqvi.tmk_hhlisting.Get.GetVillages;
+import edu.aku.hassannaqvi.tmk_hhlisting.contracts.AreasContract;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.TalukasContract;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.UCsContract;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.VillagesContract;
 import edu.aku.hassannaqvi.tmk_hhlisting.core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.tmk_hhlisting.core.MainApp;
-import edu.aku.hassannaqvi.tmk_hhlisting.contracts.PSUsContract;
 import edu.aku.hassannaqvi.tmk_hhlisting.core.FormsDBHelper;
 import edu.aku.hassannaqvi.tmk_hhlisting.R;
 import edu.aku.hassannaqvi.tmk_hhlisting.Sync.SyncListing;
@@ -65,6 +65,10 @@ public class MainActivity extends Activity {
     Collection<UCsContract> UcsList;
     Map<String, String> ucsMap;
 
+    ArrayList<String> lablesAreas;
+    Collection<AreasContract> AreasList;
+    Map<String, String> AreasMap;
+
     ArrayList<String> lablesVillages;
     Collection<VillagesContract> VillagesList;
     Map<String, VillagesContract> villagesMap;
@@ -76,11 +80,15 @@ public class MainActivity extends Activity {
     Spinner mN01;
     @BindView(R.id.MN02)
     Spinner mN02;
-    @BindView(R.id.districtN)
+    @BindView(R.id.MN03)
+    Spinner mN03;
+    @BindView(R.id.talukaN)
     TextView talukaN;
     @BindView(R.id.ucN)
     TextView ucN;
-    @BindView(R.id.psuN)
+    @BindView(R.id.areaN)
+    TextView areaN;
+    @BindView(R.id.villagesN)
     TextView villageN;
 
     SharedPreferences sharedPref;
@@ -154,7 +162,7 @@ public class MainActivity extends Activity {
         for (TalukasContract taluka : TalukasList) {
             lablesTalukas.add(taluka.getTaluka());
 
-            talukasMap.put(taluka.getTaluka(), taluka.getID());
+            talukasMap.put(taluka.getTaluka(), taluka.getTalukacode());
         }
 
         mN00.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesTalukas));
@@ -173,7 +181,7 @@ public class MainActivity extends Activity {
                 UcsList = db.getAllUCs(String.valueOf(MainApp.talukaCode));
                 for (UCsContract ucs : UcsList) {
                     lablesUCs.add(ucs.getUcs());
-                    ucsMap.put(ucs.getUcs(), ucs.getID());
+                    ucsMap.put(ucs.getUcs(), ucs.getUccode());
                 }
 
                 talukaN.setText(mN00.getSelectedItem().toString());
@@ -198,20 +206,20 @@ public class MainActivity extends Activity {
                     MainApp.ucCode = 0;
                 }
 
-                lablesVillages = new ArrayList<>();
-                villagesMap = new HashMap<>();
+                lablesAreas = new ArrayList<>();
+                AreasMap = new HashMap<>();
 
-                lablesVillages.add("Select Cluster Code..");
+                lablesAreas.add("Select Areas..");
 
-                VillagesList = db.getVillage(String.valueOf(MainApp.talukaCode), String.valueOf(MainApp.ucCode));
-                for (VillagesContract villages : VillagesList) {
-                    lablesVillages.add(villages.getClustercode());
-                    villagesMap.put(villages.getClustercode(), new VillagesContract(villages));
+                AreasList = db.getAllAreas(String.valueOf(MainApp.ucCode));
+                for (AreasContract Areas : AreasList) {
+                    lablesAreas.add(Areas.getArea());
+                    AreasMap.put(Areas.getArea(), Areas.getAreacode());
                 }
 
                 ucN.setText(mN01.getSelectedItem().toString());
 
-                mN02.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesVillages));
+                mN02.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesAreas));
 
             }
 
@@ -223,11 +231,44 @@ public class MainActivity extends Activity {
 
         mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 if (mN02.getSelectedItemPosition()!=0) {
-                    MainApp.clusterCode = mN02.getSelectedItem().toString();
-                    villageN.setText(villagesMap.get(mN02.getSelectedItem().toString()).getVillagename());
+                    MainApp.areaCode = Integer.valueOf(AreasMap.get(mN02.getSelectedItem().toString()));
+                }else {
+                    MainApp.areaCode = 0;
+                }
+
+                lablesVillages = new ArrayList<>();
+                villagesMap = new HashMap<>();
+
+                lablesVillages.add("Select Village Code..");
+
+                VillagesList = db.getAllVillage(String.valueOf(MainApp.areaCode));
+                for (VillagesContract villages : VillagesList) {
+                    lablesVillages.add(villages.getVillagecode());
+                    villagesMap.put(villages.getVillagecode(), new VillagesContract(villages));
+                }
+
+                areaN.setText(mN02.getSelectedItem().toString());
+
+                mN03.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesVillages));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mN03.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (mN03.getSelectedItemPosition()!=0) {
+                    MainApp.villageCode = mN03.getSelectedItem().toString();
+                    villageN.setText(villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode());
                 }
             }
 
@@ -304,9 +345,9 @@ public class MainActivity extends Activity {
 
     public void NextSetupActivity() {
         Intent oF = new Intent(this, setupActivity.class);
-        if (mN00.getSelectedItem() != null && mN01.getSelectedItemPosition()!=0 && mN02.getSelectedItemPosition()!=0) {
+        if (mN00.getSelectedItem() != null && mN01.getSelectedItemPosition()!=0 && mN03.getSelectedItemPosition()!=0) {
 
-            if (MainApp.PSUExist(MainApp.clusterCode)) {
+            if (MainApp.PSUExist(MainApp.villageCode)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
@@ -418,6 +459,8 @@ public class MainActivity extends Activity {
                     new GetTalukas(mContext).execute();
                     Toast.makeText(MainActivity.this, "Sync UC's", Toast.LENGTH_LONG).show();
                     new GetUCs(mContext).execute();
+                    Toast.makeText(MainActivity.this, "Sync Areas", Toast.LENGTH_LONG).show();
+                    new GetAreas(mContext).execute();
                     Toast.makeText(MainActivity.this, "Sync Villages", Toast.LENGTH_LONG).show();
                     new GetVillages(mContext).execute();
 

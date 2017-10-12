@@ -15,6 +15,7 @@ public class ListingContract {
     public String hhDT;
     public String hh00;
     public String hh01;
+    public String hh01A;
     public String hh02;
     public String hh03;
     public String hh04;
@@ -22,13 +23,13 @@ public class ListingContract {
     public String hh05;
     public String hh06;
     public String hh07;
-//    public String hh07n;
     public String hh08;
     public String hh09;
     public String hh10;
     public String hh11;
     public String hh12;
     public String hh13;
+    public String hh14;
     public String DeviceID;
     public String GPSLat;
     public String GPSLng;
@@ -44,22 +45,6 @@ public class ListingContract {
 
     public ListingContract(String ID) {
         this.ID = ID;
-    }
-
-    public ListingContract(String hh01, String hh02, String hh03, String hh04, String hh04x, String hh05, String hh06, String hh07, String DeviceID, String GPSLat, String GPSLng, String GPSTime, String GPSAcc) {
-        this.hh01 = hh01;
-        this.hh02 = hh02;
-        this.hh03 = hh03;
-        this.hh04 = hh04;
-        this.hh04x = hh04x;
-        this.hh05 = hh05;
-        this.hh06 = hh06;
-        this.hh07 = hh07;
-        this.DeviceID = DeviceID;
-        this.GPSLat = GPSLat;
-        this.GPSLng = GPSLng;
-        this.GPSTime = GPSTime;
-        this.GPSAcc = GPSAcc;
     }
 
     public String getID() {
@@ -142,13 +127,13 @@ public class ListingContract {
         this.hh07 = hh07;
     }
 
-/*    public String getHh07n() {
-        return hh07n;
+    public String getHh14() {
+        return hh14;
     }
 
-    public void setHh07n(String hh07n) {
-        this.hh07n = hh07n;
-    }*/
+    public void setHh14(String hh14) {
+        this.hh14 = hh14;
+    }
 
     public String getHh08() {
         return hh08;
@@ -278,20 +263,30 @@ public class ListingContract {
         this.tagId = tagId;
     }
 
+    public String getHh01A() {
+        return hh01A;
+    }
+
+    public void setHh01A(String hh01A) {
+        this.hh01A = hh01A;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
         json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
+        json.put(ListingEntry.COLUMN_NAME_HH01A, this.hh01A);
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
         json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03);
         json.put(ListingEntry.COLUMN_NAME_HH04, this.hh04);
         json.put(ListingEntry.COLUMN_NAME_HH04x, this.hh04x);
         json.put(ListingEntry.COLUMN_NAME_HH05, this.hh05);
         json.put(ListingEntry.COLUMN_NAME_HH06, this.hh06);
+
         json.put(ListingEntry.COLUMN_NAME_HH07, this.hh07);
-//        json.put(ListingEntry.COLUMN_NAME_HH07n, this.hh07n);
+        json.put(ListingEntry.COLUMN_NAME_HH14, this.hh14);
         json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
@@ -320,20 +315,21 @@ public class ListingContract {
         public static final String COLUMN_NAME_HHDATETIME = "hhdt";
         public static final String COLUMN_NAME_HH00 = "hh00"; //Taluka
         public static final String COLUMN_NAME_HH01 = "hh01"; //UC
-        public static final String COLUMN_NAME_HH02 = "hh02"; //Cluster
+        public static final String COLUMN_NAME_HH01A = "hh01A"; //Area Code
+        public static final String COLUMN_NAME_HH02 = "hh02"; //Village Code
         public static final String COLUMN_NAME_HH03 = "hh03";
         public static final String COLUMN_NAME_HH04 = "hh04";
         public static final String COLUMN_NAME_HH04x = "hh04x";
         public static final String COLUMN_NAME_HH05 = "hh05";
         public static final String COLUMN_NAME_HH06 = "hh06";
         public static final String COLUMN_NAME_HH07 = "hh07";
-//        public static final String COLUMN_NAME_HH07n = "hh07n";
         public static final String COLUMN_NAME_HH08 = "hh08";
         public static final String COLUMN_NAME_HH09 = "hh09";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
         public static final String COLUMN_NAME_HH12 = "hh12";
         public static final String COLUMN_NAME_HH13 = "hh13";
+        public static final String COLUMN_NAME_HH14 = "hh14";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
         public static final String COLUMN_NAME_GPSLng = "gpslng";

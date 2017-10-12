@@ -88,12 +88,12 @@ public class setupActivity extends Activity {
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        if (MainApp.clusterCode == null) {
+        if (MainApp.villageCode == null) {
             MainApp.hh03txt = 1;
         } else {
             MainApp.hh03txt++;
             //MainApp.lc.setHh03(String.valueOf(MainApp.hh03txt));
-            hh02.setText(MainApp.clusterCode);
+            hh02.setText(MainApp.villageCode);
             hh02.setEnabled(false);
 
         }
@@ -184,7 +184,7 @@ public class setupActivity extends Activity {
     @OnClick(R.id.btnChangePSU)
     void onBtnChangePSUClick() {
 
-        MainApp.clusterCode = null;
+        MainApp.villageCode = null;
 
         finish();
 
@@ -200,9 +200,10 @@ public class setupActivity extends Activity {
         SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
         MainApp.lc.setTagId(sharedPref.getString("tagName", null));
         MainApp.lc.setHhDT(dtToday);
-        MainApp.lc.setHh00(String.valueOf(MainApp.talukaCode));    //Taluka ID
-        MainApp.lc.setHh01(String.valueOf(MainApp.ucCode));    //UC ID
-        MainApp.lc.setHh02(MainApp.clusterCode);    //Cluster Code
+        MainApp.lc.setHh00(String.valueOf(MainApp.talukaCode));    //Taluka Code
+        MainApp.lc.setHh01(String.valueOf(MainApp.ucCode));    //UC Code
+        MainApp.lc.setHh01A(String.valueOf(MainApp.areaCode));    //Area Code
+        MainApp.lc.setHh02(MainApp.villageCode);    //Village Code
         MainApp.lc.setHh03(String.valueOf(MainApp.hh03txt));
         switch (hh04.getCheckedRadioButtonId()) {
             case R.id.hh04a:
@@ -285,7 +286,7 @@ public class setupActivity extends Activity {
 
 
     private boolean formValidation() {
-        if (MainApp.clusterCode == null) {
+        if (MainApp.villageCode == null) {
             Toast.makeText(this, "Please enter PSU", Toast.LENGTH_LONG).show();
             hh02.setError("Please enter PSU");
             Log.i(TAG, "PSU not given");
