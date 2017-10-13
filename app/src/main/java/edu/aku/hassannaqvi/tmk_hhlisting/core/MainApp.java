@@ -53,6 +53,7 @@ public class MainApp extends Application {
     public static int talukaCode = 0;
     public static int areaCode = 0;
     public static String villageCode = "";
+    public static String villageName = "";
 
     public static void updatePSU(String psuCode, String structureNo) {
 

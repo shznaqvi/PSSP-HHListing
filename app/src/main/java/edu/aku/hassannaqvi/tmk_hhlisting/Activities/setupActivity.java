@@ -74,6 +74,8 @@ public class setupActivity extends Activity {
     Button btnAddHousehold;
     @BindView(R.id.btnChangePSU)
     Button btnChangPSU;
+    @BindView(R.id.villageName)
+    TextView villageName;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
@@ -84,6 +86,8 @@ public class setupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
         ButterKnife.bind(this);
+
+        villageName.setText("Sub Village: " + MainApp.villageName);
 
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);

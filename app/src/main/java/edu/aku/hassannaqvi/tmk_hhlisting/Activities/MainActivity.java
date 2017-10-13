@@ -276,6 +276,7 @@ public class MainActivity extends Activity {
 
                 if (mN03.getSelectedItemPosition() != 0) {
                     MainApp.villageCode = villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode();
+                    MainApp.villageName = mN03.getSelectedItem().toString();
                     villageN.setText(villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode());
                 }
             }
