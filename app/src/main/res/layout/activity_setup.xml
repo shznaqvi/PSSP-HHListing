@@ -26,10 +26,11 @@
             android:textAlignment="center" />
         <TextView
             android:id="@+id/villageName"
+            android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="#d6d6d6"
+            android:background="@android:color/black"
             android:textAlignment="center" />
 
         <LinearLayout
