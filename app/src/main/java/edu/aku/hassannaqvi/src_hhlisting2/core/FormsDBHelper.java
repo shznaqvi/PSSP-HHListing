@@ -85,7 +85,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 " );";
 
         final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
-                MwraEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                MwraEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                MwraEntry.MWRA_ID + " TEXT," +
                 MwraEntry.MWRA_UUID + " TEXT," +
                 MwraEntry.MWRA_UID + " TEXT," +
                 MwraEntry.MWRA_MWDT + " TEXT," +
@@ -205,7 +206,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
 
-        values.put(MwraEntry.MWRA_ID, mwra.getID());
+        values.put(MwraEntry.COLUMN_ID, mwra.getID());
+        values.put(MwraEntry.MWRA_ID, mwra.getMWRAID());
         values.put(MwraEntry.MWRA_UUID, mwra.getUUID());
         values.put(MwraEntry.MWRA_UID, mwra.getUID());
         values.put(MwraEntry.MWRA_MWDT, mwra.getMwDT());
@@ -255,7 +257,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(MwraEntry.COLUMN_SYNCED_DATE, new Date().toString());
 
 // Which row to update, based on the title
-        String where = MwraEntry.MWRA_ID+ " = ?";
+        String where = MwraEntry.COLUMN_ID + " = ?";
         String[] whereArgs = {id};
 
         int count = db.update(
@@ -363,7 +365,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_FORMSTATUS
         };
 
-        String whereClause = null;
+        String whereClause = ListingEntry.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
@@ -400,6 +402,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
+                MwraEntry.COLUMN_ID,
                 MwraEntry.MWRA_ID,
                 MwraEntry.MWRA_UUID,
                 MwraEntry.MWRA_UID,
@@ -410,11 +413,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 MwraEntry.MWRA_MW02,
                 MwraEntry.MWRA_MW03,
                 MwraEntry.MWRA_MW04,
-                MwraEntry.MWRA_MW05
+                MwraEntry.MWRA_MW05,
+/*                MwraEntry.COLUMN_SYNCED,
+                MwraEntry.COLUMN_SYNCED_DATE,*/
 
         };
 
-        String whereClause = null;
+        String whereClause = MwraEntry.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;

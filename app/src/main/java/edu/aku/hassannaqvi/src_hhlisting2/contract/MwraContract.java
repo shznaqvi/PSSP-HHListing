@@ -13,6 +13,7 @@ import org.json.JSONObject;
 public class MwraContract {
 
     public Long ID;
+    public String MWRAID;
     public String UUID;
     public String UID;
     public String mwDT;
@@ -31,7 +32,8 @@ public class MwraContract {
     }
 
     public MwraContract Sync(JSONObject jsonObject) throws JSONException {
-        this.ID = jsonObject.getLong(MwraEntry.MWRA_ID);
+        this.ID = jsonObject.getLong(MwraEntry.COLUMN_ID);
+        this.MWRAID = jsonObject.getString(MwraEntry.MWRA_ID);
         this.UUID = jsonObject.getString(MwraEntry.MWRA_UUID);
         this.UID = jsonObject.getString(MwraEntry.MWRA_UID);
         this.mwDT = jsonObject.getString(MwraEntry.MWRA_MWDT);
@@ -43,14 +45,15 @@ public class MwraContract {
         this.mw04 = jsonObject.getString(MwraEntry.MWRA_MW04);
         this.mw05 = jsonObject.getString(MwraEntry.MWRA_MW05);
 
-        this.synced = jsonObject.getString(MwraEntry.COLUMN_SYNCED);
-        this.synced_date = jsonObject.getString(MwraEntry.COLUMN_SYNCED_DATE);
+/*        this.synced = jsonObject.getString(MwraEntry.COLUMN_SYNCED);
+        this.synced_date = jsonObject.getString(MwraEntry.COLUMN_SYNCED_DATE);*/
 
         return this;
     }
 
     public MwraContract Hydrate(Cursor cursor) {
-        this.ID = cursor.getLong(cursor.getColumnIndex(MwraEntry.MWRA_ID));
+        this.ID = cursor.getLong(cursor.getColumnIndex(MwraEntry.COLUMN_ID));
+        this.MWRAID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_UID));
         this.mwDT = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MWDT));
@@ -62,8 +65,8 @@ public class MwraContract {
         this.mw04 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW04));
         this.mw05 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW05));
 
-        this.synced = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_SYNCED));
-        this.synced_date = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_SYNCED_DATE));
+/*        this.synced = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_SYNCED));
+        this.synced_date = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_SYNCED_DATE));*/
 
         return this;
     }
@@ -74,6 +77,14 @@ public class MwraContract {
 
     public void setID(Long ID) {
         this.ID = ID;
+    }
+
+    public String getMWRAID() {
+        return MWRAID;
+    }
+
+    public void setMWRAID(String MWRAID) {
+        this.MWRAID = MWRAID;
     }
 
     public String getUUID() {
@@ -175,7 +186,8 @@ public class MwraContract {
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
 
-        json.put(MwraEntry.MWRA_ID, this.ID == null ? JSONObject.NULL : this.ID);
+        json.put(MwraEntry.COLUMN_ID, this.ID == null ? JSONObject.NULL : this.ID);
+        json.put(MwraEntry.MWRA_ID, this.MWRAID == null ? JSONObject.NULL : this.MWRAID);
         json.put(MwraEntry.MWRA_UUID, this.UUID == null ? JSONObject.NULL : this.UUID);
         json.put(MwraEntry.MWRA_UID, this.UID == null ? JSONObject.NULL : this.UID);
         json.put(MwraEntry.MWRA_MWDT, this.mwDT == null ? JSONObject.NULL : this.mwDT);
@@ -187,8 +199,8 @@ public class MwraContract {
         json.put(MwraEntry.MWRA_MW04, this.mw04 == null ? JSONObject.NULL : this.mw04);
         json.put(MwraEntry.MWRA_MW05, this.mw05 == null ? JSONObject.NULL : this.mw05);
 
-        json.put(MwraEntry.COLUMN_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
-        json.put(MwraEntry.COLUMN_SYNCED_DATE, this.synced_date == null ? JSONObject.NULL : this.synced_date);
+/*        json.put(MwraEntry.COLUMN_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
+        json.put(MwraEntry.COLUMN_SYNCED_DATE, this.synced_date == null ? JSONObject.NULL : this.synced_date);*/
 
         return json;
 
@@ -198,7 +210,8 @@ public class MwraContract {
 
         public static final String TABLE_NAME = "mwra";
         public static final String MWRA_NULLABLE = "NULLHACK";
-        public static final String MWRA_ID = "_id";
+        public static final String COLUMN_ID = "_id";
+        public static final String MWRA_ID = "sno";
         public static final String MWRA_UUID = "uuid";
         public static final String MWRA_UID = "uid";
         public static final String MWRA_MWDT = "mwdt";
