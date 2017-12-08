@@ -112,12 +112,12 @@ public class AppMain extends Application {
                 editor.putString("Accuracy", String.valueOf(location.getAccuracy()));
                 editor.putString("Time", String.valueOf(location.getTime()));
                 String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();
-                Toast.makeText(getApplicationContext(),
+                /*Toast.makeText(getApplicationContext(),
                         "GPS Commit! LAT: " + String.valueOf(location.getLongitude()) +
                                 " LNG: " + String.valueOf(location.getLatitude()) +
                                 " Accuracy: " + String.valueOf(location.getAccuracy()) +
                                 " Time: " + date,
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
 
                 editor.apply();
             }
@@ -197,8 +197,8 @@ public class AppMain extends Application {
                         "Current Location \n Longitude: %1$s \n Latitude: %2$s",
                         location.getLongitude(), location.getLatitude()
                 );
-                Toast.makeText(AppMain.this, message,
-                        Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(AppMain.this, message,
+                        Toast.LENGTH_SHORT).show();*/
             }
 
         }

@@ -258,6 +258,16 @@ public class setupActivity extends Activity {
         } else {
             hh02.setError(null);
         }
+
+        if (hhadd.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter address", Toast.LENGTH_LONG).show();
+            hhadd.setError("Please enter address");
+            Log.i(TAG, "Please enter address");
+            return false;
+        } else {
+            hhadd.setError(null);
+        }
+
         if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
             hh04x.setError("Please one option");

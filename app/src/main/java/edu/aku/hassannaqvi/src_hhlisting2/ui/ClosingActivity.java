@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ import edu.aku.hassannaqvi.src_hhlisting2.R;
 public class ClosingActivity extends Activity {
 
     @BindView(R.id.activity_add_child)
-    LinearLayout activityAddChild;
+    ScrollView activityAddChild;
     @BindView(R.id.hh10)
     Switch hh10;
     @BindView(R.id.hh11)
