@@ -25,10 +25,10 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.src_hhlisting2.core.AppMain;
-import edu.aku.hassannaqvi.src_hhlisting2.core.FormsDBHelper;
 import edu.aku.hassannaqvi.src_hhlisting2.R;
 import edu.aku.hassannaqvi.src_hhlisting2.contract.ListingContract;
+import edu.aku.hassannaqvi.src_hhlisting2.core.AppMain;
+import edu.aku.hassannaqvi.src_hhlisting2.core.FormsDBHelper;
 
 public class setupActivity extends Activity {
 
@@ -36,7 +36,7 @@ public class setupActivity extends Activity {
     @BindView(R.id.activity_household_listing)
     ScrollView activityHouseholdListing;
     @BindView(R.id.hh01)
-    TextView hh01;
+    EditText hh01;
     @BindView(R.id.hh02)
     EditText hh02;
     @BindView(R.id.hhadd)
@@ -68,7 +68,7 @@ public class setupActivity extends Activity {
     @BindView(R.id.hh06)
     EditText hh06;
     @BindView(R.id.hh07)
-    TextView hh07;
+    EditText hh07;
     @BindView(R.id.fldGrpHH04)
     LinearLayout fldGrpHH04;
     @BindView(R.id.btnAddHousehold)
@@ -99,9 +99,9 @@ public class setupActivity extends Activity {
 
         }
         AppMain.hh07txt = "X";
-        hh01.setText(getString(R.string.hh01) + ": " + AppMain.hh01txt);
+        hh01.setText(AppMain.hh01txt);
         hh03.setText(String.valueOf(AppMain.hh03txt));
-        hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
+        hh07.setText(AppMain.hh07txt);
 
 
         hh04.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -117,7 +117,7 @@ public class setupActivity extends Activity {
                     AppMain.hh07txt = null;
                 }
 
-                hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
+                hh07.setText(AppMain.hh07txt);
                 if (hh04a.isChecked()) {
                     fldGrpHH04.setVisibility(View.VISIBLE);
                     btnAddHousehold.setVisibility(View.GONE);
@@ -147,13 +147,13 @@ public class setupActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     AppMain.hh07txt = "A";
-                    hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
+                    hh07.setText(AppMain.hh07txt);
                     hh06.setVisibility(View.VISIBLE);
                     hh06.requestFocus();
 
                 } else {
                     AppMain.hh07txt = "X";
-                    hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
+                    hh07.setText(AppMain.hh07txt);
                     hh06.setVisibility(View.INVISIBLE);
                     hh06.setText(null);
                 }

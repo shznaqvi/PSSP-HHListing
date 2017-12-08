@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SRC-HHListing 2</string>
-    <string name="hh01"> ڈسٹرکٹ کوڈ </string>
-    <string name="hh02"> Village کوڈ </string>
+    <string name="hh01"> ڊسٽرڪٽ ڪوڊ </string>
+    <string name="hh02"> Village ڪوڊ </string>
     <string name="hh03"> عمارت جو نمبر </string>
     <string name="hhadd"> پتو </string>
     <string name="hh04"> عمارت جو قسم </string>
@@ -26,8 +26,9 @@
     <string name="child_age">بچے کی عمر</string>
     <string name="hh12">ڇا ليڊي هيلٿ ورڪر توهان جي گهر وزٽ تي ايندي آهي؟</string>
     <string name="hh13">جيڪڏهن ها ته ليڊي هيلٿ ورڪر جو نالو ڇا آهي؟</string>
-    <string name="yes"> ہاں </string>
-    <string name="no"> نہیں </string>
+    <string name="yes"> ها </string>
+    <string name="no"> نه </string>
+    <string name="months">مهينا</string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
     <string name="txtName">qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM</string>

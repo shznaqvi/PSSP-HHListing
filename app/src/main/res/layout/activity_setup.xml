@@ -23,7 +23,38 @@
             android:layout_marginTop="16dp"
             android:background="#d6d6d6"
             android:text="Household Information"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="2"
+                android:text="@string/hh01"/>
+
+            <EditText
+                android:id="@+id/hh01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:digits="1234567890"
+                android:enabled="false"
+                android:hint="@string/hh01"
+                android:inputType="number"
+                android:maxLength="5"
+                android:textColor="@color/colorPrimary"/>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,33 +62,27 @@
             android:orientation="horizontal">
 
 
-            <!--DISTRICT (Name)-->
-
-            <TextView
-                android:id="@+id/hh01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh01" />
-
-
             <!--PSU Code-->
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/hh02" />
+                android:layout_weight="2"
+                android:text="@string/hh02"
+                android:textAlignment="textEnd"/>
 
             <EditText
                 android:id="@+id/hh02"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
                 android:digits="1234567890"
+                android:hint="@string/hh02"
                 android:inputType="number"
-                android:maxLength="5" />
+                android:maxLength="5"
+                android:textColor="@color/colorPrimary"/>
 
             <!--Structure No. (Auto-Generate)-->
 
@@ -74,9 +99,9 @@
             android:id="@+id/hhadd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:digits="@string/txtMsg"
-            android:inputType="text" />
+            android:hint="@string/hhadd"
+            android:inputType="text"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,7 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:text="@string/hh03" />
 
             <TextView
@@ -95,8 +120,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="3"
+                android:background="@color/background"
                 android:text="@string/hh03"
-                android:textSize="48dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
                 android:textStyle="bold" />
         </LinearLayout>
         <!--// Structure Type-->
@@ -114,59 +141,57 @@
 
             <RadioButton
                 android:id="@+id/hh04a"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:text="@string/hh04a" />
 
             <RadioButton
                 android:id="@+id/hh04b"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:text="@string/hh04b" />
 
             <RadioButton
                 android:id="@+id/hh04c"
-                android:layout_width="wrap_content"
-
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:text="@string/hh04c" />
 
             <RadioButton
                 android:id="@+id/hh04d"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:text="@string/hh04d" />
 
             <RadioButton
                 android:id="@+id/hh04e"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:text="@string/hh04e" />
 
             <RadioButton
                 android:id="@+id/hh04f"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:text="@string/hh04f" />
 
             <RadioButton
                 android:id="@+id/hh04g"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:text="@string/hh04g" />
 
             <RadioButton
                 android:id="@+id/hh04x"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:text="@string/hh04x" />
 
         </RadioGroup>
@@ -176,7 +201,7 @@
             android:id="@+id/hh04x88"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="1dp"
             android:digits="@string/txtMsg"
             android:hint="@string/hh04x" />
 
@@ -185,7 +210,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -195,41 +221,61 @@
 
                 <!--Are there more than one Families?-->
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:layout_weight="1"
                     android:text="@string/hh05" />
 
                 <Switch
                     android:id="@+id/hh05"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:textOff="@string/no"
                     android:textOn="@string/yes" />
 
                 <!--How many Families?-->
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/hh06"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="1234567890"
+                android:hint="@string/hh06"
+                android:inputType="number"
+                android:maxLength="2"
+                android:visibility="invisible"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="2"
+                    android:text="@string/hh07"/>
+
                 <EditText
-                    android:id="@+id/hh06"
-                    android:layout_width="0dp"
+                    android:id="@+id/hh07"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_weight="1"
-                    android:digits="1234567890"
-                    android:hint="@string/hh06"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:visibility="invisible" />
+                    android:enabled="false"
+                    android:hint="@string/hh07"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimary"/>
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/hh07"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh07"
-                android:typeface="serif" />
 
             <Button
                 android:id="@+id/btnAddChild"

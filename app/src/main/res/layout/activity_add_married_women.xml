@@ -24,7 +24,10 @@
             android:layout_marginTop="16dp"
             android:background="#d6d6d6"
             android:text="Information of MWRA"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
 
 
         <LinearLayout
@@ -33,20 +36,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="2"
                 android:text="@string/mw01" />
 
             <EditText
                 android:id="@+id/mw01"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="24"
+                android:layout_weight="1"
                 android:digits="@string/txtMsg"
+                android:hint="@string/mw01"
                 android:inputType="text"
-                android:maxLength="24" />
+                android:maxLength="24"/>
 
         </LinearLayout>
 
@@ -56,17 +61,18 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="1"
                 android:text="@string/mw02" />
 
             <Switch
                 android:id="@+id/mw02"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:textOff="@string/no"
                 android:textOn="@string/yes" />
         </LinearLayout>
@@ -81,50 +87,56 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/mw03" />
 
             <RadioGroup
                 android:id="@+id/mw03"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <RadioButton
                     android:id="@+id/mw03a"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/mw03a" />
+                    android:layout_marginBottom="1dp"
+                    android:text="@string/mw03a"/>
 
                 <RadioButton
                     android:id="@+id/mw03b"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
                     android:text="@string/mw03b" />
 
                 <RadioButton
                     android:id="@+id/mw03c"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
                     android:text="@string/mw03c" />
 
                 <RadioButton
                     android:id="@+id/mw03d"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
                     android:text="@string/mw03d" />
 
                 <RadioButton
                     android:id="@+id/mw03e"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
                     android:text="@string/mw03e" />
 
                 <RadioButton
                     android:id="@+id/mw03f"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
                     android:text="@string/mw03f" />
             </RadioGroup>
         </LinearLayout>
@@ -135,17 +147,18 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="1"
                 android:text="@string/mw04" />
 
             <Switch
                 android:id="@+id/mw04"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:textOff="@string/no"
                 android:textOn="@string/yes" />
         </LinearLayout>
@@ -159,20 +172,22 @@
             tools:visibility="visible">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="1"
                 android:text="@string/mw05" />
 
             <EditText
                 android:id="@+id/mw05"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:digits="123456789"
+                android:hint="@string/months"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"/>
 
         </LinearLayout>
 

@@ -24,28 +24,32 @@
             android:layout_marginTop="16dp"
             android:background="#d6d6d6"
             android:text="Family Listing"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh08" />
-
-            <EditText
-                android:id="@+id/hh08"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
+                android:text="@string/hh08"/>
+
+            <EditText
+                android:id="@+id/hh08"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:digits="@string/txtName"
+                android:hint="@string/hh08"
                 android:inputType="text"
-                android:maxLength="24" />
+                android:maxLength="24"/>
 
         </LinearLayout>
 
@@ -55,20 +59,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="2"
                 android:text="@string/hh09" />
 
             <EditText
                 android:id="@+id/hh09"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
                 android:digits="1234567890- ()"
+                android:hint="@string/hh09"
                 android:inputType="number"
-                android:maxLength="11" />
+                android:maxLength="11"/>
         </LinearLayout>
 
 
@@ -77,29 +83,35 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Switch
-                android:id="@+id/hh09a"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="4"
-                android:text="@string/hh09a"
-                android:textOff="@string/no"
-                android:textOn="@string/yes" />
-
-            <EditText
-                android:id="@+id/hh09b"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:digits="1234567890"
-                android:hint="@string/hh09b"
-                android:inputType="number"
-                android:maxLength="2"
-                android:visibility="invisible" />
+                android:text="@string/hh09a"/>
+
+            <Switch
+                android:id="@+id/hh09a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="4"
+                android:textOff="@string/no"
+                android:textOn="@string/yes" />
+
 
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/hh09b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:digits="1234567890"
+            android:hint="@string/hh09b"
+            android:inputType="number"
+            android:maxLength="2"
+            android:visibility="invisible"/>
 
         <!-- <LinearLayout
              android:layout_width="match_parent"
