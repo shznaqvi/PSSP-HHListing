@@ -356,8 +356,8 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
         json.put(ListingEntry.COLUMN_NAME_FORMSTATUS, fStatus);
 
-        json.put(ListingEntry.COLUMN_SYNCED, synced);
-        json.put(ListingEntry.COLUMN_SYNCED_DATE, synced_date);
+/*        json.put(ListingEntry.COLUMN_SYNCED, synced);
+        json.put(ListingEntry.COLUMN_SYNCED_DATE, synced_date);*/
 
         return json;
     }
@@ -402,7 +402,7 @@ public class ListingContract {
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";
 
-        public static String _URL = "listing.php";
+        public static String _URL = "listings.php";
 
     }
 }

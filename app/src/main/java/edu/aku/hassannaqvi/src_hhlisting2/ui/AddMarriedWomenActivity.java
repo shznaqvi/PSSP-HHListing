@@ -164,6 +164,7 @@ public class AddMarriedWomenActivity extends Activity {
         );
         AppMain.mwra.setMw04(mw04.isChecked() ? "1" : "2");
         AppMain.mwra.setMw05(mw05.getText().toString());
+        AppMain.mwra.setMWRAID(String.valueOf(AppMain.mwraCount));
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
     }
