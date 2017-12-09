@@ -55,7 +55,7 @@ public class GetUsers extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._HOST_URL + "users.php");
+            URL url = new URL(AppMain._HOST_URL + UsersContract.singleUser._URL);
             Log.d(TAG, "doInBackground: " + url);
 
             urlConnection = (HttpURLConnection) url.openConnection();
