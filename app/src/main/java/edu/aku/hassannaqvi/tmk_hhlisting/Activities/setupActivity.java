@@ -26,10 +26,10 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.tmk_hhlisting.core.MainApp;
+import edu.aku.hassannaqvi.tmk_hhlisting.R;
 import edu.aku.hassannaqvi.tmk_hhlisting.contracts.ListingContract;
 import edu.aku.hassannaqvi.tmk_hhlisting.core.FormsDBHelper;
-import edu.aku.hassannaqvi.tmk_hhlisting.R;
+import edu.aku.hassannaqvi.tmk_hhlisting.core.MainApp;
 
 public class setupActivity extends Activity {
 
@@ -103,7 +103,7 @@ public class setupActivity extends Activity {
         }
         MainApp.hh07txt = "X";
         hh01.setText(getString(R.string.hh01) + ": " + MainApp.hh01txt);
-        hh03.setText(hh02.getText().toString().substring(0, 5) + "-" + hh02.getText().toString().substring(6)
+        hh03.setText(hh02.getText().toString().substring(0, 6) + "-" + hh02.getText().toString().substring(6)
                 + "-" + String.valueOf(MainApp.hh03txt));
         hh07.setText(getString(R.string.hh07) + ": " + MainApp.hh07txt);
 
