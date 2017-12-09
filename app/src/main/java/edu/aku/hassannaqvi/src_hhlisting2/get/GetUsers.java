@@ -21,9 +21,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import edu.aku.hassannaqvi.src_hhlisting2.contract.UsersContract;
 import edu.aku.hassannaqvi.src_hhlisting2.core.AppMain;
 import edu.aku.hassannaqvi.src_hhlisting2.core.FormsDBHelper;
-import edu.aku.hassannaqvi.src_hhlisting2.contract.UsersContract;
 
 /**
  * Created by hassan.naqvi on 4/28/2016.
@@ -55,7 +55,7 @@ public class GetUsers extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._HOST_URL + "/src/users/");
+            URL url = new URL(AppMain._HOST_URL + "users.php");
             Log.d(TAG, "doInBackground: " + url);
 
             urlConnection = (HttpURLConnection) url.openConnection();
