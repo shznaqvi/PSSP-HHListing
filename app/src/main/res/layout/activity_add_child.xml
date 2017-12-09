@@ -54,7 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:onClick="addChild"
         android:text="Add A Child"
         android:visibility="gone" />
 
@@ -63,7 +62,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:onClick="addFamily"
         android:text="Add Next Family"
         android:visibility="gone" />
 
@@ -72,7 +70,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:onClick="addHousehold"
         android:text="Goto Next Household"
         android:visibility="gone" />
 
