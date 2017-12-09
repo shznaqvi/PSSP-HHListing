@@ -25,22 +25,23 @@ import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.aku.hassannaqvi.src_hhlisting2.R;
 import edu.aku.hassannaqvi.src_hhlisting2.contract.DistrictsContract;
+import edu.aku.hassannaqvi.src_hhlisting2.contract.VillagesContract;
 import edu.aku.hassannaqvi.src_hhlisting2.core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.src_hhlisting2.core.AppMain;
 import edu.aku.hassannaqvi.src_hhlisting2.core.FormsDBHelper;
 import edu.aku.hassannaqvi.src_hhlisting2.get.GetDistricts;
-import edu.aku.hassannaqvi.src_hhlisting2.get.GetVillages;
 import edu.aku.hassannaqvi.src_hhlisting2.get.GetUsers;
-import edu.aku.hassannaqvi.src_hhlisting2.R;
+import edu.aku.hassannaqvi.src_hhlisting2.get.GetVillages;
 import edu.aku.hassannaqvi.src_hhlisting2.sync.SyncListing;
 import edu.aku.hassannaqvi.src_hhlisting2.sync.SyncMwras;
-import edu.aku.hassannaqvi.src_hhlisting2.contract.VillagesContract;
 
 public class MainActivity extends Activity {
 
@@ -110,6 +111,7 @@ public class MainActivity extends Activity {
                 Collection<VillagesContract> pc = db.getAllPSUsByDistrict(districtCodes.get(position));
                 for (VillagesContract p : pc) {
                     psuCode.add(p.getVillageCode());
+                    Collections.sort(psuCode);
                 }
                 ArrayAdapter<String> psuAdapter = new ArrayAdapter<>(context,
                         android.R.layout.simple_spinner_item, psuCode);
