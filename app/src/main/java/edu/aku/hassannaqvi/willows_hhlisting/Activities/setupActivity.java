@@ -26,6 +26,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.AreasContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
@@ -74,6 +75,22 @@ public class setupActivity extends Activity {
     Button btnAddHousehold;
     @BindView(R.id.btnChangePSU)
     Button btnChangPSU;
+
+    @BindView(R.id.hl105)
+    RadioGroup hl105;
+    @BindView(R.id.hl105a)
+    RadioButton hl105a;
+    @BindView(R.id.hl105b)
+    RadioButton hl105b;
+    @BindView(R.id.hl106)
+    EditText hl106;
+
+    @BindView(R.id.fldGrpHH01)
+    LinearLayout fldGrpHH01;
+    @BindView(R.id.fldGrpHH02)
+    LinearLayout fldGrpHH02;
+
+    Boolean flagDT = false;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
@@ -159,6 +176,25 @@ public class setupActivity extends Activity {
             }
         });
 
+//        New DATA CHECKING
+
+        flagDT = getIntent().getBooleanExtra("new", false);
+
+        if (flagDT) {
+            fldGrpHH01.setVisibility(View.VISIBLE);
+        }
+
+        hl105.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.hl105a){
+                    fldGrpHH02.setVisibility(View.VISIBLE);
+                }else {
+                    fldGrpHH02.setVisibility(View.GONE);
+                    hl106.setText(null);
+                }
+            }
+        });
 
     }
 
@@ -188,9 +224,24 @@ public class setupActivity extends Activity {
 
 
     private void SaveDraft() {
+        SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
+
+        if (flagDT && hl105a.isChecked()) {
+            AppMain.ac = new AreasContract();
+            AppMain.ac.setTagid(sharedPref.getString("tagName", null));
+            AppMain.ac.setFormdate(dtToday);
+            AppMain.ac.setDeviceid(deviceId);
+            AppMain.ac.setUsername(AppMain.userEmail);
+            AppMain.ac.setDistrict_code(AppMain.hh01txt);
+            AppMain.ac.setPsu_code(AppMain.hh02txt);
+            AppMain.ac.setAppversion(AppMain.versionName + "." + AppMain.versionCode);
+            AppMain.ac.setAreaname(hl106.getText().toString());
+
+            UpdateAreaDB();
+        }
 
         AppMain.lc = new ListingContract();
-        SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
+
         AppMain.lc.setTagId(sharedPref.getString("tagName", null));
         AppMain.lc.setHhDT(dtToday);
         AppMain.lc.setHh01(AppMain.hh01txt);
@@ -285,6 +336,30 @@ public class setupActivity extends Activity {
         } else {
             hh02.setError(null);
         }
+
+        if (flagDT) {
+            if (hl105.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(this, "ERROR(empty): " + getString(R.string.hl105), Toast.LENGTH_SHORT).show();
+                hl105b.setError("This data is Required!");    // Set Error on last radio button
+                hl105b.setFocusable(true);
+                hl105b.setFocusableInTouchMode(true);
+                hl105b.requestFocus();
+                Log.i(TAG, "hl105: This data is Required!");
+                return false;
+            } else {
+                hl105b.setError(null);
+            }
+
+            if (hl105a.isChecked() && hl106.getText().toString().isEmpty()) {
+                Toast.makeText(this, "ERROR(Empty) "+ String.valueOf(R.string.hl106), Toast.LENGTH_LONG).show();
+                hl106.setError("ERROR(Empty) data required");
+                Log.i(TAG, "hl106: data required");
+                return false;
+            } else {
+                hl106.setError(null);
+            }
+        }
+
         if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
             hh04x.setError("Please one option");
@@ -341,6 +416,27 @@ public class setupActivity extends Activity {
 
             }
         }
+    }
+
+    private boolean UpdateAreaDB() {
+        FormsDBHelper db = new FormsDBHelper(this);
+
+        long updcount = db.addAreas(AppMain.ac);
+
+        AppMain.ac.setID(String.valueOf(updcount));
+
+        if (updcount != 0) {
+            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+
+            AppMain.ac.setUid(
+                    (AppMain.ac.getDeviceid() + AppMain.ac.getID()));
+
+            db.updateAreaUID();
+
+        } else {
+            Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 
     private boolean UpdateDB() {

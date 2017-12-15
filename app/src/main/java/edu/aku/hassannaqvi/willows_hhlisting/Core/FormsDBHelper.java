@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.AreasContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.AreasContract.singleAreas;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.DistrictsContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.DistrictsContract.singleDistrict;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.ListingContract;
@@ -88,10 +90,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ");";
 
         final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
-                singlePSU._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singlePSU._ID + " TEXT," +
                 singlePSU.COLUMN_PSU_CODE + " TEXT, " +
                 singlePSU.COLUMN_PSU_NAME + " TEXT, " +
                 singlePSU.COLUMN_DISTRICT_CODE + " TEXT " +
+                ");";
+
+        final String SQL_CREATE_AREA_TABLE = "CREATE TABLE " + singleAreas.TABLE_NAME + " (" +
+                singleAreas.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singleAreas.COLUMN_DEVICEID + " TEXT,"+
+                singleAreas.COLUMN_UID + " TEXT,"+
+                singleAreas.COLUMN_FORMDATE + " TEXT,"+
+                singleAreas.COLUMN_USERNAME + " TEXT,"+
+                singleAreas.COLUMN_DISTRICT_CODE + " TEXT,"+
+                singleAreas.COLUMN_PSU_CODE + " TEXT,"+
+                singleAreas.COLUMN_AREANAME + " TEXT,"+
+                singleAreas.COLUMN_TAGID + " TEXT,"+
+                singleAreas.COLUMN_APPVERSION + " TEXT,"+
+                singleAreas.COLUMN_SYNCED + " TEXT, " +
+                singleAreas.COLUMN_SYNCED_DATE + " TEXT " +
                 ");";
 
         final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
@@ -104,6 +121,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
+        db.execSQL(SQL_CREATE_AREA_TABLE);
     }
 
     @Override
@@ -113,6 +131,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singleAreas.TABLE_NAME);
         onCreate(db);
     }
 
@@ -157,6 +176,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         int count = db.update(
                 ListingEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
+    public void updateSyncedAreas(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(singleAreas.COLUMN_SYNCED, true);
+        values.put(singleAreas.COLUMN_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = singleAreas.COLUMN_ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                singleAreas.TABLE_NAME,
                 values,
                 where,
                 whereArgs);
@@ -258,20 +296,29 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    public Long addDistrict(DistrictsContract dc) {
+    public Long addAreas(AreasContract chw) {
 
         // Gets the data repository in write mode
         SQLiteDatabase db = this.getWritableDatabase();
 
-// Create a new map of values, where column names are the keys
+        // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(singleDistrict.COLUMN_DISTRICT_CODE, dc.getDistrictCode());
-        values.put(singleDistrict.COLUMN_DISTRICT_NAME, dc.getDistrictName());
+        values.put(singleAreas.COLUMN_ID, chw.getID());
+        values.put(singleAreas.COLUMN_DEVICEID, chw.getDeviceid());
+        values.put(singleAreas.COLUMN_UID, chw.getUid());
+        values.put(singleAreas.COLUMN_FORMDATE, chw.getFormdate());
+        values.put(singleAreas.COLUMN_AREANAME, chw.getAreaname());
+        values.put(singleAreas.COLUMN_USERNAME, chw.getUsername());
+        values.put(singleAreas.COLUMN_DISTRICT_CODE, chw.getDistrict_code());
+        values.put(singleAreas.COLUMN_PSU_CODE, chw.getPsu_code());
+        values.put(singleAreas.COLUMN_TAGID, chw.getTagid());
+        values.put(singleAreas.COLUMN_APPVERSION, chw.getAppversion());
+
 
         long newRowId;
         newRowId = db.insert(
-                singleDistrict.TABLE_NAME,
-                singleDistrict.COLUMN_NAME_NULLABLE,
+                singleAreas.TABLE_NAME,
+                singleAreas.COLUMN_NAME_NULLABLE,
                 values);
 
         return newRowId;
@@ -290,6 +337,24 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         int count = db.update(
                 ListingEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
+    public void updateAreaUID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(singleAreas.COLUMN_UID, AppMain.ac.getUid());
+
+// Which row to update, based on the title
+        String where = singleAreas.COLUMN_ID + " = ?";
+        String[] whereArgs = {AppMain.ac.getID().toString()};
+
+        int count = db.update(
+                singleAreas.TABLE_NAME,
                 values,
                 where,
                 whereArgs);
@@ -360,6 +425,56 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             }
         }
         return allLC;
+    }
+
+    public Collection<AreasContract> getAllAreas() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singleAreas.COLUMN_ID,
+                singleAreas.COLUMN_DEVICEID,
+                singleAreas.COLUMN_UID,
+                singleAreas.COLUMN_FORMDATE,
+                singleAreas.COLUMN_AREANAME,
+                singleAreas.COLUMN_USERNAME,
+                singleAreas.COLUMN_DISTRICT_CODE,
+                singleAreas.COLUMN_PSU_CODE,
+                singleAreas.COLUMN_TAGID,
+                singleAreas.COLUMN_APPVERSION
+        };
+
+        String whereClause = null;
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                singleAreas.COLUMN_ID + " ASC";
+
+        Collection<AreasContract> allDC = new ArrayList<>();
+        try {
+            c = db.query(
+                    singleAreas.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                AreasContract dc = new AreasContract();
+                allDC.add(dc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allDC;
     }
 
     public Collection<DistrictsContract> getAllDistricts() {
@@ -608,6 +723,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
 
+                values.put(singlePSU._ID, pc.getId());
                 values.put(singlePSU.COLUMN_PSU_CODE, pc.getPSUCode());
                 values.put(singlePSU.COLUMN_PSU_NAME, pc.getPSUName());
                 values.put(singlePSU.COLUMN_DISTRICT_CODE, pc.getDistrictCode());

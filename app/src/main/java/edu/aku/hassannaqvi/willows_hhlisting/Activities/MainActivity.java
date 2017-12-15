@@ -42,6 +42,7 @@ import edu.aku.hassannaqvi.willows_hhlisting.Get.GetDistricts;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetPSUs;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetUsers;
 import edu.aku.hassannaqvi.willows_hhlisting.R;
+import edu.aku.hassannaqvi.willows_hhlisting.Sync.SyncAreas;
 import edu.aku.hassannaqvi.willows_hhlisting.Sync.SyncListing;
 
 public class MainActivity extends Activity {
@@ -208,6 +209,7 @@ public class MainActivity extends Activity {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         Intent oF = new Intent(MainActivity.this, setupActivity.class);
+                        oF.putExtra("new",false);
                         startActivity(oF);
                         break;
 
@@ -265,13 +267,14 @@ public class MainActivity extends Activity {
     }
 
     public void NextSetupActivity(){
-        Intent oF = new Intent(this, setupActivity.class);
         if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
+                Intent oF = new Intent(this, setupActivity.class);
+                oF.putExtra("new",true);
                 startActivity(oF);
             }
         } else {
@@ -375,13 +378,16 @@ public class MainActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
                     ff.execute();
 
-                    GetDistricts gd = new GetDistricts(mContext);
-                    Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
-                    gd.execute();
-
                     GetPSUs gp = new GetPSUs(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
                     gp.execute();
+
+                    Toast.makeText(getApplicationContext(), "Syncing Areas", Toast.LENGTH_SHORT).show();
+                    new SyncAreas(mContext).execute();
+
+                    GetDistricts gd = new GetDistricts(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
+                    gd.execute();
 
                     GetUsers gu = new GetUsers(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();

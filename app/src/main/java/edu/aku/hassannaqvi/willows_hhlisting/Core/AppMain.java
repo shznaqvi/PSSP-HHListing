@@ -12,6 +12,7 @@ import android.view.View;
 
 import java.util.Map;
 
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.AreasContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Other.TypefaceUtil;
 
@@ -26,10 +27,11 @@ public class AppMain extends Application {
     private static final int TWO_MINUTES = 1000 * 60 * 2;
     public static final String _IP = "43.245.131.159"; // Test PHP server
     public static final Integer _PORT = 8080; // Port - with colon (:)
-    public static final String _HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/src2/api/";
+    public static final String _HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/pssp/api/";
 
     public static String TAG = "AppMain";
     public static ListingContract lc;
+    public static AreasContract ac;
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static int hh03txt = 0;
@@ -42,6 +44,10 @@ public class AppMain extends Application {
     public static SharedPreferences sharedPref;
     public static String userEmail;
     protected static LocationManager locationManager;
+
+    public static int versionCode;
+    public static String versionName;
+
     Location location;
 
     public static void updatePSU(String psuCode, String structureNo) {

@@ -24,21 +24,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
-import edu.aku.hassannaqvi.willows_hhlisting.Contracts.ListingContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.AreasContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
 
 /**
  * Created by hassan.naqvi on 7/26/2016.
  */
-public class SyncListing extends AsyncTask<Void, Void, String> {
+public class SyncAreas extends AsyncTask<Void, Void, String> {
 
-    private static final String TAG = "SyncListing";
+    private static final String TAG = "SyncAreas";
     private Context mContext;
     private ProgressDialog pd;
 
 
-    public SyncListing(Context context) {
+    public SyncAreas(Context context) {
         mContext = context;
     }
 
@@ -55,7 +55,7 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Please wait... Processing Listing");
+        pd.setTitle("Please wait... Processing Areas");
         pd.show();
     }
 
@@ -64,7 +64,7 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
             String url;
-            url = AppMain._HOST_URL + ListingContract.ListingEntry._URL;
+            url = AppMain._HOST_URL + AreasContract.singleAreas._URL;
             Log.d(TAG, "doInBackground: URL " + url);
             return downloadUrl(url);
         } catch (IOException e) {
@@ -76,15 +76,16 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
         String line = "No Response";
 
         FormsDBHelper db = new FormsDBHelper(mContext);
-        Collection<ListingContract> Listing;
-        Listing = db.getAllListings();
-        Log.d(TAG, String.valueOf(Listing.size()));
+        Collection<AreasContract> Areas;
+        Areas = db.getAllAreas();
+        Log.d(TAG, String.valueOf(Areas.size()));
 
-        if (Listing.size() > 0) {
+        if (Areas.size() > 0) {
 
             HttpURLConnection connection = null;
             try {
                 String request = myurl;
+                //String request = "http://10.1.42.30:3000/Areas";
 
                 URL url = new URL(request);
                 connection = (HttpURLConnection) url.openConnection();
@@ -106,7 +107,9 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
 
                     DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
 
-                    for (ListingContract fc : Listing) {
+//            pd.setMessage("Total Areas: " );
+
+                    for (AreasContract fc : Areas) {
                         //if (fc.getIstatus().equals("1")) {
                         jsonSync.put(fc.toJSONObject());
                         //}
@@ -168,17 +171,17 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
                     sSyncedError += "\nError: " + jsonObject.getString("message").toString();
                 }
             }
-            Toast.makeText(mContext, sSynced + " Listing synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, sSynced + " Areas synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
 
-            pd.setMessage(sSynced + " Listing synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError);
-            pd.setTitle("Done uploading Listing data");
+            pd.setMessage(sSynced + " Areas synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError);
+            pd.setTitle("Done uploading Areas data");
             pd.show();
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(mContext, "Failed Sync " + result, Toast.LENGTH_SHORT).show();
 
             pd.setMessage(result);
-            pd.setTitle("Listing Sync Failed");
+            pd.setTitle("Areas Sync Failed");
             pd.show();
 
 

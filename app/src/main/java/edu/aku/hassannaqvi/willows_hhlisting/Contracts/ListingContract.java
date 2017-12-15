@@ -356,6 +356,6 @@ public class ListingContract {
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";
 
-        public static final String _URL = "listings.php";
+        public static final String _URL = "listingsWillow.php";
     }
 }

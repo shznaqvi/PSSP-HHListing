@@ -197,9 +197,9 @@ public class FamilyListingActivity extends Activity {
             }
 
             if (hh10.isChecked() && hh11.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-                hh11.setError("Please enter child count");
-                Log.i(TAG, "Please enter child count");
+                Toast.makeText(this, "Please enter women count", Toast.LENGTH_LONG).show();
+                hh11.setError("Please enter women count");
+                Log.i(TAG, "Please enter women count");
                 return false;
             } else {
                 hh11.setError(null);
