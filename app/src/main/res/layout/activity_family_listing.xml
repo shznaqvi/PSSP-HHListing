@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.pssp_hhlisting.Activities.HouseholdListingActivity">
+    tools:context="edu.aku.hassannaqvi.willows_hhlisting.Activities.HouseholdListingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,97 +24,141 @@
             android:layout_marginTop="16dp"
             android:background="#d6d6d6"
             android:text="Family Listing"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="1"
                 android:text="@string/hh08" />
 
             <EditText
                 android:id="@+id/hh08"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:layout_weight="1"
                 android:digits="@string/txtMsg"
+                android:hint="@string/hh08"
                 android:inputType="text"
                 android:maxLength="24" />
 
-
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:text="@string/hh13" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh09" />
+        <RadioGroup
+            android:id="@+id/hh13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/hh09"
-                android:layout_width="0dp"
+            <RadioButton
+                android:id="@+id/hh13a"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="1"
-                android:digits="1234567890- ()"
-                android:inputType="number"
-                android:maxLength="11" />
-        </LinearLayout>
+                android:text="@string/yes" />
+
+            <RadioButton
+                android:id="@+id/hh13b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no" />
+
+        </RadioGroup>
+
         <LinearLayout
+            android:id="@+id/fldGrpHH09"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Switch
-                android:id="@+id/hh10"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="4"
-                android:text="@string/hh10"
-                android:textOff="@string/no"
-                android:textOn="@string/yes" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="2"
+                    android:text="@string/hh09" />
+
+                <EditText
+                    android:id="@+id/hh09"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:digits="1234567890- ()"
+                    android:hint="@string/hh09"
+                    android:inputType="number"
+                    android:maxLength="11" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:text="@string/hh10" />
+
+                <Switch
+                    android:id="@+id/hh10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="4"
+                    android:textOff="@string/no"
+                    android:textOn="@string/yes" />
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/hh11"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_marginTop="1dp"
                 android:digits="1234567890"
                 android:hint="@string/hh11"
                 android:inputType="number"
                 android:maxLength="2"
                 android:visibility="invisible" />
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/btnAddWomen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Add A Women"
+                android:visibility="gone" />
 
-        <Button
-            android:id="@+id/btnAddChild"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:onClick="addChild"
-            android:text="Add A Child"
-            android:visibility="gone" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnAddFamily"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="addFamily"
             android:text="Add Next Family"
             android:visibility="gone" />
 
@@ -123,7 +167,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="addHousehold"
             android:text="Goto Next Household"
             android:visibility="gone" />
     </LinearLayout>

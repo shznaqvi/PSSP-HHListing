@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.pssp_hhlisting.Activities.HouseholdListingActivity">
+    tools:context="edu.aku.hassannaqvi.willows_hhlisting.Activities.HouseholdListingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -108,7 +108,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnAddChild"
+            android:id="@+id/btnAddWomen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"

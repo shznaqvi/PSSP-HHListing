@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.aku.hassannaqvi.pssp_hhlisting">
+    package="edu.aku.hassannaqvi.willows_hhlisting">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,38 +13,38 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name=".Core.AppMain"
+        android:name="edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.MainActivity"
+            android:name="edu.aku.hassannaqvi.willows_hhlisting.Activities.MainActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".Activities.HouseholdListingActivity"
+            android:name="edu.aku.hassannaqvi.willows_hhlisting.Activities.HouseholdListingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.AddChildActivity"
+            android:name="edu.aku.hassannaqvi.willows_hhlisting.Activities.AddWomenActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.setupActivity"
+            android:name="edu.aku.hassannaqvi.willows_hhlisting.Activities.setupActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.FamilyListingActivity"
+            android:name="edu.aku.hassannaqvi.willows_hhlisting.Activities.FamilyListingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Core.AndroidDatabaseManager"
+            android:name="edu.aku.hassannaqvi.willows_hhlisting.Core.AndroidDatabaseManager"
             android:screenOrientation="portrait"
             android:theme="@style/android:Theme.Holo.Light.DarkActionBar" />
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name="edu.aku.hassannaqvi.willows_hhlisting.Activities.LoginActivity"
             android:label="Login In"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Activities.SplashScreenActivity"
+            android:name="edu.aku.hassannaqvi.willows_hhlisting.Activities.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PSSP-HHListing Round-2</string>
+    <string name="app_name">WILLOWS-HHLISTING</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
     <string name="hh02"> PSU کوڈ </string>
     <string name="hh03"> اسٹرکچر نمبر </string>
@@ -18,17 +18,19 @@
     <string name="hh07"> خاندان نمبر </string>
     <string name="hh08"> خاندان کے سربراہ کا نام </string>
     <string name="hh09"> رابطہ کا نمبر </string>
-    <string name="hh10"> کیا گھر میں ایک سال سے چھوٹا بچہ موجود ہے؟ </string>
-    <string name="hh11"> بچوں کی تعداد؟ </string>
+    <string name="hh10"> اس گھر میں رہنے والی کتنی عورتوں کی عمر 16 سال سے 44 سال کے درمیان ہے؟ </string>
+    <string name="hh11"> عورتوں کی تعداد؟ </string>
+    <string name="hh13"> کیا آپ تحقیق میں شمولیت کے لئے رضامند ہیں؟ </string>
 
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
-    <string name="child_name">بچے کا نام</string>
-    <string name="child_age">بچے کی عمر</string>
+    <string name="women_name"> عورت کا نام </string>
+    <string name="women_age"> عورت کی عمر </string>
     <string name="hh12m">ماہ</string>
     <string name="hh12d">دن</string>
+    <string name="hh12y">سال</string>
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
