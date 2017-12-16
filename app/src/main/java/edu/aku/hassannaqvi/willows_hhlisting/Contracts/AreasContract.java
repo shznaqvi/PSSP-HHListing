@@ -163,7 +163,7 @@ public class AreasContract {
         public static final String COLUMN_UID = "uid";
         public static final String COLUMN_AREANAME = "area";
         public static final String COLUMN_FORMDATE = "formdate";
-        public static final String COLUMN_USERNAME = "user";
+        public static final String COLUMN_USERNAME = "username";
         public static final String COLUMN_DISTRICT_CODE = "district_code";
         public static final String COLUMN_PSU_CODE = "psu_code";
         public static final String COLUMN_TAGID = "tagid";

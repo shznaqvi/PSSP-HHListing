@@ -183,7 +183,7 @@ public class MwraContract {
         public static final String TABLE_NAME = "mwra";
         public static final String MWRA_NULLABLE = "NULLHACK";
         public static final String COLUMN_ID = "id";
-        public static final String COLUMN_USER_NAME = "user";
+        public static final String COLUMN_USER_NAME = "username";
         public static final String MWRA_UUID = "uuid";
         public static final String MWRA_UID = "uid";
         public static final String MWRA_MWDT = "mwdt";
