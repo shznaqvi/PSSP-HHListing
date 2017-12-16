@@ -113,6 +113,8 @@ public class AddWomenActivity extends Activity {
         AppMain.mc.setMwDistrictCode(AppMain.lc.getHh01());
         AppMain.mc.setMwPSUNo(AppMain.lc.getHh02());
         AppMain.mc.setAppversion(AppMain.versionName + "." + AppMain.versionCode);
+        AppMain.mc.setStructureNo(AppMain.lc.getHh03());
+        AppMain.mc.setMwraID(String.valueOf(AppMain.cCount));
 
         AppMain.mc.setName(icName.getText().toString());
         AppMain.mc.setAgey(icAgeY.getText().toString());

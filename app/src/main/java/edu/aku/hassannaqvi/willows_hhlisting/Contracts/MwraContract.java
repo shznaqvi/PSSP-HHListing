@@ -25,6 +25,9 @@ public class MwraContract {
     public String agey;
     public String deviceid;
 
+    public String mwraID;
+    public String structureNo;
+
     public MwraContract() {
     }
 
@@ -41,6 +44,8 @@ public class MwraContract {
         this.name = jsonObject.getString(MwraEntry.MWRA_NAME);
         this.agey = jsonObject.getString(MwraEntry.MWRA_AGE_Y);
         this.deviceid = jsonObject.getString(MwraEntry.COLUMN_DEVICEID);
+        this.mwraID = jsonObject.getString(MwraEntry.MWRA_ID);
+        this.structureNo = jsonObject.getString(MwraEntry.MWRA_STRUCTURE_NO);
 
         return this;
     }
@@ -58,6 +63,8 @@ public class MwraContract {
         this.name = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_NAME));
         this.agey = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_AGE_Y));
         this.deviceid = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_DEVICEID));
+        this.mwraID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_ID));
+        this.structureNo = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_STRUCTURE_NO));
 
         return this;
     }
@@ -158,6 +165,22 @@ public class MwraContract {
         this.deviceid = deviceid;
     }
 
+    public String getMwraID() {
+        return mwraID;
+    }
+
+    public void setMwraID(String mwraID) {
+        this.mwraID = mwraID;
+    }
+
+    public String getStructureNo() {
+        return structureNo;
+    }
+
+    public void setStructureNo(String structureNo) {
+        this.structureNo = structureNo;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
 
@@ -173,6 +196,8 @@ public class MwraContract {
         json.put(MwraEntry.MWRA_NAME, this.name == null ? JSONObject.NULL : this.name);
         json.put(MwraEntry.MWRA_AGE_Y, this.agey == null ? JSONObject.NULL : this.agey);
         json.put(MwraEntry.COLUMN_DEVICEID, this.deviceid == null ? JSONObject.NULL : this.deviceid);
+        json.put(MwraEntry.MWRA_ID, this.mwraID == null ? JSONObject.NULL : this.mwraID);
+        json.put(MwraEntry.MWRA_STRUCTURE_NO, this.structureNo == null ? JSONObject.NULL : this.structureNo);
 
         return json;
 
@@ -191,9 +216,11 @@ public class MwraContract {
         public static final String MWRA_PSU_CODE = "psu_code";
         public static final String COLUMN_TAGID = "tagid";
         public static final String COLUMN_APPVERSION = "appversion";
-        public static final String MWRA_NAME = "name";
-        public static final String MWRA_AGE_Y = "agey";
+        public static final String MWRA_NAME = "mwname";
+        public static final String MWRA_AGE_Y = "mwagey";
         public static final String COLUMN_DEVICEID = "deviceid";
+        public static final String MWRA_ID = "sno";
+        public static final String MWRA_STRUCTURE_NO = "mwstructureno";
 
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";

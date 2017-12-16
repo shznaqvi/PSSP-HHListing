@@ -121,12 +121,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
                 MwraEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 MwraEntry.COLUMN_USER_NAME + " TEXT," +
-                MwraEntry.MWRA_UUID + " TEXT," +
+                MwraEntry.MWRA_ID + " TEXT," +
                 MwraEntry.MWRA_UID + " TEXT," +
+                MwraEntry.MWRA_UUID + " TEXT," +
                 MwraEntry.COLUMN_DEVICEID + " TEXT," +
                 MwraEntry.MWRA_MWDT + " TEXT," +
                 MwraEntry.MWRA_DISTRICT_CODE + " TEXT," +
                 MwraEntry.MWRA_PSU_CODE + " TEXT," +
+                MwraEntry.MWRA_STRUCTURE_NO + " TEXT," +
                 MwraEntry.COLUMN_TAGID + " TEXT," +
                 MwraEntry.COLUMN_APPVERSION + " TEXT," +
                 MwraEntry.MWRA_NAME + " TEXT," +
@@ -384,6 +386,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(MwraEntry.MWRA_NAME, mwra.getName());
         values.put(MwraEntry.MWRA_AGE_Y, mwra.getAgey());
         values.put(MwraEntry.COLUMN_DEVICEID, mwra.getDeviceid());
+        values.put(MwraEntry.MWRA_ID, mwra.getMwraID());
+        values.put(MwraEntry.MWRA_STRUCTURE_NO, mwra.getStructureNo());
 
         long newRowId;
         newRowId = db.insert(
@@ -581,6 +585,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 MwraEntry.MWRA_NAME,
                 MwraEntry.MWRA_AGE_Y,
                 MwraEntry.COLUMN_DEVICEID,
+                MwraEntry.MWRA_ID,
+                MwraEntry.MWRA_STRUCTURE_NO,
         };
 
         String whereClause = MwraEntry.COLUMN_SYNCED + " is null";
