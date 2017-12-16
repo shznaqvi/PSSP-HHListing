@@ -170,7 +170,7 @@ public class setupActivity extends Activity {
                 } else {
                     AppMain.hh07txt = "X";
                     hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
-                    hh06.setVisibility(View.INVISIBLE);
+                    hh06.setVisibility(View.GONE);
                     hh06.setText(null);
                 }
             }

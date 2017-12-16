@@ -82,7 +82,7 @@ public class FamilyListingActivity extends Activity {
                     hh12.setVisibility(View.VISIBLE);
                     hh12.requestFocus();
                 } else {
-                    hh12.setVisibility(View.INVISIBLE);
+                    hh12.setVisibility(View.GONE);
                     hh12.setText(null);
                 }
             }
@@ -132,6 +132,32 @@ public class FamilyListingActivity extends Activity {
                     hh12.setText(null);
                     hh11.setChecked(false);
                 }
+            }
+        });
+
+        hh09.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (!hh09.getText().toString().trim().isEmpty()) {
+                    if (Integer.valueOf(hh09.getText().toString()) > 0) {
+                        hh11.setEnabled(true);
+                    } else {
+                        hh11.setChecked(false);
+                        hh11.setEnabled(false);
+                    }
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
@@ -221,22 +247,24 @@ public class FamilyListingActivity extends Activity {
                 hh10.setError(null);
             }
 
-            if (hh11.isChecked() && hh12.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Please enter women count", Toast.LENGTH_LONG).show();
-                hh12.setError("Please enter women count");
-                Log.i(TAG, "Please enter women count");
-                return false;
-            } else {
-                hh12.setError(null);
-            }
+            if (hh11.isChecked()) {
+                if (hh12.getText().toString().isEmpty()) {
+                    Toast.makeText(this, "Please enter women count", Toast.LENGTH_LONG).show();
+                    hh12.setError("Please enter women count");
+                    Log.i(TAG, "Please enter women count");
+                    return false;
+                } else {
+                    hh12.setError(null);
+                }
 
-            if (!hh12.getText().toString().isEmpty() && Integer.valueOf(hh12.getText().toString()) < 1) {
-                Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
-                hh12.setError("Invalid Value!");
-                Log.i(TAG, "Invalid Value!");
-                return false;
-            } else {
-                hh12.setError(null);
+                if (Integer.valueOf(hh12.getText().toString()) < 1 || Integer.valueOf(hh10.getText().toString()) < Integer.valueOf(hh12.getText().toString())) {
+                    Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
+                    hh12.setError("Invalid Value!");
+                    Log.i(TAG, "Invalid Value!");
+                    return false;
+                } else {
+                    hh12.setError(null);
+                }
             }
         }
 
