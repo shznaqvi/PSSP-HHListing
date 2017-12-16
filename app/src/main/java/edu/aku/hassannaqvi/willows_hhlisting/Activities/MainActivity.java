@@ -44,6 +44,7 @@ import edu.aku.hassannaqvi.willows_hhlisting.Get.GetUsers;
 import edu.aku.hassannaqvi.willows_hhlisting.R;
 import edu.aku.hassannaqvi.willows_hhlisting.Sync.SyncAreas;
 import edu.aku.hassannaqvi.willows_hhlisting.Sync.SyncListing;
+import edu.aku.hassannaqvi.willows_hhlisting.Sync.SyncMWRAs;
 
 public class MainActivity extends Activity {
 
@@ -377,6 +378,9 @@ public class MainActivity extends Activity {
                     SyncListing ff = new SyncListing(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
                     ff.execute();
+
+                    Toast.makeText(getApplicationContext(), "Syncing MWRAs", Toast.LENGTH_SHORT).show();
+                    new SyncMWRAs(mContext).execute();
 
                     GetPSUs gp = new GetPSUs(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();

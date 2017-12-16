@@ -24,21 +24,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
-import edu.aku.hassannaqvi.willows_hhlisting.Contracts.AreasContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
 
 /**
  * Created by hassan.naqvi on 7/26/2016.
  */
-public class SyncAreas extends AsyncTask<Void, Void, String> {
+public class SyncMWRAs extends AsyncTask<Void, Void, String> {
 
-    private static final String TAG = "SyncAreas";
+    private static final String TAG = "SyncMwra";
     private Context mContext;
     private ProgressDialog pd;
 
 
-    public SyncAreas(Context context) {
+    public SyncMWRAs(Context context) {
         mContext = context;
     }
 
@@ -55,7 +55,7 @@ public class SyncAreas extends AsyncTask<Void, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Please wait... Processing Areas");
+        pd.setTitle("Please wait... Processing Mwra");
         pd.show();
     }
 
@@ -64,7 +64,7 @@ public class SyncAreas extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
             String url;
-            url = AppMain._HOST_URL + AreasContract.singleAreas._URL;
+            url = AppMain._HOST_URL + MwraContract.MwraEntry._URL;
             Log.d(TAG, "doInBackground: URL " + url);
             return downloadUrl(url);
         } catch (IOException e) {
@@ -76,16 +76,16 @@ public class SyncAreas extends AsyncTask<Void, Void, String> {
         String line = "No Response";
 
         FormsDBHelper db = new FormsDBHelper(mContext);
-        Collection<AreasContract> Areas;
-        Areas = db.getAllAreas();
-        Log.d(TAG, String.valueOf(Areas.size()));
+        Collection<MwraContract> Mwra;
+        Mwra = db.getAllMwras();
+        Log.d(TAG, String.valueOf(Mwra.size()));
 
-        if (Areas.size() > 0) {
+        if (Mwra.size() > 0) {
 
             HttpURLConnection connection = null;
             try {
                 String request = myurl;
-                //String request = "http://10.1.42.30:3000/Areas";
+                //String request = "http://10.1.42.30:3000/Mwra";
 
                 URL url = new URL(request);
                 connection = (HttpURLConnection) url.openConnection();
@@ -107,9 +107,9 @@ public class SyncAreas extends AsyncTask<Void, Void, String> {
 
                     DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
 
-//            pd.setMessage("Total Areas: " );
+//            pd.setMessage("Total Mwra: " );
 
-                    for (AreasContract fc : Areas) {
+                    for (MwraContract fc : Mwra) {
                         //if (fc.getIstatus().equals("1")) {
                         jsonSync.put(fc.toJSONObject());
                         //}
@@ -165,23 +165,23 @@ public class SyncAreas extends AsyncTask<Void, Void, String> {
             for (int i = 0; i < json.length(); i++) {
                 JSONObject jsonObject = new JSONObject(json.getString(i));
                 if (jsonObject.getString("status").equals("1") && jsonObject.getString("error").equals("0")) {
-                    db.updateSyncedAreas(jsonObject.getString("id"));
+                    db.updateSyncedMWRA(jsonObject.getString("id"));
                     sSynced++;
                 } else {
                     sSyncedError += "\nError: " + jsonObject.getString("message").toString();
                 }
             }
-            Toast.makeText(mContext, sSynced + " Areas synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, sSynced + " Mwra synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
 
-            pd.setMessage(sSynced + " Areas synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError);
-            pd.setTitle("Done uploading Areas data");
+            pd.setMessage(sSynced + " Mwra synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError);
+            pd.setTitle("Done uploading Mwra data");
             pd.show();
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(mContext, "Failed Sync " + result, Toast.LENGTH_SHORT).show();
 
             pd.setMessage(result);
-            pd.setTitle("Areas Sync Failed");
+            pd.setTitle("Mwra Sync Failed");
             pd.show();
 
 

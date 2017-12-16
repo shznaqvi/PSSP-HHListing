@@ -351,7 +351,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
         public static final String COLUMN_NAME_ROUND = "round";
         public static final String COLUMN_TAGID = "tagId";
-        public static final String COLUMN_USERNAME = "username";
+        public static final String COLUMN_USERNAME = "COLUMN_USER_NAME";
         public static final String COLUMN_STATUS = "status";
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";

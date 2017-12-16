@@ -12,79 +12,70 @@ import org.json.JSONObject;
 
 public class MwraContract {
 
-    public Long ID;
-    public String MWRAID;
+    public String ID;
+    public String user;
     public String UUID;
     public String UID;
     public String mwDT;
-    public String mwVillageCode;
-    public String mwStructureNo;
-    public String mw01;
-    public String mw02;
-    public String mw03;
-    public String mw04;
-    public String mw05;
-
-    private String synced = "";
-    private String synced_date = "";
+    public String mwDistrictCode;
+    public String mwPSUNo;
+    public String tagID;
+    public String appversion;
+    public String name;
+    public String agey;
+    public String deviceid;
 
     public MwraContract() {
     }
 
     public MwraContract Sync(JSONObject jsonObject) throws JSONException {
-        this.ID = jsonObject.getLong(MwraEntry.COLUMN_ID);
-        this.MWRAID = jsonObject.getString(MwraEntry.MWRA_ID);
+        this.ID = jsonObject.getString(MwraEntry.COLUMN_ID);
+        this.user = jsonObject.getString(MwraEntry.COLUMN_USER_NAME);
         this.UUID = jsonObject.getString(MwraEntry.MWRA_UUID);
         this.UID = jsonObject.getString(MwraEntry.MWRA_UID);
         this.mwDT = jsonObject.getString(MwraEntry.MWRA_MWDT);
-        this.mwVillageCode = jsonObject.getString(MwraEntry.MWRA_MWVILLAGECODE);
-        this.mwStructureNo = jsonObject.getString(MwraEntry.MWRA_MWSTRUCTURENO);
-        this.mw01 = jsonObject.getString(MwraEntry.MWRA_MW01);
-        this.mw02 = jsonObject.getString(MwraEntry.MWRA_MW02);
-        this.mw03 = jsonObject.getString(MwraEntry.MWRA_MW03);
-        this.mw04 = jsonObject.getString(MwraEntry.MWRA_MW04);
-        this.mw05 = jsonObject.getString(MwraEntry.MWRA_MW05);
-
-/*        this.synced = jsonObject.getString(MwraEntry.COLUMN_SYNCED);
-        this.synced_date = jsonObject.getString(MwraEntry.COLUMN_SYNCED_DATE);*/
+        this.mwDistrictCode = jsonObject.getString(MwraEntry.MWRA_DISTRICT_CODE);
+        this.mwPSUNo = jsonObject.getString(MwraEntry.MWRA_PSU_CODE);
+        this.tagID = jsonObject.getString(MwraEntry.COLUMN_TAGID);
+        this.appversion = jsonObject.getString(MwraEntry.COLUMN_APPVERSION);
+        this.name = jsonObject.getString(MwraEntry.MWRA_NAME);
+        this.agey = jsonObject.getString(MwraEntry.MWRA_AGE_Y);
+        this.deviceid = jsonObject.getString(MwraEntry.COLUMN_DEVICEID);
 
         return this;
     }
 
     public MwraContract Hydrate(Cursor cursor) {
-        this.ID = cursor.getLong(cursor.getColumnIndex(MwraEntry.COLUMN_ID));
-        this.MWRAID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_ID));
+        this.ID = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_ID));
+        this.user = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_USER_NAME));
         this.UUID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_UID));
         this.mwDT = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MWDT));
-        this.mwVillageCode = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MWVILLAGECODE));
-        this.mwStructureNo = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MWSTRUCTURENO));
-        this.mw01 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW01));
-        this.mw02 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW02));
-        this.mw03 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW03));
-        this.mw04 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW04));
-        this.mw05 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW05));
-
-/*        this.synced = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_SYNCED));
-        this.synced_date = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_SYNCED_DATE));*/
+        this.mwDistrictCode = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_DISTRICT_CODE));
+        this.mwPSUNo = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_PSU_CODE));
+        this.tagID = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_TAGID));
+        this.appversion = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_APPVERSION));
+        this.name = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_NAME));
+        this.agey = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_AGE_Y));
+        this.deviceid = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_DEVICEID));
 
         return this;
     }
 
-    public Long getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(Long ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
-    public String getMWRAID() {
-        return MWRAID;
+    public String getUser() {
+        return user;
     }
 
-    public void setMWRAID(String MWRAID) {
-        this.MWRAID = MWRAID;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getUUID() {
@@ -111,96 +102,77 @@ public class MwraContract {
         this.mwDT = mwDT;
     }
 
-    public String getMwVillageCode() {
-        return mwVillageCode;
+    public String getMwDistrictCode() {
+        return mwDistrictCode;
     }
 
-    public void setMwVillageCode(String mwVillageCode) {
-        this.mwVillageCode = mwVillageCode;
+    public void setMwDistrictCode(String mwDistrictCode) {
+        this.mwDistrictCode = mwDistrictCode;
     }
 
-    public String getMwStructureNo() {
-        return mwStructureNo;
+    public String getMwPSUNo() {
+        return mwPSUNo;
     }
 
-    public void setMwStructureNo(String mwStructureNo) {
-        this.mwStructureNo = mwStructureNo;
+    public void setMwPSUNo(String mwPSUNo) {
+        this.mwPSUNo = mwPSUNo;
     }
 
-    public String getMw01() {
-        return mw01;
+    public String getTagID() {
+        return tagID;
     }
 
-    public void setMw01(String mw01) {
-        this.mw01 = mw01;
+    public void setTagID(String tagID) {
+        this.tagID = tagID;
     }
 
-    public String getMw02() {
-        return mw02;
+    public String getAppversion() {
+        return appversion;
     }
 
-    public void setMw02(String mw02) {
-        this.mw02 = mw02;
+    public void setAppversion(String appversion) {
+        this.appversion = appversion;
     }
 
-    public String getMw03() {
-        return mw03;
+    public String getName() {
+        return name;
     }
 
-    public void setMw03(String mw03) {
-        this.mw03 = mw03;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getMw04() {
-        return mw04;
+    public String getAgey() {
+        return agey;
     }
 
-    public void setMw04(String mw04) {
-        this.mw04 = mw04;
+    public void setAgey(String agey) {
+        this.agey = agey;
     }
 
-    public String getMw05() {
-        return mw05;
+    public String getDeviceid() {
+        return deviceid;
     }
 
-    public void setMw05(String mw05) {
-        this.mw05 = mw05;
-    }
-
-    public String getSynced() {
-        return synced;
-    }
-
-    public void setSynced(String synced) {
-        this.synced = synced;
-    }
-
-    public String getSynced_date() {
-        return synced_date;
-    }
-
-    public void setSynced_date(String synced_date) {
-        this.synced_date = synced_date;
+    public void setDeviceid(String deviceid) {
+        this.deviceid = deviceid;
     }
 
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
 
         json.put(MwraEntry.COLUMN_ID, this.ID == null ? JSONObject.NULL : this.ID);
-        json.put(MwraEntry.MWRA_ID, this.MWRAID == null ? JSONObject.NULL : this.MWRAID);
+        json.put(MwraEntry.COLUMN_USER_NAME, this.user == null ? JSONObject.NULL : this.user);
         json.put(MwraEntry.MWRA_UUID, this.UUID == null ? JSONObject.NULL : this.UUID);
         json.put(MwraEntry.MWRA_UID, this.UID == null ? JSONObject.NULL : this.UID);
         json.put(MwraEntry.MWRA_MWDT, this.mwDT == null ? JSONObject.NULL : this.mwDT);
-        json.put(MwraEntry.MWRA_MWVILLAGECODE, this.mwVillageCode == null ? JSONObject.NULL : this.mwVillageCode);
-        json.put(MwraEntry.MWRA_MWSTRUCTURENO, this.mwStructureNo == null ? JSONObject.NULL : this.mwStructureNo);
-        json.put(MwraEntry.MWRA_MW01, this.mw01 == null ? JSONObject.NULL : this.mw01);
-        json.put(MwraEntry.MWRA_MW02, this.mw02 == null ? JSONObject.NULL : this.mw02);
-        json.put(MwraEntry.MWRA_MW03, this.mw03 == null ? JSONObject.NULL : this.mw03);
-        json.put(MwraEntry.MWRA_MW04, this.mw04 == null ? JSONObject.NULL : this.mw04);
-        json.put(MwraEntry.MWRA_MW05, this.mw05 == null ? JSONObject.NULL : this.mw05);
-
-/*        json.put(MwraEntry.COLUMN_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
-        json.put(MwraEntry.COLUMN_SYNCED_DATE, this.synced_date == null ? JSONObject.NULL : this.synced_date);*/
+        json.put(MwraEntry.MWRA_DISTRICT_CODE, this.mwDistrictCode == null ? JSONObject.NULL : this.mwDistrictCode);
+        json.put(MwraEntry.MWRA_PSU_CODE, this.mwPSUNo == null ? JSONObject.NULL : this.mwPSUNo);
+        json.put(MwraEntry.COLUMN_TAGID, this.tagID == null ? JSONObject.NULL : this.tagID);
+        json.put(MwraEntry.COLUMN_APPVERSION, this.appversion == null ? JSONObject.NULL : this.appversion);
+        json.put(MwraEntry.MWRA_NAME, this.name == null ? JSONObject.NULL : this.name);
+        json.put(MwraEntry.MWRA_AGE_Y, this.agey == null ? JSONObject.NULL : this.agey);
+        json.put(MwraEntry.COLUMN_DEVICEID, this.deviceid == null ? JSONObject.NULL : this.deviceid);
 
         return json;
 
@@ -210,18 +182,18 @@ public class MwraContract {
 
         public static final String TABLE_NAME = "mwra";
         public static final String MWRA_NULLABLE = "NULLHACK";
-        public static final String COLUMN_ID = "_id";
-        public static final String MWRA_ID = "sno";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_USER_NAME = "user";
         public static final String MWRA_UUID = "uuid";
         public static final String MWRA_UID = "uid";
         public static final String MWRA_MWDT = "mwdt";
-        public static final String MWRA_MWVILLAGECODE = "mwvillagecode";
-        public static final String MWRA_MWSTRUCTURENO = "mwstructureno";
-        public static final String MWRA_MW01 = "mw01";
-        public static final String MWRA_MW02 = "mw02";
-        public static final String MWRA_MW03 = "mw03";
-        public static final String MWRA_MW04 = "mw04";
-        public static final String MWRA_MW05 = "mw05";
+        public static final String MWRA_DISTRICT_CODE = "district_code";
+        public static final String MWRA_PSU_CODE = "psu_code";
+        public static final String COLUMN_TAGID = "tagid";
+        public static final String COLUMN_APPVERSION = "appversion";
+        public static final String MWRA_NAME = "name";
+        public static final String MWRA_AGE_Y = "agey";
+        public static final String COLUMN_DEVICEID = "deviceid";
 
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";
