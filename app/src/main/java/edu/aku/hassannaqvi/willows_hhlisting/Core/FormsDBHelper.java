@@ -482,7 +482,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_ROUND
         };
 
-        String whereClause = null;
+        String whereClause = ListingEntry.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
@@ -531,7 +531,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleAreas.COLUMN_APPVERSION
         };
 
-        String whereClause = null;
+        String whereClause = singleAreas.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
