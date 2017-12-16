@@ -137,16 +137,18 @@ public class FamilyListingActivity extends Activity {
     }
 
     @OnClick(R.id.btnAddWomen)
-    void onBtnAddChildClick() {
+    void onBtnAddWomenClick() {
 
         if (formValidation()) {
 
             SaveDraft();
-            AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
-            AppMain.cCount++;
-            Toast.makeText(this, AppMain.cCount + ":" + AppMain.cTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
-            Intent fA = new Intent(this, AddWomenActivity.class);
-            startActivity(fA);
+            if (UpdateDB()) {
+                AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
+                AppMain.cCount++;
+                Toast.makeText(this, AppMain.cCount + ":" + AppMain.cTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
+                Intent fA = new Intent(this, AddWomenActivity.class);
+                startActivity(fA);
+            }
         }
 
     }

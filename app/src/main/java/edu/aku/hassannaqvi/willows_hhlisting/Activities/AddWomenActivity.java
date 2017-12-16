@@ -2,6 +2,7 @@ package edu.aku.hassannaqvi.willows_hhlisting.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import org.json.JSONException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.willows_hhlisting.R;
@@ -82,20 +84,17 @@ public class AddWomenActivity extends Activity {
         FormsDBHelper db = new FormsDBHelper(this);
 
 
-        long updcount = db.addForm(AppMain.lc);
+        long updcount = db.addMwra(AppMain.mc);
 
-        AppMain.lc.setID(String.valueOf(updcount));
+        AppMain.mc.setID(String.valueOf(updcount));
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.lc.setHhWomenNm(null);
-            AppMain.lc.setHh12y(null);
-     /*       AppMain.lc.setHh12m(null);*/
 
-            AppMain.lc.setUID(
-                    (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+            AppMain.mc.setUID(
+                    (AppMain.mc.getDeviceid() + AppMain.mc.getID()));
 
-            db.updateListingUID();
+            db.updateMWRAUID();
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
@@ -103,9 +102,22 @@ public class AddWomenActivity extends Activity {
     }
 
     private void SaveDraft() {
-        AppMain.lc.setHhWomenNm(icName.getText().toString());
-//        AppMain.lc.setHh12y(icAgeD.getText().toString());
-        AppMain.lc.setHh12y(icAgeY.getText().toString());
+        SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
+
+        AppMain.mc = new MwraContract();
+        AppMain.mc.setTagID(sharedPref.getString("tagName", null));
+        AppMain.mc.setMwDT(AppMain.lc.getHhDT());
+        AppMain.mc.setUUID(AppMain.lc.getUID());
+        AppMain.mc.setDeviceid(AppMain.lc.getDeviceID());
+        AppMain.mc.setUser(AppMain.userEmail);
+        AppMain.mc.setMwDistrictCode(AppMain.lc.getHh01());
+        AppMain.mc.setMwPSUNo(AppMain.lc.getHh02());
+        AppMain.mc.setAppversion(AppMain.versionName + "." + AppMain.versionCode);
+        AppMain.mc.setStructureNo(AppMain.hh03txt + "-" + AppMain.hh07txt);
+        AppMain.mc.setMwraID(String.valueOf(AppMain.cCount));
+
+        AppMain.mc.setName(icName.getText().toString());
+        AppMain.mc.setAgey(icAgeY.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
     }

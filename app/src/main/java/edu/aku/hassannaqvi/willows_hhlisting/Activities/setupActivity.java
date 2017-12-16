@@ -326,7 +326,6 @@ public class setupActivity extends Activity {
 
     }
 
-
     private boolean formValidation() {
         if (AppMain.hh02txt == null) {
             Toast.makeText(this, "Please enter PSU", Toast.LENGTH_LONG).show();

@@ -48,7 +48,7 @@ public class UsersContract {
 
         public static final String TABLE_NAME = "users";
         public static final String _ID = "id";
-        public static final String ROW_USERNAME = "username";
+        public static final String ROW_USERNAME = "COLUMN_USER_NAME";
         public static final String ROW_PASSWORD = "password";
 
 

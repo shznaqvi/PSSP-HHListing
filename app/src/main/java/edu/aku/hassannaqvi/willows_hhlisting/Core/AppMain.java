@@ -14,6 +14,7 @@ import java.util.Map;
 
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.AreasContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.ListingContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Other.TypefaceUtil;
 
 /**
@@ -32,6 +33,7 @@ public class AppMain extends Application {
     public static String TAG = "AppMain";
     public static ListingContract lc;
     public static AreasContract ac;
+    public static MwraContract mc;
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static int hh03txt = 0;

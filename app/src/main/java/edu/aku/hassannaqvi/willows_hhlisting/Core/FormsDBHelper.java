@@ -26,6 +26,8 @@ import edu.aku.hassannaqvi.willows_hhlisting.Contracts.PSUsContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.PSUsContract.singlePSU;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.UsersContract.singleUser;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract.MwraEntry;
 
 
 /**
@@ -116,12 +118,32 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 + singleUser.ROW_USERNAME + " TEXT,"
                 + singleUser.ROW_PASSWORD + " TEXT );";
 
+        final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
+                MwraEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                MwraEntry.COLUMN_USER_NAME + " TEXT," +
+                MwraEntry.MWRA_ID + " TEXT," +
+                MwraEntry.MWRA_UID + " TEXT," +
+                MwraEntry.MWRA_UUID + " TEXT," +
+                MwraEntry.COLUMN_DEVICEID + " TEXT," +
+                MwraEntry.MWRA_MWDT + " TEXT," +
+                MwraEntry.MWRA_DISTRICT_CODE + " TEXT," +
+                MwraEntry.MWRA_PSU_CODE + " TEXT," +
+                MwraEntry.MWRA_STRUCTURE_NO + " TEXT," +
+                MwraEntry.COLUMN_TAGID + " TEXT," +
+                MwraEntry.COLUMN_APPVERSION + " TEXT," +
+                MwraEntry.MWRA_NAME + " TEXT," +
+                MwraEntry.MWRA_AGE_Y + " TEXT," +
+                MwraEntry.COLUMN_SYNCED + " TEXT, " +
+                MwraEntry.COLUMN_SYNCED_DATE + " TEXT " +
+                " );";
+
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
         db.execSQL(SQL_CREATE_AREA_TABLE);
+        db.execSQL(SQL_CREATE_MWRA_TABLE);
     }
 
     @Override
@@ -132,6 +154,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleAreas.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + MwraEntry.TABLE_NAME);
         onCreate(db);
     }
 
@@ -200,6 +223,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 whereArgs);
     }
 
+    public void updateSyncedMWRA(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(MwraEntry.COLUMN_SYNCED, true);
+        values.put(MwraEntry.COLUMN_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = MwraEntry.COLUMN_ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                MwraEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
     public void syncUser(JSONArray userlist) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(UsersContract.singleUser.TABLE_NAME, null, null);
@@ -208,7 +250,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             JSONArray jsonArray = userlist;
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectUser = jsonArray.getJSONObject(i);
-                String userName = jsonObjectUser.getString("username");
+                String userName = jsonObjectUser.getString("COLUMN_USER_NAME");
                 String password = jsonObjectUser.getString("password");
 
 
@@ -324,6 +366,38 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
+    public Long addMwra(MwraContract mwra) {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+
+        values.put(MwraEntry.COLUMN_ID, mwra.getID());
+        values.put(MwraEntry.COLUMN_USER_NAME, mwra.getUser());
+        values.put(MwraEntry.MWRA_UUID, mwra.getUUID());
+        values.put(MwraEntry.MWRA_UID, mwra.getUID());
+        values.put(MwraEntry.MWRA_MWDT, mwra.getMwDT());
+        values.put(MwraEntry.MWRA_DISTRICT_CODE, mwra.getMwDistrictCode());
+        values.put(MwraEntry.MWRA_PSU_CODE, mwra.getMwPSUNo());
+        values.put(MwraEntry.COLUMN_TAGID, mwra.getTagID());
+        values.put(MwraEntry.COLUMN_APPVERSION, mwra.getAppversion());
+        values.put(MwraEntry.MWRA_NAME, mwra.getName());
+        values.put(MwraEntry.MWRA_AGE_Y, mwra.getAgey());
+        values.put(MwraEntry.COLUMN_DEVICEID, mwra.getDeviceid());
+        values.put(MwraEntry.MWRA_ID, mwra.getMwraID());
+        values.put(MwraEntry.MWRA_STRUCTURE_NO, mwra.getStructureNo());
+
+        long newRowId;
+        newRowId = db.insert(
+                MwraEntry.TABLE_NAME,
+                MwraEntry.MWRA_NULLABLE,
+                values);
+
+        return newRowId;
+    }
+
     public void updateListingUID() {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -355,6 +429,24 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         int count = db.update(
                 singleAreas.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
+    public void updateMWRAUID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(MwraEntry.MWRA_UID, AppMain.mc.getUID());
+
+// Which row to update, based on the title
+        String where = MwraEntry.COLUMN_ID + " = ?";
+        String[] whereArgs = {AppMain.mc.getID().toString()};
+
+        int count = db.update(
+                MwraEntry.TABLE_NAME,
                 values,
                 where,
                 whereArgs);
@@ -394,7 +486,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_ROUND
         };
 
-        String whereClause = null;
+        String whereClause = ListingEntry.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
@@ -443,7 +535,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleAreas.COLUMN_APPVERSION
         };
 
-        String whereClause = null;
+        String whereClause = singleAreas.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
@@ -475,6 +567,60 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             }
         }
         return allDC;
+    }
+
+    public Collection<MwraContract> getAllMwras() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                MwraEntry.COLUMN_ID,
+                MwraEntry.COLUMN_USER_NAME,
+                MwraEntry.MWRA_UUID,
+                MwraEntry.MWRA_UID,
+                MwraEntry.MWRA_MWDT,
+                MwraEntry.MWRA_DISTRICT_CODE,
+                MwraEntry.MWRA_PSU_CODE,
+                MwraEntry.COLUMN_TAGID,
+                MwraEntry.COLUMN_APPVERSION,
+                MwraEntry.MWRA_NAME,
+                MwraEntry.MWRA_AGE_Y,
+                MwraEntry.COLUMN_DEVICEID,
+                MwraEntry.MWRA_ID,
+                MwraEntry.MWRA_STRUCTURE_NO,
+        };
+
+        String whereClause = MwraEntry.COLUMN_SYNCED + " is null";
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                MwraEntry.COLUMN_ID + " ASC";
+
+        Collection<MwraContract> allMWRA = new ArrayList<MwraContract>();
+        try {
+            c = db.query(
+                    MwraEntry.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                MwraContract mwra = new MwraContract();
+                allMWRA.add(mwra.Hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allMWRA;
     }
 
     public Collection<DistrictsContract> getAllDistricts() {
