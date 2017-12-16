@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
@@ -36,9 +35,11 @@ public class FamilyListingActivity extends Activity {
     @BindView(R.id.hh09)
     EditText hh09;
     @BindView(R.id.hh10)
-    Switch hh10;
+    EditText hh10;
     @BindView(R.id.hh11)
-    EditText hh11;
+    Switch hh11;
+    @BindView(R.id.hh12)
+    EditText hh12;
     @BindView(R.id.btnAddWomen)
     Button btnAddChild;
     @BindView(R.id.btnAddFamily)
@@ -74,20 +75,20 @@ public class FamilyListingActivity extends Activity {
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
 
-        hh10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        hh11.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    hh11.setVisibility(View.VISIBLE);
-                    hh11.requestFocus();
+                    hh12.setVisibility(View.VISIBLE);
+                    hh12.requestFocus();
                 } else {
-                    hh11.setVisibility(View.INVISIBLE);
-                    hh11.setText(null);
+                    hh12.setVisibility(View.INVISIBLE);
+                    hh12.setText(null);
                 }
             }
         });
 
-        hh11.addTextChangedListener(new TextWatcher() {
+        hh12.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -128,8 +129,8 @@ public class FamilyListingActivity extends Activity {
                     fldGrpHH09.setVisibility(View.GONE);
 
                     hh09.setText(null);
-                    hh11.setText(null);
-                    hh10.setChecked(false);
+                    hh12.setText(null);
+                    hh11.setChecked(false);
                 }
             }
         });
@@ -143,7 +144,7 @@ public class FamilyListingActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
+                AppMain.cTotal = Integer.parseInt(hh12.getText().toString());
                 AppMain.cCount++;
                 Toast.makeText(this, AppMain.cCount + ":" + AppMain.cTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
                 Intent fA = new Intent(this, AddWomenActivity.class);
@@ -157,8 +158,9 @@ public class FamilyListingActivity extends Activity {
 
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
-        AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
-        AppMain.lc.setHh11(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString());
+        AppMain.lc.setHh10(hh10.getText().toString());
+        AppMain.lc.setHh11(hh11.isChecked() ? "1" : "2");
+        AppMain.lc.setHh12(hh12.getText().toString().isEmpty() ? "0" : hh12.getText().toString());
         AppMain.lc.setStatus(hh13a.isChecked() ? "1" : hh13b.isChecked() ? "2" : "0");
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
@@ -190,30 +192,51 @@ public class FamilyListingActivity extends Activity {
 
         if (hh13a.isChecked()) {
             if (hh09.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Please enter contact number", Toast.LENGTH_LONG).show();
-                hh09.setError("Please enter contact number");
-                Log.i(TAG, "Please enter contact number");
+                Toast.makeText(this, "ERROR(empty): " + getString(R.string.hh09), Toast.LENGTH_LONG).show();
+                hh09.setError("This data is Required!");    // Set Error on last radio button
+                Log.i(TAG, "hh09: This data is Required!");
+                hh09.requestFocus();
                 return false;
             } else {
                 hh09.setError(null);
             }
 
-            if (hh10.isChecked() && hh11.getText().toString().isEmpty()) {
+            if (hh10.getText().toString().isEmpty()) {
+                Toast.makeText(this, "ERROR(empty): " + getString(R.string.hh10), Toast.LENGTH_LONG).show();
+                hh10.setError("This data is Required!");    // Set Error on last radio button
+                Log.i(TAG, "hh10: This data is Required!");
+                hh10.requestFocus();
+                return false;
+            } else {
+                hh10.setError(null);
+            }
+
+            if (Integer.valueOf(hh10.getText().toString()) > Integer.valueOf(hh09.getText().toString())) {
+                Toast.makeText(this, "Not greater then total womens", Toast.LENGTH_LONG).show();
+                hh10.setError("Not greater then total women!");    // Set Error on last radio button
+                Log.i(TAG, "hh10: Not greater then total women!");
+                hh10.requestFocus();
+                return false;
+            } else {
+                hh10.setError(null);
+            }
+
+            if (hh11.isChecked() && hh12.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please enter women count", Toast.LENGTH_LONG).show();
-                hh11.setError("Please enter women count");
+                hh12.setError("Please enter women count");
                 Log.i(TAG, "Please enter women count");
                 return false;
             } else {
-                hh11.setError(null);
+                hh12.setError(null);
             }
 
-            if (!hh11.getText().toString().isEmpty() && Integer.valueOf(hh11.getText().toString()) < 1) {
+            if (!hh12.getText().toString().isEmpty() && Integer.valueOf(hh12.getText().toString()) < 1) {
                 Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
-                hh11.setError("Invalid Value!");
+                hh12.setError("Invalid Value!");
                 Log.i(TAG, "Invalid Value!");
                 return false;
             } else {
-                hh11.setError(null);
+                hh12.setError(null);
             }
         }
 

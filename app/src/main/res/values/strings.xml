@@ -17,9 +17,11 @@
     <string name="hh06"> How many families? </string>
     <string name="hh07"> Family code </string>
     <string name="hh08"> Enter the Name of Head of Household </string>
-    <string name="hh09"> Contact no </string>
-    <string name="hh10"> How many of these females (age 16-44) are married? </string>
-    <string name="hh11"> How many females? </string>
+    <string name="hh09"> How many females are in this household? </string>
+    <string name="hh09a"> No of females </string>
+    <string name="hh10"> How many of these females are aged from 16 years to 44 years? </string>
+    <string name="hh11"> How many of these females (age 16-44) are married? </string>
+    <string name="hh12"> How many females? </string>
     <string name="hh13"> Do you consent to participate? </string>
 
     <string name="hl105"> Do you enter in this PSU first time? </string>
@@ -31,7 +33,7 @@
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
     <string name="women_name"> Woman Name </string>
     <string name="women_age"> Woman Age in Years </string>
-    <string name="hh12m">ماہ</string>
+    <!--<string name="hh12">ماہ</string>-->
     <string name="hh12d">دن</string>
     <string name="hh12y">Year</string>
 

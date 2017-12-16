@@ -33,9 +33,9 @@ public class HouseholdListingActivity extends Activity {
     EditText hh08;
     @BindView(R.id.hh09)
     Switch hh09;
-    @BindView(R.id.hh10)
-    EditText hh10;
     @BindView(R.id.hh11)
+    EditText hh10;
+    @BindView(R.id.hh12)
     Switch hh11;
     @BindView(R.id.btnAddWomen)
     Button btnAddChild;
