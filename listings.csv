@@ -1,4 +1,4 @@
-_id,uid,hhdt,hh01,hh02,hh03,hh04,hh04x,hh05,hh06,hh07,hh07n,hh08,hh09,hh10,hh11,hh12m,hh12y,child_name,deviceid,gpslat,gpslng,gpstime,round,gpsacc
+_id,uid,hhdt,hh01,hh02,hh03,hh04,hh04x,hh05,hh06,hh07,hh07n,hh08,hh09,hh10,hh11,hh12,hh12y,child_name,deviceid,gpslat,gpslng,gpstime,round,gpsacc
 1,,8/11/2016 12:02,0,3001,1,2,,2,,,,,,,,,,,ffe3989a61453040,,,,1,
 2,,8/11/2016 12:03,0,3001,2,1,,1,2,A,,gulshir,0,1,1,11,0,suliman,ffe3989a61453040,1478675138000,,,1,
 3,,8/11/2016 12:03,0,3001,2,1,,1,2,B,,nasir,0,2,0,11,0,suliman,ffe3989a61453040,1478675138000,,,1,

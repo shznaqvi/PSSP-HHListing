@@ -69,7 +69,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH12m + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12y + " TEXT, " +
                 ListingEntry.COLUMN_NAME_WOMEN_NAME + " TEXT, " +
                 ListingEntry.COLUMN_USERNAME + " TEXT, " +
@@ -315,7 +315,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
-        values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
+        values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH12y, lc.getHh12y());
         values.put(ListingEntry.COLUMN_NAME_WOMEN_NAME, lc.getHhWomenNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
@@ -472,7 +472,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
-                ListingEntry.COLUMN_NAME_HH12m,
+                ListingEntry.COLUMN_NAME_HH12,
                 ListingEntry.COLUMN_NAME_HH12y,
                 ListingEntry.COLUMN_NAME_WOMEN_NAME,
                 ListingEntry.COLUMN_USERNAME,
@@ -728,7 +728,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
-        values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
+        values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH12y, lc.getHh12y());
         values.put(ListingEntry.COLUMN_NAME_WOMEN_NAME, lc.getHhWomenNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
@@ -761,7 +761,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
-        lc.setHh12m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12m))));
+        lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
         lc.setHh12y(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12y))));
         lc.setHhWomenNm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_WOMEN_NAME))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
