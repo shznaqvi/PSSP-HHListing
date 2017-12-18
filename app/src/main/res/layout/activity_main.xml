@@ -18,19 +18,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HouseHold Listing Form" />
+            android:text="Household Line Listing" />
 
         <Spinner
             android:id="@+id/MN01"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="4dp">
 
         </Spinner>
 
         <Spinner
             android:id="@+id/MN02"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="4dp">
 
         </Spinner>
 
@@ -38,6 +40,7 @@
             android:id="@+id/openForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:onClick="openForm"
             android:text="Add new household details" />
 
@@ -45,14 +48,18 @@
             android:id="@+id/syncFunction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:onClick="syncFunction"
+
             android:text="Sync Data" />
 
         <Button
             android:id="@+id/openDBManager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:onClick="openDB"
+
             android:text="Open DB Manager" />
 
         <TextView
