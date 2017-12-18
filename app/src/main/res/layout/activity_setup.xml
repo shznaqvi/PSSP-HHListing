@@ -59,6 +59,27 @@
 
             <!--Structure No. (Auto-Generate)-->
 
+        </LinearLayout>
+
+        <!--Area & Landmark-->
+        <LinearLayout
+            android:id="@+id/fldGrpHH01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/hl106" />
+
+            <EditText
+                android:id="@+id/hl106"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hl106" />
 
         </LinearLayout>
 
@@ -86,28 +107,6 @@
         </LinearLayout>
 
         <!--// Structure Type-->
-
-        <!--Area & Landmark-->
-        <LinearLayout
-            android:id="@+id/fldGrpHH01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/hl106" />
-
-                <EditText
-                    android:id="@+id/hl106"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hl106" />
-
-        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
