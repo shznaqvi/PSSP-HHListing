@@ -1,0 +1,18 @@
+[
+  {
+    "outputType": {
+      "type": "APK"
+    },
+    "apkInfo": {
+      "type": "MAIN",
+      "splits": [],
+      "versionCode": 180
+    },
+    "path": "app-debug.apk",
+    "properties": {
+      "packageId": "edu.aku.hassannaqvi.willows_hhlisting",
+      "split": "",
+      "minSdkVersion": "22"
+    }
+  }
+]
