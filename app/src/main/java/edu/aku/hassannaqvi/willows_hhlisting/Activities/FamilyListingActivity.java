@@ -36,8 +36,8 @@ public class FamilyListingActivity extends Activity {
     EditText hh09;
     @BindView(R.id.hh10)
     EditText hh10;
-    @BindView(R.id.hh11)
-    Switch hh11;
+/*    @BindView(R.id.hh11)
+    Switch hh11;*/
     @BindView(R.id.hh12)
     EditText hh12;
     @BindView(R.id.btnAddWomen)
@@ -75,7 +75,7 @@ public class FamilyListingActivity extends Activity {
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
 
-        hh11.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+/*        hh11.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -86,7 +86,7 @@ public class FamilyListingActivity extends Activity {
                     hh12.setText(null);
                 }
             }
-        });
+        });*/
 
         hh12.addTextChangedListener(new TextWatcher() {
             @Override
@@ -129,13 +129,14 @@ public class FamilyListingActivity extends Activity {
                     fldGrpHH09.setVisibility(View.GONE);
 
                     hh09.setText(null);
+                    hh10.setText(null);
                     hh12.setText(null);
-                    hh11.setChecked(false);
+//                    hh11.setChecked(false);
                 }
             }
         });
 
-        hh09.addTextChangedListener(new TextWatcher() {
+/*        hh09.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -159,7 +160,7 @@ public class FamilyListingActivity extends Activity {
             public void afterTextChanged(Editable editable) {
 
             }
-        });
+        });*/
 
     }
 
@@ -185,7 +186,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
         AppMain.lc.setHh10(hh10.getText().toString());
-        AppMain.lc.setHh11(hh11.isChecked() ? "1" : "2");
+//        AppMain.lc.setHh11(hh11.isChecked() ? "1" : "2");
         AppMain.lc.setHh12(hh12.getText().toString().isEmpty() ? "0" : hh12.getText().toString());
         AppMain.lc.setStatus(hh13a.isChecked() ? "1" : hh13b.isChecked() ? "2" : "0");
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
@@ -247,7 +248,7 @@ public class FamilyListingActivity extends Activity {
                 hh10.setError(null);
             }
 
-            if (hh11.isChecked()) {
+//            if (hh11.isChecked()) {
                 if (hh12.getText().toString().isEmpty()) {
                     Toast.makeText(this, "Please enter women count", Toast.LENGTH_LONG).show();
                     hh12.setError("Please enter women count");
@@ -257,7 +258,7 @@ public class FamilyListingActivity extends Activity {
                     hh12.setError(null);
                 }
 
-                if (Integer.valueOf(hh12.getText().toString()) < 1 || Integer.valueOf(hh10.getText().toString()) < Integer.valueOf(hh12.getText().toString())) {
+                if (Integer.valueOf(hh10.getText().toString()) < Integer.valueOf(hh12.getText().toString())) {
                     Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
                     hh12.setError("Invalid Value!");
                     Log.i(TAG, "Invalid Value!");
@@ -265,7 +266,7 @@ public class FamilyListingActivity extends Activity {
                 } else {
                     hh12.setError(null);
                 }
-            }
+//            }
         }
 
         return true;

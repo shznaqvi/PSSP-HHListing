@@ -76,19 +76,11 @@ public class setupActivity extends Activity {
     @BindView(R.id.btnChangePSU)
     Button btnChangPSU;
 
-    @BindView(R.id.hl105)
-    RadioGroup hl105;
-    @BindView(R.id.hl105a)
-    RadioButton hl105a;
-    @BindView(R.id.hl105b)
-    RadioButton hl105b;
     @BindView(R.id.hl106)
     EditText hl106;
 
     @BindView(R.id.fldGrpHH01)
     LinearLayout fldGrpHH01;
-    @BindView(R.id.fldGrpHH02)
-    LinearLayout fldGrpHH02;
 
     Boolean flagDT = false;
 
@@ -170,7 +162,7 @@ public class setupActivity extends Activity {
                 } else {
                     AppMain.hh07txt = "X";
                     hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
-                    hh06.setVisibility(View.GONE);
+                    hh06.setVisibility(View.INVISIBLE);
                     hh06.setText(null);
                 }
             }
@@ -183,18 +175,6 @@ public class setupActivity extends Activity {
         if (flagDT) {
             fldGrpHH01.setVisibility(View.VISIBLE);
         }
-
-        hl105.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.hl105a){
-                    fldGrpHH02.setVisibility(View.VISIBLE);
-                }else {
-                    fldGrpHH02.setVisibility(View.GONE);
-                    hl106.setText(null);
-                }
-            }
-        });
 
     }
 
@@ -226,7 +206,7 @@ public class setupActivity extends Activity {
     private void SaveDraft() {
         SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
 
-        if (flagDT && hl105a.isChecked()) {
+        if (flagDT) {
             AppMain.ac = new AreasContract();
             AppMain.ac.setTagid(sharedPref.getString("tagName", null));
             AppMain.ac.setFormdate(dtToday);
@@ -337,19 +317,7 @@ public class setupActivity extends Activity {
         }
 
         if (flagDT) {
-            if (hl105.getCheckedRadioButtonId() == -1) {
-                Toast.makeText(this, "ERROR(empty): " + getString(R.string.hl105), Toast.LENGTH_SHORT).show();
-                hl105b.setError("This data is Required!");    // Set Error on last radio button
-                hl105b.setFocusable(true);
-                hl105b.setFocusableInTouchMode(true);
-                hl105b.requestFocus();
-                Log.i(TAG, "hl105: This data is Required!");
-                return false;
-            } else {
-                hl105b.setError(null);
-            }
-
-            if (hl105a.isChecked() && hl106.getText().toString().isEmpty()) {
+            if (hl106.getText().toString().isEmpty()) {
                 Toast.makeText(this, "ERROR(Empty) "+ String.valueOf(R.string.hl106), Toast.LENGTH_LONG).show();
                 hl106.setError("ERROR(Empty) data required");
                 Log.i(TAG, "hl106: data required");
