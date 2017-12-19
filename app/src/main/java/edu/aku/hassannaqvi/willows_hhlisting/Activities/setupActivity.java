@@ -27,8 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.AreasContract;
-import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.ListingContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.willows_hhlisting.R;
 
@@ -125,7 +125,7 @@ public class setupActivity extends Activity {
                     AppMain.hh07txt = null;
                 }
 
-                hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
+                hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt + "-" + AppMain.hh03txt);
                 if (hh04a.isChecked()) {
                     fldGrpHH04.setVisibility(View.VISIBLE);
                     btnAddHousehold.setVisibility(View.GONE);
@@ -155,13 +155,13 @@ public class setupActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     AppMain.hh07txt = "A";
-                    hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
+                    hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt + "-" + AppMain.hh03txt);
                     hh06.setVisibility(View.VISIBLE);
                     hh06.requestFocus();
 
                 } else {
                     AppMain.hh07txt = "X";
-                    hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
+                    hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt + "-" + AppMain.hh03txt);
                     hh06.setVisibility(View.INVISIBLE);
                     hh06.setText(null);
                 }

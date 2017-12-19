@@ -69,21 +69,44 @@
                 android:id="@+id/hh13a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+
                 android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/hh13b"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+
                 android:text="@string/no" />
 
         </RadioGroup>
+
 
         <LinearLayout
             android:id="@+id/fldGrpHH09"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:text="@string/hhadd" />
+
+            <EditText
+                android:id="@+id/hhadd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:digits="@string/txtMsg"
+                android:hint="@string/hhadd"
+                android:inputType="text"
+                android:maxLength="24" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
