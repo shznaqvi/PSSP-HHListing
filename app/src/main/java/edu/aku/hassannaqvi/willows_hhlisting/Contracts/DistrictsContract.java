@@ -56,7 +56,7 @@ public class DistrictsContract {
         public static final String COLUMN_DISTRICT_CODE = "uc_code";
         public static final String COLUMN_DISTRICT_NAME = "uc";
 
-        public static String _URI = "districts.php";
+        public static String _URI = "ucs.php";
     }
 
 }

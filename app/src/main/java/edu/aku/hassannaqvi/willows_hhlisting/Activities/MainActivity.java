@@ -376,22 +376,23 @@ public class MainActivity extends Activity {
                 @Override
                 public void run() {
                     SyncListing ff = new SyncListing(mContext);
+
+                    GetDistricts gd = new GetDistricts(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing UCs", Toast.LENGTH_SHORT).show();
+                    gd.execute();
+
+                    GetPSUs gp = new GetPSUs(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
+                    gp.execute();
+
                     Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
                     ff.execute();
 
                     Toast.makeText(getApplicationContext(), "Syncing MWRAs", Toast.LENGTH_SHORT).show();
                     new SyncMWRAs(mContext).execute();
 
-                    GetPSUs gp = new GetPSUs(mContext);
-                    Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
-                    gp.execute();
-
                     Toast.makeText(getApplicationContext(), "Syncing Areas", Toast.LENGTH_SHORT).show();
                     new SyncAreas(mContext).execute();
-
-                    GetDistricts gd = new GetDistricts(mContext);
-                    Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
-                    gd.execute();
 
                     GetUsers gu = new GetUsers(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
