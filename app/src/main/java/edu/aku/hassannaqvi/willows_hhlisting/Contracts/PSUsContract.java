@@ -77,11 +77,11 @@ public class PSUsContract {
         public static final String TABLE_NAME = "PSUs";
         public static final String COLUMN_NAME_NULLABLE = "nullColumnHack";
         public static final String _ID = "id";
-        public static final String COLUMN_PSU_CODE = "psu_code";
-        public static final String COLUMN_PSU_NAME = "psu_name";
-        public static final String COLUMN_DISTRICT_CODE = "district_code";
+        public static final String COLUMN_PSU_CODE = "cluster_code";
+        public static final String COLUMN_PSU_NAME = "cluster_name";
+        public static final String COLUMN_DISTRICT_CODE = "uc_code";
 
-        public static final String _URI = "psus.php";
+        public static final String _URI = "clusters.php";
     }
 
 }

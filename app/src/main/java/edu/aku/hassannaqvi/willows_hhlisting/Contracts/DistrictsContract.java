@@ -50,13 +50,13 @@ public class DistrictsContract {
 
     public static abstract class singleDistrict implements BaseColumns {
 
-        public static final String TABLE_NAME = "Districts";
+        public static final String TABLE_NAME = "UCs";
         public static final String COLUMN_NAME_NULLABLE = "nullColumnHack";
         public static final String _ID = "_ID";
-        public static final String COLUMN_DISTRICT_CODE = "district_code";
-        public static final String COLUMN_DISTRICT_NAME = "district";
+        public static final String COLUMN_DISTRICT_CODE = "uc_code";
+        public static final String COLUMN_DISTRICT_NAME = "uc";
 
-        public static String _URI = "districts.php";
+        public static String _URI = "ucs.php";
     }
 
 }
