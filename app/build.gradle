@@ -18,8 +18,8 @@ android {
 
         defaultConfig {
             applicationId "edu.aku.hassannaqvi.willows_hhlisting"
-            minSdkVersion 19
-            targetSdkVersion 19
+            minSdkVersion 22
+            targetSdkVersion 22
             versionCode code
             versionName "1.5"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
