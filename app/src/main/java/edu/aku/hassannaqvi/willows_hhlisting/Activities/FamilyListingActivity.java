@@ -38,8 +38,7 @@ public class FamilyListingActivity extends Activity {
     Switch hh11;*/
     @BindView(R.id.hh12)
     EditText hh12;
-    @BindView(R.id.hhadd)
-    EditText hhadd;
+
     @BindView(R.id.btnAddWomen)
     Button btnAddChild;
     @BindView(R.id.btnAddFamily)
@@ -186,7 +185,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
         AppMain.lc.setHh10(hh10.getText().toString());
-        AppMain.lc.setHh10(hhadd.getText().toString());
+
 //        AppMain.lc.setHh11(hh11.isChecked() ? "1" : "2");
         AppMain.lc.setHh12(hh12.getText().toString().isEmpty() ? "0" : hh12.getText().toString());
         AppMain.lc.setStatus(hh13a.isChecked() ? "1" : hh13b.isChecked() ? "2" : "0");

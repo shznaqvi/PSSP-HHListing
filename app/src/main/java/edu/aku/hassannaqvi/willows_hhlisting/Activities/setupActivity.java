@@ -82,6 +82,9 @@ public class setupActivity extends Activity {
     @BindView(R.id.fldGrpHH01)
     LinearLayout fldGrpHH01;
 
+    @BindView(R.id.hhadd)
+    EditText hhadd;
+
     Boolean flagDT = false;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
@@ -133,6 +136,7 @@ public class setupActivity extends Activity {
                     fldGrpHH04.setVisibility(View.GONE);
                     hh05.setChecked(false);
                     hh06.setText(null);
+                    hhadd.setText(null);
                     btnAddHousehold.setVisibility(View.VISIBLE);
                 }
                 if (hh04g.isChecked()) {
@@ -262,6 +266,8 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh06(hh06.getText().toString());
         AppMain.lc.setHh07(AppMain.hh07txt);
 
+        AppMain.lc.setHh11(hhadd.getText().toString());
+
         AppMain.lc.setDeviceID(deviceId);
 
         setGPS();
@@ -343,6 +349,15 @@ public class setupActivity extends Activity {
             return false;
         } else {
             hh04x88.setError(null);
+        }
+
+        if (hh04a.isChecked() && hhadd.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter address", Toast.LENGTH_LONG).show();
+            hhadd.setError("Please enter address");
+            Log.i(TAG, "Please enter address");
+            return false;
+        } else {
+            hhadd.setError(null);
         }
 
         if (hh05.isChecked() && hh06.getText().toString().isEmpty()) {
