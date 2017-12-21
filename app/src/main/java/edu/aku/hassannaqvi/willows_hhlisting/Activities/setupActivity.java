@@ -266,7 +266,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh06(hh06.getText().toString());
         AppMain.lc.setHh07(AppMain.hh07txt);
 
-        AppMain.lc.setHh11(hhadd.getText().toString());
+        AppMain.lc.setHhadd(hhadd.getText().toString());
 
         AppMain.lc.setDeviceID(deviceId);
 
