@@ -26,6 +26,7 @@ public class ListingContract {
     public String hh09;
     public String hh10;
     public String hh11;
+    public String hhadd;
     public String hh12;
     public String hh12y;
     public String hhWomenNm;
@@ -191,6 +192,14 @@ public class ListingContract {
         this.hh11 = hh11;
     }
 
+    public String getHhadd() {
+        return hhadd;
+    }
+
+    public void setHhadd(String hhadd) {
+        this.hhadd = hhadd;
+    }
+
     public String getHh12() {
         return hh12;
     }
@@ -304,6 +313,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
+        json.put(ListingEntry.COLUMN_NAME_HHADD, this.hhadd);
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
         json.put(ListingEntry.COLUMN_NAME_HH12, this.hh12);
         json.put(ListingEntry.COLUMN_NAME_HH12y, this.hh12y);
@@ -341,6 +351,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH09 = "hh09";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
+        public static final String COLUMN_NAME_HHADD = "hhadd";
         public static final String COLUMN_NAME_HH12 = "hh12";
         public static final String COLUMN_NAME_HH12y = "hh12y";
         public static final String COLUMN_NAME_WOMEN_NAME = "women_name";

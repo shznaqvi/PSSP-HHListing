@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +28,7 @@ public class AddWomenActivity extends Activity {
 
 
     @BindView(R.id.activity_add_women)
-    LinearLayout activityAddWomen;
+    ScrollView activityAddWomen;
     @BindView(R.id.txtWomenListing)
     TextView txtWomenListing;
     @BindView(R.id.icName)

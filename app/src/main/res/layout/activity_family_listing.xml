@@ -69,15 +69,20 @@
                 android:id="@+id/hh13a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+
                 android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/hh13b"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+
                 android:text="@string/no" />
 
         </RadioGroup>
+
 
         <LinearLayout
             android:id="@+id/fldGrpHH09"

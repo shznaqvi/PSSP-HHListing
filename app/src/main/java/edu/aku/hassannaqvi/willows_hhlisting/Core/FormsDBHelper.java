@@ -22,12 +22,12 @@ import edu.aku.hassannaqvi.willows_hhlisting.Contracts.DistrictsContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.DistrictsContract.singleDistrict;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.ListingContract.ListingEntry;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract.MwraEntry;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.PSUsContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.PSUsContract.singlePSU;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.UsersContract.singleUser;
-import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract;
-import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract.MwraEntry;
 
 
 /**
@@ -35,11 +35,11 @@ import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract.MwraEntry;
  */
 public class FormsDBHelper extends SQLiteOpenHelper {
 
-    // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 4;
     // The name of database.
     public static final String DATABASE_NAME = "willows-hhl.db";
     public static final String DB_NAME = "willows-hhl_copy.db";
+    // Change this when you change the database schema.
+    private static final int DATABASE_VERSION = 4;
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -69,6 +69,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HHADD + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12y + " TEXT, " +
                 ListingEntry.COLUMN_NAME_WOMEN_NAME + " TEXT, " +
@@ -315,6 +316,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
+        values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH12y, lc.getHh12y());
         values.put(ListingEntry.COLUMN_NAME_WOMEN_NAME, lc.getHhWomenNm());
@@ -472,6 +474,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
+                ListingEntry.COLUMN_NAME_HHADD,
                 ListingEntry.COLUMN_NAME_HH12,
                 ListingEntry.COLUMN_NAME_HH12y,
                 ListingEntry.COLUMN_NAME_WOMEN_NAME,
@@ -728,6 +731,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
+        values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH12y, lc.getHh12y());
         values.put(ListingEntry.COLUMN_NAME_WOMEN_NAME, lc.getHhWomenNm());
@@ -761,6 +765,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
+        lc.setHhadd(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHADD))));
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
         lc.setHh12y(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12y))));
         lc.setHhWomenNm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_WOMEN_NAME))));
