@@ -219,25 +219,25 @@
                 android:inputType="text"
                 android:maxLength="24" />
 
+
+
+                <!--Are there more than one Families?-->
+                <TextView
+                    android:layout_width="600dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/hh05" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-
-                <!--Are there more than one Families?-->
-                <TextView
+                <Switch
+                    android:id="@+id/hh05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="@string/hh05" />
-
-                <Switch
-                    android:id="@+id/hh05"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_weight="1"
                     android:textOff="@string/no"
                     android:textOn="@string/yes" />
 
@@ -268,7 +268,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:onClick="addFamily"
                 android:text="Add A Family" />
         </LinearLayout>
 

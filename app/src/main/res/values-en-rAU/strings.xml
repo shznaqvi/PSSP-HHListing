@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">WILLOWS-HHLISTING</string>
+    <string name="hh01"> ڈسٹرکٹ کوڈ </string>
+    <string name="hh02"> PSU کوڈ </string>
+    <string name="hh03"> اسٹرکچر نمبر </string>
+    <string name="hhadd"> پتہ </string>
+    <string name="hh04"> تعمیراتی ساخت </string>
+    <string name="hh04a"> رہائشی </string>
+    <string name="hh04b"> دکان/مارکیٹ/پلازہ </string>
+    <string name="hh04c"> مسجد/گرجاگھر/مندر </string>
+    <string name="hh04d"> اسکول/کالج/یونیورسٹی </string>
+    <string name="hh04e"> مرکز صحت </string>
+    <string name="hh04f"> خالی/بند/زیرتعمیر </string>
+    <string name="hh04g"> مزید عمارت نہیں </string>
+    <string name="hh04x"> دیگر (وضاحت کریں) </string>
+    <string name="hh05"> کیا اس عمارت میں ایک سے زیادہ خاندان رہائش پزیر ہیں؟ </string>
+    <string name="hh06"> خاندان کی تعداد؟ </string>
+    <string name="hh07"> خاندان نمبر </string>
+    <string name="hh08"> خاندان کے سربراہ کا نام </string>
+    <string name="hh09"> اس گھر میں کتنی عورتیں ہیں؟ </string>
+    <string name="hh09a"> عورتوں کی تعداد؟ </string>
+    <string name="hh10"> اس گھر میں رہنے والی کتنی عورتوں کی عمر 16 سال سے 44 سال کے درمیان ہے؟ </string>
+    <string name="hh11"> اس گھر میں 16 سے 44 سال کی شادی شدہ عورتوں کی تعداد کتنی ہے؟ </string>
+    <string name="hh12"> عورتوں کی تعداد؟ </string>
+    <string name="hh13"> کیا آپ تحقیق میں شمولیت کے لئے رضامند ہیں؟ </string>
+
+    <string name="hl105"> کیا آپ اس پی ایس یو میں پہلی بار داخل ہوۓ ہیں </string>
+    <string name="hl106"> اس علاقے کا نام درج کریں اور علاقائی نشانیوں کی وضا حت کریں جنکی مدد سے آپ نے اس  پی ایس یو تک  رسائی حاصل کی۔ </string>
+
+    <string name="yes"> ہاں </string>
+    <string name="no"> نہیں </string>
+
+    <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
+    <string name="women_name"> عورت کا نام </string>
+    <string name="women_age"> عورت کی عمر </string>
+    <!--<string name="hh12">ماہ</string>-->
+    <string name="hh12d">دن</string>
+    <string name="hh12y">سال</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Log in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+</resources>
