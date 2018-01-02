@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:text="@string/hh08" />
 
             <EditText
@@ -47,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="@string/txtMsg"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:hint="@string/hh08"
                 android:inputType="text"
                 android:maxLength="24" />

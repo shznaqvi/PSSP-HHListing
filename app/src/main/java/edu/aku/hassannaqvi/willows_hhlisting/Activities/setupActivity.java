@@ -324,7 +324,7 @@ public class setupActivity extends Activity {
 
         if (flagDT) {
             if (hl106.getText().toString().isEmpty()) {
-                Toast.makeText(this, "ERROR(Empty) "+ String.valueOf(R.string.hl106), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "ERROR(Empty) Area name with landmarks", Toast.LENGTH_LONG).show();
                 hl106.setError("ERROR(Empty) data required");
                 Log.i(TAG, "hl106: data required");
                 return false;
@@ -334,7 +334,7 @@ public class setupActivity extends Activity {
         }
 
         if (hh04.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please select one option", Toast.LENGTH_LONG).show();
             hh04x.setError("Please select one option");
             Log.i(TAG, "Please select one option");
             return false;
