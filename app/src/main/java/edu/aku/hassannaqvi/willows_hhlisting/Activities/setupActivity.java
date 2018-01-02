@@ -335,8 +335,8 @@ public class setupActivity extends Activity {
 
         if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
-            hh04x.setError("Please one option");
-            Log.i(TAG, "Please one option");
+            hh04x.setError("Please select one option");
+            Log.i(TAG, "Please select one option");
             return false;
         } else {
             hh04x.setError(null);
@@ -369,10 +369,10 @@ public class setupActivity extends Activity {
             hh06.setError(null);
         }
 
-        if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) <= 1) {
-            Toast.makeText(this, "Greater then 1!", Toast.LENGTH_LONG).show();
-            hh06.setError("Greater then 1!");
-            Log.i(TAG, "hh06:Greater then 1!");
+        if (!hh06.getText().toString().isEmpty() && (Integer.valueOf(hh06.getText().toString()) <= 1 || Integer.valueOf(hh06.getText().toString()) > 20)) {
+            Toast.makeText(this, "Greater then 1 and lesser then 20!", Toast.LENGTH_LONG).show();
+            hh06.setError("Greater then 1 and lesser then 20!");
+            Log.i(TAG, "hh06:Greater then 1 and lesser then 20!");
             return false;
         } else {
             hh06.setError(null);

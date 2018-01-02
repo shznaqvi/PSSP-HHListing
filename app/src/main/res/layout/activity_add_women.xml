@@ -16,18 +16,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <TextView
-        android:id="@+id/txtWomenListing"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:background="#d6d6d6"
-        android:text="Women Listing"
-        android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/txtWomenListing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="#d6d6d6"
+            android:text="Women Listing"
+            android:textAlignment="center" />
 
         <LinearLayout
-        android:layout_width="match_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
@@ -37,60 +38,62 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/women_name" />
 
-    <EditText
-        android:id="@+id/icName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_weight="1"
-        android:hint="@string/women_name" />
+            <EditText
+                android:id="@+id/icName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:hint="@string/women_name" />
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/women_age" />
+
+            <EditText
+                android:id="@+id/icAgeY"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:hint="@string/hh12y"
+                android:inputType="number"
+                android:maxLength="2" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAddWomen"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginTop="24dp"
-            android:text="@string/women_age" />
+            android:text="Add A Women"
+            android:visibility="gone" />
 
-        <EditText
-            android:id="@+id/icAgeY"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/btnAddFamily"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_weight="1"
-            android:hint="@string/hh12y"
-            android:inputType="number"
-            android:maxLength="2" />
+            android:text="Add Next Family"
+            android:visibility="gone" />
 
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnAddWomen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Add A Women"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btnAddFamily"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Add Next Family"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btnAddHousehold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:onClick="addHousehold"
-        android:text="Goto Next Household"
-        android:visibility="gone" />
+        <Button
+            android:id="@+id/btnAddHousehold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:onClick="addHousehold"
+            android:text="Goto Next Household"
+            android:visibility="gone" />
     </LinearLayout>
 </ScrollView>

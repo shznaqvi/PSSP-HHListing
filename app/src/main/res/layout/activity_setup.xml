@@ -95,13 +95,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="1"
-                android:text="@string/hh03" />
-
-            <TextView
                 android:id="@+id/hh03"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -111,6 +104,14 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="48dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:text="@string/hh03" />
+
         </LinearLayout>
 
         <!--// Structure Type-->
@@ -217,16 +218,14 @@
                 android:digits="@string/txtMsg"
                 android:hint="@string/hhadd"
                 android:inputType="text"
-                android:maxLength="24" />
+                android:maxLength="50" />
 
-
-
-                <!--Are there more than one Families?-->
-                <TextView
-                    android:layout_width="600dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/hh05" />
+            <!--Are there more than one Families?-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/hh05" />
 
             <LinearLayout
                 android:layout_width="match_parent"
