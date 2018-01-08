@@ -102,15 +102,15 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_AREA_TABLE = "CREATE TABLE " + singleAreas.TABLE_NAME + " (" +
                 singleAreas.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                singleAreas.COLUMN_DEVICEID + " TEXT,"+
-                singleAreas.COLUMN_UID + " TEXT,"+
-                singleAreas.COLUMN_FORMDATE + " TEXT,"+
-                singleAreas.COLUMN_USERNAME + " TEXT,"+
-                singleAreas.COLUMN_DISTRICT_CODE + " TEXT,"+
-                singleAreas.COLUMN_PSU_CODE + " TEXT,"+
-                singleAreas.COLUMN_AREANAME + " TEXT,"+
-                singleAreas.COLUMN_TAGID + " TEXT,"+
-                singleAreas.COLUMN_APPVERSION + " TEXT,"+
+                singleAreas.COLUMN_DEVICEID + " TEXT," +
+                singleAreas.COLUMN_UID + " TEXT," +
+                singleAreas.COLUMN_FORMDATE + " TEXT," +
+                singleAreas.COLUMN_USERNAME + " TEXT," +
+                singleAreas.COLUMN_DISTRICT_CODE + " TEXT," +
+                singleAreas.COLUMN_PSU_CODE + " TEXT," +
+                singleAreas.COLUMN_AREANAME + " TEXT," +
+                singleAreas.COLUMN_TAGID + " TEXT," +
+                singleAreas.COLUMN_APPVERSION + " TEXT," +
                 singleAreas.COLUMN_SYNCED + " TEXT, " +
                 singleAreas.COLUMN_SYNCED_DATE + " TEXT " +
                 ");";
@@ -360,6 +360,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(singleAreas.COLUMN_TAGID, chw.getTagid());
         values.put(singleAreas.COLUMN_APPVERSION, chw.getAppversion());
 
+        AppMain.updatePSU(chw.getPsu_code(), "0");
+        AppMain.hh03txt = 0;
 
         long newRowId;
         newRowId = db.insert(

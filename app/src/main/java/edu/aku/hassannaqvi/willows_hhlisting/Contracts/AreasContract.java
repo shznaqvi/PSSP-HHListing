@@ -21,7 +21,7 @@ public class AreasContract {
     private String psu_code;
     private String tagid;
     private String appversion;
-    private String areaname;
+    private String areaname = "";
 
     public String getID() {
         return ID;
@@ -147,7 +147,11 @@ public class AreasContract {
         json.put(singleAreas.COLUMN_PSU_CODE, this.psu_code == null ? JSONObject.NULL : this.psu_code);
         json.put(singleAreas.COLUMN_TAGID, this.tagid == null ? JSONObject.NULL : this.tagid);
         json.put(singleAreas.COLUMN_APPVERSION, this.appversion == null ? JSONObject.NULL : this.appversion);
-        json.put(singleAreas.COLUMN_AREANAME, this.areaname == null ? JSONObject.NULL : this.areaname);
+//        json.put(singleAreas.COLUMN_AREANAME, this.areaname == null ? JSONObject.NULL : this.areaname);
+        try {
+            json.put(singleAreas.COLUMN_AREANAME, this.areaname.equals("") ? JSONObject.NULL : new JSONObject(this.areaname));
+        }catch (Exception e){}
+
 
         return json;
     }

@@ -76,16 +76,14 @@ public class setupActivity extends Activity {
     @BindView(R.id.btnChangePSU)
     Button btnChangPSU;
 
-    @BindView(R.id.hl106)
-    EditText hl106;
+    /*@BindView(R.id.as01)
+    EditText as01;*/
 
-    @BindView(R.id.fldGrpHH01)
-    LinearLayout fldGrpHH01;
+/*    @BindView(R.id.fldGrpHH01)
+    LinearLayout fldGrpHH01;*/
 
     @BindView(R.id.hhadd)
     EditText hhadd;
-
-    Boolean flagDT = false;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
@@ -174,11 +172,11 @@ public class setupActivity extends Activity {
 
 //        New DATA CHECKING
 
-        flagDT = getIntent().getBooleanExtra("new", false);
+        /*flagDT = getIntent().getBooleanExtra("new", false);
 
         if (flagDT) {
             fldGrpHH01.setVisibility(View.VISIBLE);
-        }
+        }*/
 
     }
 
@@ -210,7 +208,7 @@ public class setupActivity extends Activity {
     private void SaveDraft() {
         SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
 
-        if (flagDT) {
+/*        if (flagDT) {
             AppMain.ac = new AreasContract();
             AppMain.ac.setTagid(sharedPref.getString("tagName", null));
             AppMain.ac.setFormdate(dtToday);
@@ -219,10 +217,10 @@ public class setupActivity extends Activity {
             AppMain.ac.setDistrict_code(AppMain.hh01txt);
             AppMain.ac.setPsu_code(AppMain.hh02txt);
             AppMain.ac.setAppversion(AppMain.versionName + "." + AppMain.versionCode);
-            AppMain.ac.setAreaname(hl106.getText().toString());
+            AppMain.ac.setAreaname(as01.getText().toString());
 
             UpdateAreaDB();
-        }
+        }*/
 
         AppMain.lc = new ListingContract();
 
@@ -322,16 +320,16 @@ public class setupActivity extends Activity {
             hh02.setError(null);
         }
 
-        if (flagDT) {
-            if (hl106.getText().toString().isEmpty()) {
+/*        if (flagDT) {
+            if (as01.getText().toString().isEmpty()) {
                 Toast.makeText(this, "ERROR(Empty) Area name with landmarks", Toast.LENGTH_LONG).show();
-                hl106.setError("ERROR(Empty) data required");
-                Log.i(TAG, "hl106: data required");
+                as01.setError("ERROR(Empty) data required");
+                Log.i(TAG, "as01: data required");
                 return false;
             } else {
-                hl106.setError(null);
+                as01.setError(null);
             }
-        }
+        }*/
 
         if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please select one option", Toast.LENGTH_LONG).show();
@@ -398,27 +396,6 @@ public class setupActivity extends Activity {
 
             }
         }
-    }
-
-    private boolean UpdateAreaDB() {
-        FormsDBHelper db = new FormsDBHelper(this);
-
-        long updcount = db.addAreas(AppMain.ac);
-
-        AppMain.ac.setID(String.valueOf(updcount));
-
-        if (updcount != 0) {
-            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-
-            AppMain.ac.setUid(
-                    (AppMain.ac.getDeviceid() + AppMain.ac.getID()));
-
-            db.updateAreaUID();
-
-        } else {
-            Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
-        }
-        return true;
     }
 
     private boolean UpdateDB() {

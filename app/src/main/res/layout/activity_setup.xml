@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.willows_hhlisting.Activities.HouseholdListingActivity">
+    tools:context="edu.aku.hassannaqvi.willows_hhlisting.Activities.ClusterListingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,7 +68,7 @@
         </LinearLayout>
 
         <!--Area & Landmark-->
-        <LinearLayout
+<!--        <LinearLayout
             android:id="@+id/fldGrpHH01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hl106" />
 
-        </LinearLayout>
+        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"

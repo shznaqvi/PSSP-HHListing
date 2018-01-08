@@ -38,7 +38,10 @@
     <string name="hh13"> Do you consent to participate? </string>
 
     <string name="hl105"> Do you enter in this PSU first time? </string>
-    <string name="hl106"> Enter Area Name with Landmarks with which you can reach this place. </string>
+
+    <string name="cl01"> Neighbourhood </string>
+    <string name="cl02"> Street Name and Number </string>
+    <string name="cl03"> Landmark </string>
 
     <string name="yes"> Yes </string>
     <string name="no"> No </string>

@@ -49,7 +49,7 @@ public class AddWomenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_women);
         ButterKnife.bind(this);
-        txtWomenListing.setText("Women Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.cCount + " of " + AppMain.cTotal + ")");
+        txtWomenListing.setText("MWRA (16-44) Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.cCount + " of " + AppMain.cTotal + ")");
         if (AppMain.cCount < AppMain.cTotal) {
             btnAddWomen.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);

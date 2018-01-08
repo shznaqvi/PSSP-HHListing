@@ -38,7 +38,10 @@
     <string name="hh13"> کیا آپ تحقیق میں شمولیت کے لئے رضامند ہیں؟ </string>
 
     <string name="hl105"> کیا آپ اس پی ایس یو میں پہلی بار داخل ہوۓ ہیں </string>
-    <string name="hl106"> اس علاقے کا نام درج کریں اور علاقائی نشانیوں کی وضا حت کریں جنکی مدد سے آپ نے اس  پی ایس یو تک  رسائی حاصل کی۔ </string>
+
+    <string name="cl01"> محلہ </string>
+    <string name="cl02"> سڑک کا نام و نمبر </string>
+    <string name="cl03"> شناختی مقام </string>
 
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>

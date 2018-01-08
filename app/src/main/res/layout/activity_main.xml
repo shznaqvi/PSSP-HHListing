@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:onClick="openForm"
-            android:text="Add new household details" />
+            android:text="Start Linelisting" />
 
         <Button
             android:id="@+id/syncFunction"

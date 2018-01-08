@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_household_listing"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="edu.aku.hassannaqvi.willows_hhlisting.Activities.ClusterListingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="#d6d6d6"
+            android:text="Cluster Listing"
+            android:textStyle="bold"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="#d6d6d6"
+            android:text="STARTING"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="07dp"
+            android:text="@string/cl01" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/as01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cl01" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/cl02" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/as02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cl02" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/cl03" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/as03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cl03" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="25dp"
+            android:background="#d6d6d6"
+            android:text="ENDING"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="@string/cl01" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/ae01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cl01" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/cl02" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/ae02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cl02" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/cl03" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/ae03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cl03" />
+
+        <Button
+            android:id="@+id/btnAddHH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Next Activity" />
+
+    </LinearLayout>
+
+</ScrollView>

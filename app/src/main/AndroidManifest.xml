@@ -23,7 +23,7 @@
             android:name=".Activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.HouseholdListingActivity"
+            android:name=".Activities.ClusterListingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AddWomenActivity"

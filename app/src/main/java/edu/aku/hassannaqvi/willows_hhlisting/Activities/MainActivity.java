@@ -224,7 +224,7 @@ public class MainActivity extends Activity {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         Intent oF = new Intent(MainActivity.this, setupActivity.class);
-                        oF.putExtra("new", false);
+//                        oF.putExtra("new", false);
                         startActivity(oF);
                         break;
 
@@ -245,11 +245,7 @@ public class MainActivity extends Activity {
     public void openForm(View view) {
 
         if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {
-            if (mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0) {
-                NextSetupActivity();
-            } else {
-                Toast.makeText(this, "Sync data..", Toast.LENGTH_SHORT).show();
-            }
+            NextSetupActivity();
         } else {
 
             builder = new AlertDialog.Builder(MainActivity.this);
@@ -270,11 +266,7 @@ public class MainActivity extends Activity {
                         editor.putString("tagName", m_Text);
                         editor.commit();
 
-                        if (mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0) {
-                            NextSetupActivity();
-                        } else {
-                            Toast.makeText(getBaseContext(), "Sync data..", Toast.LENGTH_SHORT).show();
-                        }
+                        NextSetupActivity();
                     }
                 }
             });
@@ -290,18 +282,18 @@ public class MainActivity extends Activity {
     }
 
     public void NextSetupActivity() {
-        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
+        if (mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0) {
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
-                Intent oF = new Intent(this, setupActivity.class);
+                Intent oF = new Intent(this, ClusterListingActivity.class);
                 oF.putExtra("new", true);
                 startActivity(oF);
             }
         } else {
-            Toast.makeText(this, "Please Sync Data!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Select values from spinners.", Toast.LENGTH_SHORT).show();
         }
     }
 
