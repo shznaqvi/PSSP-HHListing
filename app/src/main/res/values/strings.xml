@@ -20,8 +20,21 @@
     <string name="hh09"> How many females are in this household? </string>
     <string name="hh09a"> No of females </string>
     <string name="hh10"> How many of these females are aged from 16 years to 44 years? </string>
-    <string name="hh11"> How many of these females (age 16–44) are married? </string>
-    <string name="hh12"> How many females? </string>
+    <string name="hh11"> What language do you usually speak in your household? </string>
+
+    <string name="hh11a"> URDU SPEAKING </string>
+    <string name="hh11b"> SINDHI </string>
+    <string name="hh11c"> PUSHTON </string>
+    <string name="hh11d"> BALUCHI </string>
+    <string name="hh11e"> BARAHVI </string>
+    <string name="hh11f"> SARAIKI </string>
+    <string name="hh11g"> HINDKO </string>
+    <string name="hh11h"> PUNJABI </string>
+    <string name="hh1199"> REFUSED </string>
+    <string name="hhother"> Other (Please specify) </string>
+
+    <string name="hh12"> How many of these females (age 16–44) are married? </string>
+    <string name="hh12a"> How many females? </string>
     <string name="hh13"> Do you consent to participate? </string>
 
     <string name="hl105"> Do you enter in this PSU first time? </string>

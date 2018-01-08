@@ -20,8 +20,21 @@
     <string name="hh09"> اس گھر میں کتنی عورتیں ہیں؟ </string>
     <string name="hh09a"> عورتوں کی تعداد؟ </string>
     <string name="hh10"> اس گھر میں رہنے والی کتنی عورتوں کی عمر 16 سال سے 44 سال کے درمیان ہے؟ </string>
-    <string name="hh11"> اس گھر میں 16 سے 44 سال کی شادی شدہ عورتوں کی تعداد کتنی ہے؟ </string>
-    <string name="hh12"> عورتوں کی تعداد؟ </string>
+    <string name="hh11"> آپ عام طور پر گھر میں کیا زبان بولتے ہیں؟ </string>
+
+    <string name="hh11a"> اردو بولنے والے </string>
+    <string name="hh11b"> سندھی </string>
+    <string name="hh11c"> پشتون </string>
+    <string name="hh11d"> بلوچی </string>
+    <string name="hh11e"> براہوی </string>
+    <string name="hh11f"> سرائیکی </string>
+    <string name="hh11g"> ہندکو </string>
+    <string name="hh11h"> پنجابی </string>
+    <string name="hhother">دیگر(وضاحت کریں)</string>
+
+    <string name="hh1199"> مسترد </string>
+    <string name="hh12"> اس گھر میں 16 سے 44 سال کی شادی شدہ عورتوں کی تعداد کتنی ہے؟ </string>
+    <string name="hh12a"> عورتوں کی تعداد؟ </string>
     <string name="hh13"> کیا آپ تحقیق میں شمولیت کے لئے رضامند ہیں؟ </string>
 
     <string name="hl105"> کیا آپ اس پی ایس یو میں پہلی بار داخل ہوۓ ہیں </string>

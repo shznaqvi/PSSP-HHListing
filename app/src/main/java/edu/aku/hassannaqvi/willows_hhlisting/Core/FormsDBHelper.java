@@ -69,6 +69,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH11x + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHADD + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12y + " TEXT, " +
@@ -251,8 +252,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             JSONArray jsonArray = userlist;
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectUser = jsonArray.getJSONObject(i);
-                String userName = jsonObjectUser.getString("COLUMN_USER_NAME");
-                String password = jsonObjectUser.getString("password");
+                String userName = jsonObjectUser.getString(singleUser.ROW_USERNAME);
+                String password = jsonObjectUser.getString(singleUser.ROW_PASSWORD);
 
 
                 ContentValues values = new ContentValues();
@@ -316,6 +317,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
+        values.put(ListingEntry.COLUMN_NAME_HH11x, lc.getHh11x());
         values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH12y, lc.getHh12y());
@@ -474,6 +476,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH09,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
+                ListingEntry.COLUMN_NAME_HH11x,
                 ListingEntry.COLUMN_NAME_HHADD,
                 ListingEntry.COLUMN_NAME_HH12,
                 ListingEntry.COLUMN_NAME_HH12y,
@@ -731,6 +734,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
+        values.put(ListingEntry.COLUMN_NAME_HH11x, lc.getHh11x());
         values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH12y, lc.getHh12y());
@@ -765,6 +769,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
+        lc.setHh11x(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11x))));
         lc.setHhadd(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHADD))));
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
         lc.setHh12y(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12y))));

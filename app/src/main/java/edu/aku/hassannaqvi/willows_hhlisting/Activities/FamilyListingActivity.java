@@ -34,8 +34,8 @@ public class FamilyListingActivity extends Activity {
     EditText hh09;
     @BindView(R.id.hh10)
     EditText hh10;
-/*    @BindView(R.id.hh11)
-    Switch hh11;*/
+    /*    @BindView(R.id.hh11)
+        Switch hh11;*/
     @BindView(R.id.hh12)
     EditText hh12;
 
@@ -55,6 +55,31 @@ public class FamilyListingActivity extends Activity {
 
     @BindView(R.id.fldGrpHH09)
     LinearLayout fldGrpHH09;
+
+    @BindView(R.id.hh11)
+    RadioGroup hh11;
+    @BindView(R.id.hh11a)
+    RadioButton hh11a;
+    @BindView(R.id.hh11b)
+    RadioButton hh11b;
+    @BindView(R.id.hh11c)
+    RadioButton hh11c;
+    @BindView(R.id.hh11d)
+    RadioButton hh11d;
+    @BindView(R.id.hh11e)
+    RadioButton hh11e;
+    @BindView(R.id.hh11f)
+    RadioButton hh11f;
+    @BindView(R.id.hh11g)
+    RadioButton hh11g;
+    @BindView(R.id.hh11h)
+    RadioButton hh11h;
+    @BindView(R.id.hh1188)
+    RadioButton hh1188;
+    @BindView(R.id.hh1188x)
+    EditText hh1188x;
+    @BindView(R.id.hh1199)
+    RadioButton hh1199;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +155,7 @@ public class FamilyListingActivity extends Activity {
                     hh09.setText(null);
                     hh10.setText(null);
                     hh12.setText(null);
-//                    hh11.setChecked(false);
+                    hh11.clearCheck();
                 }
             }
         });
@@ -161,6 +186,20 @@ public class FamilyListingActivity extends Activity {
             }
         });*/
 
+        hh11.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                if (i == hh1188.getId()) {
+                    hh1188x.setVisibility(View.VISIBLE);
+                } else {
+                    hh1188x.setVisibility(View.GONE);
+                    hh1188x.setText(null);
+                }
+
+            }
+        });
+
     }
 
     @OnClick(R.id.btnAddWomen)
@@ -186,7 +225,12 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh09(hh09.getText().toString());
         AppMain.lc.setHh10(hh10.getText().toString());
 
-//        AppMain.lc.setHh11(hh11.isChecked() ? "1" : "2");
+        AppMain.lc.setHh11(hh11a.isChecked() ? "1" : hh11b.isChecked() ? "2" : hh11c.isChecked() ? "3"
+                : hh11d.isChecked() ? "4" : hh11e.isChecked() ? "5" : hh11f.isChecked() ? "6" :
+                hh11g.isChecked() ? "7" : hh11h.isChecked() ? "8" : hh1188.isChecked() ? "88"
+                        : hh1199.isChecked() ? "99" : "0");
+        AppMain.lc.setHh11x(hh1188x.getText().toString());
+
         AppMain.lc.setHh12(hh12.getText().toString().isEmpty() ? "0" : hh12.getText().toString());
         AppMain.lc.setStatus(hh13a.isChecked() ? "1" : hh13b.isChecked() ? "2" : "0");
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
@@ -218,6 +262,29 @@ public class FamilyListingActivity extends Activity {
         }
 
         if (hh13a.isChecked()) {
+
+            if (hh11.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(this, "ERROR(empty): " + getString(R.string.hh11), Toast.LENGTH_SHORT).show();
+                hh1199.setError("This data is Required!");    // Set Error on last radio button
+                hh1199.setFocusable(true);
+                hh1199.setFocusableInTouchMode(true);
+                hh1199.requestFocus();
+                Log.i(TAG, "hh11: This data is Required!");
+                return false;
+            } else {
+                hh1199.setError(null);
+            }
+
+            if (hh1188.isChecked() && hh1188x.getText().toString().isEmpty()) {
+                Toast.makeText(this, "ERROR(empty): " + getString(R.string.hhother), Toast.LENGTH_LONG).show();
+                hh1188x.setError("This data is Required!");    // Set Error on last radio button
+                Log.i(TAG, "hh1188x: This data is Required!");
+                hh1188x.requestFocus();
+                return false;
+            } else {
+                hh1188x.setError(null);
+            }
+
             if (hh09.getText().toString().isEmpty()) {
                 Toast.makeText(this, "ERROR(empty): " + getString(R.string.hh09), Toast.LENGTH_LONG).show();
                 hh09.setError("This data is Required!");    // Set Error on last radio button
@@ -259,23 +326,23 @@ public class FamilyListingActivity extends Activity {
             }
 
 //            if (hh11.isChecked()) {
-                if (hh12.getText().toString().isEmpty()) {
-                    Toast.makeText(this, "Please enter women count", Toast.LENGTH_LONG).show();
-                    hh12.setError("Please enter women count");
-                    Log.i(TAG, "Please enter women count");
-                    return false;
-                } else {
-                    hh12.setError(null);
-                }
+            if (hh12.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter women count", Toast.LENGTH_LONG).show();
+                hh12.setError("Please enter women count");
+                Log.i(TAG, "Please enter women count");
+                return false;
+            } else {
+                hh12.setError(null);
+            }
 
-                if (Integer.valueOf(hh10.getText().toString()) < Integer.valueOf(hh12.getText().toString())) {
-                    Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
-                    hh12.setError("Invalid Value!");
-                    Log.i(TAG, "Invalid Value!");
-                    return false;
-                } else {
-                    hh12.setError(null);
-                }
+            if (Integer.valueOf(hh10.getText().toString()) < Integer.valueOf(hh12.getText().toString())) {
+                Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
+                hh12.setError("Invalid Value!");
+                Log.i(TAG, "Invalid Value!");
+                return false;
+            } else {
+                hh12.setError(null);
+            }
 //            }
         }
 

@@ -90,6 +90,87 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/hh11" />
+
+            <RadioGroup
+                android:id="@+id/hh11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/hh11a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hh11a" />
+
+                <RadioButton
+                    android:id="@+id/hh11b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hh11b" />
+
+                <RadioButton
+                    android:id="@+id/hh11c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hh11c" />
+
+                <RadioButton
+                    android:id="@+id/hh11d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hh11d" />
+
+                <RadioButton
+                    android:id="@+id/hh11e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hh11e" />
+
+                <RadioButton
+                    android:id="@+id/hh11f"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hh11f" />
+
+                <RadioButton
+                    android:id="@+id/hh11g"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hh11g" />
+
+                <RadioButton
+                    android:id="@+id/hh11h"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hh11h" />
+
+                <RadioButton
+                    android:id="@+id/hh1188"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hhother" />
+
+                <EditText
+                    android:id="@+id/hh1188x"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hhother"
+                    android:maxLength="40"
+                    android:visibility="gone"/>
+
+                <RadioButton
+                    android:id="@+id/hh1199"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hh1199" />
+
+            </RadioGroup>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -149,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_weight="60"
-                    android:text="@string/hh11" />
+                    android:text="@string/hh12" />
 
                 <!--<Switch
                     android:id="@+id/hh11"
@@ -168,12 +249,11 @@
                     android:layout_marginTop="24dp"
                     android:layout_weight="30"
                     android:digits="1234567890"
-                    android:hint="@string/hh12"
+                    android:hint="@string/hh12a"
                     android:inputType="number"
                     android:maxLength="2" />
 
             </LinearLayout>
-
 
 
             <Button

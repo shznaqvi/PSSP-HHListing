@@ -29,14 +29,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.aku.hassannaqvi.willows_hhlisting.Core.AndroidDatabaseManager;
-import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.DistrictsContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.PSUsContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Core.AndroidDatabaseManager;
+import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetDistricts;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetPSUs;
@@ -89,7 +91,7 @@ public class MainActivity extends Activity {
         builder = new AlertDialog.Builder(MainActivity.this);
         ImageView img = new ImageView(getApplicationContext());
         img.setImageResource(R.drawable.tagimg);
-        img.setPadding(0,15,0,15);
+        img.setPadding(0, 15, 0, 15);
         builder.setCustomTitle(img);
 
         final EditText input = new EditText(MainActivity.this);
@@ -126,15 +128,19 @@ public class MainActivity extends Activity {
 
     }
 
-    public void spinnersFill(){
+    public void spinnersFill() {
         // Spinner Drop down elements
         List<String> districtNames = new ArrayList<String>();
-        final List<String> districtCodes = new ArrayList<String>();
+        final Map<String, String> district = new HashMap<>();
         Collection<DistrictsContract> dc = db.getAllDistricts();
+
+        districtNames.add("....");
+
         Log.d(TAG, "onCreate: " + dc.size());
         for (DistrictsContract d : dc) {
+            district.put(d.getDistrictName(), d.getDistrictCode());
             districtNames.add(d.getDistrictName());
-            districtCodes.add(d.getDistrictCode());
+//            districtCodes.add(d.getDistrictCode());
         }
 
         // Creating adapter for spinner
@@ -151,19 +157,27 @@ public class MainActivity extends Activity {
         mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                AppMain.hh01txt = districtCodes.get(position);
 
-                psuCode = new ArrayList<String>();
-                Collection<PSUsContract> pc = db.getAllPSUsByDistrict(districtCodes.get(position));
-                for (PSUsContract p : pc) {
-                    psuCode.add(p.getPSUCode());
+                psuCode = new ArrayList<>();
+                psuCode.add("....");
+
+                if (mN01.getSelectedItemPosition() != 0) {
+
+                    AppMain.hh01txt = district.get(mN01.getSelectedItem().toString());
+
+                    Collection<PSUsContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt);
+                    for (PSUsContract p : pc) {
+                        psuCode.add(p.getPSUCode());
+                    }
                 }
+
                 ArrayAdapter<String> psuAdapter = new ArrayAdapter<String>(MainActivity.this,
                         android.R.layout.simple_spinner_item, psuCode);
 
                 psuAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mN02.setAdapter(psuAdapter);
+
 
             }
 
@@ -210,7 +224,7 @@ public class MainActivity extends Activity {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         Intent oF = new Intent(MainActivity.this, setupActivity.class);
-                        oF.putExtra("new",false);
+                        oF.putExtra("new", false);
                         startActivity(oF);
                         break;
 
@@ -231,13 +245,17 @@ public class MainActivity extends Activity {
     public void openForm(View view) {
 
         if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {
-            NextSetupActivity();
+            if (mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0) {
+                NextSetupActivity();
+            } else {
+                Toast.makeText(this, "Sync data..", Toast.LENGTH_SHORT).show();
+            }
         } else {
 
             builder = new AlertDialog.Builder(MainActivity.this);
             ImageView img = new ImageView(getApplicationContext());
             img.setImageResource(R.drawable.tagimg);
-            img.setPadding(0,15,0,15);
+            img.setPadding(0, 15, 0, 15);
             builder.setCustomTitle(img);
 
             final EditText input = new EditText(MainActivity.this);
@@ -252,7 +270,11 @@ public class MainActivity extends Activity {
                         editor.putString("tagName", m_Text);
                         editor.commit();
 
-                        NextSetupActivity();
+                        if (mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0) {
+                            NextSetupActivity();
+                        } else {
+                            Toast.makeText(getBaseContext(), "Sync data..", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });
@@ -267,7 +289,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void NextSetupActivity(){
+    public void NextSetupActivity() {
         if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
@@ -275,7 +297,7 @@ public class MainActivity extends Activity {
                 alertPSU();
             } else {
                 Intent oF = new Intent(this, setupActivity.class);
-                oF.putExtra("new",true);
+                oF.putExtra("new", true);
                 startActivity(oF);
             }
         } else {
@@ -397,6 +419,7 @@ public class MainActivity extends Activity {
                     GetUsers gu = new GetUsers(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
                     gu.execute();
+
                 }
             });
 
@@ -411,7 +434,7 @@ public class MainActivity extends Activity {
                 public void run() {
                     spinnersFill();
                 }
-            },1200);
+            }, 1200);
         }
     }
 
