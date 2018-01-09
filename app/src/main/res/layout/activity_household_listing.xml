@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.pssp_hhlisting.Activities.HouseholdListingActivity">
+    tools:context="edu.aku.hassannaqvi.toic_hhlisting.Activities.HouseholdListingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/hh11" />
+                android:text="@string/hh12" />
 
             <Switch
                 android:id="@+id/hh11"

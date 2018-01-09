@@ -1,34 +1,35 @@
 <resources>
-    <string name="app_name">PSSP-HHListing Round-2</string>
-    <string name="hh01"> ڈسٹرکٹ کوڈ </string>
-    <string name="hh02"> PSU کوڈ </string>
-    <string name="hh03"> اسٹرکچر نمبر </string>
-    <string name="hhadd"> پتو </string>
-    <string name="hh04"> تعمیراتی ساخت </string>
-    <string name="hh04a"> رہائشی </string>
-    <string name="hh04b"> دکان/مارکیٹ/پلازہ </string>
-    <string name="hh04c"> مسجد/گرجاگھر/مندر </string>
-    <string name="hh04d"> اسکول/کالج/یونیورسٹی </string>
-    <string name="hh04e"> مرکز صحت </string>
-    <string name="hh04f"> خالی/بند/زیرتعمیر </string>
-    <string name="hh04g"> مزید عمارت نہیں </string>
-    <string name="hh04x"> دیگر (وضاحت کریں) </string>
-    <string name="hh05"> کیا اس عمارت میں ایک سے زیادہ خاندان رہائش پزیر ہیں؟ </string>
-    <string name="hh06"> خاندان کی تعداد؟ </string>
-    <string name="hh07"> خاندان نمبر </string>
-    <string name="hh08"> خاندان کے سربراہ کا نام </string>
-    <string name="hh09"> رابطہ کا نمبر </string>
-    <string name="hh10"> کیا گھر میں ایک سال سے چھوٹا بچہ موجود ہے؟ </string>
-    <string name="hh11"> بچوں کی تعداد؟ </string>
+    <string name="app_name">TOIC-HHLISTING</string>
+    <string name="hh01"> District Code </string>
+    <string name="hh02"> PSU Code </string>
+    <string name="hh03"> Structure Number </string>
+    <string name="hhadd"> Address </string>
+    <string name="hh04"> Charactristics of Structure </string>
+    <string name="hh04a"> Residential </string>
+    <string name="hh04b"> Non Residential </string>
+    <string name="hh04c"> Mosque/Church/Mandir </string>
+    <string name="hh04d"> School/College/University </string>
+    <string name="hh04e"> Health Fascility </string>
+    <string name="hh04f"> Empty plot/Locked/Under Construction </string>
+    <string name="hh04g"> No More Structure </string>
+    <string name="hh04x"> Other </string>
+    <string name="hh05"> Is their more then one family living in this household? </string>
+    <string name="hh06"> How many families? </string>
+    <string name="hh07"> Family code </string>
+    <string name="hh08"> Enter the Name of Head of Household </string>
+    <string name="hh09"> Contact no </string>
+    <string name="hh10a"> No of children </string>
+    <string name="hh10"> Is there any child or children aged 06 – 59  months, in this house? </string>
+    <string name="hh12"> Is there any child or children aged 5 – 10 Years, in this house? </string>
 
-    <string name="yes"> ہاں </string>
-    <string name="no"> نہیں </string>
+    <string name="yes"> Yes </string>
+    <string name="no"> No </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
-    <string name="child_name">بچے کا نام</string>
-    <string name="child_age">بچے کی عمر</string>
+    <string name="child_name"> Child Name </string>
+    <string name="child_age"> Child Age </string>
     <string name="hh12m">ماہ</string>
-    <string name="hh12d">دن</string>
+    <string name="hh13">دن</string>
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

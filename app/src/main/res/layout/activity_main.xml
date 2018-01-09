@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.pssp_hhlisting.Activities.MainActivity">
+    tools:context="edu.aku.hassannaqvi.toic_hhlisting.Activities.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,9 +30,60 @@
         <Spinner
             android:id="@+id/MN02"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
         </Spinner>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCheckPSU"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:padding="10dp"
+                android:text="CHECK" />
+
+            <EditText
+                android:id="@+id/txtPSU"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:background="#ddd"
+                android:hint="PSU here"
+                android:padding="10dp"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/districtN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/ucN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/psuN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/openForm"
@@ -54,23 +105,6 @@
             android:layout_height="wrap_content"
             android:onClick="openDB"
             android:text="Open DB Manager" />
-
-        <TextView
-            android:id="@+id/districtN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp" />
-
-        <TextView
-            android:id="@+id/ucN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/psuN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
 
     </LinearLayout>
 </ScrollView>
