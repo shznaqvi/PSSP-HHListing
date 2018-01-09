@@ -467,14 +467,6 @@ public class MainActivity extends Activity {
                     SyncListing ff = new SyncListing(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
                     ff.execute();
-
-                    GetTalukas gd = new GetTalukas(mContext);
-                    Toast.makeText(getApplicationContext(), "Syncing Talukas", Toast.LENGTH_SHORT).show();
-                    gd.execute();
-
-                    GetPSUs gp = new GetPSUs(mContext);
-                    Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
-                    gp.execute();
                 }
             });
 
