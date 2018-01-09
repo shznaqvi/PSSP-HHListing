@@ -280,6 +280,8 @@ public class MainActivity extends Activity {
                     psuN.setText(psuNameS[2]);
                     Log.d(TAG, "onItemSelected: " + psuNameS[2]);
                 }
+            }else {
+                Toast.makeText(this, "Not found!!", Toast.LENGTH_SHORT).show();
             }
         }else {
             txtPSU.setError("Data required!!");

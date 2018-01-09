@@ -371,8 +371,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singlePSU.COLUMN_TALUKA_CODE
         };
 
-        String whereClause = singlePSU.COLUMN_TALUKA_CODE + " =? AND " + singlePSU.COLUMN_PSU_CODE;
-        String[] whereArgs = {taluka_code,psu_code};
+        String whereClause = singlePSU.COLUMN_TALUKA_CODE + " =? AND " + singlePSU.COLUMN_PSU_CODE + " =?";
+        String[] whereArgs = {taluka_code, psu_code};
         String groupBy = null;
         String having = null;
 

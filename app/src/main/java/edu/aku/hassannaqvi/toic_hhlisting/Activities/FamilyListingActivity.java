@@ -188,6 +188,24 @@ public class FamilyListingActivity extends Activity {
             hh11.setError(null);
         }
 
+        if (hh12.isChecked() && hh13.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
+            hh13.setError("Please enter child count");
+            Log.i(TAG, "Please enter child count");
+            return false;
+        } else {
+            hh13.setError(null);
+        }
+
+        if (!hh13.getText().toString().isEmpty() && Integer.valueOf(hh13.getText().toString()) < 1) {
+            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
+            hh13.setError("Invalid Value!");
+            Log.i(TAG, "Invalid Value!");
+            return false;
+        } else {
+            hh13.setError(null);
+        }
+
         return true;
     }
 
