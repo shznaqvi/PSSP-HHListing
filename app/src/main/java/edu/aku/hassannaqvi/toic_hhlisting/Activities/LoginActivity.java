@@ -57,6 +57,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.aku.hassannaqvi.toic_hhlisting.Get.GetPSUs;
+import edu.aku.hassannaqvi.toic_hhlisting.Get.GetTalukas;
 import edu.aku.hassannaqvi.toic_hhlisting.R;
 import edu.aku.hassannaqvi.toic_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.toic_hhlisting.Core.AppMain;
@@ -506,6 +508,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 public void run() {
                     Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();
                     new GetUsers(mContext).execute();
+
+                    GetTalukas gd = new GetTalukas(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Talukas", Toast.LENGTH_SHORT).show();
+                    gd.execute();
+
+                    GetPSUs gp = new GetPSUs(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
+                    gp.execute();
                 }
             });
 

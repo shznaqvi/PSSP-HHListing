@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="syncFunction"
-            android:text="Sync Data" />
+            android:text="Sync Listing" />
 
         <Button
             android:id="@+id/openDBManager"
