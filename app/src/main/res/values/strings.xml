@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">TOIC-HHLISTING</string>
+    <string name="app_name">TOIC - Household Line Listing</string>
     <string name="hh01"> Taluka Code </string>
-    <string name="hh02"> PSU Code </string>
+    <string name="hh02"> Cluster Code </string>
     <string name="hh03"> Structure Number </string>
     <string name="hhadd"> Address </string>
     <string name="hh04"> Charactristics of Structure </string>
