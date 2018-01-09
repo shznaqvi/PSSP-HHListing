@@ -19,8 +19,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.PSUsContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
 
 /**
@@ -40,7 +40,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Syncing PSUs");
+        pd.setTitle("Syncing Clusters");
         pd.setMessage("Getting connected to server...");
         pd.show();
 
@@ -65,7 +65,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "PSUs In: " + line);
+                    Log.i(TAG, "Clusters In: " + line);
                     result.append(line);
                 }
             }

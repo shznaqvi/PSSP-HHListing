@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.format.DateFormat;
@@ -26,7 +27,6 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.willows_hhlisting.Contracts.AreasContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
@@ -108,8 +108,15 @@ public class setupActivity extends Activity {
 
         }
         AppMain.hh07txt = "X";
-        hh01.setText(getString(R.string.hh01) + ": " + AppMain.hh01txt);
-        hh03.setText(String.valueOf(AppMain.hh03txt));
+
+
+        hh01.setText("");
+
+        String StructureNumber = "W-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
+
+        hh03.setTextColor(Color.RED);
+        hh03.setText(StructureNumber);
+
         hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
 
 

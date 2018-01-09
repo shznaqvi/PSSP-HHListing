@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WILLOWS-HHLISTING</string>
     <string name="hh01"> District Code </string>
-    <string name="hh02"> PSU Code </string>
+    <string name="hh02"> Cluster Code </string>
     <string name="hh03"> Structure Number </string>
     <string name="hhadd"> Address </string>
     <string name="hh04"> Charactristics of Structure </string>
@@ -22,7 +22,7 @@
     <string name="hh10"> How many of these females are aged from 16 years to 44 years? </string>
     <string name="hh11"> What language do you usually speak in your household? </string>
 
-    <string name="hh11a"> URDU SPEAKING </string>
+    <string name="hh11a"> URDU </string>
     <string name="hh11b"> SINDHI </string>
     <string name="hh11c"> PUSHTON </string>
     <string name="hh11d"> BALUCHI </string>
@@ -37,7 +37,7 @@
     <string name="hh12a"> How many females? </string>
     <string name="hh13"> Do you consent to participate? </string>
 
-    <string name="hl105"> Do you enter in this PSU first time? </string>
+    <string name="hl105"> Do you enter in this Cluster first time? </string>
 
     <string name="cl01"> Neighbourhood </string>
     <string name="cl02"> Street Name and Number </string>

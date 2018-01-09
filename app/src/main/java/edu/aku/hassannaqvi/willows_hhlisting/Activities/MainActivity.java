@@ -73,8 +73,8 @@ public class MainActivity extends Activity {
     SharedPreferences.Editor editor;
     AlertDialog.Builder builder;
     String m_Text = "";
-    private Boolean exit = false;
     FormsDBHelper db;
+    private Boolean exit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,7 +238,7 @@ public class MainActivity extends Activity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Do you want to continue?");
-        builder.setMessage("PSU data already exist.").setPositiveButton("Yes", dialogClickListener)
+        builder.setMessage("Cluster data already exist.").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("Cancel", dialogClickListener).show();
     }
 
@@ -285,7 +285,7 @@ public class MainActivity extends Activity {
         if (mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0) {
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
-                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Cluster data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
                 Intent oF = new Intent(this, ClusterListingActivity.class);

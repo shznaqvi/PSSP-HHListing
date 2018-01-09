@@ -8,10 +8,14 @@
         <item name="android:buttonStyle">@style/buttons</item>
         <item name="android:checkboxStyle">@style/checkbox</item>
         <item name="android:radioButtonStyle">@style/radiobutton</item>
-        <item name="android:spinnerStyle">@style/spinnerStyle</item>
-        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
-        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem
-        </item> <!-- Customize your theme here. -->
+
+        <item name="*android:spinnerStyle">@style/spinnerStyle</item>
+
+        <item name="*android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="*android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+
+
+        <!-- Customize your theme here. -->
         <!--
                 <item name="android:windowActionBarOverlay">true</item>
         -->
@@ -42,9 +46,11 @@
         <item name="android:typeface">serif</item>
     </style>
 
-    <style name="spinnerStyle">
+    <style name="spinnerStyle" parent="Base.Widget.AppCompat.Spinner">
         <item name="android:background">#efefef</item>
         <item name="android:clickable">true</item>
+        <item name="android:elevation">1dp</item>
+
     </style>
 
     <style name="SpinnerDropDownItem">

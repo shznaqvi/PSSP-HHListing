@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WILLOWS-HHLISTING</string>
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
-    <string name="hh02"> PSU کوڈ </string>
+    <string name="hh02"> کلسٹر کوڈ </string>
     <string name="hh03"> اسٹرکچر نمبر </string>
     <string name="hhadd"> پتہ </string>
     <string name="hh04"> تعمیراتی ساخت </string>
@@ -22,7 +22,7 @@
     <string name="hh10"> اس گھر میں رہنے والی کتنی عورتوں کی عمر 16 سال سے 44 سال کے درمیان ہے؟ </string>
     <string name="hh11"> آپ عام طور پر گھر میں کیا زبان بولتے ہیں؟ </string>
 
-    <string name="hh11a"> اردو بولنے والے </string>
+    <string name="hh11a"> اردو </string>
     <string name="hh11b"> سندھی </string>
     <string name="hh11c"> پشتون </string>
     <string name="hh11d"> بلوچی </string>

@@ -105,60 +105,80 @@
                     android:id="@+id/hh11a"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/hh11a" />
 
                 <RadioButton
                     android:id="@+id/hh11b"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/hh11b" />
 
                 <RadioButton
                     android:id="@+id/hh11c"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/hh11c" />
 
                 <RadioButton
                     android:id="@+id/hh11d"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/hh11d" />
 
                 <RadioButton
                     android:id="@+id/hh11e"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/hh11e" />
 
                 <RadioButton
                     android:id="@+id/hh11f"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/hh11f" />
 
                 <RadioButton
                     android:id="@+id/hh11g"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/hh11g" />
 
                 <RadioButton
                     android:id="@+id/hh11h"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/hh11h" />
 
                 <RadioButton
                     android:id="@+id/hh1188"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/hhother" />
 
                 <EditText
                     android:id="@+id/hh1188x"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+
                     android:hint="@string/hhother"
                     android:maxLength="40"
                     android:visibility="gone"/>

@@ -22,112 +22,166 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:background="#d6d6d6"
-            android:text="Cluster Listing"
-            android:textStyle="bold"
-            android:textAlignment="center" />
+            android:text="Cluster Identification"
+            android:textAlignment="center"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:background="#d6d6d6"
+            android:elevation="2dp"
+            android:text="STARTING POINT"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+            android:text="@string/cl01" />
+
+        <EditText
+            android:id="@+id/as01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:hint="@string/cl01" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+            android:text="@string/cl02" />
+
+        <EditText
+            android:id="@+id/as02"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:hint="@string/cl02" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+            android:text="@string/cl03" />
+
+        <EditText
+            android:id="@+id/as03"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:hint="@string/cl03" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="#d6d6d6"
-            android:text="STARTING"
+            android:elevation="2dp"
+            android:text="ENDING POINT"
             android:textAlignment="center" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="07dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
             android:text="@string/cl01" />
 
         <EditText
-            android:layout_marginTop="5dp"
-            android:id="@+id/as01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/cl01" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/cl02" />
-
-        <EditText
-            android:layout_marginTop="5dp"
-            android:id="@+id/as02"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/cl02" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/cl03" />
-
-        <EditText
-            android:layout_marginTop="5dp"
-            android:id="@+id/as03"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/cl03" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="25dp"
-            android:background="#d6d6d6"
-            android:text="ENDING"
-            android:textAlignment="center" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:text="@string/cl01" />
-
-        <EditText
-            android:layout_marginTop="5dp"
             android:id="@+id/ae01"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/cl01" />
 
-        <TextView
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:hint="@string/cl01" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
             android:text="@string/cl02" />
 
         <EditText
-            android:layout_marginTop="5dp"
             android:id="@+id/ae02"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/cl02" />
 
-        <TextView
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:hint="@string/cl02" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
             android:text="@string/cl03" />
 
         <EditText
-            android:layout_marginTop="5dp"
             android:id="@+id/ae03"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
             android:hint="@string/cl03" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnAddHH"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Next Activity" />
+            android:text="Start Line-Listing" />
 
     </LinearLayout>
 
