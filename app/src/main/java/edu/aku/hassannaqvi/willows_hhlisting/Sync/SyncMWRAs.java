@@ -157,6 +157,7 @@ public class SyncMWRAs extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         int sSynced = 0;
+        int sDuplicate = 0;
         String sSyncedError = "";
         JSONArray json = null;
         try {
@@ -167,13 +168,16 @@ public class SyncMWRAs extends AsyncTask<Void, Void, String> {
                 if (jsonObject.getString("status").equals("1") && jsonObject.getString("error").equals("0")) {
                     db.updateSyncedMWRA(jsonObject.getString("id"));
                     sSynced++;
+                } else if (jsonObject.getString("status").equals("2") && jsonObject.getString("error").equals("0")) {
+                    db.updateSyncedForms(jsonObject.getString("id"));
+                    sDuplicate++;
                 } else {
                     sSyncedError += "\nError: " + jsonObject.getString("message").toString();
                 }
             }
-            Toast.makeText(mContext, sSynced + " Mwra synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, " Listing synced: " + sSynced + "\r\n\r\n Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
 
-            pd.setMessage(sSynced + " Mwra synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError);
+            pd.setMessage(" Listing synced: " + sSynced + "\r\n\r\n Duplicates: " + sDuplicate + "\r\n\r\n Errors: " + sSyncedError);
             pd.setTitle("Done uploading Mwra data");
             pd.show();
         } catch (JSONException e) {
