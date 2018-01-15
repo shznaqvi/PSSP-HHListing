@@ -18,8 +18,8 @@ android {
 
         defaultConfig {
             applicationId "edu.aku.hassannaqvi.src2"
-            minSdkVersion 19
-            targetSdkVersion 19
+            minSdkVersion 16
+            targetSdkVersion 16
             versionCode code
             versionName "1.5"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
