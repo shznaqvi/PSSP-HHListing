@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import edu.aku.hassannaqvi.toic_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.toic_hhlisting.Contracts.ListingContract.ListingEntry;
@@ -74,7 +75,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
                 ListingEntry.COLUMN_APPVER + " TEXT, " +
-                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
+                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
+                ListingEntry.COLUMN_SYNCED + " TEXT, " +
+                ListingEntry.COLUMN_SYNCED_DATE + " TEXT " +
                 " );";
 
         final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleTaluka.TABLE_NAME + " (" +
@@ -161,6 +164,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         } catch (Exception e) {
         }
+    }
+
+    public void updateSyncedForms(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ListingEntry.COLUMN_SYNCED, true);
+        values.put(ListingEntry.COLUMN_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = ListingEntry._ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                ListingEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
     }
 
     public ArrayList<UsersContract> getAllUsers() {
@@ -285,7 +307,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_APPVER
         };
 
-        String whereClause = null;
+        String whereClause = ListingEntry.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
@@ -333,7 +355,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleTaluka._ID + " ASC";
+                singleTaluka.COLUMN_TALUKA_NAME + " ASC";
 
         Collection<TalukasContract> allDC = new ArrayList<TalukasContract>();
         try {

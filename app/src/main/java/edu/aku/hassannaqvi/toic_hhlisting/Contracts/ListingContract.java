@@ -324,7 +324,10 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
         public static final String COLUMN_APPVER = "appver";
         public static final String COLUMN_TAGID = "tagId";
+        public static final String COLUMN_SYNCED = "synced";
+        public static final String COLUMN_SYNCED_DATE = "synced_date";
 
         public static final String COLUMN_USERNAME = "username";
+        public static final String _URL = "listings.php";
     }
 }
