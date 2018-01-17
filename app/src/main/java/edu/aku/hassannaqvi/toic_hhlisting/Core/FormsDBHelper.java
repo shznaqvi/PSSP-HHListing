@@ -31,11 +31,11 @@ import edu.aku.hassannaqvi.toic_hhlisting.Contracts.UsersContract.singleUser;
  */
 public class FormsDBHelper extends SQLiteOpenHelper {
 
-    // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 4;
     // The name of database.
     public static final String DATABASE_NAME = "toic-hhl.db";
     public static final String DB_NAME = "toic-hhl-copy.db";
+    // Change this when you change the database schema.
+    private static final int DATABASE_VERSION = 4;
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -76,6 +76,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
                 ListingEntry.COLUMN_APPVER + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
+                ListingEntry.COLUMN_NAME_GPSAltitude + " TEXT, " +
                 ListingEntry.COLUMN_SYNCED + " TEXT, " +
                 ListingEntry.COLUMN_SYNCED_DATE + " TEXT " +
                 " );";
@@ -243,6 +244,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
+        values.put(ListingEntry.COLUMN_NAME_GPSAltitude, lc.getGPSAlt());
         values.put(ListingEntry.COLUMN_APPVER, lc.getAppVer());
         values.put(ListingEntry.COLUMN_TAGID, lc.getTagId());
 
@@ -304,6 +306,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLng,
                 ListingEntry.COLUMN_NAME_GPSTime,
                 ListingEntry.COLUMN_NAME_GPSAccuracy,
+                ListingEntry.COLUMN_NAME_GPSAltitude,
                 ListingEntry.COLUMN_APPVER
         };
 
@@ -452,6 +455,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
         lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
+        lc.setGPSAlt(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAltitude))));
         lc.setAppVer(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_APPVER))));
         lc.setTagId(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_TAGID))));
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));

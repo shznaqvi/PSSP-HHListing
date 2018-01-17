@@ -44,9 +44,9 @@ public class AppMain extends Application {
     public static int cTotal = 0;
     public static SharedPreferences sharedPref;
     public static String userEmail;
-    protected static LocationManager locationManager;
     public static int versionCode;
     public static String versionName;
+    protected static LocationManager locationManager;
     Location location;
 
     public static void updatePSU(String psuCode, String structureNo) {
@@ -189,6 +189,7 @@ public class AppMain extends Application {
                 editor.putString("Latitude", String.valueOf(location.getLatitude()));
                 editor.putString("Accuracy", String.valueOf(location.getAccuracy()));
                 editor.putString("Time", String.valueOf(location.getTime()));
+                editor.putString("Altitude", String.valueOf(location.getAltitude()));
 //                    editor.putString("Time", DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString());
 
 //                String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();

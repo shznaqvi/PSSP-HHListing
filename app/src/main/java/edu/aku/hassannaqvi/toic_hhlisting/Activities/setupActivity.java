@@ -259,6 +259,7 @@ public class setupActivity extends Activity {
             AppMain.lc.setGPSLat(GPSPref.getString("Latitude", "0"));
             AppMain.lc.setGPSLng(GPSPref.getString("Longitude", "0"));
             AppMain.lc.setGPSAcc(GPSPref.getString("Accuracy", "0"));
+            AppMain.lc.setGPSAcc(GPSPref.getString("Altitude", "0"));
 //            AppMain.fc.setGpsTime(GPSPref.getString(date, "0")); // Timestamp is converted to date above
             AppMain.lc.setGPSTime(date); // Timestamp is converted to date above
 

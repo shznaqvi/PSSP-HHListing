@@ -13,39 +13,38 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name="edu.aku.hassannaqvi.toic_hhlisting.Core.AppMain"
+        android:name=".Core.AppMain"
         android:allowBackup="true"
         android:icon="@drawable/toic"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="edu.aku.hassannaqvi.toic_hhlisting.Activities.MainActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="edu.aku.hassannaqvi.toic_hhlisting.Activities.HouseholdListingActivity"
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="edu.aku.hassannaqvi.toic_hhlisting.Activities.AddChildActivity"
+            android:name=".Activities.HouseholdListingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="edu.aku.hassannaqvi.toic_hhlisting.Activities.setupActivity"
+            android:name=".Activities.AddChildActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="edu.aku.hassannaqvi.toic_hhlisting.Activities.FamilyListingActivity"
+            android:name=".Activities.setupActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="edu.aku.hassannaqvi.toic_hhlisting.Core.AndroidDatabaseManager"
+            android:name=".Activities.FamilyListingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Core.AndroidDatabaseManager"
             android:screenOrientation="portrait"
             android:theme="@style/android:Theme.Holo.Light.DarkActionBar" />
         <activity
-            android:name="edu.aku.hassannaqvi.toic_hhlisting.Activities.LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:label="Login In"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
-            android:name="edu.aku.hassannaqvi.toic_hhlisting.Activities.SplashScreenActivity"
+            android:name=".Activities.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
@@ -55,6 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
     </application>
 

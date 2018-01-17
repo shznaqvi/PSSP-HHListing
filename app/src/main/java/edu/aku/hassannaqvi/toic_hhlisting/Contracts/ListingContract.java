@@ -34,6 +34,7 @@ public class ListingContract {
     public String GPSLng;
     public String GPSTime;
     public String GPSAcc;
+    public String GPSAlt;
     public String AppVer;
     public String tagId;
 
@@ -261,6 +262,14 @@ public class ListingContract {
         this.tagId = tagId;
     }
 
+    public String getGPSAlt() {
+        return GPSAlt;
+    }
+
+    public void setGPSAlt(String GPSAlt) {
+        this.GPSAlt = GPSAlt;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -287,6 +296,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
+        json.put(ListingEntry.COLUMN_NAME_GPSAltitude, this.GPSAlt);
         json.put(ListingEntry.COLUMN_APPVER, this.AppVer);
         json.put(ListingEntry.COLUMN_USERNAME, this.username);
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
@@ -322,6 +332,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSLng = "gpslng";
         public static final String COLUMN_NAME_GPSTime = "gpstime";
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
+        public static final String COLUMN_NAME_GPSAltitude = "gpsalt";
         public static final String COLUMN_APPVER = "appver";
         public static final String COLUMN_TAGID = "tagId";
         public static final String COLUMN_SYNCED = "synced";
