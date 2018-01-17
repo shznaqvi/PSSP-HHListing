@@ -243,6 +243,14 @@ public class MainActivity extends Activity {
                 .setNegativeButton("Cancel", dialogClickListener).show();
     }
 
+    public void openClusterMap(View view) {
+        if (mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0) {
+            startActivity(new Intent(this, MapsActivity.class));
+        } else {
+            Toast.makeText(this, "Select values from spinners.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void openForm(View view) {
 
         if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {

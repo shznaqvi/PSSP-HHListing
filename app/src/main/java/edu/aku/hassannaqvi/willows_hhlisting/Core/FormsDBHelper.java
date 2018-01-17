@@ -735,40 +735,49 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allPC;
     }
 
-    private ContentValues getContentValues(ListingContract lc) {
-        ContentValues values = new ContentValues();
-        values.put(ListingEntry._ID, lc.getID());
-        values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
-        values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
-        values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
-        values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
-        values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
-        values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
-        values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());
-        values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
-        values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
-        values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
-        values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
-        values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
-        values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
-        values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
-        values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
-        values.put(ListingEntry.COLUMN_NAME_HH11x, lc.getHh11x());
-        values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
-        values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
-        values.put(ListingEntry.COLUMN_NAME_HH12y, lc.getHh12y());
-        values.put(ListingEntry.COLUMN_NAME_WOMEN_NAME, lc.getHhWomenNm());
-        values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
-        values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
-        values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
-        values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
-        values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
-        values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
-        values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
-        values.put(ListingEntry.COLUMN_STATUS, lc.getStatus());
-        values.put(ListingEntry.COLUMN_TAGID, lc.getTagId());
+    public Collection<VerticesContract> getVerticesByCluster(String cluster_code) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singleVertices._ID,
+                singleVertices.COLUMN_CLUSTER_CODE,
+                singleVertices.COLUMN_POLY_LAT,
+                singleVertices.COLUMN_POLY_LANG,
+                singleVertices.COLUMN_POLY_SEQ
+        };
 
-        return values;
+        String whereClause = singleVertices.COLUMN_CLUSTER_CODE + " = ?";
+        String[] whereArgs = {cluster_code};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                singleVertices._ID + " ASC";
+
+        Collection<VerticesContract> allVC = new ArrayList<>();
+        try {
+            c = db.query(
+                    singleVertices.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                VerticesContract vc = new VerticesContract();
+                allVC.add(vc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allVC;
     }
 
     private ListingContract hydrate(Cursor c) {

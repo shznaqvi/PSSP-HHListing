@@ -47,12 +47,19 @@
             android:text="Start Linelisting" />
 
         <Button
+            android:id="@+id/openClusterMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:onClick="openClusterMap"
+            android:text="CLUSTER MAP" />
+
+        <Button
             android:id="@+id/syncFunction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:onClick="syncFunction"
-
             android:text="Sync Data" />
 
         <Button
