@@ -56,7 +56,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH04x + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH14 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
@@ -226,7 +226,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Log.d(TAG, "PSUExist (Test): " + AppMain.sharedPref.getString(lc.getHh02(), "0"));
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
-        values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());
+        values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
@@ -287,7 +287,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
-                ListingEntry.COLUMN_NAME_HH04x,
+                ListingEntry.COLUMN_NAME_HH14,
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
@@ -438,7 +438,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
         lc.setHh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH03))));
         lc.setHh04(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04))));
-        lc.setHh04x(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04x))));
+        lc.setHh14(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH14))));
         lc.setHh05(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH05))));
         lc.setHh06(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH06))));
         lc.setHh07(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07))));

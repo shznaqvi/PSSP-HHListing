@@ -12,7 +12,6 @@
     <string name="hh04e"> Health Fascility </string>
     <string name="hh04f"> Empty plot/Locked/Under Construction </string>
     <string name="hh04g"> No More Structure </string>
-    <string name="hh04x"> Other </string>
     <string name="hh05"> Is their more then one family living in this household? </string>
     <string name="hh06"> How many families? </string>
     <string name="hh07"> Family code </string>
@@ -21,6 +20,7 @@
     <string name="hh10a"> No of children </string>
     <string name="hh10"> Is there any child or children aged 06 – 59  months, in this house? </string>
     <string name="hh12"> Is there any child or children aged 5 – 10 Years, in this house? </string>
+    <string name="hh14"> Slip number </string>
 
     <string name="yes"> Yes </string>
     <string name="no"> No </string>

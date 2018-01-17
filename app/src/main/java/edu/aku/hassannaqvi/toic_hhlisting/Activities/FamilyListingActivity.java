@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.aku.hassannaqvi.toic_hhlisting.Core.AppMain;
@@ -37,12 +41,20 @@ public class FamilyListingActivity extends Activity {
     Switch hh12;
     @BindView(R.id.hh13)
     EditText hh13;
+    @BindView(R.id.hh14)
+    EditText hh14;
     @BindView(R.id.btnAddChild)
     Button btnAddChild;
     @BindView(R.id.btnAddFamily)
     Button btnAddFamilty;
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
+
+    @BindViews({R.id.hh10, R.id.hh12})
+    List<Switch> hh10_12;
+
+    @BindView(R.id.fldGrpHH14)
+    LinearLayout fldGrpHH14;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +73,46 @@ public class FamilyListingActivity extends Activity {
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
 
-        hh10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // =================== Q 10 12 Skip Pattern ================
+        for (Switch sw : hh10_12) {
+            sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (hh10.isChecked()) {
+                        hh11.setVisibility(View.VISIBLE);
+                        hh11.requestFocus();
+                    } else {
+                        hh11.setVisibility(View.GONE);
+                        hh11.setText(null);
+                    }
+
+                    if (hh12.isChecked()) {
+                        hh13.setVisibility(View.VISIBLE);
+                        hh13.requestFocus();
+                    } else {
+                        hh13.setVisibility(View.GONE);
+                        hh13.setText(null);
+                    }
+
+                    if (hh10.isChecked() || hh12.isChecked()){
+                        fldGrpHH14.setVisibility(View.VISIBLE);
+                    }else {
+                        fldGrpHH14.setVisibility(View.GONE);
+                        hh14.setText(null);
+                    }
+
+                }
+            });
+        }
+
+/*        hh10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     hh11.setVisibility(View.VISIBLE);
                     hh11.requestFocus();
                 } else {
-                    hh11.setVisibility(View.INVISIBLE);
+                    hh11.setVisibility(View.GONE);
                     hh11.setText(null);
                 }
             }
@@ -81,11 +125,12 @@ public class FamilyListingActivity extends Activity {
                     hh13.setVisibility(View.VISIBLE);
                     hh13.requestFocus();
                 } else {
-                    hh13.setVisibility(View.INVISIBLE);
+                    hh13.setVisibility(View.GONE);
                     hh13.setText(null);
                 }
             }
-        });
+        });*/
+
 
         /*hh11.addTextChangedListener(new TextWatcher() {
             @Override
@@ -144,6 +189,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh11(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString());
         AppMain.lc.setHh12(hh12.isChecked() ? "1" : "2");
         AppMain.lc.setHh13(hh13.getText().toString().isEmpty() ? "0" : hh13.getText().toString());
+        AppMain.lc.setHh14(hh14.getText().toString().isEmpty() ? "0" : hh14.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
 
@@ -203,6 +249,15 @@ public class FamilyListingActivity extends Activity {
             return false;
         } else {
             hh13.setError(null);
+        }
+
+        if ((hh10.isChecked() && hh14.getText().toString().trim().isEmpty()) || (hh12.isChecked() && hh14.getText().toString().trim().isEmpty()) ) {
+            Toast.makeText(this, "Invalid Slip no!", Toast.LENGTH_LONG).show();
+            hh14.setError("Invalid Slip no!");
+            Log.i(TAG, "Invalid Slip no!");
+            return false;
+        } else {
+            hh14.setError(null);
         }
 
         return true;

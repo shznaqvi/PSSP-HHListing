@@ -14,7 +14,7 @@ public class listings extends pssphhlDBHelperController {
     public static final String hh02 = "hh02";
     public static final String hh03 = "hh03";
     public static final String hh04 = "hh04";
-    public static final String hh04x = "hh04x";
+    public static final String hh04x = "hh14";
     public static final String hh05 = "hh05";
     public static final String hh06 = "hh06";
     public static final String hh07 = "hh07";
