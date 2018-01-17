@@ -43,6 +43,7 @@ import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetDistricts;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetPSUs;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetUsers;
+import edu.aku.hassannaqvi.willows_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.willows_hhlisting.R;
 import edu.aku.hassannaqvi.willows_hhlisting.Sync.SyncAreas;
 import edu.aku.hassannaqvi.willows_hhlisting.Sync.SyncListing;
@@ -411,6 +412,9 @@ public class MainActivity extends Activity {
                     GetUsers gu = new GetUsers(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
                     gu.execute();
+
+                    Toast.makeText(getApplicationContext(), "Syncing Vertices", Toast.LENGTH_SHORT).show();
+                    new GetVertices(mContext).execute();
 
                 }
             });
