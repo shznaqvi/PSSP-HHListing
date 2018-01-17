@@ -26,10 +26,10 @@ import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.MwraContract.MwraEntry;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.PSUsContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.PSUsContract.singlePSU;
-import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesContract;
-import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesContract.singleVertices;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.UsersContract.singleUser;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesContract.singleVertices;
 
 
 /**
@@ -752,7 +752,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleVertices._ID + " ASC";
+                singleVertices.COLUMN_POLY_SEQ + " ASC";
 
         Collection<VerticesContract> allVC = new ArrayList<>();
         try {
@@ -937,8 +937,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ContentValues values = new ContentValues();
 
                 values.put(singleVertices.COLUMN_CLUSTER_CODE, vc.getCluster_code());
-                values.put(singleVertices.COLUMN_POLY_LAT, vc.getPSUCode());
-                values.put(singleVertices.COLUMN_POLY_LANG, vc.getPSUName());
+                values.put(singleVertices.COLUMN_POLY_LAT, vc.getPoly_lat());
+                values.put(singleVertices.COLUMN_POLY_LANG, vc.getPoly_lng());
                 values.put(singleVertices.COLUMN_POLY_SEQ, vc.getPoly_seq());
 
                 db.insert(singleVertices.TABLE_NAME, null, values);

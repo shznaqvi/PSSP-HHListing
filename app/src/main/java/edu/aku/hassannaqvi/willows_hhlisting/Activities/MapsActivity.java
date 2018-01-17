@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -54,7 +55,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private LatLng mDefaultLocation;
     private ArrayList<LatLng> points;
+    private ArrayList<LatLng> points2;
     private PolygonOptions polygon102;
+    private LatLng clusterStart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +89,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 new MyLocationListener()
         );
+        points = new ArrayList<LatLng>();
+        points2 = new ArrayList<LatLng>();
 
+        Collection<VerticesContract> vc = db.getVerticesByCluster(AppMain.hh02txt);
+        for (VerticesContract v : vc) {
+            if (v.getPoly_seq().equals("1")) {
+                clusterStart = (new LatLng(v.getPoly_lat(), v.getPoly_lng()));
+            }
+
+            points.add(new LatLng(v.getPoly_lat(), v.getPoly_lng()));
+        }
     }
 
     protected void showCurrentLocation() {
@@ -177,17 +191,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the current location of the device and set the position of the map.
         // Add a marker in Sydney and move the camera
-        LatLng clusterStart = new LatLng(24.89985381, 67.0803677);
         mMap.addMarker(new MarkerOptions().position(clusterStart).title("Start of Cluster"));
         // Instantiates a new Polyline object and adds points to define a rectangle
         PolygonOptions rectCluster = new PolygonOptions()
-                .add(new LatLng(24.89985381, 67.0803677))
-                .add(new LatLng(24.89047691, 67.08126944))  // North of the previous point, but at the same longitude
-                .add(new LatLng(24.89991492, 67.08177573))  // Same latitude, and 30km to the west
-                .add(new LatLng(24.89930548, 67.0808214))  // Same longitude, and 16km to the south
-                .add(new LatLng(24.89985381, 67.0803677)) // Closes the polyline.
-                .fillColor(getResources().getColor(R.color.colorAccent))
+                .fillColor(getResources().getColor(R.color.colorAccentAlpha))
                 .strokeColor(Color.RED);
+        rectCluster.addAll(points);
+
 
 // Get back the mutable Polyline
         Polygon polyCluster = mMap.addPolygon(rectCluster);
@@ -196,32 +206,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clusterStart, DEFAULT_ZOOM));
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            public void onMapClick(LatLng point) {
+                points2.add(new LatLng(point.latitude, point.latitude));
+
+                Toast.makeText(getApplicationContext(), "(" + points2.size() + ") " +
+                                point.latitude + ", " + point.longitude,
+                        Toast.LENGTH_SHORT).show();
+
+                if (points2.size() > 3) {
+                    PolygonOptions rectCluster = new PolygonOptions()
+                            .fillColor(getResources().getColor(R.color.colorAccentAlpha))
+                            .strokeColor(Color.RED);
+                    rectCluster.addAll(points2);
+                    mMap.addPolygon(rectCluster);
+
+                }
+            }
+        });
     }
 
     private class MyLocationListener implements LocationListener {
 
-        Collection<VerticesContract> vc = db.getVerticesByCluster(AppMain.hh02txt);
         Polygon mpoly = null;
 
 
         public void onLocationChanged(Location location) {
             mDefaultLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
-            if (PolyUtil.containsLocation(mDefaultLocation, points, false)) {
+            if (mpoly == null && PolyUtil.containsLocation(mDefaultLocation, points, false)) {
 
                 PolygonOptions rectCluster = new PolygonOptions()
-                        .fillColor(getResources().getColor(R.color.colorAccent))
+                        .fillColor(getResources().getColor(R.color.colorAccentAlpha))
                         .strokeColor(Color.GREEN).strokeWidth(8);
 
-                for (VerticesContract v : vc) {
-                    rectCluster.add(new LatLng(24.89985381, 67.0803677));
-                }
+
+                rectCluster.addAll(points);
 
                 mpoly = mMap.addPolygon(rectCluster);
 
-            } else if (mpoly != null) {
+            } else if (mpoly != null && !(PolyUtil.containsLocation(mDefaultLocation, points, false))) {
 
                 mpoly.remove();
+                mpoly = null;
             }
 
 

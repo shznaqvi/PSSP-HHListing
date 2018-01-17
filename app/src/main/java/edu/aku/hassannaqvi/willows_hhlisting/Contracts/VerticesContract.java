@@ -13,8 +13,8 @@ import org.json.JSONObject;
 public class VerticesContract {
 
     private String cluster_code;
-    private String poly_lat;
-    private String poly_lng;
+    private Double poly_lat;
+    private Double poly_lng;
     private String poly_seq;
 
 
@@ -23,8 +23,8 @@ public class VerticesContract {
 
     public VerticesContract sync(JSONObject jsonObject) throws JSONException {
         this.cluster_code = jsonObject.getString(singleVertices.COLUMN_CLUSTER_CODE);
-        this.poly_lat = jsonObject.getString(singleVertices.COLUMN_POLY_LAT);
-        this.poly_lng = jsonObject.getString(singleVertices.COLUMN_POLY_LANG);
+        this.poly_lat = jsonObject.getDouble(singleVertices.COLUMN_POLY_LAT);
+        this.poly_lng = jsonObject.getDouble(singleVertices.COLUMN_POLY_LANG);
         this.poly_seq = jsonObject.getString(singleVertices.COLUMN_POLY_SEQ);
 
 
@@ -33,8 +33,8 @@ public class VerticesContract {
 
     public VerticesContract hydrate(Cursor cursor) {
         this.cluster_code = cursor.getString(cursor.getColumnIndex(singleVertices.COLUMN_CLUSTER_CODE));
-        this.poly_lat = cursor.getString(cursor.getColumnIndex(singleVertices.COLUMN_POLY_LAT));
-        this.poly_lng = cursor.getString(cursor.getColumnIndex(singleVertices.COLUMN_POLY_LANG));
+        this.poly_lat = cursor.getDouble(cursor.getColumnIndex(singleVertices.COLUMN_POLY_LAT));
+        this.poly_lng = cursor.getDouble(cursor.getColumnIndex(singleVertices.COLUMN_POLY_LANG));
         this.poly_seq = cursor.getString(cursor.getColumnIndex(singleVertices.COLUMN_POLY_SEQ));
 
         return this;
@@ -48,20 +48,20 @@ public class VerticesContract {
         this.cluster_code = cluster_code;
     }
 
-    public String getPSUCode() {
+    public Double getPoly_lat() {
         return poly_lat;
     }
 
-    public void setPSUCode(String psuCode) {
-        this.poly_lat = psuCode;
+    public void setPoly_lat(Double poly_lat) {
+        this.poly_lat = poly_lat;
     }
 
-    public String getPSUName() {
+    public Double getPoly_lng() {
         return poly_lng;
     }
 
-    public void setPSUName(String psuName) {
-        this.poly_lng = psuName;
+    public void setPoly_lng(Double poly_lng) {
+        this.poly_lng = poly_lng;
     }
 
     public String getPoly_seq() {
