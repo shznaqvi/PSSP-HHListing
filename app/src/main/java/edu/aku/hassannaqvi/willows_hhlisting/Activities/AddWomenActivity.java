@@ -31,6 +31,8 @@ public class AddWomenActivity extends Activity {
     ScrollView activityAddWomen;
     @BindView(R.id.txtWomenListing)
     TextView txtWomenListing;
+    @BindView(R.id.icHusName)
+    EditText icHusName;
     @BindView(R.id.icName)
     EditText icName;
     @BindView(R.id.icAgeY)
@@ -116,13 +118,22 @@ public class AddWomenActivity extends Activity {
         AppMain.mc.setStructureNo(AppMain.hh03txt + "-" + AppMain.hh07txt);
         AppMain.mc.setMwraID(String.valueOf(AppMain.cCount));
 
-        AppMain.mc.setName(icName.getText().toString());
+        AppMain.mc.setName(icName.getText().toString() + " w|o " + icHusName.getText().toString());
         AppMain.mc.setAgey(icAgeY.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
     }
 
     private boolean formValidation() {
+
+        if (icHusName.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter husband name", Toast.LENGTH_LONG).show();
+            icHusName.setError("Please enter husband name");
+            Log.i(TAG, "Please enter husband name");
+            return false;
+        } else {
+            icHusName.setError(null);
+        }
 
         if (icName.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter name", Toast.LENGTH_LONG).show();

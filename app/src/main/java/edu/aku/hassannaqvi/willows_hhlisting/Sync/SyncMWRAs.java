@@ -169,7 +169,7 @@ public class SyncMWRAs extends AsyncTask<Void, Void, String> {
                     db.updateSyncedMWRA(jsonObject.getString("id"));
                     sSynced++;
                 } else if (jsonObject.getString("status").equals("2") && jsonObject.getString("error").equals("0")) {
-                    db.updateSyncedForms(jsonObject.getString("id"));
+                    db.updateSyncedMWRA(jsonObject.getString("id"));
                     sDuplicate++;
                 } else {
                     sSyncedError += "\nError: " + jsonObject.getString("message").toString();

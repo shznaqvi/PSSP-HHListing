@@ -47,6 +47,7 @@
     <string name="no"> No </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
+    <string name="hus_name"> Husband Name </string>
     <string name="women_name"> Woman Name </string>
     <string name="women_age"> Woman Age in Years </string>
     <!--<string name="hh12">ماہ</string>-->
