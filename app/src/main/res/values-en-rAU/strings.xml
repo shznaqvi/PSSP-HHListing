@@ -47,6 +47,7 @@
     <string name="no"> نہیں </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
+    <string name="hus_name"> شوہر کا نام </string>
     <string name="women_name"> عورت کا نام </string>
     <string name="women_age"> عورت کی عمر </string>
     <!--<string name="hh12">ماہ</string>-->
