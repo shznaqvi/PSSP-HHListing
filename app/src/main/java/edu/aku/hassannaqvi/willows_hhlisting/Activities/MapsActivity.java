@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -22,7 +21,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
@@ -56,10 +57,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private LatLng mDefaultLocation;
     private ArrayList<LatLng> clusterPoints;
-    private ArrayList<LatLng> points2;
+    private ArrayList<LatLng> newClusterPoints;
     private ArrayList<LatLng> ucPoints;
     private PolygonOptions polygon102;
     private LatLng clusterStart;
+    private String clusterName;
 
 
     @Override
@@ -91,19 +93,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 new MyLocationListener()
         );
+
+
         clusterPoints = new ArrayList<LatLng>();
-        points2 = new ArrayList<LatLng>();
+        newClusterPoints = new ArrayList<LatLng>();
         ucPoints = new ArrayList<LatLng>();
 
         Collection<VerticesContract> vc = db.getVerticesByCluster(AppMain.hh02txt);
+
         for (VerticesContract v : vc) {
-            if (v.getPoly_seq().equals("1")) {
-                clusterStart = (new LatLng(v.getPoly_lat(), v.getPoly_lng()));
-            }
+
+
+            clusterName = v.getCluster_code();
 
             clusterPoints.add(new LatLng(v.getPoly_lat(), v.getPoly_lng()));
         }
-
+        clusterStart = (clusterPoints.get(0));
         Collection<VerticesUCContract> vcuc = db.getVerticesByUC(AppMain.hh01txt);
         for (VerticesUCContract v : vcuc) {
             ucPoints.add(new LatLng(v.getPoly_lat(), v.getPoly_lng()));
@@ -199,40 +204,69 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the current location of the device and set the position of the map.
         // Add a marker in Sydney and move the camera
-        mMap.addMarker(new MarkerOptions().position(clusterStart).title("Start of Cluster"));
+        Marker clusterMarker = mMap.addMarker(new MarkerOptions()
+                .position(clusterStart)
+                .title(clusterName)
+                .anchor(0.5f, 1)
+        );
+
+        clusterMarker.showInfoWindow();
         // Instantiates a new Polyline object and adds clusterPoints to define a rectangle
         PolygonOptions rectCluster = new PolygonOptions()
                 .fillColor(getResources().getColor(R.color.colorAccentAlpha))
                 .strokeColor(Color.RED);
         rectCluster.addAll(clusterPoints);
 
+        PolygonOptions rectUC = new PolygonOptions()
+                .fillColor(getResources().getColor(R.color.dullBlueOverlay))
+                .strokeColor(R.color.dullBlack);
+        rectUC.addAll(ucPoints);
+
 
 // Get back the mutable Polyline
+        // UC Poly
+        Polygon polyUC = mMap.addPolygon(rectUC);
+        polyUC.setGeodesic(true);
+
+        // Cluster Poly
         Polygon polyCluster = mMap.addPolygon(rectCluster);
         polyCluster.setGeodesic(true);
 
+
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clusterStart, DEFAULT_ZOOM));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clusterPoints.get(0), DEFAULT_ZOOM));
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        //DRAW CLUSTER
+       /* mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             public void onMapClick(LatLng point) {
-                points2.add(new LatLng(point.latitude, point.latitude));
+                newClusterPoints.add(new LatLng(point.latitude, point.latitude));
 
-                Toast.makeText(getApplicationContext(), "(" + points2.size() + ") " +
+                Toast.makeText(getApplicationContext(), "(" + newClusterPoints.size() + ") " +
                                 point.latitude + ", " + point.longitude,
                         Toast.LENGTH_SHORT).show();
 
-                if (points2.size() > 3) {
+                if (newClusterPoints.size() > 3) {
                     PolygonOptions rectCluster = new PolygonOptions()
                             .fillColor(getResources().getColor(R.color.colorAccentAlpha))
                             .strokeColor(Color.RED);
-                    rectCluster.addAll(points2);
+                    rectCluster.addAll(newClusterPoints);
                     mMap.addPolygon(rectCluster);
 
                 }
             }
-        });
+        });*/
+    }
+
+    private void updateCameraBearing(GoogleMap googleMap, float bearing) {
+        if (googleMap == null) return;
+        CameraPosition camPos = CameraPosition
+                .builder(
+                        googleMap.getCameraPosition() // current Camera
+                )
+                .bearing(bearing)
+                .build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(camPos));
     }
 
     private class MyLocationListener implements LocationListener {
@@ -242,11 +276,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         public void onLocationChanged(Location location) {
             mDefaultLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            updateCameraBearing(mMap, location.getBearing());
 
             if (mpoly == null && PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false)) {
 
                 PolygonOptions rectCluster = new PolygonOptions()
-                        .fillColor(getResources().getColor(R.color.colorAccentAlpha))
+                        .fillColor(getResources().getColor(R.color.colorAccentGAlpha))
                         .strokeColor(Color.GREEN).strokeWidth(8);
 
 

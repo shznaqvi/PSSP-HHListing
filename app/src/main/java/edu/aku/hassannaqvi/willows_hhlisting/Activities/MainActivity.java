@@ -44,6 +44,7 @@ import edu.aku.hassannaqvi.willows_hhlisting.Get.GetDistricts;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetPSUs;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetUsers;
 import edu.aku.hassannaqvi.willows_hhlisting.Get.GetVertices;
+import edu.aku.hassannaqvi.willows_hhlisting.Get.GetVerticesUC;
 import edu.aku.hassannaqvi.willows_hhlisting.R;
 import edu.aku.hassannaqvi.willows_hhlisting.Sync.SyncAreas;
 import edu.aku.hassannaqvi.willows_hhlisting.Sync.SyncListing;
@@ -423,6 +424,9 @@ public class MainActivity extends Activity {
 
                     Toast.makeText(getApplicationContext(), "Syncing Vertices", Toast.LENGTH_SHORT).show();
                     new GetVertices(mContext).execute();
+
+                    Toast.makeText(getApplicationContext(), "Syncing UC Vertices", Toast.LENGTH_SHORT).show();
+                    new GetVerticesUC(mContext).execute();
 
                 }
             });

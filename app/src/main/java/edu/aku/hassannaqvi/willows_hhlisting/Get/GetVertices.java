@@ -40,7 +40,7 @@ public class GetVertices extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Syncing Clusters");
+        pd.setTitle("Syncing Cluster Vertices");
         pd.setMessage("Getting connected to server...");
         pd.show();
 
