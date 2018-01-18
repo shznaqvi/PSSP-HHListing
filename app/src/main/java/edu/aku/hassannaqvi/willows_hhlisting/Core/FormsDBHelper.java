@@ -30,6 +30,8 @@ import edu.aku.hassannaqvi.willows_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.UsersContract.singleUser;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesContract.singleVertices;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesUCContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesUCContract.singleVerticesUC;
 
 
 /**
@@ -103,6 +105,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             singleVertices.COLUMN_POLY_SEQ + " TEXT " +
             ");";
 
+    final String SQL_CREATE_VERTICESUC_TABLE = "CREATE TABLE " + singleVerticesUC.TABLE_NAME + " (" +
+            singleVerticesUC._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            singleVerticesUC.COLUMN_UC_CODE + " TEXT," +
+            singleVerticesUC.COLUMN_POLY_LAT + " TEXT, " +
+            singleVerticesUC.COLUMN_POLY_LANG + " TEXT, " +
+            singleVerticesUC.COLUMN_POLY_SEQ + " TEXT " +
+            ");";
+
     final String SQL_CREATE_AREA_TABLE = "CREATE TABLE " + singleAreas.TABLE_NAME + " (" +
             singleAreas.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             singleAreas.COLUMN_DEVICEID + " TEXT," +
@@ -157,6 +167,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_AREA_TABLE);
         db.execSQL(SQL_CREATE_MWRA_TABLE);
         db.execSQL(SQL_CREATE_VERTICES_TABLE);
+        db.execSQL(SQL_CREATE_VERTICESUC_TABLE);
     }
 
     @Override
@@ -165,6 +176,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         switch (oldVersion){
             case 4:
                 db.execSQL(SQL_CREATE_VERTICES_TABLE);
+                db.execSQL(SQL_CREATE_VERTICESUC_TABLE);
         }
 
         // Simply discard all old data and start over when upgrading.
@@ -780,6 +792,51 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allVC;
     }
 
+    public Collection<VerticesUCContract> getVerticesByUC(String uc_code) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singleVerticesUC._ID,
+                singleVerticesUC.COLUMN_UC_CODE,
+                singleVerticesUC.COLUMN_POLY_LAT,
+                singleVerticesUC.COLUMN_POLY_LANG,
+                singleVerticesUC.COLUMN_POLY_SEQ
+        };
+
+        String whereClause = singleVerticesUC.COLUMN_UC_CODE + " = ?";
+        String[] whereArgs = {uc_code};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                singleVerticesUC.COLUMN_POLY_SEQ + " ASC";
+
+        Collection<VerticesUCContract> allVCUC = new ArrayList<>();
+        try {
+            c = db.query(
+                    singleVerticesUC.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                VerticesUCContract vc = new VerticesUCContract();
+                allVCUC.add(vc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allVCUC;
+    }
+
     private ListingContract hydrate(Cursor c) {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
         lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
@@ -929,10 +986,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             JSONArray jsonArray = vcList;
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObjectPSU = jsonArray.getJSONObject(i);
+                JSONObject jsonObjectVR = jsonArray.getJSONObject(i);
 
                 VerticesContract vc = new VerticesContract();
-                vc.sync(jsonObjectPSU);
+                vc.sync(jsonObjectVR);
 
                 ContentValues values = new ContentValues();
 
@@ -942,6 +999,35 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 values.put(singleVertices.COLUMN_POLY_SEQ, vc.getPoly_seq());
 
                 db.insert(singleVertices.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void syncVerticesUC(JSONArray vcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(singleVerticesUC.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = vcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectVRUC = jsonArray.getJSONObject(i);
+
+                VerticesUCContract vc = new VerticesUCContract();
+                vc.sync(jsonObjectVRUC);
+
+                ContentValues values = new ContentValues();
+
+                values.put(singleVerticesUC.COLUMN_UC_CODE, vc.getUc_code());
+                values.put(singleVerticesUC.COLUMN_POLY_LAT, vc.getPoly_lat());
+                values.put(singleVerticesUC.COLUMN_POLY_LANG, vc.getPoly_lng());
+                values.put(singleVerticesUC.COLUMN_POLY_SEQ, vc.getPoly_seq());
+
+                db.insert(singleVerticesUC.TABLE_NAME, null, values);
             }
             db.close();
 

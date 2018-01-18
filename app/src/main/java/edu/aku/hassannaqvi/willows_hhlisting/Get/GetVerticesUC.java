@@ -19,20 +19,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesUCContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
 
 /**
  * Created by hassan.naqvi on 4/28/2016.
  */
-public class GetVertices extends AsyncTask<String, String, String> {
-    private final String TAG = "GetVertices()";
+public class GetVerticesUC extends AsyncTask<String, String, String> {
+    private final String TAG = "GetVerticesUC()";
     HttpURLConnection urlConnection;
     private Context mContext;
     private ProgressDialog pd;
 
-    public GetVertices(Context context) {
+    public GetVerticesUC(Context context) {
         mContext = context;
     }
 
@@ -53,7 +53,7 @@ public class GetVertices extends AsyncTask<String, String, String> {
 
         URL url = null;
         try {
-            url = new URL(AppMain._HOST_URL + VerticesContract.singleVertices._URI);
+            url = new URL(AppMain._HOST_URL + VerticesUCContract.singleVerticesUC._URI);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
@@ -65,7 +65,7 @@ public class GetVertices extends AsyncTask<String, String, String> {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "Vertices In: " + line);
+                    Log.i(TAG, "VerticesUC In: " + line);
                     result.append(line);
                 }
             }
@@ -92,7 +92,7 @@ public class GetVertices extends AsyncTask<String, String, String> {
                 FormsDBHelper db = new FormsDBHelper(mContext);
                 try {
                     JSONArray jsonArray = new JSONArray(json);
-                    db.syncVertices(jsonArray);
+                    db.syncVerticesUC(jsonArray);
                     pd.setMessage("Received: " + jsonArray.length());
                     pd.show();
                 } catch (JSONException e) {
