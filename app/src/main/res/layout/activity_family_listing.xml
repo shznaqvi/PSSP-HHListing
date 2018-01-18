@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.toic_hhlisting.Activities.HouseholdListingActivity">
+    tools:context="edu.aku.hassannaqvi.toic_hhlisting.Activities.FamilyListingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,9 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
-            android:background="#d6d6d6"
+            android:background="@color/colorPrimary"
             android:text="Family Listing"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="#efefefef" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:digits="@string/txtMsg"
+                android:digits="@string/txtName"
                 android:inputType="text"
                 android:maxLength="24" />
 
@@ -83,6 +84,7 @@
                 android:layout_marginTop="@dimen/_1sdp"
                 android:layout_weight="4"
                 android:text="@string/hh10"
+                android:textColor="@color/colorPrimaryDark"
                 android:textOff="@string/no"
                 android:textOn="@string/yes" />
 
@@ -96,7 +98,7 @@
                 android:hint="@string/hh10a"
                 android:inputType="number"
                 android:maxLength="2"
-                android:visibility="gone" />
+                android:visibility="invisible" />
 
         </LinearLayout>
         <LinearLayout
@@ -111,6 +113,7 @@
                 android:layout_marginTop="@dimen/_1sdp"
                 android:layout_weight="4"
                 android:text="@string/hh12"
+                android:textColor="@color/colorPrimaryDark"
                 android:textOff="@string/no"
                 android:textOn="@string/yes" />
 
@@ -124,15 +127,15 @@
                 android:hint="@string/hh10a"
                 android:inputType="number"
                 android:maxLength="2"
-                android:visibility="gone" />
+                android:visibility="invisible" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/fldGrpHH14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/fldGrpHH14"
             android:visibility="gone">
 
             <TextView
@@ -143,10 +146,10 @@
 
             <EditText
                 android:id="@+id/hh14"
-                android:hint="@string/hh14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="05dp"
+                android:hint="@string/hh14"
                 android:inputType="number"
                 android:maxLength="6" />
         </LinearLayout>

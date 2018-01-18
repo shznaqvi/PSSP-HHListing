@@ -6,6 +6,7 @@
         <item name="android:textViewStyle">@style/textView</item>
         <item name="android:editTextStyle">@style/editText</item>
         <item name="android:typeface">serif</item>
+        <item name="android:background">#d6d6d6</item>
         <item name="android:textSize">@dimen/_14sdp</item>
 
     </style>

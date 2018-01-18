@@ -82,7 +82,7 @@ public class FamilyListingActivity extends Activity {
                         hh11.setVisibility(View.VISIBLE);
                         hh11.requestFocus();
                     } else {
-                        hh11.setVisibility(View.GONE);
+                        hh11.setVisibility(View.INVISIBLE);
                         hh11.setText(null);
                     }
 
@@ -90,7 +90,7 @@ public class FamilyListingActivity extends Activity {
                         hh13.setVisibility(View.VISIBLE);
                         hh13.requestFocus();
                     } else {
-                        hh13.setVisibility(View.GONE);
+                        hh13.setVisibility(View.INVISIBLE);
                         hh13.setText(null);
                     }
 

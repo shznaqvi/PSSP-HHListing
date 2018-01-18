@@ -16,10 +16,24 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HouseHold Listing Form" />
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary"
+            android:text="Household Listing"
+            android:textAlignment="center"
+            android:textColor="#efefefef"
+            android:textSize="24sp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="#d6d6d6"
+            android:text="Select Taluka"
+            android:textAlignment="center" />
         <Spinner
             android:id="@+id/MN01"
             android:layout_width="match_parent"
@@ -55,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="70"
                 android:background="#ddd"
-                android:hint="PSU here"
+                android:hint="Cluster number"
                 android:inputType="number"
                 android:maxLength="6"
                 android:padding="10dp"
@@ -73,17 +87,23 @@
             <TextView
                 android:id="@+id/districtN"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#ef3030" />
 
             <TextView
                 android:id="@+id/ucN"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#ef3030" />
 
             <TextView
                 android:id="@+id/psuN"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#ef3030" />
 
         </LinearLayout>
 

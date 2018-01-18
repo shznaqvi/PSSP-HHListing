@@ -22,9 +22,6 @@
             android:name=".Activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.HouseholdListingActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Activities.AddChildActivity"
             android:screenOrientation="portrait" />
         <activity
