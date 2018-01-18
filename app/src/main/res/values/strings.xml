@@ -26,6 +26,7 @@
     <string name="no"> No </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
+    <string name="txtName"> qwertyuiop asdfghjkl zxcvbnm QWERTYUIOP ASDFGHJKL ZXCVBNM </string>
     <string name="child_name"> Child Name </string>
     <string name="child_age"> Child Age </string>
     <string name="hh12m">ماہ</string>

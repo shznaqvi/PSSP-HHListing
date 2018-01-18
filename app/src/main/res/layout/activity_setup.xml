@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.toic_hhlisting.Activities.HouseholdListingActivity">
+    tools:context="edu.aku.hassannaqvi.toic_hhlisting.Activities.setupActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,9 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
-            android:background="#d6d6d6"
+            android:background="@color/colorPrimary"
             android:text="Household Information"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="#efefefef" />
 
         <!--DISTRICT (Name)-->
 
@@ -186,9 +187,9 @@
                 <!--Are there more than one Families?-->
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="70"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:layout_weight="70"
                     android:text="@string/hh05" />
 
                 <Switch
@@ -244,7 +245,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Change PSU"
+            android:text="Change Cluster"
             android:visibility="gone" />
     </LinearLayout>
 

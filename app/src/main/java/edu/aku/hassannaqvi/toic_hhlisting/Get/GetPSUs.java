@@ -18,10 +18,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
-import edu.aku.hassannaqvi.toic_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.toic_hhlisting.Contracts.PSUsContract;
+import edu.aku.hassannaqvi.toic_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.toic_hhlisting.Core.FormsDBHelper;
 
 public class GetPSUs extends AsyncTask<String, String, String> {
@@ -39,7 +38,7 @@ public class GetPSUs extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Syncing PSUs");
+        pd.setTitle("Syncing Clusters");
         pd.setMessage("Getting connected to server...");
         pd.show();
 
