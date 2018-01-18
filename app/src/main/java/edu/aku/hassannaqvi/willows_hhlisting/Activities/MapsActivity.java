@@ -33,6 +33,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesContract;
+import edu.aku.hassannaqvi.willows_hhlisting.Contracts.VerticesUCContract;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.willows_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.willows_hhlisting.R;
@@ -54,8 +55,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private PlaceDetectionClient mPlaceDetectionClient;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private LatLng mDefaultLocation;
-    private ArrayList<LatLng> points;
+    private ArrayList<LatLng> clusterPoints;
     private ArrayList<LatLng> points2;
+    private ArrayList<LatLng> ucPoints;
     private PolygonOptions polygon102;
     private LatLng clusterStart;
 
@@ -89,8 +91,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 new MyLocationListener()
         );
-        points = new ArrayList<LatLng>();
+        clusterPoints = new ArrayList<LatLng>();
         points2 = new ArrayList<LatLng>();
+        ucPoints = new ArrayList<LatLng>();
 
         Collection<VerticesContract> vc = db.getVerticesByCluster(AppMain.hh02txt);
         for (VerticesContract v : vc) {
@@ -98,7 +101,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 clusterStart = (new LatLng(v.getPoly_lat(), v.getPoly_lng()));
             }
 
-            points.add(new LatLng(v.getPoly_lat(), v.getPoly_lng()));
+            clusterPoints.add(new LatLng(v.getPoly_lat(), v.getPoly_lng()));
+        }
+
+        Collection<VerticesUCContract> vcuc = db.getVerticesByUC(AppMain.hh01txt);
+        for (VerticesUCContract v : vcuc) {
+            ucPoints.add(new LatLng(v.getPoly_lat(), v.getPoly_lng()));
         }
     }
 
@@ -192,11 +200,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Get the current location of the device and set the position of the map.
         // Add a marker in Sydney and move the camera
         mMap.addMarker(new MarkerOptions().position(clusterStart).title("Start of Cluster"));
-        // Instantiates a new Polyline object and adds points to define a rectangle
+        // Instantiates a new Polyline object and adds clusterPoints to define a rectangle
         PolygonOptions rectCluster = new PolygonOptions()
                 .fillColor(getResources().getColor(R.color.colorAccentAlpha))
                 .strokeColor(Color.RED);
-        rectCluster.addAll(points);
+        rectCluster.addAll(clusterPoints);
 
 
 // Get back the mutable Polyline
@@ -235,18 +243,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onLocationChanged(Location location) {
             mDefaultLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
-            if (mpoly == null && PolyUtil.containsLocation(mDefaultLocation, points, false)) {
+            if (mpoly == null && PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false)) {
 
                 PolygonOptions rectCluster = new PolygonOptions()
                         .fillColor(getResources().getColor(R.color.colorAccentAlpha))
                         .strokeColor(Color.GREEN).strokeWidth(8);
 
 
-                rectCluster.addAll(points);
+                rectCluster.addAll(clusterPoints);
 
                 mpoly = mMap.addPolygon(rectCluster);
 
-            } else if (mpoly != null && !(PolyUtil.containsLocation(mDefaultLocation, points, false))) {
+            } else if (mpoly != null && !(PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false))) {
 
                 mpoly.remove();
                 mpoly = null;
