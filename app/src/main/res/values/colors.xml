@@ -26,6 +26,7 @@
     <color name="year">#999999</color>
     <color name="title">#222222</color>
     <color name="green">#4caf50</color>
+    <color name="greenAlpha">#244caf50</color>
     <color name="red">#f44336</color>
 
 

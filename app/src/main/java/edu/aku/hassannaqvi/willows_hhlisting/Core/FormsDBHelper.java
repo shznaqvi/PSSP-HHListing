@@ -808,8 +808,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String groupBy = null;
         String having = null;
 
-        String orderBy =
-                singleVerticesUC.COLUMN_POLY_SEQ + " ASC";
+        String orderBy = "substr('0000000000' || " + singleVerticesUC.COLUMN_POLY_SEQ + ", -10, 10) ASC";
 
         Collection<VerticesUCContract> allVCUC = new ArrayList<>();
         try {

@@ -279,20 +279,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             updateCameraBearing(mMap, location.getBearing());
 
             if (mpoly == null && PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false)) {
+                PolygonOptions rectOptions102 = new PolygonOptions()
+                        .fillColor(getResources().getColor(R.color.greenAlpha))
+                        .strokeColor(R.color.green).strokeWidth(8);
+                rectOptions102.addAll(clusterPoints);
+                // Closes the polyline.
+                mpoly = mMap.addPolygon(rectOptions102);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clusterPoints.get(0), 20));
 
-                PolygonOptions rectCluster = new PolygonOptions()
-                        .fillColor(getResources().getColor(R.color.colorAccentGAlpha))
-                        .strokeColor(Color.GREEN).strokeWidth(8);
-
-
-                rectCluster.addAll(clusterPoints);
-
-                mpoly = mMap.addPolygon(rectCluster);
 
             } else if (mpoly != null && !(PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false))) {
 
                 mpoly.remove();
                 mpoly = null;
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clusterPoints.get(0), DEFAULT_ZOOM));
+
             }
 
 
