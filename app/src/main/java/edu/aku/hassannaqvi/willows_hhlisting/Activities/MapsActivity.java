@@ -214,12 +214,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Instantiates a new Polyline object and adds clusterPoints to define a rectangle
         PolygonOptions rectCluster = new PolygonOptions()
                 .fillColor(getResources().getColor(R.color.colorAccentAlpha))
-                .strokeColor(Color.RED);
+                .strokeColor(Color.RED)
+                .zIndex(1.0f);
         rectCluster.addAll(clusterPoints);
 
         PolygonOptions rectUC = new PolygonOptions()
                 .fillColor(getResources().getColor(R.color.dullBlueOverlay))
-                .strokeColor(R.color.dullBlack);
+                .strokeColor(R.color.dullBlack)
+                .zIndex(1.0f);
+
         rectUC.addAll(ucPoints);
 
 
@@ -281,7 +284,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (mpoly == null && PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false)) {
                 PolygonOptions rectOptions102 = new PolygonOptions()
                         .fillColor(getResources().getColor(R.color.greenAlpha))
-                        .zIndex(1.0f)
+                        .zIndex(3.0f)
                         .strokeColor(R.color.green).strokeWidth(8);
 
                 rectOptions102.addAll(clusterPoints);
