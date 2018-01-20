@@ -221,19 +221,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PolygonOptions rectUC = new PolygonOptions()
                 .fillColor(getResources().getColor(R.color.dullBlueOverlay))
                 .strokeColor(R.color.dullBlack)
-                .zIndex(1.0f);
+                .zIndex(2.0f);
 
         rectUC.addAll(ucPoints);
 
 
 // Get back the mutable Polyline
+        // Cluster Poly
+        Polygon polyCluster = mMap.addPolygon(rectCluster);
+        polyCluster.setGeodesic(true);
         // UC Poly
         Polygon polyUC = mMap.addPolygon(rectUC);
         polyUC.setGeodesic(true);
 
-        // Cluster Poly
-        Polygon polyCluster = mMap.addPolygon(rectCluster);
-        polyCluster.setGeodesic(true);
+
 
 
         mMap.setMyLocationEnabled(true);
