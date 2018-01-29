@@ -6,5 +6,15 @@
 
     <color name="black_overlay">#66000000</color>
 
+    <color name="black">#000000</color>
+
+    <color name="dullBlack">#292929</color>
+    <color name="grayOverlay">#7f7f7f7f</color>
+    <color name="gray">#7f7f7f</color>
+    <color name="whiteOverlay">#99ffffff</color>
+    <color name="dullWhile">#d6d6d6</color>
+    <color name="dullWhileOverlay">#99d6d6d6</color>
+    <color name="colorText">#050505</color>
+
     <color name="white">#ffffff</color>
 </resources>

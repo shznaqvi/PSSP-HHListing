@@ -17,9 +17,9 @@ android {
         versionProps.store(versionPropsFile.newWriter(), null)
 
         defaultConfig {
-            applicationId "edu.aku.hassannaqvi.toic_hhlisting"
-            minSdkVersion 16
-            targetSdkVersion 16
+            applicationId "edu.aku.hassannaqvi.nnspak_hhlisting"
+            minSdkVersion 19
+            targetSdkVersion 19
             versionCode code
             versionName "1.5"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
