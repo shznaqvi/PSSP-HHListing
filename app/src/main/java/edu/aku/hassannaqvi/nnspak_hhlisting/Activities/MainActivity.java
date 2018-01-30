@@ -13,7 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Message;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -366,62 +366,17 @@ public class MainActivity extends Activity {
     }
 
     public void copyData(View view) {
-
-  /*     final Handler handle = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                progressDoalog.incrementProgressBy(1);
-            }
-        };
-
-        progressDoalog = new ProgressDialog(MainActivity.this);
-        progressDoalog.setMax(100);
-        progressDoalog.setMessage("Its loading....");
-        progressDoalog.setTitle("ProgressDialog bar example");
-        progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDoalog.show();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (progressDoalog.getProgress() <= progressDoalog
-                            .getMax()) {
-                        Thread.sleep(200);
-                        handle.sendMessage(handle.obtainMessage());
-                        if (progressDoalog.getProgress() == progressDoalog
-                                .getMax()) {
-                            progressDoalog.dismiss();
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();*/
-
-        new MyTask(this).execute();
-
+        new CopyTask(this).execute();
     }
 
-    class MyTask extends AsyncTask<Void, Void, Void> {
+    public class CopyTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog Asycdialog;
-
         Context mContext;
 
-        Handler handle;
-
-        public MyTask(Context mContext) {
+        public CopyTask(Context mContext) {
             this.mContext = mContext;
             Asycdialog = new ProgressDialog(mContext);
-            handle = new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    super.handleMessage(msg);
-                    Asycdialog.incrementProgressBy(1);
-                }
-            };
         }
 
         @Override
@@ -429,9 +384,7 @@ public class MainActivity extends Activity {
 
             super.onPreExecute();
             Asycdialog.setTitle("COPYING DATA");
-            Asycdialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             Asycdialog.setMessage("Loading...");
-            Asycdialog.setMax(100);
             Asycdialog.setCancelable(false);
             Asycdialog.show();
         }
@@ -446,7 +399,9 @@ public class MainActivity extends Activity {
                 if (!root.exists()) {
                     root.mkdirs();
                 }
-                File gpxfile = new File(root, "NNS.txt");
+                File gpxfile = new File(root, Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)
+                        + "_" + new SimpleDateFormat("yyyy-MM-dd").format(new Date())
+                        + "_" + ListingContract.ListingEntry.TABLE_NAME);
                 FileWriter writer = new FileWriter(gpxfile);
 
                 Collection<ListingContract> listing = db.getAllListings();
@@ -454,8 +409,6 @@ public class MainActivity extends Activity {
                     JSONArray jsonSync = new JSONArray();
                     for (ListingContract fc : listing) {
                         jsonSync.put(fc.toJSONObject());
-
-//                        handle.sendMessage(handle.obtainMessage());
                     }
 
                     writer.append(String.valueOf(jsonSync));
@@ -463,29 +416,14 @@ public class MainActivity extends Activity {
                     writer.close();
 
                     if (listing.size() < 100) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    while (Asycdialog.getProgress() <= Asycdialog
-                                            .getMax()) {
-                                        Thread.sleep(3000);
-                                        handle.sendMessage(handle.obtainMessage());
-                                        /*if (Asycdialog.getProgress() == Asycdialog
-                                                .getMax()) {
-                                            return;
-                                        }*/
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
+                        Thread.sleep(3000);
                     }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -497,6 +435,7 @@ public class MainActivity extends Activity {
 
             super.onPostExecute(result);
             Asycdialog.dismiss();
+            Toast.makeText(mContext, "Copying done!!", Toast.LENGTH_SHORT).show();
         }
     }
 
