@@ -97,7 +97,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
                 + singleUser._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + singleUser.ROW_USERNAME + " TEXT,"
-                + singleUser.ROW_PASSWORD + " TEXT );";
+                + singleUser.ROW_PASSWORD + " TEXT,"
+                + singleUser.ROW_TEAM + " TEXT );";
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
@@ -151,14 +152,15 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             JSONArray jsonArray = userlist;
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectUser = jsonArray.getJSONObject(i);
-                String userName = jsonObjectUser.getString("username");
-                String password = jsonObjectUser.getString("password");
 
+                UsersContract us = new UsersContract();
+                us.sync(jsonObjectUser);
 
                 ContentValues values = new ContentValues();
 
-                values.put(singleUser.ROW_USERNAME, userName);
-                values.put(singleUser.ROW_PASSWORD, password);
+                values.put(singleUser.ROW_USERNAME, us.getUserName());
+                values.put(singleUser.ROW_PASSWORD, us.getPassword());
+                values.put(singleUser.ROW_TEAM, us.getROW_TEAM());
                 db.insert(singleUser.TABLE_NAME, null, values);
             }
             db.close();
