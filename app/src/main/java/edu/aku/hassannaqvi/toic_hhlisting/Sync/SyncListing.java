@@ -42,13 +42,13 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
         mContext = context;
     }
 
-    public static void longInfo(String str) {
+/*    public static void longInfo(String str) {
         if (str.length() > 4000) {
             Log.i(TAG, str.substring(0, 4000));
             longInfo(str.substring(4000));
         } else
             Log.i("TAG: ", str);
-    }
+    }*/
 
 
     @Override
@@ -112,7 +112,7 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
                         //}
                     }
                     wr.writeBytes(jsonSync.toString().replace("\uFEFF", "") + "\n");
-                    longInfo(jsonSync.toString().replace("\uFEFF", "") + "\n");
+//                    longInfo(jsonSync.toString().replace("\uFEFF", "") + "\n");
                     wr.flush();
 
 
