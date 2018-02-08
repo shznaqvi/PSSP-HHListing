@@ -215,13 +215,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PolygonOptions rectCluster = new PolygonOptions()
                 .fillColor(getResources().getColor(R.color.colorAccentAlpha))
                 .strokeColor(Color.RED)
-                .zIndex(1.0f);
+                .zIndex(2.0f);
         rectCluster.addAll(clusterPoints);
 
         PolygonOptions rectUC = new PolygonOptions()
                 .fillColor(getResources().getColor(R.color.dullBlueOverlay))
                 .strokeColor(R.color.dullBlack)
-                .zIndex(2.0f);
+                .zIndex(1.0f);
 
         rectUC.addAll(ucPoints);
 
@@ -275,30 +275,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private class MyLocationListener implements LocationListener {
 
-        Polygon mpoly = null;
+        Polygon polySCluster = null;
 
 
         public void onLocationChanged(Location location) {
             mDefaultLocation = new LatLng(location.getLatitude(), location.getLongitude());
             updateCameraBearing(mMap, location.getBearing());
 
-            if (mpoly == null && PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false)) {
-                PolygonOptions rectOptions102 = new PolygonOptions()
-                        .fillColor(getResources().getColor(R.color.greenAlpha))
-                        .zIndex(3.0f)
-                        .strokeColor(R.color.green).strokeWidth(8);
-
-                rectOptions102.addAll(clusterPoints);
-                // Closes the polyline.
-                mpoly = mMap.addPolygon(rectOptions102);
-
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clusterPoints.get(0), 20));
+            if (polySCluster == null && PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false)) {
+                PolygonOptions rectSCluster = new PolygonOptions()
+                        .fillColor(getResources().getColor(R.color.colorAccentGAlpha))
+                        .strokeColor(Color.GREEN)
+                        .zIndex(2.0f);
+                rectSCluster.addAll(clusterPoints);
 
 
-            } else if (mpoly != null && !(PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false))) {
+// Get back the mutable Polyline
+                // Cluster Poly
+                polySCluster = mMap.addPolygon(rectSCluster);
 
-                mpoly.remove();
-                mpoly = null;
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 20));
+
+
+            } else if (polySCluster != null && !(PolyUtil.containsLocation(mDefaultLocation, clusterPoints, false))) {
+
+                polySCluster.remove();
+                polySCluster = null;
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clusterPoints.get(0), DEFAULT_ZOOM));
 
             }

@@ -38,22 +38,31 @@
 
         </Spinner>
 
-        <Button
-            android:id="@+id/openForm"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <Button
+            android:id="@+id/openForm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="#ffc99a"
             android:onClick="openForm"
             android:text="Start Linelisting" />
 
         <Button
             android:id="@+id/openClusterMap"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/clustermapicon"
             android:onClick="openClusterMap"
-            android:text="CLUSTER MAP" />
-
+            android:text=" "
+            android:textColor="#7139c2" />
+        </LinearLayout>
         <Button
             android:id="@+id/syncFunction"
             android:layout_width="match_parent"
