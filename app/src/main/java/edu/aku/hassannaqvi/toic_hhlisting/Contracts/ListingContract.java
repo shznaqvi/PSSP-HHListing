@@ -39,6 +39,7 @@ public class ListingContract {
     public String tagId;
 
     private String username; // User Name
+    private String team; // Team
 
     public ListingContract() {}
 
@@ -270,6 +271,14 @@ public class ListingContract {
         this.GPSAlt = GPSAlt;
     }
 
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -299,6 +308,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSAltitude, this.GPSAlt);
         json.put(ListingEntry.COLUMN_APPVER, this.AppVer);
         json.put(ListingEntry.COLUMN_USERNAME, this.username);
+        json.put(ListingEntry.COLUMN_TEAM, this.team);
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
 
         return json;
@@ -339,6 +349,7 @@ public class ListingContract {
         public static final String COLUMN_SYNCED_DATE = "synced_date";
 
         public static final String COLUMN_USERNAME = "username";
+        public static final String COLUMN_TEAM = "teamno";
         public static final String _URL = "listings.php";
     }
 }

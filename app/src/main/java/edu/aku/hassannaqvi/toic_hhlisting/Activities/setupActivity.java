@@ -221,6 +221,7 @@ public class setupActivity extends Activity {
                 break;
         }
         AppMain.lc.setUsername(AppMain.userEmail);
+        AppMain.lc.setTeam(AppMain.teamNo);
         AppMain.lc.setHh05(hh05.isChecked() ? "1" : "2");
         AppMain.lc.setHh06(hh06.getText().toString());
         AppMain.lc.setHh07(AppMain.hh07txt);

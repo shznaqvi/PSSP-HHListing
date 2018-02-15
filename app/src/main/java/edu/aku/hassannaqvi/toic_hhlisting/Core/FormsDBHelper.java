@@ -69,6 +69,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
                 ListingEntry.COLUMN_ADDRESS + " TEXT, " +
                 ListingEntry.COLUMN_USERNAME + " TEXT, " +
+                ListingEntry.COLUMN_TEAM + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_TAGID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
@@ -132,14 +133,42 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public boolean Login(String username, String password) throws SQLException {
-        SQLiteDatabase db = this.getReadableDatabase();
+    public boolean Login(String username, String password) {
 
-        Cursor mCursor = db.rawQuery("SELECT * FROM " + singleUser.TABLE_NAME + " WHERE " + singleUser.ROW_USERNAME + "=? AND " + singleUser.ROW_PASSWORD + "=?", new String[]{username, password});
-        if (mCursor != null) {
-            if (mCursor.getCount() > 0) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+
+//      New value for one column
+            String[] columns = {
+                    singleUser._ID,
+                    singleUser.ROW_USERNAME,
+                    singleUser.ROW_TEAM
+            };
+
+// Which row to update, based on the ID
+            String selection = UsersContract.singleUser.ROW_USERNAME + " = ?" + " AND " + UsersContract.singleUser.ROW_PASSWORD + " = ?";
+            String[] selectionArgs = {username, password};
+            cursor = db.query(UsersContract.singleUser.TABLE_NAME, //Table to query
+                    columns,                    //columns to return
+                    selection,                  //columns for the WHERE clause
+                    selectionArgs,              //The values for the WHERE clause
+                    null,                       //group the rows
+                    null,                       //filter by row groups
+                    null);                      //The sort order
+
+            if (cursor.getCount() > 0) {
+
+                if (cursor.moveToFirst()) {
+                    AppMain.teamNo = cursor.getString(cursor.getColumnIndex(singleUser.ROW_TEAM));
+                }
                 return true;
             }
+        } catch (Exception e) {
+
+        } finally {
+            cursor.close();
+            db.close();
         }
         return false;
     }
@@ -242,6 +271,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_ADDRESS, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
+        values.put(ListingEntry.COLUMN_TEAM, lc.getTeam());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
@@ -302,6 +332,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH13,
                 ListingEntry.COLUMN_ADDRESS,
                 ListingEntry.COLUMN_USERNAME,
+                ListingEntry.COLUMN_TEAM,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_TAGID,
                 ListingEntry.COLUMN_NAME_GPSLat,
@@ -461,6 +492,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setAppVer(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_APPVER))));
         lc.setTagId(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_TAGID))));
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
+        lc.setTeam(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_TEAM))));
 
         return lc;
     }
