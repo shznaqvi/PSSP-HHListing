@@ -73,6 +73,8 @@ public class setupActivity extends Activity {
     Button btnAddHousehold;
     @BindView(R.id.btnChangePSU)
     Button btnChangPSU;
+    @BindView(R.id.teamNo)
+    TextView teamNo;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
@@ -157,6 +159,8 @@ public class setupActivity extends Activity {
             }
         });
 
+        /*Team no*/
+        teamNo.setText(AppMain.teamNo);
 
     }
 
