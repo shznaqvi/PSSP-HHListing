@@ -44,9 +44,6 @@ import edu.aku.hassannaqvi.toic_hhlisting.Contracts.TalukasContract;
 import edu.aku.hassannaqvi.toic_hhlisting.Core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.toic_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.toic_hhlisting.Core.FormsDBHelper;
-import edu.aku.hassannaqvi.toic_hhlisting.Get.GetPSUs;
-import edu.aku.hassannaqvi.toic_hhlisting.Get.GetTalukas;
-import edu.aku.hassannaqvi.toic_hhlisting.Get.GetUsers;
 import edu.aku.hassannaqvi.toic_hhlisting.R;
 import edu.aku.hassannaqvi.toic_hhlisting.Sync.SyncListing;
 
@@ -280,10 +277,10 @@ public class MainActivity extends Activity {
                     psuN.setText(psuNameS[2]);
                     Log.d(TAG, "onItemSelected: " + psuNameS[2]);
                 }
-            }else {
+            } else {
                 Toast.makeText(this, "Not found!!", Toast.LENGTH_SHORT).show();
             }
-        }else {
+        } else {
             txtPSU.setError("Data required!!");
             txtPSU.setFocusable(true);
         }
@@ -355,18 +352,23 @@ public class MainActivity extends Activity {
 
     public void NextSetupActivity() {
         Intent oF = new Intent(this, setupActivity.class);
-        if (mN01.getSelectedItemPosition()!=0) {
+        if (mN01.getSelectedItemPosition() != 0) {
 
             if (flag) {
-                if (AppMain.PSUExist(AppMain.hh02txt)) {
-                    Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
-                    alertPSU();
+                if (!AppMain.teamNo.equals("")) {
+                    if (AppMain.PSUExist(AppMain.hh02txt)) {
+                        Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                        alertPSU();
+                    } else {
+                        startActivity(oF);
+                    }
                 } else {
-                    startActivity(oF);
+                    Toast.makeText(this, "Login with different username!", Toast.LENGTH_SHORT).show();
                 }
-            }else {
+            } else {
                 Toast.makeText(this, "Please Click on CHECK button!", Toast.LENGTH_SHORT).show();
             }
+
         } else {
             Toast.makeText(this, "Please Sync Data!", Toast.LENGTH_SHORT).show();
         }

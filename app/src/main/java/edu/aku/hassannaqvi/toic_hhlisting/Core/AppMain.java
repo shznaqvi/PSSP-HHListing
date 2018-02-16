@@ -47,7 +47,7 @@ public class AppMain extends Application {
     public static int versionCode;
     public static String versionName;
     protected static LocationManager locationManager;
-    public static String teamNo = "---";
+    public static String teamNo = "";
     Location location;
 
     public static void updatePSU(String psuCode, String structureNo) {

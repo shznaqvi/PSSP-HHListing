@@ -161,6 +161,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 if (cursor.moveToFirst()) {
                     AppMain.teamNo = cursor.getString(cursor.getColumnIndex(singleUser.ROW_TEAM));
+                }else {
+                    AppMain.teamNo = "";
                 }
                 return true;
             }

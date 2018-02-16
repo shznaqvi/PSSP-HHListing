@@ -73,8 +73,6 @@ public class setupActivity extends Activity {
     Button btnAddHousehold;
     @BindView(R.id.btnChangePSU)
     Button btnChangPSU;
-    @BindView(R.id.teamNo)
-    TextView teamNo;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
@@ -102,7 +100,7 @@ public class setupActivity extends Activity {
 
         hh01.setText("");
 
-        String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
+        String StructureNumber = "T-" + AppMain.teamNo + "-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
 
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);
@@ -158,9 +156,6 @@ public class setupActivity extends Activity {
                 }
             }
         });
-
-        /*Team no*/
-        teamNo.setText(AppMain.teamNo);
 
     }
 
