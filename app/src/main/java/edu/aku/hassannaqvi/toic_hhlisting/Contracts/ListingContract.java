@@ -29,6 +29,7 @@ public class ListingContract {
     public String hh13;
     public String hh14;
     public String hhadd;
+    public String hhconsent;
     public String DeviceID;
     public String GPSLat;
     public String GPSLng;
@@ -279,6 +280,14 @@ public class ListingContract {
         this.team = team;
     }
 
+    public String getHhconsent() {
+        return hhconsent;
+    }
+
+    public void setHhconsent(String hhconsent) {
+        this.hhconsent = hhconsent;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -300,6 +309,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH12, this.hh12);
         json.put(ListingEntry.COLUMN_NAME_HH13, this.hh13);
         json.put(ListingEntry.COLUMN_ADDRESS, this.hhadd);
+        json.put(ListingEntry.COLUMN_CONSENT, this.hhconsent);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
         json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
         json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
@@ -337,6 +347,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH13 = "hh13";
         public static final String COLUMN_NAME_HH14 = "hh14";
         public static final String COLUMN_ADDRESS = "hhadd";
+        public static final String COLUMN_CONSENT = "hhconsent";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
         public static final String COLUMN_NAME_GPSLng = "gpslng";

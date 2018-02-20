@@ -45,6 +45,16 @@ public class setupActivity extends Activity {
     EditText hhadd;
     @BindView(R.id.hh03)
     TextView hh03;
+    @BindView(R.id.consent)
+    RadioGroup consent;
+    @BindView(R.id.consenta)
+    RadioButton consenta;
+    @BindView(R.id.consentb)
+    RadioButton consentb;
+    @BindView(R.id.consentc)
+    RadioButton consentc;
+    @BindView(R.id.fldGrpHH05)
+    LinearLayout fldGrpHH05;
     @BindView(R.id.hh04)
     RadioGroup hh04;
     @BindView(R.id.hh04a)
@@ -157,6 +167,22 @@ public class setupActivity extends Activity {
             }
         });
 
+        consent.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (i == R.id.consenta) {
+                    fldGrpHH05.setVisibility(View.VISIBLE);
+                    btnAddHousehold.setVisibility(View.GONE);
+                } else {
+                    fldGrpHH05.setVisibility(View.GONE);
+                    hhadd.setText(null);
+                    hh05.setChecked(false);
+                    hh06.setText(null);
+                    btnAddHousehold.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
     }
 
     @OnClick(R.id.btnAddChild)
@@ -225,6 +251,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh06(hh06.getText().toString());
         AppMain.lc.setHh07(AppMain.hh07txt);
         AppMain.lc.setHhadd(hhadd.getText().toString());
+        AppMain.lc.setHhconsent(consenta.isChecked() ? "1" : consentb.isChecked() ? "2" : consentc.isChecked() ? "3" : "0");
 
         AppMain.lc.setDeviceID(deviceId);
 
@@ -289,7 +316,7 @@ public class setupActivity extends Activity {
             hh04b.setError(null);
         }
 
-        if (hh04a.isChecked()) {
+        if (hh04a.isChecked() && consenta.isChecked()) {
             if (hhadd.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please enter address", Toast.LENGTH_LONG).show();
                 hhadd.setError("Please enter address");
