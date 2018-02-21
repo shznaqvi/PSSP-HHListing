@@ -151,7 +151,7 @@
                 android:layout_marginTop="05dp"
                 android:hint="@string/hh14"
                 android:inputType="number"
-                android:maxLength="6" />
+                android:maxLength="7" />
         </LinearLayout>
 
         <Button

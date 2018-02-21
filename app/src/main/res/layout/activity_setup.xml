@@ -166,68 +166,113 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:text="@string/hhadd" />
+                android:text="@string/consent" />
 
-            <EditText
-                android:id="@+id/hhadd"
+            <RadioGroup
+                android:id="@+id/consent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:digits="@string/txtMsg"
-                android:hint="@string/hhadd"
-                android:inputType="text"
-                android:maxLength="50" />
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/consenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/consentb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/no" />
+
+                <RadioButton
+                    android:id="@+id/consentc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/lock" />
+
+            </RadioGroup>
 
             <LinearLayout
+                android:id="@+id/fldGrpHH05"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:visibility="gone">
 
-
-                <!--Are there more than one Families?-->
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_weight="70"
-                    android:text="@string/hh05" />
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="@string/hhadd" />
 
-                <Switch
-                    android:id="@+id/hh05"
-                    android:layout_width="0dp"
+                <EditText
+                    android:id="@+id/hhadd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:digits="@string/txtMsg"
+                    android:hint="@string/hhadd"
+                    android:inputType="text"
+                    android:maxLength="50" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <!--Are there more than one Families?-->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_weight="70"
+                        android:text="@string/hh05" />
+
+                    <Switch
+                        android:id="@+id/hh05"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_weight="30"
+                        android:textOff="@string/no"
+                        android:textOn="@string/yes" />
+                </LinearLayout>
+
+                <!--How many Families?-->
+                <EditText
+                    android:id="@+id/hh06"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:layout_weight="30"
-                    android:textOff="@string/no"
-                    android:textOn="@string/yes" />
+                    android:digits="1234567890"
+                    android:hint="@string/hh06"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/hh07"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/hh07"
+                    android:typeface="serif" />
+
+                <Button
+                    android:id="@+id/btnAddChild"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Add A Family" />
+
             </LinearLayout>
 
-            <!--How many Families?-->
-            <EditText
-                android:id="@+id/hh06"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:digits="1234567890"
-                android:hint="@string/hh06"
-                android:inputType="number"
-                android:maxLength="2"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/hh07"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh07"
-                android:typeface="serif" />
-
-            <Button
-                android:id="@+id/btnAddChild"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Add A Family" />
         </LinearLayout>
 
         <!--Family Letter-->

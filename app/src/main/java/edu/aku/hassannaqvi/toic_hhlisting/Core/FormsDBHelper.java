@@ -68,6 +68,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
                 ListingEntry.COLUMN_ADDRESS + " TEXT, " +
+                ListingEntry.COLUMN_CONSENT + " TEXT, " +
                 ListingEntry.COLUMN_USERNAME + " TEXT, " +
                 ListingEntry.COLUMN_TEAM + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
@@ -271,6 +272,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
         values.put(ListingEntry.COLUMN_ADDRESS, lc.getHhadd());
+        values.put(ListingEntry.COLUMN_CONSENT, lc.getHhconsent());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
         values.put(ListingEntry.COLUMN_TEAM, lc.getTeam());
@@ -333,6 +335,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH12,
                 ListingEntry.COLUMN_NAME_HH13,
                 ListingEntry.COLUMN_ADDRESS,
+                ListingEntry.COLUMN_CONSENT,
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_TEAM,
                 ListingEntry.COLUMN_NAME_DEVICEID,
@@ -485,6 +488,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
         lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
         lc.setHhadd(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ADDRESS))));
+        lc.setHhconsent(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_CONSENT))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));

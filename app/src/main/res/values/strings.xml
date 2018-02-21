@@ -3,6 +3,7 @@
     <string name="hh01"> Taluka Code </string>
     <string name="hh02"> Cluster Code </string>
     <string name="hh03"> Structure Number </string>
+    <string name="consent"> Shall I start Interview? </string>
     <string name="hhadd"> Address </string>
     <string name="hh04"> Charactristics of Structure </string>
     <string name="hh04a"> Residential </string>
@@ -24,6 +25,7 @@
 
     <string name="yes"> Yes </string>
     <string name="no"> No </string>
+    <string name="lock"> Door Locked </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
     <string name="txtName"> qwertyuiop asdfghjkl zxcvbnm QWERTYUIOP ASDFGHJKL ZXCVBNM </string>
