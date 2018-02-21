@@ -29,6 +29,7 @@ public class ListingContract {
     public String hh12;
     public String hh13;
     public String hh14;
+    public String hh15;
     public String hhadd;
     public String DeviceID;
     public String GPSLat;
@@ -41,7 +42,8 @@ public class ListingContract {
 
     private String username; // User Name
 
-    public ListingContract() {}
+    public ListingContract() {
+    }
 
     public ListingContract(String ID) {
         this.ID = ID;
@@ -102,6 +104,16 @@ public class ListingContract {
     public void setHh14(String hh14) {
         this.hh14 = hh14;
     }
+
+
+    public String getHh15() {
+        return hh15;
+    }
+
+    public void setHh15(String hh15) {
+        this.hh15 = hh15;
+    }
+
 
     public String getHh05() {
         return hh05;
@@ -291,6 +303,8 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
         json.put(ListingEntry.COLUMN_NAME_HH12, this.hh12);
         json.put(ListingEntry.COLUMN_NAME_HH13, this.hh13);
+        json.put(ListingEntry.COLUMN_NAME_HH14, this.hh14);
+        json.put(ListingEntry.COLUMN_NAME_HH15, this.hh15);
         json.put(ListingEntry.COLUMN_ADDRESS, this.hhadd);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
         json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
@@ -313,7 +327,6 @@ public class ListingContract {
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
         lc.setHh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH03))));
         lc.setHh04(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04))));
-        lc.setHh14(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH14))));
         lc.setHh05(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH05))));
         lc.setHh06(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH06))));
         lc.setHh07(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07))));
@@ -324,6 +337,9 @@ public class ListingContract {
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
         lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
+        lc.setHh14(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH14))));
+        lc.setHh15(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH15))));
+
         lc.setHhadd(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ADDRESS))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
@@ -360,6 +376,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH12 = "hh12";
         public static final String COLUMN_NAME_HH13 = "hh13";
         public static final String COLUMN_NAME_HH14 = "hh14";
+        public static final String COLUMN_NAME_HH15 = "hh15";
         public static final String COLUMN_ADDRESS = "hhadd";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";

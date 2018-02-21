@@ -60,6 +60,7 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUsers;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
 
 /**
  * A login screen that offers login via email/password.
@@ -521,13 +522,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();
                     new GetUsers(mContext).execute();
 
-                    GetTalukas gd = new GetTalukas(mContext);
+                    /*GetTalukas gd = new GetTalukas(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Talukas", Toast.LENGTH_SHORT).show();
-                    gd.execute();
+                    gd.execute();*/
 
-                    GetPSUs gp = new GetPSUs(mContext);
+                    Toast.makeText(LoginActivity.this, "Sync Enum Blocks", Toast.LENGTH_LONG).show();
+                    new GetAllData(mContext, "EnumBlock").execute();
+
+                    /*GetPSUs gp = new GetPSUs(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
-                    gp.execute();
+                    gp.execute();*/
                 }
             });
 

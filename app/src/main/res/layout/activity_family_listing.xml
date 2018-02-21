@@ -72,6 +72,7 @@
                 android:inputType="number"
                 android:maxLength="11" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,6 +102,7 @@
                 android:visibility="invisible" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -124,7 +126,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
                 android:digits="1234567890"
-                android:hint="@string/hh10a"
+                android:hint="@string/hh12a"
                 android:inputType="number"
                 android:maxLength="2"
                 android:visibility="invisible" />
@@ -132,26 +134,33 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/fldGrpHH14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
+            <Switch
+                android:id="@+id/hh14"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh14" />
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_weight="4"
+                android:text="@string/hh14"
+                android:textColor="@color/colorPrimaryDark"
+                android:textOff="@string/no"
+                android:textOn="@string/yes" />
 
             <EditText
-                android:id="@+id/hh14"
-                android:layout_width="match_parent"
+                android:id="@+id/hh15"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="05dp"
-                android:hint="@string/hh14"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:digits="1234567890"
+                android:hint="@string/hh14a"
                 android:inputType="number"
-                android:maxLength="6" />
+                android:maxLength="2"
+                android:visibility="invisible" />
+
         </LinearLayout>
 
         <Button

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompatSideChannelService;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -24,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,6 +83,20 @@ public class MainActivity extends Activity {
     EditText txtPSU;
     @BindView(R.id.btnCheckPSU)
     Button btnCheckPSU;
+
+
+    @BindView(R.id.na101a)
+    TextView na101a;
+    @BindView(R.id.na101b)
+    TextView na101b;
+    @BindView(R.id.na101c)
+    TextView na101c;
+    @BindView(R.id.na101d)
+    TextView na101d;
+
+    @BindView(R.id.fldGrpna101)
+    LinearLayout fldGrpna101;
+
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -145,7 +161,7 @@ public class MainActivity extends Activity {
 
     public void spinnersFill() {
         // Spinner Drop down elements
-        List<String> talukaNames = new ArrayList<String>();
+        /*List<String> talukaNames = new ArrayList<String>();
         final Map<String, String> taluka = new HashMap<>();
         Collection<TalukasContract> dc = db.getAllTalukas();
 
@@ -155,16 +171,16 @@ public class MainActivity extends Activity {
         for (TalukasContract d : dc) {
             taluka.put(d.getTalukaName(), d.getTalukaCode());
             talukaNames.add(d.getTalukaName());
-        }
+        }*/
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+        /*ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, talukaNames);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);*/
 
-        mN01.setAdapter(dataAdapter);
+        //mN01.setAdapter(dataAdapter);
 
-        mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -172,12 +188,12 @@ public class MainActivity extends Activity {
 
                     AppMain.hh01txt = taluka.get(mN01.getSelectedItem().toString());
 
-                    txtPSU.setEnabled(true);
-                    btnCheckPSU.setEnabled(true);
+                    //txtPSU.setEnabled(true);
+                    //btnCheckPSU.setEnabled(true);
                 } else {
-                    txtPSU.setText(null);
-                    txtPSU.setEnabled(false);
-                    btnCheckPSU.setEnabled(false);
+                    //txtPSU.setText(null);
+                    //txtPSU.setEnabled(false);
+                    //btnCheckPSU.setEnabled(false);
                 }
 
             }
@@ -186,7 +202,7 @@ public class MainActivity extends Activity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
         txtPSU.addTextChangedListener(new TextWatcher() {
             @Override
@@ -197,11 +213,10 @@ public class MainActivity extends Activity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                flag = false;
-
                 districtN.setText(null);
                 psuN.setText(null);
                 ucN.setText(null);
+                fldGrpna101.setVisibility(View.GONE);
             }
 
             @Override
@@ -249,7 +264,29 @@ public class MainActivity extends Activity {
 
             txtPSU.setError(null);
 
-            Collection<PSUsContract> pc = db.getAllPSUsByTaluka(AppMain.hh01txt, txtPSU.getText().toString());
+            FormsDBHelper db = new FormsDBHelper(this);
+            String selected = db.getEnumBlock(txtPSU.getText().toString());
+
+            if (!selected.equals("")) {
+
+                String[] selSplit = selected.split("\\|");
+
+                na101a.setText(selSplit[0]);
+                na101b.setText(selSplit[1].equals("") ? "----" : selSplit[1]);
+                na101c.setText(selSplit[2].equals("") ? "----" : selSplit[2]);
+                na101d.setText(selSplit[3]);
+
+                fldGrpna101.setVisibility(View.VISIBLE);
+
+                flag = true;
+
+            } else {
+                Toast.makeText(this, "Sorry not found any block", Toast.LENGTH_SHORT).show();
+                flag = false;
+            }
+
+
+            /*Collection<PSUsContract> pc = db.getAllPSUsByTaluka(AppMain.hh01txt, txtPSU.getText().toString());
             if (pc.size() > 0) {
 
                 flag = true;
@@ -271,10 +308,14 @@ public class MainActivity extends Activity {
             } else {
                 Toast.makeText(this, "Not found!!", Toast.LENGTH_SHORT).show();
             }
+
+            */
+
         } else {
             txtPSU.setError("Data required!!");
             txtPSU.setFocusable(true);
         }
+
     }
 
     public void alertPSU() {

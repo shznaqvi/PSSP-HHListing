@@ -24,6 +24,8 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TalukasContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TalukasContract.singleTaluka;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract.singleUser;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract.EnumBlockTable;
 
 
 /**
@@ -34,7 +36,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     // The name of database.
     public static final String DATABASE_NAME = "nnspak-hhl.db";
     public static final String DB_NAME = DATABASE_NAME.replace(".db", "-copy.db");
-    public static final String FOLDER_NAME = "DMU-TOICLISTING";
+    public static final String FOLDER_NAME = "DMU-NNSPAKHHL";
     // Change this when you change the database schema.
     private static final int DATABASE_VERSION = 1;
     public static String TAG = "FormsDBHelper";
@@ -49,7 +51,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
-            ListingEntry.COLUMN_NAME_HH14 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
@@ -60,6 +61,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH14 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH15 + " TEXT, " +
             ListingEntry.COLUMN_ADDRESS + " TEXT, " +
             ListingEntry.COLUMN_USERNAME + " TEXT, " +
             ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
@@ -80,11 +83,17 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             singleTaluka.COLUMN_TALUKA_NAME + " TEXT " +
             ");";
 
-    final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
+    /*final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
             singlePSU._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             singlePSU.COLUMN_PSU_CODE + " TEXT, " +
             singlePSU.COLUMN_PSU_NAME + " TEXT, " +
             singlePSU.COLUMN_TALUKA_CODE + " TEXT " +
+            ");";*/
+
+    final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + EnumBlockTable.TABLE_NAME + " (" +
+            EnumBlockTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            EnumBlockTable.COLUMN_EB_CODE + " TEXT, " +
+            EnumBlockTable.COLUMN_GEO_AREA + " TEXT " +
             ");";
 
     final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
@@ -111,7 +120,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         // Simply discard all old data and start over when upgrading.
         db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleTaluka.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
+        /*db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);*/
+        db.execSQL("DROP TABLE IF EXISTS " + EnumBlockTable.TABLE_NAME);
+
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
         onCreate(db);
     }
@@ -131,6 +142,31 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return id;
     }
 
+
+    public void syncEnumBlocks(JSONArray Enumlist) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(EnumBlockTable.TABLE_NAME, null, null);
+        try {
+            JSONArray jsonArray = Enumlist;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectCC = jsonArray.getJSONObject(i);
+
+                EnumBlockContract Vc = new EnumBlockContract();
+                Vc.Sync(jsonObjectCC);
+
+                ContentValues values = new ContentValues();
+
+                values.put(EnumBlockTable.COLUMN_EB_CODE, Vc.getEbcode());
+                values.put(EnumBlockTable.COLUMN_GEO_AREA, Vc.getTalukaName());
+
+                db.insert(EnumBlockTable.TABLE_NAME, null, values);
+            }
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+    }
+
     public boolean Login(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
@@ -140,7 +176,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         };
 
         String whereClause = singleUser.ROW_USERNAME + "=? AND " + singleUser.ROW_PASSWORD + "=?";
-        String[] whereArgs = new String[]{username,password};
+        String[] whereArgs = new String[]{username, password};
         String groupBy = null;
         String having = null;
 
@@ -157,7 +193,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     having,                    // don't filter by row groups
                     orderBy                    // The sort order
             );
-            if (!(c.moveToFirst()) || c.getCount() > 0){
+            if (!(c.moveToFirst()) || c.getCount() > 0) {
                 return true;
             }
         } finally {
@@ -188,7 +224,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Log.d(TAG, "PSUExist (Test): " + AppMain.sharedPref.getString(lc.getHh02(), "0"));
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
-        values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
@@ -199,6 +234,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
+        values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
+        values.put(ListingEntry.COLUMN_NAME_HH15, lc.getHh15());
         values.put(ListingEntry.COLUMN_ADDRESS, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
@@ -249,7 +286,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
-                ListingEntry.COLUMN_NAME_HH14,
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
@@ -260,6 +296,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_HH12,
                 ListingEntry.COLUMN_NAME_HH13,
+                ListingEntry.COLUMN_NAME_HH14,
+                ListingEntry.COLUMN_NAME_HH15,
                 ListingEntry.COLUMN_ADDRESS,
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
@@ -539,6 +577,52 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
 
         }
+    }
+
+    public String getEnumBlock(String enumBlock) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                EnumBlockTable._ID,
+                EnumBlockTable.COLUMN_EB_CODE,
+                EnumBlockTable.COLUMN_GEO_AREA
+        };
+
+        String whereClause = EnumBlockTable.COLUMN_EB_CODE + " =?";
+        String[] whereArgs = new String[]{enumBlock};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                EnumBlockTable._ID + " ASC";
+
+//        Collection<EnumBlockContract> allEB = new ArrayList<>();
+        String allEB = "";
+        try {
+            c = db.query(
+                    EnumBlockTable.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+//                EnumBlockContract eb = new EnumBlockContract();
+//                allEB.add(eb.HydrateTalukas(c));
+                allEB = c.getString(c.getColumnIndex(EnumBlockTable.COLUMN_GEO_AREA));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allEB;
     }
 
 }

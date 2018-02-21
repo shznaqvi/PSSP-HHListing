@@ -9,7 +9,7 @@
     <string name="hh04b"> Non Residential </string>
     <string name="hh04c"> Mosque/Church/Mandir </string>
     <string name="hh04d"> School/College/University </string>
-    <string name="hh04e"> Health Fascility </string>
+    <string name="hh04e"> Health Facility </string>
     <string name="hh04f"> Empty plot/Locked/Under Construction </string>
     <string name="hh04g"> No More Structure </string>
     <string name="hh05"> Is their more then one family living in this household? </string>
@@ -17,10 +17,17 @@
     <string name="hh07"> Family code </string>
     <string name="hh08"> Head of Household </string>
     <string name="hh09"> Contact no </string>
-    <string name="hh10a"> No of children </string>
-    <string name="hh10"> Is there any child or children aged 06 – 59  months, in this house? </string>
-    <string name="hh12"> Is there any child or children aged 5 – 10 Years, in this house? </string>
-    <string name="hh14"> Slip number </string>
+    <string name="hh10a"> No of Adolescents </string>
+    <string name="hh12a"> No of Children </string>
+    <string name="hh14a"> No of Married Woman </string>
+    <string name="hh10"> Is there any Adolescents aged 10 – 19 months, in this house? </string>
+    <string name="hh12"> Is there any child or children aged under 5 Years, in this house? </string>
+    <string name="hh14"> Is there any married woman aged 15 - 49 Years, in this house? </string>
+
+    <string name="na101a"> Province </string>
+    <string name="na101b"> District </string>
+    <string name="na101c"> Tehsil/Taluka </string>
+    <string name="na101d"> Village/City </string>
 
     <string name="yes"> Yes </string>
     <string name="no"> No </string>
