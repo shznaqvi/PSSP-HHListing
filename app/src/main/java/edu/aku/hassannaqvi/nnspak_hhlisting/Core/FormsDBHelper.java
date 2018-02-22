@@ -47,6 +47,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             ListingEntry.COLUMN_NAME_UID + " TEXT, " +
             ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
+            ListingEntry.COLUMN_NAME_ENUMCODE + " TEXT, " +
+            ListingEntry.COLUMN_NAME_ENUMSTR + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
@@ -216,6 +218,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
+
+        values.put(ListingEntry.COLUMN_NAME_ENUMCODE, lc.getEnumCode());
+        values.put(ListingEntry.COLUMN_NAME_ENUMSTR, lc.getEnumStr());
+
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
@@ -282,6 +288,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry._ID,
                 ListingEntry.COLUMN_NAME_UID,
                 ListingEntry.COLUMN_NAME_HHDATETIME,
+                ListingEntry.COLUMN_NAME_ENUMCODE,
+                ListingEntry.COLUMN_NAME_ENUMSTR,
                 ListingEntry.COLUMN_NAME_HH01,
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
@@ -612,6 +620,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             while (c.moveToNext()) {
 //                EnumBlockContract eb = new EnumBlockContract();
 //                allEB.add(eb.HydrateTalukas(c));
+
+                AppMain.enumCode = c.getInt(c.getColumnIndex(EnumBlockTable.COLUMN_EB_CODE));
+                AppMain.enumStr = c.getString(c.getColumnIndex(EnumBlockTable.COLUMN_GEO_AREA));
+
                 allEB = c.getString(c.getColumnIndex(EnumBlockTable.COLUMN_GEO_AREA));
             }
         } finally {

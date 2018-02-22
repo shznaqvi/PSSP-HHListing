@@ -40,6 +40,10 @@ public class AppMain extends Application {
     public static int fCount = 0;
     public static int fTotal = 0;
     public static int cCount = 0;
+
+    public static int enumCode = 0;
+    public static String enumStr = "";
+
     public static int hh07 = 0;
     public static int cTotal = 0;
     public static SharedPreferences sharedPref;

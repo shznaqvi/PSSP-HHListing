@@ -87,20 +87,25 @@ public class setupActivity extends Activity {
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
+        hh02.setText(String.valueOf(AppMain.enumCode));
+        hh02.setEnabled(false);
+
         if (AppMain.hh02txt == null) {
             AppMain.hh03txt = 1;
         } else {
             AppMain.hh03txt++;
             //AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
-            hh02.setText(AppMain.hh02txt.toString());
+            //hh02.setText(AppMain.hh02txt.toString());
+            hh02.setText(String.valueOf(AppMain.enumCode));
             hh02.setEnabled(false);
-
         }
+
         AppMain.hh07txt = "X";
 
         hh01.setText("");
 
-        String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
+        //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
+        String StructureNumber = "T-" + AppMain.enumCode + "-" + String.format("%03d", AppMain.hh03txt);
 
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);
@@ -192,9 +197,14 @@ public class setupActivity extends Activity {
         AppMain.lc.setTagId(sharedPref.getString("tagName", null));
         AppMain.lc.setAppVer(AppMain.versionName + "." + AppMain.versionCode);
         AppMain.lc.setHhDT(dtToday);
+
+        AppMain.lc.setEnumCode(String.valueOf(AppMain.enumCode));
+        AppMain.lc.setEnumStr(AppMain.enumStr);
+
         AppMain.lc.setHh01(AppMain.hh01txt);
         AppMain.lc.setHh02(AppMain.hh02txt);
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
+
         switch (hh04.getCheckedRadioButtonId()) {
             case R.id.hh04a:
                 AppMain.lc.setHh04("1");

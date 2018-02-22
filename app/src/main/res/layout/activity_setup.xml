@@ -56,8 +56,8 @@
                 android:layout_weight="1"
                 android:digits="1234567890"
                 android:inputType="number"
-                android:maxLength="6"
-                android:text="aaa"
+                android:maxLength="9"
+                android:text=""
                 android:textAlignment="center"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold" />

@@ -14,6 +14,8 @@ public class ListingContract {
     public String ID;
     public String UID;
     public String hhDT;
+    public String enumCode;
+    public String enumStr;
     public String hh01;
     public String hh02;
     public String hh03;
@@ -64,6 +66,25 @@ public class ListingContract {
     public void setHhDT(String hhDT) {
         this.hhDT = hhDT;
     }
+
+
+    public String getEnumCode() {
+        return enumCode;
+    }
+
+    public void setEnumCode(String enumCode) {
+        this.enumCode = enumCode;
+    }
+
+
+    public String getEnumStr() {
+        return enumStr;
+    }
+
+    public void setEnumStr(String enumStr) {
+        this.enumStr = enumStr;
+    }
+
 
     public String getHh01() {
         return hh01;
@@ -288,6 +309,10 @@ public class ListingContract {
         json.put(ListingEntry._ID, this.ID);
         json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
+
+        json.put(ListingEntry.COLUMN_NAME_ENUMCODE, this.enumCode);
+        json.put(ListingEntry.COLUMN_NAME_ENUMSTR, this.enumStr);
+
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
         json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03);
@@ -323,6 +348,10 @@ public class ListingContract {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
         lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
+
+        lc.setEnumCode(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ENUMCODE))));
+        lc.setEnumStr(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ENUMSTR))));
+
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
         lc.setHh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH03))));
@@ -361,6 +390,10 @@ public class ListingContract {
         public static final String _ID = "_id";
         public static final String COLUMN_NAME_UID = "uid";
         public static final String COLUMN_NAME_HHDATETIME = "hhdt";
+
+        public static final String COLUMN_NAME_ENUMCODE = "enumcode";
+        public static final String COLUMN_NAME_ENUMSTR = "enumstr";
+
         public static final String COLUMN_NAME_HH01 = "hh01";
         public static final String COLUMN_NAME_HH02 = "hh02";
         public static final String COLUMN_NAME_HH03 = "hh03";
