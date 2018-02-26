@@ -189,6 +189,7 @@ public class FamilyListingActivity extends Activity {
             AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
             AppMain.cCount++;
             Toast.makeText(this, AppMain.cCount + ":" + AppMain.cTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
+            finish();
             Intent fA = new Intent(this, AddChildActivity.class);
             startActivity(fA);
         }
@@ -316,6 +317,7 @@ public class FamilyListingActivity extends Activity {
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
                 AppMain.fCount++;
 
+                finish();
                 Intent fA = new Intent(this, FamilyListingActivity.class);
                 startActivity(fA);
             }
@@ -334,6 +336,7 @@ public class FamilyListingActivity extends Activity {
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
+                finish();
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
 

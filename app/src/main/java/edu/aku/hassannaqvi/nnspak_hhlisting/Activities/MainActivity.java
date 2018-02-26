@@ -260,7 +260,7 @@ public class MainActivity extends Activity {
     void onCheckPSUClick() {
         //TODO implement
 
-        if (!txtPSU.getText().toString().trim().isEmpty()) {
+        if (!txtPSU.getText().toString().isEmpty()) {
 
             txtPSU.setError(null);
 
@@ -279,6 +279,8 @@ public class MainActivity extends Activity {
                 fldGrpna101.setVisibility(View.VISIBLE);
 
                 flag = true;
+
+                AppMain.hh02txt = txtPSU.getText().toString();
 
             } else {
                 Toast.makeText(this, "Sorry not found any block", Toast.LENGTH_SHORT).show();
@@ -384,7 +386,7 @@ public class MainActivity extends Activity {
 
     public void NextSetupActivity() {
         Intent oF = new Intent(this, setupActivity.class);
-        if (mN01.getSelectedItemPosition() != 0) {
+//        if (mN01.getSelectedItemPosition() != 0) {
 
             if (flag) {
                 if (AppMain.PSUExist(AppMain.hh02txt)) {
@@ -396,9 +398,9 @@ public class MainActivity extends Activity {
             } else {
                 Toast.makeText(this, "Please Click on CHECK button!", Toast.LENGTH_SHORT).show();
             }
-        } else {
+        /*} else {
             Toast.makeText(this, "Please Sync Data!", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     public void openDB(View view) {
