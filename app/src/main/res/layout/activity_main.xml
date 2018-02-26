@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.src_hhlisting2.ui.MainActivity">
+    tools:context="edu.aku.hassannaqvi.kmc_hhlisting.ui.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,21 +34,31 @@
 
         </Spinner>
 
+
+        <EditText
+            android:id="@+id/villageCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Village Code"
+            android:inputType="number"
+            android:maxLength="4" />
+
+
         <Button
             android:id="@+id/openForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="openForm"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="openForm"
             android:text="Add new household details" />
 
         <Button
             android:id="@+id/syncFunction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="syncFunction"
             android:layout_marginBottom="10dp"
+            android:onClick="syncFunction"
             android:text="Sync Data" />
 
         <Button
