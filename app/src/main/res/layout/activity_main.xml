@@ -26,20 +26,28 @@
             android:textColor="#efefefef"
             android:textSize="24sp" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:background="#d6d6d6"
-            android:text="Select Taluka"
-            android:textAlignment="center"
-            android:visibility="gone" />
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/MN01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="3"
+                android:background="#d6d6d6"
+                android:text="Team No"
+                android:textAlignment="center" />
+
+            <Spinner
+                android:id="@+id/MN01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <Spinner
             android:id="@+id/MN02"
@@ -224,24 +232,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:visibility="gone"
-                android:textColor="#ef3030" />
+                android:textColor="#ef3030"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/ucN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:visibility="gone"
-                android:textColor="#ef3030" />
+                android:textColor="#ef3030"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/psuN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:visibility="gone"
-                android:textColor="#ef3030" />
+                android:textColor="#ef3030"
+                android:visibility="gone" />
 
         </LinearLayout>
 

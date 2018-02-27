@@ -105,7 +105,7 @@ public class setupActivity extends Activity {
         hh01.setText("");
 
         //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
-        String StructureNumber = "NNS-" + AppMain.hh01txt + "-" + AppMain.enumCode + "-" + String.format("%03d", AppMain.hh03txt);
+        String StructureNumber = "NNS-" + AppMain.enumCode + "-" + String.format("%03d", AppMain.hh03txt);
 
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);
@@ -203,7 +203,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setEnumCode(String.valueOf(AppMain.enumCode));
         AppMain.lc.setEnumStr(AppMain.enumStr);
 
-        AppMain.lc.setHh01(AppMain.hh01txt);
+        AppMain.lc.setHh01(String.valueOf(AppMain.hh01txt));
         AppMain.lc.setHh02(AppMain.hh02txt);
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
 
@@ -236,7 +236,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh05(hh05.isChecked() ? "1" : "2");
         AppMain.lc.setHh06(hh06.getText().toString());
         AppMain.lc.setHh07(AppMain.hh07txt);
-        AppMain.lc.setHhadd(hhadd.getText().toString());
+//        AppMain.lc.setHhadd(hhadd.getText().toString());
 
         AppMain.lc.setDeviceID(deviceId);
 
@@ -302,14 +302,14 @@ public class setupActivity extends Activity {
         }
 
         if (hh04a.isChecked()) {
-            if (hhadd.getText().toString().isEmpty()) {
+           /* if (hhadd.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please enter address", Toast.LENGTH_LONG).show();
                 hhadd.setError("Please enter address");
                 Log.i(TAG, "Please enter address");
                 return false;
             } else {
                 hhadd.setError(null);
-            }
+            }*/
 
             if (hh05.isChecked() && hh06.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please enter number", Toast.LENGTH_LONG).show();

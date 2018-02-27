@@ -28,6 +28,8 @@ public class FamilyListingActivity extends Activity {
 
     @BindView(R.id.txtFamilyListing)
     TextView txtFamilyListing;
+    @BindView(R.id.txtTeamNoWithFam)
+    TextView txtTeamNoWithFam;
     @BindView(R.id.hh08)
     EditText hh08;
     @BindView(R.id.hh09)
@@ -68,7 +70,8 @@ public class FamilyListingActivity extends Activity {
         ButterKnife.bind(this);
 
 
-        txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
+        txtFamilyListing.setText("Household Listing");
+        txtTeamNoWithFam.setText("Household Listing: " + String.format("%03d", AppMain.hh01txt) + "/" + AppMain.hh03txt + "-" + AppMain.hh07txt);
 
         if (AppMain.fCount < AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);
