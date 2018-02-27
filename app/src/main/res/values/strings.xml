@@ -1,36 +1,35 @@
 <resources>
     <string name="app_name">NNS PAKISTAN - Household Line Listing</string>
-    <string name="hh01"> Taluka Code </string>
-    <string name="hh02"> Cluster Code </string>
-    <string name="hh03"> Structure Number </string>
-    <string name="hhadd"> Address </string>
-    <string name="hh04"> Charactristics of Structure </string>
-    <string name="hh04a"> Residential </string>
-    <string name="hh04b"> Non Residential </string>
+    <string name="hh01"> تعلّقہ کود </string>
+    <string name="hh02"> کلسٹر کود </string>
+    <string name="hh03"> صٹرکچر نمبر </string>
+    <string name="hh04"> تعمیراتی ساخت </string>
+    <string name="hh04a"> رہائیشی </string>
+    <string name="hh04b"> غیر رہایشی </string>
     <string name="hh04c"> Mosque/Church/Mandir </string>
     <string name="hh04d"> School/College/University </string>
     <string name="hh04e"> Health Facility </string>
     <string name="hh04f"> Empty plot/Locked/Under Construction </string>
-    <string name="hh04g"> No More Structure </string>
-    <string name="hh05"> Is their more then one family living in this household? </string>
-    <string name="hh06"> How many families? </string>
-    <string name="hh07"> Family code </string>
-    <string name="hh08"> Head of Household </string>
-    <string name="hh09"> Contact no </string>
-    <string name="hh10a"> No of Adolescents </string>
-    <string name="hh12a"> No of Children </string>
-    <string name="hh14a"> No of Married Woman </string>
-    <string name="hh10"> Is there any Adolescents aged 10 – 19 months, in this house? </string>
-    <string name="hh12"> Is there any child or children aged under 5 Years, in this house? </string>
-    <string name="hh14"> Is there any married woman aged 15 - 49 Years, in this house? </string>
+    <string name="hh04g"> مزید عمارت نہیں </string>
+    <string name="hh05"> کیا اس عمارت میں ایک سے زیادہ خاندان رہائش پزیر ہیں؟ </string>
+    <string name="hh06"> خاندان کی تعداد؟ </string>
+    <string name="hh07"> خاندان نمبر </string>
+    <string name="hh08"> خاندان کے سربراہ کا نام </string>
+    <string name="hh09"> موبائل نمبر </string>
+    <string name="hh10a"> تعداد </string>
+    <string name="hh12a"> تعداد </string>
+    <string name="hh14a"> تعداد </string>
+    <string name="hh10"> کیااس گھر میں 10 سے 19 سال کے افراد رہائش پزیر ہیں؟ </string>
+    <string name="hh12"> اس گھر میں  5 سال سے کم عمر بچے رہائش پزیر ہیں؟ </string>
+    <string name="hh14"> اس گھر میں 15 سے 50 سال کی شادی شدہ خواتیں رہائش پزیر ہیں؟ </string>
 
-    <string name="na101a"> Province </string>
-    <string name="na101b"> District </string>
-    <string name="na101c"> Tehsil/Taluka </string>
-    <string name="na101d"> Village/City </string>
+    <string name="na101a"> صوبہ </string>
+    <string name="na101b"> ضلعہ </string>
+    <string name="na101c"> تحصیل / تعلّقہ </string>
+    <string name="na101d"> گاوّں/ شہر </string>
 
-    <string name="yes"> Yes </string>
-    <string name="no"> No </string>
+    <string name="yes"> ہاں </string>
+    <string name="no"> نہیں </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
     <string name="txtName"> qwertyuiop asdfghjkl zxcvbnm QWERTYUIOP ASDFGHJKL ZXCVBNM </string>
