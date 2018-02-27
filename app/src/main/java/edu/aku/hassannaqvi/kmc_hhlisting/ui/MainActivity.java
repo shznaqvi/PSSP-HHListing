@@ -181,7 +181,7 @@ public class MainActivity extends Activity {
 
         if (!villageCode.getText().toString().isEmpty()) {
 
-            Collection<VillagesContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt, AppMain.hh02txt);
+            Collection<VillagesContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt, AppMain.hh02txt,villageCode.getText().toString());
 
             if (pc.size() > 0) {
 
