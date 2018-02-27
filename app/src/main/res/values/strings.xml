@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">NNS PAKISTAN - Household Line Listing</string>
-    <string name="hh01"> تعلّقہ کود </string>
-    <string name="hh02"> کلسٹر کود </string>
-    <string name="hh03"> صٹرکچر نمبر </string>
+    <string name="hh01"> تعلّقہ کوڈ </string>
+    <string name="hh02"> کلسٹر کوڈ </string>
+    <string name="hh03"> اسٹرکچر نمبر </string>
     <string name="hh04"> تعمیراتی ساخت </string>
     <string name="hh04a"> رہائیشی </string>
     <string name="hh04b"> غیر رہایشی </string>
@@ -22,6 +22,8 @@
     <string name="hh10"> کیااس گھر میں 10 سے 19 سال کے افراد رہائش پزیر ہیں؟ </string>
     <string name="hh12"> اس گھر میں  5 سال سے کم عمر بچے رہائش پزیر ہیں؟ </string>
     <string name="hh14"> اس گھر میں 15 سے 50 سال کی شادی شدہ خواتیں رہائش پزیر ہیں؟ </string>
+    <string name="hh16"> افراد کی تعداد </string>
+    <string name="hhadd"> پتہ </string>
 
     <string name="na101a"> صوبہ </string>
     <string name="na101b"> ضلعہ </string>

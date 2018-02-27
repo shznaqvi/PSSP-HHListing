@@ -71,7 +71,7 @@ public class FamilyListingActivity extends Activity {
 
 
         txtFamilyListing.setText("Household Listing");
-        txtTeamNoWithFam.setText("Household Listing: " + String.format("%03d", AppMain.hh01txt) + "/" + AppMain.hh03txt + "-" + AppMain.hh07txt);
+        txtTeamNoWithFam.setText(String.format("%03d", AppMain.hh01txt) + "/" + AppMain.hh03txt + "-" + AppMain.hh07txt);
 
         if (AppMain.fCount < AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);

@@ -37,8 +37,6 @@ public class setupActivity extends Activity {
     private static String deviceId;
     @BindView(R.id.activity_household_listing)
     ScrollView activityHouseholdListing;
-    @BindView(R.id.hh01)
-    TextView hh01;
     @BindView(R.id.hh02)
     EditText hh02;
     @BindView(R.id.hhadd)
@@ -101,8 +99,6 @@ public class setupActivity extends Activity {
         }
 
         AppMain.hh07txt = "X";
-
-        hh01.setText("");
 
         //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
         String StructureNumber = "NNS-" + AppMain.enumCode + "-" + String.format("%03d", AppMain.hh03txt);
