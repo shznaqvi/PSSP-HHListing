@@ -19,10 +19,11 @@
     <string name="hh09"> Contact no </string>
     <string name="hh10a"> No of Adolescents </string>
     <string name="hh12a"> No of Children </string>
-    <string name="hh14a"> No of Married Woman </string>
+    <string name="hh14a"> No of Woman </string>
     <string name="hh10"> Is there any Adolescents aged 10 – 19 months, in this house? </string>
     <string name="hh12"> Is there any child or children aged under 5 Years, in this house? </string>
-    <string name="hh14"> Is there any married woman aged 15 - 49 Years, in this house? </string>
+    <string name="hh14"> Is there any woman aged 15 - 49 Years, in this house? </string>
+    <string name="hh16"> Total Members </string>
 
     <string name="na101a"> Province </string>
     <string name="na101b"> District </string>

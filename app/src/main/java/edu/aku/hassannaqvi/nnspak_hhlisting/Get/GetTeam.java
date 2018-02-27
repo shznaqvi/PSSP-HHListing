@@ -19,18 +19,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TalukasContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 
-public class GetTalukas extends AsyncTask<String, String, String> {
+public class GetTeam extends AsyncTask<String, String, String> {
 
-    private final String TAG = "GetTalukas()";
+    private final String TAG = "GetTeam()";
     HttpURLConnection urlConnection;
     private Context mContext;
     private ProgressDialog pd;
 
-    public GetTalukas(Context context) {
+    public GetTeam(Context context) {
         mContext = context;
     }
 
@@ -38,7 +38,7 @@ public class GetTalukas extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Syncing Talukas");
+        pd.setTitle("Syncing Teams");
         pd.setMessage("Getting connected to server...");
         pd.show();
 
@@ -51,7 +51,7 @@ public class GetTalukas extends AsyncTask<String, String, String> {
 
         URL url = null;
         try {
-            url = new URL(AppMain._HOST_URL + TalukasContract.singleTaluka._URI);
+            url = new URL(AppMain._HOST_URL + TeamsContract.singleTaluka._URI);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
@@ -63,7 +63,7 @@ public class GetTalukas extends AsyncTask<String, String, String> {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "Talukas In: " + line);
+                    Log.i(TAG, "Teams In: " + line);
                     result.append(line);
                 }
             }
@@ -90,7 +90,7 @@ public class GetTalukas extends AsyncTask<String, String, String> {
                 FormsDBHelper db = new FormsDBHelper(mContext);
                 try {
                     JSONArray jsonArray = new JSONArray(json);
-                    db.syncTalukas(jsonArray);
+                    db.syncTeams(jsonArray);
                     pd.setMessage("Received: " + jsonArray.length());
                     pd.show();
                 } catch (JSONException e) {

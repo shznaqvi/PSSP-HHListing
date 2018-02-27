@@ -35,7 +35,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,8 +53,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetPSUs;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetTalukas;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
@@ -519,19 +516,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
                 @Override
                 public void run() {
-                    Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();
-                    new GetUsers(mContext).execute();
-
-                    /*GetTalukas gd = new GetTalukas(mContext);
-                    Toast.makeText(getApplicationContext(), "Syncing Talukas", Toast.LENGTH_SHORT).show();
-                    gd.execute();*/
+                    /*Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();
+                    new GetUsers(mContext).execute();*/
 
                     Toast.makeText(LoginActivity.this, "Sync Enum Blocks", Toast.LENGTH_LONG).show();
                     new GetAllData(mContext, "EnumBlock").execute();
-
-                    /*GetPSUs gp = new GetPSUs(mContext);
-                    Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
-                    gp.execute();*/
+                    Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();
+                    new GetAllData(mContext, "User").execute();
+                    Toast.makeText(LoginActivity.this, "Sync Teams", Toast.LENGTH_SHORT).show();
+                    new GetAllData(mContext, "Team").execute();
                 }
             });
 

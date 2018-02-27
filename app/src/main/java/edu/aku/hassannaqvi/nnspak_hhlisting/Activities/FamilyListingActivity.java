@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +44,8 @@ public class FamilyListingActivity extends Activity {
     Switch hh14;
     @BindView(R.id.hh15)
     EditText hh15;
+    @BindView(R.id.hh16)
+    EditText hh16;
 
 
     @BindView(R.id.btnAddChild)
@@ -206,7 +207,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh13(hh13.getText().toString().isEmpty() ? "0" : hh13.getText().toString());
         AppMain.lc.setHh14(hh14.isChecked() ? "1" : "2");
         AppMain.lc.setHh15(hh15.getText().toString().isEmpty() ? "0" : hh15.getText().toString());
-
+        AppMain.lc.setHh16(hh16.getText().toString());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
@@ -216,7 +217,7 @@ public class FamilyListingActivity extends Activity {
     private boolean formValidation() {
 
         if (hh08.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter name", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter name", Toast.LENGTH_SHORT).show();
             hh08.setError("Please enter name");
             Log.i(TAG, "Please enter name");
             return false;
@@ -225,7 +226,7 @@ public class FamilyListingActivity extends Activity {
         }
 
         if (hh09.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter contact number", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter contact number", Toast.LENGTH_SHORT).show();
             hh09.setError("Please enter contact number");
             Log.i(TAG, "Please enter contact number");
             return false;
@@ -233,8 +234,17 @@ public class FamilyListingActivity extends Activity {
             hh09.setError(null);
         }
 
+        if (hh16.getText().toString().isEmpty()) {
+            Toast.makeText(this, "ERROR(empty): " + getString(R.string.hh16), Toast.LENGTH_SHORT).show();
+            hh16.setError("ERROR(empty): " + getString(R.string.hh16));
+            Log.i(TAG, "ERROR(empty): " + getString(R.string.hh16));
+            return false;
+        } else {
+            hh16.setError(null);
+        }
+
         if (hh10.isChecked() && hh11.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter adolescents count", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter adolescents count", Toast.LENGTH_SHORT).show();
             hh11.setError("Please enter adolescents count");
             Log.i(TAG, "Please enter adolescents count");
             return false;
@@ -243,7 +253,7 @@ public class FamilyListingActivity extends Activity {
         }
 
         if (!hh11.getText().toString().isEmpty() && Integer.valueOf(hh11.getText().toString()) < 1) {
-            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_SHORT).show();
             hh11.setError("Invalid Value!");
             Log.i(TAG, "Invalid Value!");
             return false;
@@ -252,7 +262,7 @@ public class FamilyListingActivity extends Activity {
         }
 
         if (hh12.isChecked() && hh13.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter children count", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter children count", Toast.LENGTH_SHORT).show();
             hh13.setError("Please enter children count");
             Log.i(TAG, "Please enter children count");
             return false;
@@ -261,7 +271,7 @@ public class FamilyListingActivity extends Activity {
         }
 
         if (!hh13.getText().toString().isEmpty() && Integer.valueOf(hh13.getText().toString()) < 1) {
-            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_SHORT).show();
             hh13.setError("Invalid Value!");
             Log.i(TAG, "Invalid Value!");
             return false;
@@ -271,7 +281,7 @@ public class FamilyListingActivity extends Activity {
 
 
         if (hh14.isChecked() && hh15.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter married woman count", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter married woman count", Toast.LENGTH_SHORT).show();
             hh14.setError("Please enter married woman count");
             Log.i(TAG, "Please enter married woman count");
             return false;
@@ -279,9 +289,8 @@ public class FamilyListingActivity extends Activity {
             hh14.setError(null);
         }
 
-
         if (!hh15.getText().toString().isEmpty() && Integer.valueOf(hh15.getText().toString()) < 1) {
-            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_SHORT).show();
             hh15.setError("Invalid Value!");
             Log.i(TAG, "Invalid Value!");
             return false;
@@ -289,17 +298,27 @@ public class FamilyListingActivity extends Activity {
             hh15.setError(null);
         }
 
-
-
-
-        /*if ((hh10.isChecked() && hh14.getText().toString().trim().isEmpty()) || (hh12.isChecked() && hh14.getText().toString().trim().isEmpty())) {
-            Toast.makeText(this, "Invalid Slip no!", Toast.LENGTH_LONG).show();
-            hh14.setError("Invalid Slip no!");
-            Log.i(TAG, "Invalid Slip no!");
+        if (Integer.valueOf(hh16.getText().toString()) < 1) {
+            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_SHORT).show();
+            hh16.setError("Invalid Value!");
+            Log.i(TAG, "Invalid Value!");
             return false;
         } else {
-            hh14.setError(null);
-        }*/
+            hh16.setError(null);
+        }
+
+
+        if (Integer.valueOf(hh16.getText().toString()) <
+                (Integer.valueOf(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString()) +
+                        Integer.valueOf(hh13.getText().toString().isEmpty() ? "0" : hh13.getText().toString()) +
+                        Integer.valueOf(hh15.getText().toString().isEmpty() ? "0" : hh15.getText().toString()))) {
+            Toast.makeText(this, "Invalid Count!", Toast.LENGTH_SHORT).show();
+            hh16.setError("Invalid Count!");
+            Log.i(TAG, "(hh16): Invalid Count! ");
+            return false;
+        } else {
+            hh16.setError(null);
+        }
 
         return true;
     }

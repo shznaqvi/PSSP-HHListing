@@ -20,8 +20,8 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract.ListingEntry;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.PSUsContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.PSUsContract.singlePSU;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TalukasContract;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TalukasContract.singleTaluka;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract.singleTaluka;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract.singleUser;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract;
@@ -65,6 +65,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH14 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH15 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH16 + " TEXT, " +
             ListingEntry.COLUMN_ADDRESS + " TEXT, " +
             ListingEntry.COLUMN_USERNAME + " TEXT, " +
             ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
@@ -81,8 +82,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
     final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleTaluka.TABLE_NAME + " (" +
             singleTaluka._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            singleTaluka.COLUMN_TALUKA_CODE + " TEXT, " +
-            singleTaluka.COLUMN_TALUKA_NAME + " TEXT " +
+            singleTaluka.COLUMN_TEAM_NO + " TEXT " +
             ");";
 
     /*final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
@@ -184,7 +184,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         String orderBy = null;
 
-        Collection<TalukasContract> allDC = new ArrayList<TalukasContract>();
+        Collection<UsersContract> allDC = new ArrayList<>();
         try {
             c = db.query(
                     singleUser.TABLE_NAME,  // The table to query
@@ -195,7 +195,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     having,                    // don't filter by row groups
                     orderBy                    // The sort order
             );
-            if (!(c.moveToFirst()) || c.getCount() > 0) {
+//            if (!(c.moveToFirst()) || c.getCount() > 0) {
+            if (c.getCount() > 0) {
                 return true;
             }
         } finally {
@@ -242,6 +243,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
         values.put(ListingEntry.COLUMN_NAME_HH14, lc.getHh14());
         values.put(ListingEntry.COLUMN_NAME_HH15, lc.getHh15());
+        values.put(ListingEntry.COLUMN_NAME_HH16, lc.getHh16());
         values.put(ListingEntry.COLUMN_ADDRESS, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
@@ -306,6 +308,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH13,
                 ListingEntry.COLUMN_NAME_HH14,
                 ListingEntry.COLUMN_NAME_HH15,
+                ListingEntry.COLUMN_NAME_HH16,
                 ListingEntry.COLUMN_ADDRESS,
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
@@ -352,13 +355,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allLC;
     }
 
-    public Collection<TalukasContract> getAllTalukas() {
+    public Collection<TeamsContract> getAllTeams() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
                 singleTaluka._ID,
-                singleTaluka.COLUMN_TALUKA_CODE,
-                singleTaluka.COLUMN_TALUKA_NAME
+                singleTaluka.COLUMN_TEAM_NO
         };
 
         String whereClause = null;
@@ -367,9 +369,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleTaluka.COLUMN_TALUKA_NAME + " ASC";
+                singleTaluka.COLUMN_TEAM_NO + " ASC";
 
-        Collection<TalukasContract> allDC = new ArrayList<TalukasContract>();
+        Collection<TeamsContract> allDC = new ArrayList<TeamsContract>();
         try {
             c = db.query(
                     singleTaluka.TABLE_NAME,  // The table to query
@@ -381,7 +383,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     orderBy                    // The sort order
             );
             while (c.moveToNext()) {
-                TalukasContract dc = new TalukasContract();
+                TeamsContract dc = new TeamsContract();
                 allDC.add(dc.hydrate(c));
             }
         } finally {
@@ -532,7 +534,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 whereArgs);
     }
 
-    public void syncTalukas(JSONArray dcList) {
+    public void syncTeams(JSONArray dcList) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(singleTaluka.TABLE_NAME, null, null);
 
@@ -542,13 +544,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectDistrict = jsonArray.getJSONObject(i);
 
-                TalukasContract dc = new TalukasContract();
+                TeamsContract dc = new TeamsContract();
                 dc.sync(jsonObjectDistrict);
 
                 ContentValues values = new ContentValues();
 
-                values.put(singleTaluka.COLUMN_TALUKA_CODE, dc.getTalukaCode());
-                values.put(singleTaluka.COLUMN_TALUKA_NAME, dc.getTalukaName());
+                values.put(singleTaluka.COLUMN_TEAM_NO, dc.getTeamNo());
 
                 db.insert(singleTaluka.TABLE_NAME, null, values);
             }

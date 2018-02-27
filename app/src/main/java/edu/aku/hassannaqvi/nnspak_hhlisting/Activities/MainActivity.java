@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.v4.app.NotificationCompatSideChannelService;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -42,17 +41,15 @@ import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.PSUsContract;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TalukasContract;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
@@ -161,39 +158,27 @@ public class MainActivity extends Activity {
 
     public void spinnersFill() {
         // Spinner Drop down elements
-        /*List<String> talukaNames = new ArrayList<String>();
-        final Map<String, String> taluka = new HashMap<>();
-        Collection<TalukasContract> dc = db.getAllTalukas();
+        List<String> teamNos = new ArrayList<String>();
+        Collection<TeamsContract> dc = db.getAllTeams();
 
-        talukaNames.add("....");
+        teamNos.add("....");
 
         Log.d(TAG, "onCreate: " + dc.size());
-        for (TalukasContract d : dc) {
-            taluka.put(d.getTalukaName(), d.getTalukaCode());
-            talukaNames.add(d.getTalukaName());
-        }*/
+        for (TeamsContract d : dc) {
+            teamNos.add(d.getTeamNo());
+        }
 
         // Creating adapter for spinner
-        /*ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, talukaNames);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);*/
+        mN01.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, teamNos));
 
-        //mN01.setAdapter(dataAdapter);
-
-        /*mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 if (mN01.getSelectedItemPosition() != 0) {
 
-                    AppMain.hh01txt = taluka.get(mN01.getSelectedItem().toString());
+                    AppMain.hh01txt = mN01.getSelectedItem().toString();
 
-                    //txtPSU.setEnabled(true);
-                    //btnCheckPSU.setEnabled(true);
-                } else {
-                    //txtPSU.setText(null);
-                    //txtPSU.setEnabled(false);
-                    //btnCheckPSU.setEnabled(false);
                 }
 
             }
@@ -202,7 +187,7 @@ public class MainActivity extends Activity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });*/
+        });
 
         txtPSU.addTextChangedListener(new TextWatcher() {
             @Override
@@ -287,32 +272,6 @@ public class MainActivity extends Activity {
                 flag = false;
             }
 
-
-            /*Collection<PSUsContract> pc = db.getAllPSUsByTaluka(AppMain.hh01txt, txtPSU.getText().toString());
-            if (pc.size() > 0) {
-
-                flag = true;
-
-                for (PSUsContract p : pc) {
-
-                    AppMain.hh02txt = p.getPSUCode();
-
-                    Log.d(TAG, "onItemSelected: " + p.getPSUCode() + " - " + AppMain.hh02txt);
-                    Log.d(TAG, "onItemSelected: " + p.getPSUName());
-                    String[] psuNameS = p.getPSUName().toString().split("\\|");
-                    districtN.setText(psuNameS[0]);
-                    Log.d(TAG, "onItemSelected: " + psuNameS[0]);
-                    ucN.setText(psuNameS[1]);
-                    Log.d(TAG, "onItemSelected: " + psuNameS[1]);
-                    psuN.setText(psuNameS[2]);
-                    Log.d(TAG, "onItemSelected: " + psuNameS[2]);
-                }
-            } else {
-                Toast.makeText(this, "Not found!!", Toast.LENGTH_SHORT).show();
-            }
-
-            */
-
         } else {
             txtPSU.setError("Data required!!");
             txtPSU.setFocusable(true);
@@ -385,22 +344,16 @@ public class MainActivity extends Activity {
     }
 
     public void NextSetupActivity() {
-        Intent oF = new Intent(this, setupActivity.class);
-//        if (mN01.getSelectedItemPosition() != 0) {
-
-            if (flag) {
-                if (AppMain.PSUExist(AppMain.hh02txt)) {
-                    Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
-                    alertPSU();
-                } else {
-                    startActivity(oF);
-                }
+        if (flag && mN01.getSelectedItemPosition() != 0) {
+            if (AppMain.PSUExist(AppMain.hh02txt)) {
+                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                alertPSU();
             } else {
-                Toast.makeText(this, "Please Click on CHECK button!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, setupActivity.class));
             }
-        /*} else {
-            Toast.makeText(this, "Please Sync Data!", Toast.LENGTH_SHORT).show();
-        }*/
+        } else {
+            Toast.makeText(this, "Please Click on CHECK button!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void openDB(View view) {
