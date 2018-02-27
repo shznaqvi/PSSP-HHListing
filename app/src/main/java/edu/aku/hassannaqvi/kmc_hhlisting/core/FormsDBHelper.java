@@ -36,9 +36,9 @@ import edu.aku.hassannaqvi.kmc_hhlisting.contract.VillagesContract.singleVillage
 public class FormsDBHelper extends SQLiteOpenHelper {
 
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
     // The name of database.
-    private static final String DATABASE_NAME = "src-hhl.db";
+    private static final String DATABASE_NAME = "kmc-hhl.db";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
     public static String DB_MWRA_ID;
@@ -113,7 +113,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleVillage._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 singleVillage.COLUMN_VILLAGE_CODE + " TEXT, " +
                 singleVillage.COLUMN_VILLAGE_NAME + " TEXT, " +
-                singleVillage.COLUMN_DISTRICT_CODE + " TEXT " +
+                singleVillage.COLUMN_DISTRICT_CODE + " TEXT, " +
                 singleVillage.COLUMN_UC_CODE + " TEXT " +
                 ");";
 
@@ -526,7 +526,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleVillage.COLUMN_UC_CODE + " = '" + uc_code + "';";
 */
 
-        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " = ? AND " + singleVillage.COLUMN_UC_CODE + " = ? ";
+        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " =? AND " + singleVillage.COLUMN_UC_CODE + " =? ";
 
         String[] whereArgs = {district_code, uc_code};
         String groupBy = null;
@@ -785,7 +785,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleUC.COLUMN_UC_CODE + " ASC";
+                singleUC.COLUMN_UC_NAME + " ASC";
 
         Collection<UCsContract> allPC = new ArrayList<UCsContract>();
         try {
@@ -858,6 +858,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
 
+                values.put(singleVillage.COLUMN_UC_CODE, vc.getUcCode());
                 values.put(singleVillage.COLUMN_VILLAGE_CODE, vc.getVillageCode());
                 values.put(singleVillage.COLUMN_VILLAGE_NAME, vc.getVillageName());
                 values.put(singleVillage.COLUMN_DISTRICT_CODE, vc.getDistrictCode());

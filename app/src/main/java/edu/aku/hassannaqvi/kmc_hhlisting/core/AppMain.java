@@ -33,6 +33,7 @@ public class AppMain extends Application {
     public static MwraContract mwra;
     public static String hh01txt = "0000";
     public static String hh02txt;
+    public static String hh04txt;
     public static int hh03txt = 0;
     public static String hh07txt;
     public static int fCount = 0;

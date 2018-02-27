@@ -35,13 +35,47 @@
         </Spinner>
 
 
-        <EditText
-            android:id="@+id/villageCode"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Village Code"
-            android:inputType="number"
-            android:maxLength="4" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/checkVillage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="40"
+                android:onClick="openForm"
+                android:text="CHECK" />
+
+            <EditText
+                android:id="@+id/villageCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:hint="Village Code"
+                android:inputType="number"
+                android:maxLength="4" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/districtN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp" />
+
+        <TextView
+            android:id="@+id/ucN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/psuN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
         <Button
@@ -67,22 +101,6 @@
             android:layout_height="wrap_content"
             android:onClick="openDB"
             android:text="Open DB Manager" />
-
-        <TextView
-            android:id="@+id/districtN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp" />
-
-        <TextView
-            android:id="@+id/ucN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/psuN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
 
     </LinearLayout>

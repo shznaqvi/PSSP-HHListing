@@ -94,12 +94,12 @@ public class setupActivity extends Activity {
         } else {
             AppMain.hh03txt++;
             //AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
-            hh02.setText(AppMain.hh02txt.toString());
+            hh02.setText(AppMain.hh04txt.toString());
             hh02.setEnabled(false);
 
         }
         AppMain.hh07txt = "X";
-        hh01.setText(AppMain.hh01txt);
+        hh01.setText(AppMain.hh02txt);
         hh03.setText(String.valueOf(AppMain.hh03txt));
         hh07.setText(AppMain.hh07txt);
 

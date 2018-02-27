@@ -11,10 +11,13 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,12 +28,12 @@ import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.aku.hassannaqvi.kmc_hhlisting.R;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.DistrictsContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.UCsContract;
@@ -52,6 +55,7 @@ public class MainActivity extends Activity {
     private static String ipAddress = "192.168.1.10";
     private static String port = "3000";
 
+    public List<String> psuName;
     public List<String> psuCode;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
@@ -65,8 +69,12 @@ public class MainActivity extends Activity {
     TextView ucN;
     @BindView(R.id.psuN)
     TextView psuN;
+    @BindView(R.id.villageCode)
+    EditText villageCode;
 
     FormsDBHelper db;
+
+    Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +88,28 @@ public class MainActivity extends Activity {
         db = new FormsDBHelper(getApplicationContext());
 
         populateSpinner(this);
+
+        villageCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                flag = false;
+
+                districtN.setText(null);
+                ucN.setText(null);
+                psuN.setText(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
     }
 
     public void populateSpinner(final Context context) {
@@ -110,13 +140,14 @@ public class MainActivity extends Activity {
                 AppMain.hh01txt = districtCodes.get(position);
 
                 psuCode = new ArrayList<>();
+                psuName = new ArrayList<>();
                 Collection<UCsContract> pc = db.getAllUCsbyTaluka(districtCodes.get(position));
                 for (UCsContract p : pc) {
-                    psuCode.add(p.getUcName());
-                    Collections.sort(psuCode);
+                    psuCode.add(p.getUcCode());
+                    psuName.add(p.getUcName());
                 }
                 ArrayAdapter<String> psuAdapter = new ArrayAdapter<>(context,
-                        android.R.layout.simple_spinner_item, psuCode);
+                        android.R.layout.simple_spinner_item, psuName);
 
                 psuAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -134,22 +165,6 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 AppMain.hh02txt = psuCode.get(position);
-                Collection<VillagesContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt, AppMain.hh02txt);
-                for (VillagesContract p : pc) {
-                    Log.d(TAG, "onItemSelected: " + p.getUcCode() + " -" + AppMain.hh02txt);
-
-                   /* if (p.getVillageCode().equals(AppMain.hh02txt)) {
-                        Log.d(TAG, "onItemSelected: " + p.getVillageName());
-                        String[] psuNameS = p.getVillageName().toString().split("\\|");
-                        districtN.setText(psuNameS[0]);
-                        Log.d(TAG, "onItemSelected: " + psuNameS[0]);
-                        ucN.setText(psuNameS[1]);
-                        Log.d(TAG, "onItemSelected: " + psuNameS[1]);
-                        psuN.setText(psuNameS[2]);
-                        Log.d(TAG, "onItemSelected: " + psuNameS[2]);
-
-                    }*/
-                }
             }
 
             @Override
@@ -157,6 +172,49 @@ public class MainActivity extends Activity {
 
             }
         });
+    }
+
+
+    @OnClick(R.id.checkVillage)
+    void onCheckVillageClick() {
+        //TODO implement
+
+        if (!villageCode.getText().toString().isEmpty()) {
+
+            Collection<VillagesContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt, AppMain.hh02txt);
+
+            if (pc.size() > 0) {
+
+                Toast.makeText(this, "Village found", Toast.LENGTH_SHORT).show();
+
+                for (VillagesContract p : pc) {
+
+                    AppMain.hh04txt = p.getVillageCode();
+                    String[] st = p.getVillageName().split("\\|");
+
+                    districtN.setText(st[0]);
+                    ucN.setText(st[1]);
+                    psuN.setText(st[2]);
+                }
+
+                flag = true;
+
+            } else {
+
+                flag = false;
+
+                districtN.setText(null);
+                ucN.setText(null);
+                psuN.setText(null);
+
+                Toast.makeText(this, "Not found village", Toast.LENGTH_SHORT).show();
+            }
+
+
+        } else {
+            Toast.makeText(this, "Fill village code", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void alertPSU() {
@@ -187,7 +245,7 @@ public class MainActivity extends Activity {
     public void openForm(View view) {
 
 
-        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
+        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null && flag) {
 
             Intent oF = new Intent(this, setupActivity.class);
 
@@ -198,7 +256,7 @@ public class MainActivity extends Activity {
                 startActivity(oF);
             }
         } else {
-
+            Toast.makeText(this, "Click on check button", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -294,7 +352,6 @@ public class MainActivity extends Activity {
                     GetDistricts gd = new GetDistricts(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Talukas", Toast.LENGTH_SHORT).show();
                     gd.execute();
-
 
 
                 }
