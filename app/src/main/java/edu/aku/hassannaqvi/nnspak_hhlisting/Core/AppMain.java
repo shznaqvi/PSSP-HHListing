@@ -33,7 +33,7 @@ public class AppMain extends Application {
 
     public static String TAG = "AppMain";
     public static ListingContract lc;
-    public static String hh01txt;
+    public static int hh01txt;
     public static String hh02txt;
     public static int hh03txt = 0;
     public static String hh07txt;

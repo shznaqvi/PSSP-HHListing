@@ -176,7 +176,7 @@ public class MainActivity extends Activity {
 
                 if (mN01.getSelectedItemPosition() != 0) {
 
-                    AppMain.hh01txt = mN01.getSelectedItem().toString();
+                    AppMain.hh01txt = Integer.valueOf(mN01.getSelectedItem().toString());
 
                 }
 
