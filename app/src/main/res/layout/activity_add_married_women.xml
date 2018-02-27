@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.src_hhlisting2.ui.AddMarriedWomenActivity">
+    tools:context="edu.aku.hassannaqvi.kmc_hhlisting2.ui.AddMarriedWomenActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -198,11 +198,19 @@
             android:visibility="gone" />
 
         <Button
-            android:id="@+id/btnContNextQ"
+            android:id="@+id/btnAddFamily"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Continue to Next Question"
+            android:text="Add Next Family"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnAddHousehold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Goto Next Household"
             android:visibility="gone" />
 
     </LinearLayout>
