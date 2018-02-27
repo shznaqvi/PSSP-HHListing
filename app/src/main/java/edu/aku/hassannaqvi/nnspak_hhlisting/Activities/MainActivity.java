@@ -41,7 +41,6 @@ import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -344,16 +343,22 @@ public class MainActivity extends Activity {
     }
 
     public void NextSetupActivity() {
-        if (flag && mN01.getSelectedItemPosition() != 0) {
-            if (AppMain.PSUExist(AppMain.hh02txt)) {
-                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
-                alertPSU();
+
+        if (flag) {
+            if (mN01.getSelectedItemPosition() != 0) {
+                if (AppMain.PSUExist(AppMain.hh02txt)) {
+                    Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                    alertPSU();
+                } else {
+                    startActivity(new Intent(this, setupActivity.class));
+                }
             } else {
-                startActivity(new Intent(this, setupActivity.class));
+                Toast.makeText(this, "Please select Team from dropdown!", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(this, "Please Click on CHECK button!", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void openDB(View view) {
