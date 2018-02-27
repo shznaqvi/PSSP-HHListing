@@ -134,11 +134,11 @@ public class MainActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 AppMain.hh02txt = psuCode.get(position);
-                Collection<VillagesContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt);
+                Collection<VillagesContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt, AppMain.hh02txt);
                 for (VillagesContract p : pc) {
-                    Log.d(TAG, "onItemSelected: " + p.getVillageCode() + " -" + AppMain.hh02txt);
+                    Log.d(TAG, "onItemSelected: " + p.getUcCode() + " -" + AppMain.hh02txt);
 
-                    if (p.getVillageCode().equals(AppMain.hh02txt)) {
+                   /* if (p.getVillageCode().equals(AppMain.hh02txt)) {
                         Log.d(TAG, "onItemSelected: " + p.getVillageName());
                         String[] psuNameS = p.getVillageName().toString().split("\\|");
                         districtN.setText(psuNameS[0]);
@@ -148,7 +148,7 @@ public class MainActivity extends Activity {
                         psuN.setText(psuNameS[2]);
                         Log.d(TAG, "onItemSelected: " + psuNameS[2]);
 
-                    }
+                    }*/
                 }
             }
 

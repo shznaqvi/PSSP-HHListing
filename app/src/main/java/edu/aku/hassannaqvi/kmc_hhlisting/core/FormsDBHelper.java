@@ -509,7 +509,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allDC;
     }
 
-    public Collection<VillagesContract> getAllPSUsByDistrict(String district_code) {
+    public Collection<VillagesContract> getAllPSUsByDistrict(String district_code, String uc_code) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -521,8 +521,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         };
 
-        String whereClause = singleVillage.COLUMN_UC_CODE + " = ?";
-        String[] whereArgs = {district_code};
+       /* String whereClause = "SELECT * FROM " + singleVillage.COLUMN_DISTRICT_CODE + " where "
+                + singleVillage.COLUMN_DISTRICT_CODE + " = '" + district_code + "' AND " +
+                singleVillage.COLUMN_UC_CODE + " = '" + uc_code + "';";
+*/
+
+        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " = ? AND " + singleVillage.COLUMN_UC_CODE + " = ? ";
+
+        String[] whereArgs = {district_code, uc_code};
         String groupBy = null;
         String having = null;
 

@@ -41,6 +41,11 @@ public class VillagesContract {
         return this;
     }
 
+
+    public String getUcCode() {
+        return ucCode;
+    }
+
     public String getVillageCode() {
         return villageCode;
     }
