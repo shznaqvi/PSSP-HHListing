@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.aku.hassannaqvi.nnspak_hhlisting.Activities.FamilyListingActivity">
 
     <LinearLayout
+        android:layoutDirection="rtl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -71,6 +72,14 @@
             android:layoutDirection="rtl"
             android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="20"
+                android:text="@string/hh16" />
+
+
             <EditText
                 android:id="@+id/hh16"
                 android:layout_width="0dp"
@@ -79,13 +88,6 @@
                 android:layout_weight="50"
                 android:inputType="number"
                 android:maxLength="2" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="20"
-                android:text="@string/hh16" />
 
         </LinearLayout>
 
