@@ -27,6 +27,36 @@
             android:textAlignment="center"
             android:textColor="#efefefef" />
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/hh08" />
+
+        <EditText
+            android:id="@+id/hh08"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="@string/txtName"
+            android:hint="@string/hh08"
+            android:inputType="text"
+            android:maxLength="24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/hh09" />
+
+        <EditText
+            android:id="@+id/hh09"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hh09"
+            android:inputType="number"
+            android:maxLength="11" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,42 +66,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/hh08" />
+                android:text="@string/hh16" />
 
             <EditText
-                android:id="@+id/hh08"
+                android:id="@+id/hh16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:digits="@string/txtName"
-                android:inputType="text"
-                android:maxLength="24" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh09" />
-
-            <EditText
-                android:id="@+id/hh09"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="1"
-                android:digits="1234567890- ()"
                 android:inputType="number"
-                android:maxLength="11" />
+                android:maxLength="2" />
+
         </LinearLayout>
+        =
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -20,6 +20,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 
@@ -66,9 +68,12 @@ public class GetAllData extends AsyncTask<String, String, String> {
                 case "EnumBlock":
                     url = new URL(AppMain._HOST_URL + EnumBlockContract.EnumBlockTable._URI);
                     break;
-                /*case "User":
-                    url = new URL(MainApp._HOST_URL + UsersContract.UsersTable._URI);
-                    break;*/
+                case "User":
+                    url = new URL(AppMain._HOST_URL + UsersContract.singleUser._URI);
+                    break;
+                case "Team":
+                    url = new URL(AppMain._HOST_URL + TeamsContract.singleTaluka._URI);
+                    break;
             }
 
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -113,9 +118,12 @@ public class GetAllData extends AsyncTask<String, String, String> {
                         case "EnumBlock":
                             db.syncEnumBlocks(jsonArray);
                             break;
-                        /*case "User":
-                            db.syncUser(jsonArray);
-                            break;*/
+                        case "User":
+                            db.syncUsers(jsonArray);
+                            break;
+                        case "Team":
+                            db.syncTeams(jsonArray);
+                            break;
                     }
 
                     pd.setMessage("Received: " + jsonArray.length());

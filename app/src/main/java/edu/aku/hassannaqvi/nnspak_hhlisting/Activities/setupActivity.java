@@ -105,7 +105,7 @@ public class setupActivity extends Activity {
         hh01.setText("");
 
         //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
-        String StructureNumber = "T-" + AppMain.enumCode + "-" + String.format("%03d", AppMain.hh03txt);
+        String StructureNumber = "NNS-" + AppMain.hh01txt + "-" + AppMain.enumCode + "-" + String.format("%03d", AppMain.hh03txt);
 
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);

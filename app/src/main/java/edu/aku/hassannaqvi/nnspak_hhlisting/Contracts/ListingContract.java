@@ -32,6 +32,7 @@ public class ListingContract {
     public String hh13;
     public String hh14;
     public String hh15;
+    public String hh16;
     public String hhadd;
     public String DeviceID;
     public String GPSLat;
@@ -304,6 +305,14 @@ public class ListingContract {
         this.GPSAlt = GPSAlt;
     }
 
+    public String getHh16() {
+        return hh16;
+    }
+
+    public void setHh16(String hh16) {
+        this.hh16 = hh16;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -330,6 +339,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH13, this.hh13);
         json.put(ListingEntry.COLUMN_NAME_HH14, this.hh14);
         json.put(ListingEntry.COLUMN_NAME_HH15, this.hh15);
+        json.put(ListingEntry.COLUMN_NAME_HH16, this.hh16);
         json.put(ListingEntry.COLUMN_ADDRESS, this.hhadd);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
         json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
@@ -368,6 +378,7 @@ public class ListingContract {
         lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
         lc.setHh14(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH14))));
         lc.setHh15(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH15))));
+        lc.setHh16(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH16))));
 
         lc.setHhadd(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ADDRESS))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
@@ -410,6 +421,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH13 = "hh13";
         public static final String COLUMN_NAME_HH14 = "hh14";
         public static final String COLUMN_NAME_HH15 = "hh15";
+        public static final String COLUMN_NAME_HH16 = "hh16";
         public static final String COLUMN_ADDRESS = "hhadd";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";

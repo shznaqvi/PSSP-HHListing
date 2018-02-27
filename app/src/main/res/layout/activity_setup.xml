@@ -66,29 +66,23 @@
 
         </LinearLayout>
 
-        <LinearLayout
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="24dp"
+            android:text="@string/hh03" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="1"
-                android:text="@string/hh03" />
-
-            <TextView
-                android:id="@+id/hh03"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_weight="3"
-                android:text="@string/hh03"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_25sdp"
-                android:textStyle="bold" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/hh03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_weight="3"
+            android:text="@string/hh03"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_22sdp"
+            android:textStyle="bold" />
 
         <!--// Structure Type-->
 
