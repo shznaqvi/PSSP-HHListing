@@ -526,7 +526,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleVillage.COLUMN_UC_CODE + " = '" + uc_code + "';";
 */
 
-        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " =? AND " + singleVillage.COLUMN_UC_CODE + " =? AND"
+        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " =? AND " + singleVillage.COLUMN_UC_CODE + " =? AND "
                 + singleVillage.COLUMN_VILLAGE_CODE + " =? ";
 
         String[] whereArgs = {district_code, uc_code, vil_code};
