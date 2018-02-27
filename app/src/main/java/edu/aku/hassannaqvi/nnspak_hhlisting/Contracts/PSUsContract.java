@@ -17,7 +17,8 @@ public class PSUsContract {
     private String talukaCode;
 
 
-    public PSUsContract() {}
+    public PSUsContract() {
+    }
 
     public PSUsContract sync(JSONObject jsonObject) throws JSONException {
         this.psuCode = jsonObject.getString(singlePSU.COLUMN_PSU_CODE);

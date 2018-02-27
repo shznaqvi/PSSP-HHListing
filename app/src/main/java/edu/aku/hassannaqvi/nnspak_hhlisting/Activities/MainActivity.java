@@ -370,6 +370,74 @@ public class MainActivity extends Activity {
         new CopyTask(this).execute();
     }
 
+    public void syncFunction(View view) {
+        if (isNetworkAvailable()) {
+
+            new syncData(this).execute();
+
+            SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = syncPref.edit();
+
+            editor.putString("LastSyncDB", dtToday);
+
+            editor.apply();
+        } else {
+            Toast.makeText(getApplicationContext(), "Network Not Available", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private boolean isHostAvailable() {
+
+        if (isNetworkAvailable()) {
+            try {
+                SocketAddress sockaddr = new InetSocketAddress(ipAddress, 3000);
+                // Create an unbound socket
+                Socket sock = new Socket();
+
+                // This method will block no more than timeoutMs.
+                // If the timeout occurs, SocketTimeoutException is thrown.
+                int timeoutMs = 2000;   // 2 seconds
+                sock.connect(sockaddr, timeoutMs);
+                return true;
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Server Not Available for Update", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Network not available for Update", Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+
+            startActivity(new Intent(this, LoginActivity.class));
+
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+        }
+    }
+
     public class CopyTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog Asycdialog;
@@ -437,74 +505,6 @@ public class MainActivity extends Activity {
             super.onPostExecute(result);
             Asycdialog.dismiss();
             Toast.makeText(mContext, "Copying done!!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void syncFunction(View view) {
-        if (isNetworkAvailable()) {
-
-            new syncData(this).execute();
-
-            SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = syncPref.edit();
-
-            editor.putString("LastSyncDB", dtToday);
-
-            editor.apply();
-        } else {
-            Toast.makeText(getApplicationContext(), "Network Not Available", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    private boolean isHostAvailable() {
-
-        if (isNetworkAvailable()) {
-            try {
-                SocketAddress sockaddr = new InetSocketAddress(ipAddress, 3000);
-                // Create an unbound socket
-                Socket sock = new Socket();
-
-                // This method will block no more than timeoutMs.
-                // If the timeout occurs, SocketTimeoutException is thrown.
-                int timeoutMs = 2000;   // 2 seconds
-                sock.connect(sockaddr, timeoutMs);
-                return true;
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Server Not Available for Update", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-        } else {
-            Toast.makeText(getApplicationContext(), "Network not available for Update", Toast.LENGTH_SHORT).show();
-            return false;
-
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (exit) {
-            finish(); // finish activity
-
-            startActivity(new Intent(this, LoginActivity.class));
-
-        } else {
-            Toast.makeText(this, "Press Back again to Exit.",
-                    Toast.LENGTH_SHORT).show();
-            exit = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    exit = false;
-                }
-            }, 3 * 1000);
         }
     }
 

@@ -49,7 +49,8 @@ public class SplashScreenActivity extends Activity {
     private static final int UI_ANIMATION_DELAY = 300;
     private static int SPLASH_TIME_OUT = 3000;
     private final Handler mHideHandler = new Handler();
-    *//**
+    */
+    /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
@@ -189,7 +190,11 @@ public class SplashScreenActivity extends Activity {
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }
 
-    *//**
+    */    private static final int STATE_INITIAL_ANIMATING = 0;
+    private static final int STATE_INITIAL_ANIMATED = 1;
+    private static final int STATE_OPTIONS_APPEAR_ANIMATED = 3;
+    private static final int STATE_OPTIONS_APPEAR_ANIMATING = 2;
+    /**
      * Schedules a call to hide() in [delay] milliseconds, canceling any
      * previously scheduled calls.
      *//*
@@ -208,12 +213,6 @@ public class SplashScreenActivity extends Activity {
     View splashNextBg;
     @BindView(R.id.splash_txt_appname)
     TextView splashNext;
-
-    private static final int STATE_INITIAL_ANIMATING = 0;
-    private static final int STATE_INITIAL_ANIMATED = 1;
-    private static final int STATE_OPTIONS_APPEAR_ANIMATED = 3;
-    private static final int STATE_OPTIONS_APPEAR_ANIMATING = 2;
-
     private Interpolator initAnimationInterpolator = PathInterpolatorCompat.create(.8f, 0, .2f, 1);
     private Interpolator midAnimationInterpolator = PathInterpolatorCompat.create(.01f, 0, .025f, 1);
 

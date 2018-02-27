@@ -4,60 +4,60 @@
     android:layout_height="match_parent"
     tools:context=".Activities.SplashScreenActivity">
 
-<!--    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="Aga Khan LOGO"
-            android:paddingTop="72dp"
-            android:src="@drawable/agakhan" />
-
-        <TextView
-            android:id="@+id/fullscreen_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="1dp"
-            android:gravity="center_horizontal"
-
-            android:keepScreenOn="true"
-            android:text="TOIC – Typhoid outbreak investigation and control"
-            android:textColor="@color/colorAccent"
-            android:textSize="32sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
+    <!--    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Dummy Button" />
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="Aga Khan LOGO"
+                android:paddingTop="72dp"
+                android:src="@drawable/agakhan" />
+
+            <TextView
+                android:id="@+id/fullscreen_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="1dp"
+                android:gravity="center_horizontal"
+
+                android:keepScreenOn="true"
+                android:text="TOIC – Typhoid outbreak investigation and control"
+                android:textColor="@color/colorAccent"
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
-    </FrameLayout>-->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <LinearLayout
+                android:id="@+id/fullscreen_content_controls"
+                style="?metaButtonBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="@color/black_overlay"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+
+                <Button
+                    android:id="@+id/dummy_button"
+                    style="?metaButtonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dummy Button" />
+
+            </LinearLayout>
+        </FrameLayout>-->
 
     <View
         android:id="@+id/splash_ball"
@@ -111,8 +111,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/agakhanlogo1"
-                android:layout_marginTop="100dp"/>
+                android:layout_marginTop="100dp"
+                android:src="@drawable/agakhanlogo1" />
 
         </RelativeLayout>
 

@@ -83,8 +83,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_weight="0.99"
-                        android:drawableStart="@drawable/ic_assignment_ind_black_24dp"
                         android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_assignment_ind_black_24dp"
                         android:hint="Username/Code"
                         android:imeActionId="@+id/login"
                         android:imeActionLabel="@string/action_sign_in_short"
@@ -114,8 +114,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_weight="0.99"
-                        android:drawableStart="@drawable/ic_lock_black_24dp"
                         android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_lock_black_24dp"
                         android:hint="@string/prompt_password"
                         android:imeActionId="@+id/login"
                         android:imeActionLabel="@string/action_sign_in_short"
@@ -152,7 +152,7 @@
                 android:gravity="center"
                 android:layoutDirection="ltr"
                 android:popupBackground="#3d3d3d"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <Spinner
                 android:id="@+id/spUCs"
@@ -163,7 +163,7 @@
                 android:gravity="center"
                 android:layoutDirection="ltr"
                 android:popupBackground="#3d3d3d"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
 
             <LinearLayout

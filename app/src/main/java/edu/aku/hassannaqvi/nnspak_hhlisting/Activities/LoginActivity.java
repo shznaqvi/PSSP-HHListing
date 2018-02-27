@@ -38,7 +38,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -53,11 +52,10 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.nnspak_hhlisting.R;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUsers;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
+import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 
 /**
  * A login screen that offers login via email/password.
@@ -146,7 +144,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 attemptLogin();
             }
         });
-        
+
 //        DB backup
 
         dbBackup();
@@ -373,21 +371,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         //TODO implement
         if (mPasswordView.getTransformationMethod() == null) {
             mPasswordView.setTransformationMethod(new PasswordTransformationMethod());
-            mPasswordView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lock_black_24dp,0,0,0);
+            mPasswordView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lock_black_24dp, 0, 0, 0);
         } else {
             mPasswordView.setTransformationMethod(null);
-            mPasswordView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lock_open_black_24dp,0,0,0);
+            mPasswordView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lock_open_black_24dp, 0, 0, 0);
         }
-    }
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
     public void showCredits(View view) {
@@ -404,6 +392,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     Toast.LENGTH_LONG)
                     .show();
         }
+    }
+
+    private interface ProfileQuery {
+        String[] PROJECTION = {
+                ContactsContract.CommonDataKinds.Email.ADDRESS,
+                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
+        };
+
+        int ADDRESS = 0;
+        int IS_PRIMARY = 1;
     }
 
     /**
@@ -455,10 +453,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 if ((mEmail.equals("dmu@aku") && mPassword.equals("aku?dmu")) || db.Login(mEmail, mPassword)
                         || (mEmail.equals("test1234") && mPassword.equals("test1234"))) {
                     AppMain.userEmail = mEmail;
-                        finish();
+                    finish();
 
-                        Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(iLogin);
+                    Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(iLogin);
 
                 } else {
                     mPasswordView.setError(getString(R.string.error_incorrect_password));
