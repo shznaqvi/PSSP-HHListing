@@ -177,6 +177,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
+        values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
 
         AppMain.updatePSU(lc.getHh04Village(), lc.getHh03());
 
@@ -190,7 +191,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
-        values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
