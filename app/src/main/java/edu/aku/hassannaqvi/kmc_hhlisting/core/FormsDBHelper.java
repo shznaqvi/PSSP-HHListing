@@ -60,6 +60,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHADD + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH04_VILLAGE + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH04x + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
@@ -74,7 +75,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_CHILD_NAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
@@ -178,7 +178,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
 
-        AppMain.updatePSU(lc.getHh02(), lc.getHh03());
+        AppMain.updatePSU(lc.getHh04Village(), lc.getHh03());
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
         values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());
@@ -190,7 +190,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
-        values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
+        values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
@@ -366,7 +366,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_HH12,
                 ListingEntry.COLUMN_NAME_HH13,
-                ListingEntry.COLUMN_NAME_CHILD_NAME,
+                ListingEntry.COLUMN_NAME_HH04_VILLAGE,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
@@ -481,7 +481,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleDistrict._ID + " ASC";
+                singleDistrict.COLUMN_DISTRICT_NAME + " ASC";
 
         Collection<DistrictsContract> allDC = new ArrayList<DistrictsContract>();
         try {
@@ -509,7 +509,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allDC;
     }
 
-    public Collection<VillagesContract> getAllPSUsByDistrict(String district_code, String uc_code, String vil_code) {
+    public Collection<VillagesContract> getAllPSUsByDistrict(String district_code, String uc_code) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -521,20 +521,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         };
 
-       /* String whereClause = "SELECT * FROM " + singleVillage.COLUMN_DISTRICT_CODE + " where "
-                + singleVillage.COLUMN_DISTRICT_CODE + " = '" + district_code + "' AND " +
-                singleVillage.COLUMN_UC_CODE + " = '" + uc_code + "';";
-*/
+        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " =? AND " + singleVillage.COLUMN_UC_CODE + " =?";
 
-        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " =? AND " + singleVillage.COLUMN_UC_CODE + " =? AND "
-                + singleVillage.COLUMN_VILLAGE_CODE + " =? ";
-
-        String[] whereArgs = {district_code, uc_code, vil_code};
+        String[] whereArgs = {district_code, uc_code};
         String groupBy = null;
         String having = null;
 
         String orderBy =
-                singleVillage.COLUMN_VILLAGE_CODE + " ASC";
+                singleVillage.COLUMN_VILLAGE_NAME + " ASC";
 
         Collection<VillagesContract> allPC = new ArrayList<VillagesContract>();
         try {
@@ -585,7 +579,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
-        values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
+        values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
@@ -619,7 +613,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
         lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
-        lc.setHhChildNm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CHILD_NAME))));
+        lc.setHh04Village(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04_VILLAGE))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));

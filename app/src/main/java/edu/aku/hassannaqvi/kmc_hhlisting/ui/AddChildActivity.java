@@ -69,7 +69,7 @@ public class AddChildActivity extends Activity {
             if (UpdateDB()) {
                 AppMain.cCount++;
 
-                AppMain.lc.setHhChildNm(null);
+                AppMain.lc.setHh04Village(null);
 
                 Intent fA = new Intent(this, AddChildActivity.class);
                 startActivity(fA);
@@ -86,7 +86,7 @@ public class AddChildActivity extends Activity {
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.lc.setHhChildNm(null);
+            AppMain.lc.setHh04Village(null);
 
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
@@ -95,7 +95,7 @@ public class AddChildActivity extends Activity {
     }
 
     private void SaveDraft() {
-        AppMain.lc.setHhChildNm(icName.getText().toString());
+        AppMain.lc.setHh04Village(icName.getText().toString());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());

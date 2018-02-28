@@ -47,21 +47,21 @@ public class AppMain extends Application {
     public static String username;
     protected static LocationManager locationManager;
 
-    public static void updatePSU(String psuCode, String structureNo) {
+    public static void updatePSU(String villageCode, String structureNo) {
 
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        editor.putString(psuCode, structureNo);
+        editor.putString(villageCode, structureNo);
 
         editor.apply();
-        Log.d(TAG, "updatePSU: " + psuCode + " " + structureNo);
+        Log.d(TAG, "updatePSU: " + villageCode + " " + structureNo);
 
     }
 
-    public static Boolean PSUExist(String psuCode) {
-        Log.d(TAG, "PSUExist: " + psuCode);
-        AppMain.hh03txt = Integer.valueOf(sharedPref.getString(psuCode, "0"));
-        Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(psuCode, "0"));
+    public static Boolean PSUExist(String villageCode) {
+        Log.d(TAG, "PSUExist: " + villageCode);
+        AppMain.hh03txt = Integer.valueOf(sharedPref.getString(villageCode, "0"));
+        Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(villageCode, "0"));
 
         if (AppMain.hh03txt == 0) {
             Log.d(TAG, "PSUExist (False): " + AppMain.hh03txt);

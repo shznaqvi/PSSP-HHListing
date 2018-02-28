@@ -116,13 +116,13 @@ public class AddMarriedWomenActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                AppMain.fCount = 0;
+                /*AppMain.fCount = 0;
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
                 AppMain.mwraCount = 0;
-                AppMain.mwraTotal = 0;
-                Intent closeA = new Intent(this, setupActivity.class);
+                AppMain.mwraTotal = 0;*/
+                Intent closeA = new Intent(this, HouseholdInfoActivity.class);
                 startActivity(closeA);
             }
         }

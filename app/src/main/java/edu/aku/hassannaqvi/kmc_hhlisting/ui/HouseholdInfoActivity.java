@@ -22,7 +22,7 @@ import edu.aku.hassannaqvi.kmc_hhlisting.R;
 import edu.aku.hassannaqvi.kmc_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.kmc_hhlisting.core.FormsDBHelper;
 
-public class ClosingActivity extends Activity {
+public class HouseholdInfoActivity extends Activity {
 
     @BindView(R.id.activity_add_child)
     ScrollView activityAddChild;
@@ -42,12 +42,12 @@ public class ClosingActivity extends Activity {
     LinearLayout fldGrpHH11;
     @BindView(R.id.fldGrpHH13)
     LinearLayout fldGrpHH13;
-    private String TAG = "ClosingActivity";
+    private String TAG = "HouseholdInfoActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_closing);
+        setContentView(R.layout.activity_household_info);
         ButterKnife.bind(this);
 
         if (AppMain.fCount < AppMain.fTotal) {
@@ -152,7 +152,7 @@ public class ClosingActivity extends Activity {
 
     private boolean formValidation() {
 
-        if (hh10.isChecked()) {
+        /*if (hh10.isChecked()) {
             if (hh11.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Cannot be Empty", Toast.LENGTH_LONG).show();
                 hh11.setError("Cannot be Empty");
@@ -161,7 +161,8 @@ public class ClosingActivity extends Activity {
             } else {
                 hh11.setError(null);
             }
-        }
+        }*/
+
         if (hh12.isChecked()) {
             if (hh13.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Cannot be Empty", Toast.LENGTH_LONG).show();

@@ -192,10 +192,11 @@ public class setupActivity extends Activity {
 
         AppMain.lc = new ListingContract();
         AppMain.lc.setHhDT(dtToday);
-        AppMain.lc.setHh07n(AppMain.username);
-        AppMain.lc.setHh01(AppMain.hh01txt);
-        AppMain.lc.setHh02(AppMain.hh02txt);
-        AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
+        AppMain.lc.setHh07n(AppMain.username); // username
+        AppMain.lc.setHh01(AppMain.hh01txt); // tehsil
+        AppMain.lc.setHh02(AppMain.hh02txt); // uc code
+        AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt)); //structure no
+        AppMain.lc.setHh04Village(AppMain.hh04txt); //village no
         AppMain.lc.setHhadd(hhadd.getText().toString());
         switch (hh04.getCheckedRadioButtonId()) {
             case R.id.hh04a:
@@ -229,7 +230,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh04x(hh04x88.getText().toString());
         AppMain.lc.setHh05(hh05.isChecked() ? "1" : "2");
         AppMain.lc.setHh06(hh06.getText().toString());
-        AppMain.lc.setHh07(AppMain.hh07txt);
+        AppMain.lc.setHh07(AppMain.hh07txt); // family no
 
         AppMain.lc.setDeviceID(deviceId);
 

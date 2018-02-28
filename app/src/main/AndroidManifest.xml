@@ -54,7 +54,7 @@
             android:name="edu.aku.hassannaqvi.kmc_hhlisting.ui.AddMarriedWomenActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="edu.aku.hassannaqvi.kmc_hhlisting.ui.ClosingActivity"
+            android:name="edu.aku.hassannaqvi.kmc_hhlisting.ui.HouseholdInfoActivity"
             android:windowSoftInputMode="adjustResize" />
     </application>
 

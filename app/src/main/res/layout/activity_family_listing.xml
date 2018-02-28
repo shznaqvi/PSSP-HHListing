@@ -189,8 +189,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="contNextQuestion"
-            android:text="Goto Next Household"
+            android:text="Goto Household Info"
             android:visibility="visible" />
 
         <Button
@@ -198,7 +197,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="addMWRA"
             android:text="Add Married Women"
             android:visibility="gone" />
         <!--
