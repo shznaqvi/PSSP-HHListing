@@ -80,6 +80,8 @@ public class MainActivity extends Activity {
     @BindView(R.id.btnCheckPSU)
     Button btnCheckPSU;
 
+    @BindView(R.id.openForm)
+    Button openForm;
 
     @BindView(R.id.na101a)
     TextView na101a;
@@ -157,18 +159,18 @@ public class MainActivity extends Activity {
 
     public void spinnersFill() {
         // Spinner Drop down elements
-        List<String> teamNos = new ArrayList<String>();
-        Collection<TeamsContract> dc = db.getAllTeams();
+        //List<String> teamNos = new ArrayList<String>();
+        //Collection<TeamsContract> dc = db.getAllTeams();
 
-        teamNos.add("....");
+        //teamNos.add("....");
 
-        Log.d(TAG, "onCreate: " + dc.size());
-        for (TeamsContract d : dc) {
+        //Log.d(TAG, "onCreate: " + dc.size());
+        /*for (TeamsContract d : dc) {
             teamNos.add(d.getTeamNo());
-        }
+        }*/
 
         // Creating adapter for spinner
-        mN01.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, teamNos));
+        /*mN01.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, teamNos));
 
         mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -186,7 +188,7 @@ public class MainActivity extends Activity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
         txtPSU.addTextChangedListener(new TextWatcher() {
             @Override
@@ -201,6 +203,7 @@ public class MainActivity extends Activity {
                 psuN.setText(null);
                 ucN.setText(null);
                 fldGrpna101.setVisibility(View.GONE);
+                openForm.setVisibility(View.GONE);
             }
 
             @Override
@@ -263,12 +266,14 @@ public class MainActivity extends Activity {
                 fldGrpna101.setVisibility(View.VISIBLE);
 
                 flag = true;
+                openForm.setVisibility(View.VISIBLE);
 
                 AppMain.hh02txt = txtPSU.getText().toString();
 
             } else {
                 Toast.makeText(this, "Sorry not found any block", Toast.LENGTH_SHORT).show();
                 flag = false;
+                openForm.setVisibility(View.GONE);
             }
 
         } else {
@@ -345,16 +350,16 @@ public class MainActivity extends Activity {
     public void NextSetupActivity() {
 
         if (flag) {
-            if (mN01.getSelectedItemPosition() != 0) {
-                if (AppMain.PSUExist(AppMain.hh02txt)) {
-                    Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
-                    alertPSU();
-                } else {
-                    startActivity(new Intent(this, setupActivity.class));
-                }
+            //if (mN01.getSelectedItemPosition() != 0) {
+            if (AppMain.PSUExist(AppMain.hh02txt)) {
+                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+                alertPSU();
             } else {
-                Toast.makeText(this, "Please select Team from dropdown!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, setupActivity.class));
             }
+            /*} else {
+                Toast.makeText(this, "Please select Team from dropdown!", Toast.LENGTH_SHORT).show();
+            }*/
         } else {
             Toast.makeText(this, "Please Click on CHECK button!", Toast.LENGTH_SHORT).show();
         }

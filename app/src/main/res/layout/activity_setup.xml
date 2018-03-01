@@ -53,8 +53,6 @@
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold" />
 
-
-
         </LinearLayout>
 
 
@@ -103,6 +101,55 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/hh04b" />
 
+            <RadioButton
+                android:id="@+id/hh04c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/hh04c" />
+
+            <RadioButton
+                android:id="@+id/hh04d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/hh04d" />
+
+            <RadioButton
+                android:id="@+id/hh04e"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/hh04e" />
+
+            <RadioButton
+                android:id="@+id/hh04f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/hh04f" />
+
+            <RadioButton
+                android:id="@+id/hh04g"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/hh04g" />
+
+            <RadioButton
+                android:id="@+id/hh04h"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/hh04h" />
+
+            <RadioButton
+                android:id="@+id/hh04i"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/hh04i" />
+
             <!--<RadioButton
                 android:id="@+id/hh04c"
                 android:layout_width="match_parent"
@@ -132,12 +179,12 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/hh04f" />-->
 
-            <RadioButton
+            <!--<RadioButton
                 android:id="@+id/hh04g"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/hh04g" />
+                android:text="@string/hh04g" />-->
 
         </RadioGroup>
 

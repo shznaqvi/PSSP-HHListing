@@ -49,6 +49,21 @@ public class setupActivity extends Activity {
     RadioButton hh04a;
     @BindView(R.id.hh04b)
     RadioButton hh04b;
+    @BindView(R.id.hh04c)
+    RadioButton hh04c;
+    @BindView(R.id.hh04d)
+    RadioButton hh04d;
+    @BindView(R.id.hh04e)
+    RadioButton hh04e;
+    @BindView(R.id.hh04f)
+    RadioButton hh04f;
+    @BindView(R.id.hh04g)
+    RadioButton hh04g;
+    @BindView(R.id.hh04h)
+    RadioButton hh04h;
+    @BindView(R.id.hh04i)
+    RadioButton hh04i;
+
     /*    @BindView(R.id.hh04c)
         RadioButton hh04c;
         @BindView(R.id.hh04d)
@@ -57,8 +72,9 @@ public class setupActivity extends Activity {
         RadioButton hh04e;
         @BindView(R.id.hh04f)
         RadioButton hh04f;*/
-    @BindView(R.id.hh04g)
-    RadioButton hh04g;
+
+    /*@BindView(R.id.hh04g)
+    RadioButton hh04g;*/
     @BindView(R.id.hh05)
     Switch hh05;
     @BindView(R.id.hh06)
@@ -210,6 +226,28 @@ public class setupActivity extends Activity {
             case R.id.hh04b:
                 AppMain.lc.setHh04("2");
                 break;
+            case R.id.hh04c:
+                AppMain.lc.setHh04("3");
+                break;
+            case R.id.hh04d:
+                AppMain.lc.setHh04("4");
+                break;
+            case R.id.hh04e:
+                AppMain.lc.setHh04("5");
+                break;
+            case R.id.hh04f:
+                AppMain.lc.setHh04("6");
+                break;
+            case R.id.hh04g:
+                AppMain.lc.setHh04("7");
+                break;
+            case R.id.hh04h:
+                AppMain.lc.setHh04("8");
+                break;
+            case R.id.hh04i:
+                AppMain.lc.setHh04("88");
+                break;
+
             /*case R.id.hh04c:
                 AppMain.lc.setHh04("3");
                 break;
@@ -222,9 +260,9 @@ public class setupActivity extends Activity {
             case R.id.hh04f:
                 AppMain.lc.setHh04("6");
                 break;*/
-            case R.id.hh04g:
+            /*case R.id.hh04g:
                 AppMain.lc.setHh04("3");
-                break;
+                break;*/
             default:
                 break;
         }
@@ -290,11 +328,11 @@ public class setupActivity extends Activity {
         }
         if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
-            hh04b.setError("Please one option");
+            hh04i.setError("Please one option");
             Log.i(TAG, "Please one option");
             return false;
         } else {
-            hh04b.setError(null);
+            hh04i.setError(null);
         }
 
         if (hh04a.isChecked()) {
