@@ -20,6 +20,11 @@ public class ListingContract {
     public String hh02;
     public String hh03;
     public String hh04;
+    public String hh0488x;
+
+    public String hh08a1;
+    public String hh09a1;
+
     public String hh05;
     public String hh06;
     public String hh07;
@@ -118,6 +123,34 @@ public class ListingContract {
     public void setHh04(String hh04) {
         this.hh04 = hh04;
     }
+
+
+    public String getHh0488x() {
+        return hh0488x;
+    }
+
+    public void setHh0488x(String hh0488x) {
+        this.hh0488x = hh0488x;
+    }
+
+
+    public String getHh08a1() {
+        return hh08a1;
+    }
+
+    public void setHh08a1(String hh08a1) {
+        this.hh08a1 = hh08a1;
+    }
+
+
+    public String getHh09a1() {
+        return hh09a1;
+    }
+
+    public void setHh09a1(String hh09a1) {
+        this.hh09a1 = hh09a1;
+    }
+
 
     public String getHh14() {
         return hh14;
@@ -326,6 +359,11 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
         json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03);
         json.put(ListingEntry.COLUMN_NAME_HH04, this.hh04);
+        json.put(ListingEntry.COLUMN_NAME_HH0488x, this.hh0488x);
+
+        json.put(ListingEntry.COLUMN_NAME_HH08A1, this.hh08a1);
+        json.put(ListingEntry.COLUMN_NAME_HH09A1, this.hh09a1);
+
         json.put(ListingEntry.COLUMN_NAME_HH14, this.hh14);
         json.put(ListingEntry.COLUMN_NAME_HH05, this.hh05);
         json.put(ListingEntry.COLUMN_NAME_HH06, this.hh06);
@@ -366,6 +404,11 @@ public class ListingContract {
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
         lc.setHh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH03))));
         lc.setHh04(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04))));
+        lc.setHh0488x(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH0488x))));
+
+        lc.setHh08a1(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08A1))));
+        lc.setHh09a1(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09A1))));
+
         lc.setHh05(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH05))));
         lc.setHh06(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH06))));
         lc.setHh07(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07))));
@@ -409,6 +452,11 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH02 = "hh02";
         public static final String COLUMN_NAME_HH03 = "hh03";
         public static final String COLUMN_NAME_HH04 = "hh04";
+        public static final String COLUMN_NAME_HH0488x = "hh0488x";
+
+        public static final String COLUMN_NAME_HH08A1 = "hh08a1";
+        public static final String COLUMN_NAME_HH09A1 = "hh09a1";
+
         public static final String COLUMN_NAME_HH05 = "hh05";
         public static final String COLUMN_NAME_HH06 = "hh06";
         public static final String COLUMN_NAME_HH07 = "hh07";

@@ -28,6 +28,14 @@
             android:textColor="#efefefef" />
 
         <TextView
+            android:id="@+id/txtstructure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:textAlignment="center" />
+
+        <TextView
             android:id="@+id/txtTeamNoWithFam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

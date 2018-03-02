@@ -37,6 +37,10 @@ public class setupActivity extends Activity {
     private static String deviceId;
     @BindView(R.id.activity_household_listing)
     ScrollView activityHouseholdListing;
+
+    @BindView(R.id.txtstructure)
+    TextView txtstructure;
+
     @BindView(R.id.hh02)
     EditText hh02;
     @BindView(R.id.hhadd)
@@ -64,6 +68,9 @@ public class setupActivity extends Activity {
     @BindView(R.id.hh04i)
     RadioButton hh04i;
 
+    @BindView(R.id.hh0488x)
+    EditText hh0488x;
+
     /*    @BindView(R.id.hh04c)
         RadioButton hh04c;
         @BindView(R.id.hh04d)
@@ -81,6 +88,25 @@ public class setupActivity extends Activity {
     EditText hh06;
     @BindView(R.id.hh07)
     TextView hh07;
+
+    @BindView(R.id.hh08a1)
+    RadioGroup hh08a1;
+    @BindView(R.id.hh08a1a)
+    RadioButton hh08a1a;
+    @BindView(R.id.hh08a1b)
+    RadioButton hh08a1b;
+    @BindView(R.id.hh08a1c)
+    RadioButton hh08a1c;
+
+
+    @BindView(R.id.hh09a1)
+    RadioGroup hh09a1;
+    @BindView(R.id.hh09a1a)
+    RadioButton hh09a1a;
+    @BindView(R.id.hh09a1b)
+    RadioButton hh09a1b;
+
+
     @BindView(R.id.fldGrpHH04)
     LinearLayout fldGrpHH04;
     @BindView(R.id.btnAddHousehold)
@@ -117,12 +143,17 @@ public class setupActivity extends Activity {
         AppMain.hh07txt = "X";
 
         //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
-        String StructureNumber = "NNS-" + AppMain.enumCode + "-" + String.format("%03d", AppMain.hh03txt);
+        String StructureNumber = "NNS-" + AppMain.enumCode + "-" + String.format("%04d", AppMain.hh03txt);
+
 
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);
         hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
 
+        txtstructure.setTextColor(Color.RED);
+        txtstructure.setText(StructureNumber);
+
+        AppMain.txtstructure = StructureNumber;
 
         hh04.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -141,6 +172,8 @@ public class setupActivity extends Activity {
                 if (hh04a.isChecked()) {
                     fldGrpHH04.setVisibility(View.VISIBLE);
                     btnAddHousehold.setVisibility(View.GONE);
+                    hh0488x.setVisibility(View.GONE);
+                    hh0488x.setText(null);
                 } else {
                     fldGrpHH04.setVisibility(View.GONE);
                     hh05.setChecked(false);
@@ -150,12 +183,22 @@ public class setupActivity extends Activity {
                 if (hh04g.isChecked()) {
                     btnAddHousehold.setVisibility(View.GONE);
                     btnChangPSU.setVisibility(View.VISIBLE);
+                    hh0488x.setVisibility(View.GONE);
+                    hh0488x.setText(null);
                 } else {
                     btnChangPSU.setVisibility(View.GONE);
+                }
 
+                if (hh04i.isChecked()) {
+                    hh0488x.setVisibility(View.VISIBLE);
+                    hh0488x.requestFocus();
+                } else {
+                    hh0488x.setVisibility(View.GONE);
+                    hh0488x.setText(null);
                 }
             }
         });
+
         hh05.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -266,10 +309,20 @@ public class setupActivity extends Activity {
             default:
                 break;
         }
+
+        AppMain.lc.setHh0488x(hh0488x.getText().toString());
+
         AppMain.lc.setUsername(AppMain.userEmail);
         AppMain.lc.setHh05(hh05.isChecked() ? "1" : "2");
         AppMain.lc.setHh06(hh06.getText().toString());
         AppMain.lc.setHh07(AppMain.hh07txt);
+
+        AppMain.lc.setHh08a1(hh08a1a.isChecked() ? "1"
+                : hh08a1b.isChecked() ? "2"
+                : "3");
+
+        AppMain.lc.setHh09a1(hh09a1a.isChecked() ? "1" : "2");
+
 //        AppMain.lc.setHhadd(hhadd.getText().toString());
 
         AppMain.lc.setDeviceID(deviceId);
@@ -335,6 +388,7 @@ public class setupActivity extends Activity {
             hh04i.setError(null);
         }
 
+
         if (hh04a.isChecked()) {
            /* if (hhadd.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please enter address", Toast.LENGTH_LONG).show();
@@ -363,6 +417,36 @@ public class setupActivity extends Activity {
                 hh06.setError(null);
             }
         }
+
+        if (hh04i.isChecked() && hh0488x.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter others", Toast.LENGTH_LONG).show();
+            hh0488x.setError("Please enter others");
+            Log.i(TAG, "Please enter others");
+            return false;
+        } else {
+            hh0488x.setError(null);
+        }
+
+
+        if (hh08a1.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
+            hh08a1c.setError("Please one option");
+            Log.i(TAG, "Please one option");
+            return false;
+        } else {
+            hh08a1c.setError(null);
+        }
+
+
+        if (hh09a1.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
+            hh09a1b.setError("Please one option");
+            Log.i(TAG, "Please one option");
+            return false;
+        } else {
+            hh09a1b.setError(null);
+        }
+
 
         return true;
     }

@@ -53,6 +53,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH0488x + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH08A1 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH09A1 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
@@ -231,6 +234,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Log.d(TAG, "PSUExist (Test): " + AppMain.sharedPref.getString(lc.getHh02(), "0"));
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
+        values.put(ListingEntry.COLUMN_NAME_HH0488x, lc.getHh0488x());
+        values.put(ListingEntry.COLUMN_NAME_HH08A1, lc.getHh08a1());
+        values.put(ListingEntry.COLUMN_NAME_HH09A1, lc.getHh09a1());
+
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
@@ -296,6 +303,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
+                ListingEntry.COLUMN_NAME_HH0488x,
+                ListingEntry.COLUMN_NAME_HH08A1,
+                ListingEntry.COLUMN_NAME_HH09A1,
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,

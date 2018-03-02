@@ -20,10 +20,7 @@
     <string name="hh08a1c"> گھر بند ہے </string>
 
 
-    <string name="hh09a2"> کیا کوئی جواب دہندہ موجود ہے </string>
-    <string name="hh09a2a"> جواب دہندہ موجود ہے </string>
-    <string name="hh09a2b"> گھرانے کا کوئی فرد یا باصلاحیت جواب دہندہ گھر پر موجود نہیں تھا</string>
-    <string name="hh09a2c"> گھر بند ہے </string>
+    <string name="hh09a1"> کیا یہ جگہ رہائشی مقصد کے لئے استعمال ہوتی ہے؟ </string>
 
 
     <string name="hh05"> کیا اس عمارت میں ایک سے زیادہ خاندان رہائش پزیر ہیں؟ </string>

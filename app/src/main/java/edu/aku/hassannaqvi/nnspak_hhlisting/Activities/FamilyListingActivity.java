@@ -2,6 +2,7 @@ package edu.aku.hassannaqvi.nnspak_hhlisting.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,10 @@ public class FamilyListingActivity extends Activity {
     TextView txtFamilyListing;
     @BindView(R.id.txtTeamNoWithFam)
     TextView txtTeamNoWithFam;
+
+    @BindView(R.id.txtstructure)
+    TextView txtstructure;
+
     @BindView(R.id.hh08)
     EditText hh08;
     @BindView(R.id.hh09)
@@ -69,6 +74,8 @@ public class FamilyListingActivity extends Activity {
         setContentView(R.layout.activity_family_listing);
         ButterKnife.bind(this);
 
+        txtstructure.setTextColor(Color.RED);
+        txtstructure.setText(AppMain.txtstructure);
 
         txtFamilyListing.setText("Household Listing");
         txtTeamNoWithFam.setText(String.format("%03d", AppMain.hh01txt) + "/" + AppMain.hh03txt + "-" + AppMain.hh07txt);
