@@ -26,35 +26,6 @@
             android:textColor="#efefefef"
             android:textSize="24sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_weight="3"
-                android:background="#d6d6d6"
-                android:text="Team No"
-                android:textAlignment="center" />
-
-            <Spinner
-                android:id="@+id/MN01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <Spinner
-            android:id="@+id/MN02"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"></Spinner>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="70"
                 android:background="#ddd"
-                android:hint="Cluster number"
+                android:hint="EnumCode number"
                 android:inputType="number"
                 android:maxLength="9"
                 android:padding="10dp"
@@ -122,6 +93,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginTop="13dp"
                         android:layout_weight="2"
+                        android:background="@color/dullWhile"
                         android:gravity="center_horizontal|center_vertical"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
@@ -146,10 +118,12 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginTop="13dp"
                         android:layout_weight="2"
+                        android:background="@color/dullWhile"
                         android:gravity="center_horizontal|center_vertical"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
                 </LinearLayout>
+
 
             </LinearLayout>
 
@@ -183,6 +157,7 @@
                         android:layout_marginBottom="4dp"
                         android:layout_marginTop="16dp"
                         android:layout_weight="2"
+                        android:background="@color/dullWhile"
                         android:gravity="center_horizontal|center_vertical"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
@@ -208,6 +183,7 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="13dp"
                         android:layout_weight="2"
+                        android:background="@color/dullWhile"
                         android:gravity="center_horizontal|center_vertical"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
@@ -215,7 +191,11 @@
 
             </LinearLayout>
 
-
+            <CheckBox
+                android:id="@+id/chkconfirm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/confirmcity" />
         </LinearLayout>
 
 

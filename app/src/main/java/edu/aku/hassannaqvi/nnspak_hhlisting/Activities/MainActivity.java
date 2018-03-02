@@ -17,15 +17,13 @@ import android.provider.Settings;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +37,6 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +45,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
@@ -65,10 +61,6 @@ public class MainActivity extends Activity {
     public List<String> psuCode;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
-    @BindView(R.id.MN01)
-    Spinner mN01;
-    @BindView(R.id.MN02)
-    Spinner mN02;
     @BindView(R.id.districtN)
     TextView districtN;
     @BindView(R.id.ucN)
@@ -79,7 +71,8 @@ public class MainActivity extends Activity {
     EditText txtPSU;
     @BindView(R.id.btnCheckPSU)
     Button btnCheckPSU;
-
+    @BindView(R.id.chkconfirm)
+    CheckBox chkconfirm;
     @BindView(R.id.openForm)
     Button openForm;
 
@@ -266,7 +259,17 @@ public class MainActivity extends Activity {
                 fldGrpna101.setVisibility(View.VISIBLE);
 
                 flag = true;
-                openForm.setVisibility(View.VISIBLE);
+                chkconfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (chkconfirm.isChecked()) {
+                            openForm.setVisibility(View.VISIBLE);
+                        } else {
+                            openForm.setVisibility(View.GONE);
+
+                        }
+                    }
+                });
 
                 AppMain.hh02txt = txtPSU.getText().toString();
 

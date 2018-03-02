@@ -70,8 +70,8 @@ public class FamilyListingActivity extends Activity {
         ButterKnife.bind(this);
 
 
-        txtFamilyListing.setText("Household Listing");
-        txtTeamNoWithFam.setText(String.format("%03d", AppMain.hh01txt) + "/" + AppMain.hh03txt + "-" + AppMain.hh07txt);
+        txtFamilyListing.setText("Household Information");
+        txtTeamNoWithFam.setText(String.format("%04d", AppMain.hh03txt) + "-" + AppMain.hh07txt);
 
         if (AppMain.fCount < AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);

@@ -22,7 +22,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:background="@color/colorPrimary"
-            android:text="Household Information"
+            android:text="Structure Information"
             android:textAlignment="center"
             android:textColor="#efefefef" />
 
@@ -68,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_weight="3"
+            android:background="@null"
             android:gravity="center"
             android:text="@string/hh03"
             android:textColor="@color/colorAccent"
@@ -264,7 +265,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Add A Family" />
+                android:text="Add Household" />
         </LinearLayout>
 
         <!--Family Letter-->
@@ -274,7 +275,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Goto Next Household"
+            android:text="Goto Next Structure"
             android:visibility="visible" />
 
         <Button
@@ -282,7 +283,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Change Cluster"
+            android:text="Change Enumeration Block"
             android:visibility="gone" />
     </LinearLayout>
 

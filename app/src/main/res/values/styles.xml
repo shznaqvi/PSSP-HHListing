@@ -11,8 +11,8 @@
     </style>
 
     <style name="textView" parent="AppTheme">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:background">#d6d6d6</item>
+        <item name="android:textColor">@color/dullWhile</item>
+        <item name="android:background">@color/colorPrimary</item>
         <item name="android:padding">8dp</item>
         <item name="android:typeface">serif</item>
 

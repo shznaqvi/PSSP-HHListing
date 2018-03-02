@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">NNS PAKISTAN - Household Line Listing</string>
     <string name="hh01"> تعلّقہ کوڈ </string>
-    <string name="hh02"> کلسٹر کوڈ </string>
+    <string name="hh02"> کوڈ Enumeration </string>
     <string name="hh03"> اسٹرکچر نمبر </string>
     <string name="hh04"> تعمیراتی ساخت </string>
     <string name="hh04a"> رہائیشی </string>
@@ -15,6 +15,7 @@
     <string name="hh04i"> دیگر </string>
 
     <string name="hh08a1"> کیا کوئی جواب دہندہ موجود ہے </string>
+    <string name="confirmcity"> کیا آپ اُوپر دیئے گئے شہر/گاوُں میں موجود ہیں؟ </string>
     <string name="hh08a1a"> جواب دہندہ موجود ہے </string>
     <string name="hh08a1b"> گھرانے کا کوئی فرد یا باصلاحیت جواب دہندہ گھر پر موجود نہیں تھا</string>
     <string name="hh08a1c"> گھر بند ہے </string>
@@ -34,16 +35,16 @@
     <string name="hh10a"> تعداد </string>
     <string name="hh12a"> تعداد </string>
     <string name="hh14a"> تعداد </string>
-    <string name="hh10"> کیااس گھر میں 10 سے 19 سال کے افراد رہائش پزیر ہیں؟ </string>
-    <string name="hh12"> اس گھر میں  5 سال سے کم عمر بچے رہائش پزیر ہیں؟ </string>
-    <string name="hh14"> اس گھر میں 15 سے 50 سال کی شادی شدہ خواتیں رہائش پزیر ہیں؟ </string>
+    <string name="hh10">  کیا اس گھر میں 5 سال سے کم عمر بچے رہائش پزیر ہیں؟ </string>
+    <string name="hh12"> کیااس گھر میں 10 سے 19 سال کے مرد رہائش پزیر ہیں؟ </string>
+    <string name="hh14">  کیا اس گھر میں 15 سے 49 سال کی خواتین رہائش پزیر ہیں؟ </string>
     <string name="hh16"> افراد کی تعداد </string>
     <string name="hhadd"> پتہ </string>
 
     <string name="na101a"> صوبہ </string>
     <string name="na101b"> ضلعہ </string>
-    <string name="na101c"> تحصیل / تعلّقہ </string>
-    <string name="na101d"> گاوّں/ شہر </string>
+    <string name="na101c"> تحصیل / تعلُقہ </string>
+    <string name="na101d"> گاوُں/ شہر </string>
 
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>

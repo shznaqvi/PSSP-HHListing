@@ -147,9 +147,12 @@ public class setupActivity extends Activity {
                     hh06.setText(null);
                     btnAddHousehold.setVisibility(View.VISIBLE);
                 }
-                if (hh04g.isChecked()) {
+                if (hh04g.isChecked() || hh04h.isChecked()) {
                     btnAddHousehold.setVisibility(View.GONE);
                     btnChangPSU.setVisibility(View.VISIBLE);
+                    if (hh04h.isChecked()) {
+                        btnChangPSU.setText("Logout");
+                    }
                 } else {
                     btnChangPSU.setVisibility(View.GONE);
 
@@ -198,7 +201,15 @@ public class setupActivity extends Activity {
 
         AppMain.hh02txt = null;
         finish();
-        Intent fA = new Intent(this, MainActivity.class);
+        Intent fA;
+        if (hh04h.isChecked()) {
+
+            //TODO: Add Confirmation Dialog
+
+            fA = new Intent(this, LoginActivity.class);
+        } else {
+            fA = new Intent(this, MainActivity.class);
+        }
         startActivity(fA);
 
     }
