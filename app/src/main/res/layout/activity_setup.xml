@@ -321,32 +321,42 @@
         </RadioGroup>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hh09a1" />
-
-        <RadioGroup
-            android:id="@+id/hh09a1"
+        <LinearLayout
+            android:id="@+id/fldGrphh09a1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layoutDirection="rtl">
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
 
-            <RadioButton
-                android:id="@+id/hh09a1a"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/hh09a1" />
+
+            <RadioGroup
+                android:id="@+id/hh09a1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/yes" />
+                android:layoutDirection="rtl">
 
-            <RadioButton
-                android:id="@+id/hh09a1b"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/no" />
+                <RadioButton
+                    android:id="@+id/hh09a1a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/yes" />
 
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/hh09a1b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/no" />
+
+            </RadioGroup>
+
+        </LinearLayout>
 
         <!--Family Letter-->
 

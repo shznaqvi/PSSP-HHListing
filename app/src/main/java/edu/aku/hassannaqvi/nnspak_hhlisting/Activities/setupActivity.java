@@ -99,6 +99,10 @@ public class setupActivity extends Activity {
     RadioButton hh08a1c;
 
 
+    @BindView(R.id.fldGrphh09a1)
+    LinearLayout fldGrphh09a1;
+
+
     @BindView(R.id.hh09a1)
     RadioGroup hh09a1;
     @BindView(R.id.hh09a1a)
@@ -218,6 +222,19 @@ public class setupActivity extends Activity {
         });
 
 
+        hh08a1a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    fldGrphh09a1.setVisibility(View.VISIBLE);
+                } else {
+                    hh09a1.clearCheck();
+                    fldGrphh09a1.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
     }
 
     @OnClick(R.id.btnAddChild)
@@ -319,9 +336,11 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setHh08a1(hh08a1a.isChecked() ? "1"
                 : hh08a1b.isChecked() ? "2"
-                : "3");
+                : hh08a1c.isChecked() ? "3"
+                : "0");
 
-        AppMain.lc.setHh09a1(hh09a1a.isChecked() ? "1" : "2");
+        AppMain.lc.setHh09a1(hh09a1a.isChecked() ? "1" :
+                hh09a1b.isChecked() ? "2" : "0");
 
 //        AppMain.lc.setHhadd(hhadd.getText().toString());
 
@@ -437,14 +456,15 @@ public class setupActivity extends Activity {
             hh08a1c.setError(null);
         }
 
-
-        if (hh09a1.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
-            hh09a1b.setError("Please one option");
-            Log.i(TAG, "Please one option");
-            return false;
-        } else {
-            hh09a1b.setError(null);
+        if (hh08a1a.isChecked()) {
+            if (hh09a1.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
+                hh09a1b.setError("Please one option");
+                Log.i(TAG, "Please one option");
+                return false;
+            } else {
+                hh09a1b.setError(null);
+            }
         }
 
 
