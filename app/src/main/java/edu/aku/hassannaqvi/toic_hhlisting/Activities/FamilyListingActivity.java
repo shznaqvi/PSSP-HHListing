@@ -94,7 +94,7 @@ public class FamilyListingActivity extends Activity {
                         hh13.setText(null);
                     }
 
-                    if (hh10.isChecked() || hh12.isChecked()){
+                    if (hh10.isChecked()){
                         fldGrpHH14.setVisibility(View.VISIBLE);
                     }else {
                         fldGrpHH14.setVisibility(View.GONE);
@@ -251,7 +251,7 @@ public class FamilyListingActivity extends Activity {
             hh13.setError(null);
         }
 
-        if ((hh10.isChecked() && hh14.getText().toString().trim().isEmpty()) || (hh12.isChecked() && hh14.getText().toString().trim().isEmpty()) ) {
+        if (hh10.isChecked() && hh14.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Invalid Slip no!", Toast.LENGTH_LONG).show();
             hh14.setError("Invalid Slip no!");
             Log.i(TAG, "Invalid Slip no!");
