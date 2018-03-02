@@ -87,7 +87,6 @@
                 android:layout_weight="20"
                 android:text="@string/hh16" />
 
-
             <EditText
                 android:id="@+id/hh16"
                 android:layout_width="0dp"

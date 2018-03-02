@@ -16,6 +16,9 @@ public class ListingContract {
     public String hhDT;
     public String enumCode;
     public String enumStr;
+    public String chkConfirm;
+    public String projectName = "NNS-2018";
+
     public String hh01;
     public String hh02;
     public String hh03;
@@ -65,12 +68,31 @@ public class ListingContract {
         this.ID = ID;
     }
 
+
     public String getHhDT() {
         return hhDT;
     }
 
     public void setHhDT(String hhDT) {
         this.hhDT = hhDT;
+    }
+
+
+    public String getChkConfirm() {
+        return chkConfirm;
+    }
+
+    public void setChkConfirm(String chkConfirm) {
+        this.chkConfirm = chkConfirm;
+    }
+
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
 
@@ -355,6 +377,9 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_ENUMCODE, this.enumCode);
         json.put(ListingEntry.COLUMN_NAME_ENUMSTR, this.enumStr);
 
+        json.put(ListingEntry.COLUMN_NAME_CHKCONFIRM, this.chkConfirm);
+        json.put(ListingEntry.COLUMN_NAME_PROJECTNAME, this.projectName);
+
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
         json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03);
@@ -399,6 +424,8 @@ public class ListingContract {
 
         lc.setEnumCode(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ENUMCODE))));
         lc.setEnumStr(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ENUMSTR))));
+        lc.setChkConfirm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CHKCONFIRM))));
+        lc.setProjectName(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_PROJECTNAME))));
 
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
@@ -447,6 +474,8 @@ public class ListingContract {
 
         public static final String COLUMN_NAME_ENUMCODE = "enumcode";
         public static final String COLUMN_NAME_ENUMSTR = "enumstr";
+        public static final String COLUMN_NAME_CHKCONFIRM = "chkconfirm";
+        public static final String COLUMN_NAME_PROJECTNAME = "projectname";
 
         public static final String COLUMN_NAME_HH01 = "hh01";
         public static final String COLUMN_NAME_HH02 = "hh02";

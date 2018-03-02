@@ -1,18 +1,22 @@
 package edu.aku.hassannaqvi.nnspak_hhlisting.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.InputType;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -33,6 +37,8 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 
 public class setupActivity extends Activity {
+
+    AlertDialog.Builder builder;
 
     private static String deviceId;
     @BindView(R.id.activity_household_listing)
@@ -67,9 +73,14 @@ public class setupActivity extends Activity {
     RadioButton hh04h;
     @BindView(R.id.hh04i)
     RadioButton hh04i;
+    @BindView(R.id.hh04j)
+    RadioButton hh04j;
 
     @BindView(R.id.hh0488x)
     EditText hh0488x;
+
+    @BindView(R.id.btnAddChild)
+    Button btnAddChild;
 
     /*    @BindView(R.id.hh04c)
         RadioButton hh04c;
@@ -98,6 +109,9 @@ public class setupActivity extends Activity {
     @BindView(R.id.hh08a1c)
     RadioButton hh08a1c;
 
+
+    @BindView(R.id.fldGrpHH08a1)
+    LinearLayout fldGrpHH08a1;
 
     @BindView(R.id.fldGrphh09a1)
     LinearLayout fldGrphh09a1;
@@ -163,17 +177,63 @@ public class setupActivity extends Activity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                if (hh04a.isChecked()) {
+                /*if (hh04a.isChecked()) {
                     //Moved to Add next Family button: AppMain.hh07txt = String.valueOf((char) AppMain.hh07txt.charAt(0) + 1);
                     AppMain.hh07txt = "X";
-
-
                 } else if (!hh04a.isChecked()) {
+                    AppMain.hh07txt = null;
+                }*/
+
+                if (hh04a.isChecked()
+                        || hh04b.isChecked()
+                        || hh04c.isChecked()
+                        || hh04d.isChecked()
+                        || hh04e.isChecked()
+                        || hh04f.isChecked()) {
+                    //Moved to Add next Family button: AppMain.hh07txt = String.valueOf((char) AppMain.hh07txt.charAt(0) + 1);
+                    AppMain.hh07txt = "X";
+                } else if (!hh04a.isChecked()
+                        && !hh04b.isChecked()
+                        && !hh04c.isChecked()
+                        && !hh04d.isChecked()
+                        && !hh04e.isChecked()
+                        && !hh04f.isChecked()) {
                     AppMain.hh07txt = null;
                 }
 
+
                 hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
-                if (hh04a.isChecked()) {
+
+
+                if (hh04a.isChecked()
+                        || hh04b.isChecked()
+                        || hh04c.isChecked()
+                        || hh04d.isChecked()
+                        || hh04e.isChecked()
+                        || hh04f.isChecked()) {
+
+                    hh08a1.clearCheck();
+                    hh09a1.clearCheck();
+
+                    fldGrpHH08a1.setVisibility(View.VISIBLE);
+                    fldGrphh09a1.setVisibility(View.GONE);
+                    btnAddChild.setVisibility(View.VISIBLE);
+
+                    btnAddHousehold.setVisibility(View.GONE);
+                    hh0488x.setVisibility(View.GONE);
+                    hh0488x.setText(null);
+                } else {
+                    fldGrpHH08a1.setVisibility(View.GONE);
+                    fldGrphh09a1.setVisibility(View.GONE);
+                    btnAddChild.setVisibility(View.GONE);
+
+                    hh05.setChecked(false);
+                    hh06.setText(null);
+                    btnAddHousehold.setVisibility(View.VISIBLE);
+                }
+
+
+                /*if (hh04a.isChecked()) {
                     fldGrpHH04.setVisibility(View.VISIBLE);
                     btnAddHousehold.setVisibility(View.GONE);
                     hh0488x.setVisibility(View.GONE);
@@ -183,8 +243,12 @@ public class setupActivity extends Activity {
                     hh05.setChecked(false);
                     hh06.setText(null);
                     btnAddHousehold.setVisibility(View.VISIBLE);
-                }
-                if (hh04g.isChecked()) {
+                }*/
+
+                if (hh04h.isChecked() || hh04i.isChecked()) {
+
+                    showAlert();
+
                     btnAddHousehold.setVisibility(View.GONE);
                     btnChangPSU.setVisibility(View.VISIBLE);
                     hh0488x.setVisibility(View.GONE);
@@ -193,7 +257,7 @@ public class setupActivity extends Activity {
                     btnChangPSU.setVisibility(View.GONE);
                 }
 
-                if (hh04i.isChecked()) {
+                if (hh04j.isChecked()) {
                     hh0488x.setVisibility(View.VISIBLE);
                     hh0488x.requestFocus();
                 } else {
@@ -235,6 +299,44 @@ public class setupActivity extends Activity {
         });
 
 
+        hh09a1a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    fldGrpHH04.setVisibility(View.VISIBLE);
+                } else {
+                    hh06.setText(null);
+                    hh07.setText(null);
+
+                    fldGrpHH04.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    public void showAlert() {
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Intent oF = new Intent(setupActivity.this, LoginActivity.class);
+                        startActivity(oF);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Exit");
+        builder.setMessage("Do you want to exit ?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("Cancel", dialogClickListener).show();
     }
 
     @OnClick(R.id.btnAddChild)
@@ -274,6 +376,7 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setEnumCode(String.valueOf(AppMain.enumCode));
         AppMain.lc.setEnumStr(AppMain.enumStr);
+        AppMain.lc.setChkConfirm(AppMain.chkConfirm);
 
         AppMain.lc.setHh01(String.valueOf(AppMain.hh01txt));
         AppMain.lc.setHh02(AppMain.hh02txt);
@@ -305,6 +408,9 @@ public class setupActivity extends Activity {
                 AppMain.lc.setHh04("8");
                 break;
             case R.id.hh04i:
+                AppMain.lc.setHh04("9");
+                break;
+            case R.id.hh04j:
                 AppMain.lc.setHh04("88");
                 break;
 
@@ -398,6 +504,7 @@ public class setupActivity extends Activity {
         } else {
             hh02.setError(null);
         }
+
         if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
             hh04i.setError("Please one option");
@@ -408,7 +515,40 @@ public class setupActivity extends Activity {
         }
 
 
-        if (hh04a.isChecked()) {
+        if (hh04i.isChecked() && hh0488x.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter others", Toast.LENGTH_LONG).show();
+            hh0488x.setError("Please enter others");
+            Log.i(TAG, "Please enter others");
+            return false;
+        } else {
+            hh0488x.setError(null);
+        }
+
+
+        if (!hh04f.isChecked() && !hh04g.isChecked() && !hh04h.isChecked() && !hh04i.isChecked() && !hh04j.isChecked()) {
+            if (hh08a1.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
+                hh08a1c.setError("Please one option");
+                Log.i(TAG, "Please one option");
+                return false;
+            } else {
+                hh08a1c.setError(null);
+            }
+        }
+
+        if (hh08a1a.isChecked()) {
+            if (hh09a1.getCheckedRadioButtonId() == -1) {
+                Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
+                hh09a1b.setError("Please one option");
+                Log.i(TAG, "Please one option");
+                return false;
+            } else {
+                hh09a1b.setError(null);
+            }
+        }
+
+
+        if (hh09a1a.isChecked()) {
            /* if (hhadd.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please enter address", Toast.LENGTH_LONG).show();
                 hhadd.setError("Please enter address");
@@ -436,37 +576,6 @@ public class setupActivity extends Activity {
                 hh06.setError(null);
             }
         }
-
-        if (hh04i.isChecked() && hh0488x.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter others", Toast.LENGTH_LONG).show();
-            hh0488x.setError("Please enter others");
-            Log.i(TAG, "Please enter others");
-            return false;
-        } else {
-            hh0488x.setError(null);
-        }
-
-
-        if (hh08a1.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
-            hh08a1c.setError("Please one option");
-            Log.i(TAG, "Please one option");
-            return false;
-        } else {
-            hh08a1c.setError(null);
-        }
-
-        if (hh08a1a.isChecked()) {
-            if (hh09a1.getCheckedRadioButtonId() == -1) {
-                Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
-                hh09a1b.setError("Please one option");
-                Log.i(TAG, "Please one option");
-                return false;
-            } else {
-                hh09a1b.setError(null);
-            }
-        }
-
 
         return true;
     }

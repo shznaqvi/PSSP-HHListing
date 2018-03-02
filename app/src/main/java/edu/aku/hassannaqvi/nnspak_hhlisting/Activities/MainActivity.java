@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,6 +96,9 @@ public class MainActivity extends Activity {
 
     @BindView(R.id.fldGrpna101)
     LinearLayout fldGrpna101;
+
+    @BindView(R.id.chkConfirm)
+    CheckBox chkConfirm;
 
 
     SharedPreferences sharedPref;
@@ -204,6 +209,8 @@ public class MainActivity extends Activity {
                 ucN.setText(null);
                 fldGrpna101.setVisibility(View.GONE);
                 openForm.setVisibility(View.GONE);
+                chkConfirm.setChecked(false);
+                chkConfirm.setVisibility(View.GONE);
             }
 
             @Override
@@ -211,6 +218,21 @@ public class MainActivity extends Activity {
 
             }
         });
+
+
+        chkConfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (flag == true && chkConfirm.isChecked()) {
+                    AppMain.chkConfirm = "1";
+                    openForm.setVisibility(View.VISIBLE);
+                } else {
+                    AppMain.chkConfirm = "2";
+                    openForm.setVisibility(View.GONE);
+                }
+            }
+        });
+
 
 /*
         mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -266,14 +288,17 @@ public class MainActivity extends Activity {
                 fldGrpna101.setVisibility(View.VISIBLE);
 
                 flag = true;
-                openForm.setVisibility(View.VISIBLE);
 
                 AppMain.hh02txt = txtPSU.getText().toString();
+
+                chkConfirm.setVisibility(View.VISIBLE);
+                //openForm.setVisibility(View.VISIBLE);
 
             } else {
                 Toast.makeText(this, "Sorry not found any block", Toast.LENGTH_SHORT).show();
                 flag = false;
-                openForm.setVisibility(View.GONE);
+                chkConfirm.setVisibility(View.GONE);
+                //openForm.setVisibility(View.GONE);
             }
 
         } else {

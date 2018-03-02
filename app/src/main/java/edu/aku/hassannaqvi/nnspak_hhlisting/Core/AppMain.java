@@ -45,6 +45,7 @@ public class AppMain extends Application {
     public static int enumCode = 0;
     public static String enumStr = "";
     public static String txtstructure = "";
+    public static String chkConfirm = "";
 
     public static int hh07 = 0;
     public static int cTotal = 0;

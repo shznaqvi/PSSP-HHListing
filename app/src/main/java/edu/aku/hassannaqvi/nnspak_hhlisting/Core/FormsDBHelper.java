@@ -49,6 +49,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
             ListingEntry.COLUMN_NAME_ENUMCODE + " TEXT, " +
             ListingEntry.COLUMN_NAME_ENUMSTR + " TEXT, " +
+            ListingEntry.COLUMN_NAME_CHKCONFIRM + " TEXT, " +
+            ListingEntry.COLUMN_NAME_PROJECTNAME + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
@@ -225,6 +227,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         values.put(ListingEntry.COLUMN_NAME_ENUMCODE, lc.getEnumCode());
         values.put(ListingEntry.COLUMN_NAME_ENUMSTR, lc.getEnumStr());
+        values.put(ListingEntry.COLUMN_NAME_CHKCONFIRM, lc.getChkConfirm());
+        values.put(ListingEntry.COLUMN_NAME_PROJECTNAME, lc.getProjectName());
 
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
@@ -299,6 +303,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HHDATETIME,
                 ListingEntry.COLUMN_NAME_ENUMCODE,
                 ListingEntry.COLUMN_NAME_ENUMSTR,
+                ListingEntry.COLUMN_NAME_CHKCONFIRM,
+                ListingEntry.COLUMN_NAME_PROJECTNAME,
                 ListingEntry.COLUMN_NAME_HH01,
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
