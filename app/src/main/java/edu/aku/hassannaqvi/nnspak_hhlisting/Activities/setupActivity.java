@@ -199,18 +199,21 @@ public class setupActivity extends Activity {
     @OnClick(R.id.btnChangePSU)
     void onBtnChangePSUClick() {
 
-        AppMain.hh02txt = null;
-        finish();
-        Intent fA;
-        if (hh04h.isChecked()) {
+        SaveDraft();
+        if (UpdateDB()) {
+            AppMain.hh02txt = null;
+            finish();
+            Intent fA;
+            if (hh04h.isChecked()) {
 
-            //TODO: Add Confirmation Dialog
+                //TODO: Add Confirmation Dialog
 
-            fA = new Intent(this, LoginActivity.class);
-        } else {
-            fA = new Intent(this, MainActivity.class);
+                fA = new Intent(this, LoginActivity.class);
+            } else {
+                fA = new Intent(this, MainActivity.class);
+            }
+            startActivity(fA);
         }
-        startActivity(fA);
 
     }
 
