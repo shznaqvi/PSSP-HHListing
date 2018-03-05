@@ -201,20 +201,21 @@ public class setupActivity extends Activity {
     @OnClick(R.id.btnChangePSU)
     void onBtnChangePSUClick() {
 
-        AppMain.hh02txt = null;
-        finish();
-        Intent fA;
-        if (hh04h.isChecked()) {
-            Toast.makeText(this, "H is checked", Toast.LENGTH_SHORT).show();
-            //TODO: Add Confirmation Dialog
+        SaveDraft();
+        if (UpdateDB()) {
+            AppMain.hh02txt = null;
+            finish();
+            Intent fA;
+            if (hh04h.isChecked()) {
 
-            fA = new Intent(this, LoginActivity.class);
-        } else {
-            Toast.makeText(this, "G is checked", Toast.LENGTH_SHORT).show();
+                //TODO: Add Confirmation Dialog
 
-            fA = new Intent(this, MainActivity.class);
+                fA = new Intent(this, LoginActivity.class);
+            } else {
+                fA = new Intent(this, MainActivity.class);
+            }
+            startActivity(fA);
         }
-        startActivity(fA);
 
     }
 
