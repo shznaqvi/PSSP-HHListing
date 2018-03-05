@@ -263,6 +263,7 @@ public class MainActivity extends Activity {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                         if (chkconfirm.isChecked()) {
+                            openForm.setBackgroundColor(getResources().getColor(R.color.green));
                             openForm.setVisibility(View.VISIBLE);
                         } else {
                             openForm.setVisibility(View.GONE);

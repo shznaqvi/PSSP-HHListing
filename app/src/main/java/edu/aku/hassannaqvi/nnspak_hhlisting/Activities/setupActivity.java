@@ -152,6 +152,8 @@ public class setupActivity extends Activity {
                     btnChangPSU.setVisibility(View.VISIBLE);
                     if (hh04h.isChecked()) {
                         btnChangPSU.setText("Logout");
+                    } else {
+                        btnChangPSU.setText("Change Enumeration Block");
                     }
                 } else {
                     btnChangPSU.setVisibility(View.GONE);
@@ -203,11 +205,13 @@ public class setupActivity extends Activity {
         finish();
         Intent fA;
         if (hh04h.isChecked()) {
-
+            Toast.makeText(this, "H is checked", Toast.LENGTH_SHORT).show();
             //TODO: Add Confirmation Dialog
 
             fA = new Intent(this, LoginActivity.class);
         } else {
+            Toast.makeText(this, "G is checked", Toast.LENGTH_SHORT).show();
+
             fA = new Intent(this, MainActivity.class);
         }
         startActivity(fA);
