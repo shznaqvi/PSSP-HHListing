@@ -55,6 +55,7 @@ import butterknife.OnClick;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUpdates;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 
 /**
@@ -123,10 +124,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
 
         // Set up the login form.
-        mEmailView = (EditText) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -523,6 +524,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     new GetAllData(mContext, "User").execute();
                     Toast.makeText(LoginActivity.this, "Sync Teams", Toast.LENGTH_SHORT).show();
                     new GetAllData(mContext, "Team").execute();
+                    Toast.makeText(LoginActivity.this, "Get Updates", Toast.LENGTH_SHORT).show();
+                    new GetUpdates(mContext).execute();
                 }
             });
 

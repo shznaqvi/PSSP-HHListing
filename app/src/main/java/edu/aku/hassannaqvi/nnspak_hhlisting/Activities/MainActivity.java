@@ -67,6 +67,8 @@ public class MainActivity extends Activity {
     TextView ucN;
     @BindView(R.id.psuN)
     TextView psuN;
+    @BindView(R.id.msgUpdate)
+    TextView msgUpdate;
     @BindView(R.id.txtPSU)
     EditText txtPSU;
     @BindView(R.id.btnCheckPSU)
@@ -90,6 +92,7 @@ public class MainActivity extends Activity {
 
 
     SharedPreferences sharedPref;
+    SharedPreferences sharedPrefInfo;
     SharedPreferences.Editor editor;
     AlertDialog.Builder builder;
     String m_Text = "";
@@ -108,8 +111,18 @@ public class MainActivity extends Activity {
 
         /*Tag Info Start*/
         sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
+        sharedPrefInfo = getSharedPreferences("info", MODE_PRIVATE);
         editor = sharedPref.edit();
 
+        String versionCode = sharedPrefInfo.getString("versionCode", "");
+        if (versionCode.equals("")) {
+
+
+        } else {
+            if (Integer.valueOf(versionCode) > Integer.valueOf(AppMain.versionCode)) {
+                msgUpdate.setVisibility(View.VISIBLE);
+            }
+        }
         builder = new AlertDialog.Builder(MainActivity.this);
         ImageView img = new ImageView(getApplicationContext());
         img.setImageResource(R.drawable.tagimg);
