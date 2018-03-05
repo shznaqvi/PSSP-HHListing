@@ -33,6 +33,8 @@ public class AppMain extends Application {
     public static String _HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/nns/api/";
 
     public static String TAG = "AppMain";
+    public static Boolean admin = false;
+
     public static ListingContract lc;
     public static int hh01txt;
     public static String hh02txt;

@@ -69,6 +69,8 @@ public class MainActivity extends Activity {
     TextView psuN;
     @BindView(R.id.msgUpdate)
     TextView msgUpdate;
+    @BindView(R.id.msgText)
+    TextView msgText;
     @BindView(R.id.txtPSU)
     EditText txtPSU;
     @BindView(R.id.btnCheckPSU)
@@ -89,6 +91,8 @@ public class MainActivity extends Activity {
 
     @BindView(R.id.fldGrpna101)
     LinearLayout fldGrpna101;
+    @BindView(R.id.adminBlock)
+    LinearLayout adminBlock;
 
 
     SharedPreferences sharedPref;
@@ -107,6 +111,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        if (AppMain.admin) {
+            adminBlock.setVisibility(View.VISIBLE);
+        } else {
+            adminBlock.setVisibility(View.GONE);
+        }
         AppMain.lc = null;
 
         /*Tag Info Start*/
@@ -159,6 +168,7 @@ public class MainActivity extends Activity {
         // database handler
         db = new FormsDBHelper(getApplicationContext());
 
+        msgText.setText(db.getListingCount() + " records found in Listings table.");
         spinnersFill();
 
     }

@@ -11,6 +11,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -87,7 +88,8 @@ public class setupActivity extends Activity {
     Button btnAddHousehold;
     @BindView(R.id.btnChangePSU)
     Button btnChangPSU;
-
+    @BindView(R.id.hh09a1)
+    CheckBox hh09a1;
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
     private String TAG = "Setup Activity";
@@ -117,7 +119,7 @@ public class setupActivity extends Activity {
         AppMain.hh07txt = "X";
 
         //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
-        String StructureNumber = "NNS-" + AppMain.enumCode + "-" + String.format("%03d", AppMain.hh03txt);
+        String StructureNumber = "NNS-" + AppMain.enumCode + "-" + String.format("%04d", AppMain.hh03txt);
 
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);
@@ -131,10 +133,26 @@ public class setupActivity extends Activity {
                 if (hh04a.isChecked()) {
                     //Moved to Add next Family button: AppMain.hh07txt = String.valueOf((char) AppMain.hh07txt.charAt(0) + 1);
                     AppMain.hh07txt = "X";
-
+                    hh09a1.setVisibility(View.GONE);
+                    hh09a1.setEnabled(false);
 
                 } else if (!hh04a.isChecked()) {
                     AppMain.hh07txt = null;
+                    hh09a1.setVisibility(View.VISIBLE);
+                    hh09a1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            if (hh09a1.isChecked()) {
+                                fldGrpHH04.setVisibility(View.VISIBLE);
+                                btnAddHousehold.setVisibility(View.GONE);
+                            } else {
+                                fldGrpHH04.setVisibility(View.GONE);
+                                hh05.setChecked(false);
+                                hh06.setText(null);
+                                btnAddHousehold.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
                 }
 
                 hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);

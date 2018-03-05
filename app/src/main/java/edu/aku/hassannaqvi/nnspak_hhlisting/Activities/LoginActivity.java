@@ -454,6 +454,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 if ((mEmail.equals("dmu@aku") && mPassword.equals("aku?dmu")) || db.Login(mEmail, mPassword)
                         || (mEmail.equals("test1234") && mPassword.equals("test1234"))) {
                     AppMain.userEmail = mEmail;
+                    AppMain.admin = mEmail.contains("@");
                     finish();
 
                     Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);

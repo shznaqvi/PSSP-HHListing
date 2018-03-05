@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">NNS 2018 Linelisting</string>
-    <string name="hh01"> تعلّقہ کوڈ </string>
+    <string name="hh01"> تعلُقہ کوڈ </string>
     <string name="hh02"> کوڈ Enumeration </string>
     <string name="hh03"> اسٹرکچر نمبر </string>
     <string name="hh04"> تعمیراتی ساخت </string>
-    <string name="hh04a"> رہائیشی </string>
-    <string name="hh04b">  دکان/مارکیٹ/پلازہ </string>
-    <string name="hh04c"> مشجد/کرجا گھر/مندر </string>
+    <string name="hh04a"> رہائشی </string>
+    <string name="hh04b"> دکان/مارکیٹ/پلازہ </string>
+    <string name="hh04c"> مسجد/گرجاگھر/مندر </string>
     <string name="hh04d"> اسکول/کالج/یونیورسٹی </string>
-    <string name="hh04e"> مرکز صھت </string>
+    <string name="hh04e"> مرکز صحت </string>
     <string name="hh04f"> خالی/بند/زیرتعمیر </string>
     <string name="hh04g"> مزید عمارت نہیں </string>
     <string name="hh04h"> خانہ شماری بند کریں </string>
@@ -20,7 +20,7 @@
     <string name="hh08a1b"> گھرانے کا کوئی فرد یا باصلاحیت جواب دہندہ گھر پر موجود نہیں تھا</string>
     <string name="hh08a1c"> گھر بند ہے </string>
 
-
+    <string name="hh09a1"> کیا یہ جگہ رہائشی مقصد کے لئے استعمال ہوتی ہے؟ </string>
     <string name="hh09a2"> کیا کوئی جواب دہندہ موجود ہے </string>
     <string name="hh09a2a"> جواب دہندہ موجود ہے </string>
     <string name="hh09a2b"> گھرانے کا کوئی فرد یا باصلاحیت جواب دہندہ گھر پر موجود نہیں تھا</string>
@@ -37,7 +37,7 @@
     <string name="hh14a"> تعداد </string>
     <string name="hh10">  کیا اس گھر میں 5 سال سے کم عمر بچے رہائش پزیر ہیں؟ </string>
     <string name="hh12"> کیااس گھر میں 10 سے 19 سال کے مرد رہائش پزیر ہیں؟ </string>
-    <string name="hh14">  کیا اس گھر میں 15 سے 49 سال کی خواتین رہائش پزیر ہیں؟ </string>
+    <string name="hh14">  کیا اس گھر میں 10 سے 49 سال کی خواتین رہائش پزیر ہیں؟ </string>
     <string name="hh16"> افراد کی تعداد </string>
     <string name="hhadd"> پتہ </string>
 
