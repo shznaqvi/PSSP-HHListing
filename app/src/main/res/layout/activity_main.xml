@@ -55,6 +55,7 @@
                 android:id="@+id/btnCheckPSU"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:layout_weight="30"
                 android:padding="10dp"
                 android:text="CHECK" />
@@ -252,8 +253,10 @@
             android:id="@+id/openForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:onClick="openForm"
             android:text="Start Line Listing"
+
             android:visibility="gone" />
 
         <LinearLayout
@@ -267,14 +270,18 @@
                 android:id="@+id/syncFunction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:onClick="syncFunction"
+
                 android:text="Sync Listing" />
 
             <Button
                 android:id="@+id/openDBManager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:onClick="openDB"
+
                 android:text="Open DB Manager" />
 
 
@@ -282,6 +289,7 @@
                 android:id="@+id/copyData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:onClick="copyData"
                 android:text="Copy Data to SDCard" />
         </LinearLayout>
