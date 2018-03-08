@@ -9,7 +9,8 @@
     <string name="hh04c"> مسجد/گرجاگھر/مندر </string>
     <string name="hh04d"> اسکول/کالج/یونیورسٹی </string>
     <string name="hh04e"> مرکز صحت </string>
-    <string name="hh04f"> خالی/بند/زیرتعمیر </string>
+    <string name="hh04f"> زیرتعمیر </string>
+    <string name="hh04fb"> خالی/بند </string>
     <string name="hh04g"> مزید عمارت نہیں </string>
     <string name="hh04h"> خانہ شماری بند کریں </string>
     <string name="hh04i"> دیگر </string>

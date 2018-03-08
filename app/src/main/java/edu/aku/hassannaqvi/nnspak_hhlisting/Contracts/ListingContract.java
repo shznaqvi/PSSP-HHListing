@@ -26,6 +26,7 @@ public class ListingContract {
     public String hh07n;
     public String hh08;
     public String hh09;
+    public String hh09a1;
     public String hh10;
     public String hh11;
     public String hh12;
@@ -185,6 +186,14 @@ public class ListingContract {
         this.hh09 = hh09;
     }
 
+    public String getHh09a1() {
+        return hh09a1;
+    }
+
+    public void setHh09a1(String hh09a1) {
+        this.hh09a1 = hh09a1;
+    }
+
     public String getHh10() {
         return hh10;
     }
@@ -333,6 +342,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH07n, this.hh07n);
         json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
+        json.put(ListingEntry.COLUMN_NAME_HH09A1, this.hh09a1);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
         json.put(ListingEntry.COLUMN_NAME_HH12, this.hh12);
@@ -372,6 +382,7 @@ public class ListingContract {
         lc.setHh07n(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07n))));
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
+        lc.setHh09a1(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09A1))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
@@ -415,6 +426,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH07n = "hh07n";
         public static final String COLUMN_NAME_HH08 = "hh08";
         public static final String COLUMN_NAME_HH09 = "hh09";
+        public static final String COLUMN_NAME_HH09A1 = "hh09a1";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";
         public static final String COLUMN_NAME_HH12 = "hh12";

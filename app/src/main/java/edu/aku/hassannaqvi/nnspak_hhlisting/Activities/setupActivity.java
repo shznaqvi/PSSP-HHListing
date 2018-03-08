@@ -58,6 +58,8 @@ public class setupActivity extends Activity {
     RadioButton hh04e;
     @BindView(R.id.hh04f)
     RadioButton hh04f;
+    @BindView(R.id.hh04fb)
+    RadioButton hh04fb;
     @BindView(R.id.hh04g)
     RadioButton hh04g;
     @BindView(R.id.hh04h)
@@ -133,11 +135,19 @@ public class setupActivity extends Activity {
                 if (hh04a.isChecked()) {
                     //Moved to Add next Family button: AppMain.hh07txt = String.valueOf((char) AppMain.hh07txt.charAt(0) + 1);
                     AppMain.hh07txt = "X";
-                    hh09a1.setVisibility(View.GONE);
-                    hh09a1.setEnabled(false);
+
 
                 } else if (!hh04a.isChecked()) {
                     AppMain.hh07txt = null;
+
+
+                }
+
+                if (hh04a.isChecked() || hh04g.isChecked() || hh04h.isChecked() || hh04fb.isChecked()) {
+                    hh09a1.setVisibility(View.GONE);
+                    hh09a1.setChecked(false);
+
+                } else {
                     hh09a1.setVisibility(View.VISIBLE);
                     hh09a1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
@@ -145,6 +155,9 @@ public class setupActivity extends Activity {
                             if (hh09a1.isChecked()) {
                                 fldGrpHH04.setVisibility(View.VISIBLE);
                                 btnAddHousehold.setVisibility(View.GONE);
+                                AppMain.hh07txt = "X";
+                                hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
+
                             } else {
                                 fldGrpHH04.setVisibility(View.GONE);
                                 hh05.setChecked(false);
@@ -153,7 +166,9 @@ public class setupActivity extends Activity {
                             }
                         }
                     });
+
                 }
+
 
                 hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
                 if (hh04a.isChecked()) {
@@ -272,11 +287,14 @@ public class setupActivity extends Activity {
             case R.id.hh04f:
                 AppMain.lc.setHh04("6");
                 break;
-            case R.id.hh04g:
+            case R.id.hh04fb:
                 AppMain.lc.setHh04("7");
                 break;
-            case R.id.hh04h:
+            case R.id.hh04g:
                 AppMain.lc.setHh04("8");
+                break;
+            case R.id.hh04h:
+                AppMain.lc.setHh04("9");
                 break;
             case R.id.hh04i:
                 AppMain.lc.setHh04("88");
@@ -304,6 +322,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh05(hh05.isChecked() ? "1" : "2");
         AppMain.lc.setHh06(hh06.getText().toString());
         AppMain.lc.setHh07(AppMain.hh07txt);
+        AppMain.lc.setHh09a1(hh09a1.isChecked() ? "1" : "2");
 //        AppMain.lc.setHhadd(hhadd.getText().toString());
 
         AppMain.lc.setDeviceID(deviceId);
