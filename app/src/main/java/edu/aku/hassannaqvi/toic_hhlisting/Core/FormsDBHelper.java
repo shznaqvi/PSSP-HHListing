@@ -39,7 +39,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private static final String SQL_TOTAL_RECORDS = "select count(*) from listings";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
-
+    final String SQL_COUNT_LISTINGS = "SELECT count(*) " + ListingEntry.TABLE_NAME;
     public FormsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -174,6 +174,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             db.close();
         }
         return false;
+    }
+
+    public int getListingCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(SQL_COUNT_LISTINGS, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
     }
 
     public void syncUsers(JSONArray userlist) {

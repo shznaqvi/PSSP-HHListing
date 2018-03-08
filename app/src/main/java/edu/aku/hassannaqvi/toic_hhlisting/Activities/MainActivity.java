@@ -71,8 +71,8 @@ public class MainActivity extends Activity {
     EditText txtPSU;
     @BindView(R.id.btnCheckPSU)
     Button btnCheckPSU;
-    @BindView(R.id.txt_total)
-    TextView txt_total;
+    @BindView(R.id.msgText)
+    TextView msgText;
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -130,6 +130,7 @@ public class MainActivity extends Activity {
         // database handler
         db = new FormsDBHelper(getApplicationContext());
 
+        msgText.setText(db.getListingCount() + " records found in Listings table.");
         spinnersFill();
 
     }
