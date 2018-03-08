@@ -129,8 +129,21 @@ public class MainActivity extends Activity {
 
         // database handler
         db = new FormsDBHelper(getApplicationContext());
+        String[] summary = db.getListingCount();
 
-        msgText.setText(db.getListingCount() + " records found in Listings table.");
+        msgText.setText(
+                new StringBuilder()
+
+                        .append("RECORDS' SUMMARY\r\n")
+                        .append("\r\n")
+                        .append("Listings Table:\r\n")
+                        .append("---------------\r\n")
+                        .append(summary[0]).append(" records found\r\n")
+                        .append(summary[1]).append(" records synced\r\n")
+                        .append(summary[2]).append(" records not synced\r\n")
+                        .toString()
+
+        );
         spinnersFill();
 
     }

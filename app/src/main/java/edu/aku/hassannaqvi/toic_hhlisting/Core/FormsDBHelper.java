@@ -39,7 +39,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private static final String SQL_TOTAL_RECORDS = "select count(*) from listings";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
-    final String SQL_COUNT_LISTINGS = "SELECT count(*) " + ListingEntry.TABLE_NAME;
+    final String SQL_COUNT_LISTINGS = "SELECT sum(1) count, sum(case when " + ListingEntry.COLUMN_SYNCED + " = 1 then 1 else 0 end) as syncedc, sum( case when " + ListingEntry.COLUMN_SYNCED + " = 1 then 0 else 1 end) as unsyncedc from " + ListingEntry.TABLE_NAME;
     public FormsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -176,10 +176,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public int getListingCount() {
+    public String[] getListingCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(SQL_COUNT_LISTINGS, null);
-        int count = cursor.getCount();
+        String[] count = new String[3];
+        while (cursor.moveToNext()) {
+            int index;
+
+            index = cursor.getColumnIndexOrThrow("count");
+            count[0] = cursor.getString(index);
+
+            index = cursor.getColumnIndexOrThrow("syncedc");
+            count[1] = cursor.getString(index);
+
+            index = cursor.getColumnIndexOrThrow("unsyncedc");
+            count[2] = cursor.getString(index);
+
+
+        }
+
         cursor.close();
         return count;
     }
