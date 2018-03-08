@@ -71,6 +71,8 @@ public class MainActivity extends Activity {
     EditText txtPSU;
     @BindView(R.id.btnCheckPSU)
     Button btnCheckPSU;
+    @BindView(R.id.txt_total)
+    TextView txt_total;
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;

@@ -36,14 +36,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "toic-hhl-copy.db";
     // Change this when you change the database schema.
     private static final int DATABASE_VERSION = 4;
+    private static final String SQL_TOTAL_RECORDS = "select count(*) from listings";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
-
 
     public FormsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -101,6 +100,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 + singleUser.ROW_USERNAME + " TEXT,"
                 + singleUser.ROW_PASSWORD + " TEXT,"
                 + singleUser.ROW_TEAM + " TEXT );";
+
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
@@ -200,6 +200,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
         }
     }
+
 
     public void updateSyncedForms(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
