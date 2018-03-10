@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -41,19 +39,7 @@ public class AddMarriedWomenActivity extends Activity {
     @BindView(R.id.fldGrpmw03)
     LinearLayout fldGrpmw03;
     @BindView(R.id.mw03)
-    RadioGroup mw03;
-    @BindView(R.id.mw03a)
-    RadioButton mw03a;
-    @BindView(R.id.mw03b)
-    RadioButton mw03b;
-    @BindView(R.id.mw03c)
-    RadioButton mw03c;
-    @BindView(R.id.mw03d)
-    RadioButton mw03d;
-    @BindView(R.id.mw03e)
-    RadioButton mw03e;
-    @BindView(R.id.mw03f)
-    RadioButton mw03f;
+    EditText mw03;
     @BindView(R.id.mw04)
     Switch mw04;
     @BindView(R.id.fldGrpmw05)
@@ -65,6 +51,11 @@ public class AddMarriedWomenActivity extends Activity {
     Button btnContNextQ;
     @BindView(R.id.btnAddMWRA)
     Button btnAddMWRA;
+    @BindView(R.id.btnAddDelivery)
+    Button btnAddDelivery;
+
+    public static int dTotal = 0;
+    public static int dCount = 0;
 
     private String TAG = "AddMarriedWomenActivity";
 
@@ -75,22 +66,24 @@ public class AddMarriedWomenActivity extends Activity {
         ButterKnife.bind(this);
         txtMwraListing.setText("MWRA Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.mwraCount + " of " + AppMain.mwraTotal + ")");
 
-        if (AppMain.mwraCount < AppMain.mwraTotal) {
-            btnAddMWRA.setVisibility(View.VISIBLE);
-            btnContNextQ.setVisibility(View.GONE);
-        } else {
-            btnAddMWRA.setVisibility(View.GONE);
-            btnContNextQ.setVisibility(View.VISIBLE);
-        }
+        SetupButton();
 
         mw02.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     fldGrpmw03.setVisibility(View.VISIBLE);
+
+                    btnAddDelivery.setVisibility(View.VISIBLE);
+                    btnAddMWRA.setVisibility(View.GONE);
+                    btnContNextQ.setVisibility(View.GONE);
+
                 } else {
                     fldGrpmw03.setVisibility(View.GONE);
-                    mw03.clearCheck();
+                    mw03.setText(null);
+
+                    btnAddDelivery.setVisibility(View.GONE);
+                    SetupButton();
                 }
             }
         });
@@ -109,6 +102,15 @@ public class AddMarriedWomenActivity extends Activity {
 
     }
 
+    public void SetupButton() {
+        if (AppMain.mwraCount < AppMain.mwraTotal) {
+            btnAddMWRA.setVisibility(View.VISIBLE);
+            btnContNextQ.setVisibility(View.GONE);
+        } else {
+            btnAddMWRA.setVisibility(View.GONE);
+            btnContNextQ.setVisibility(View.VISIBLE);
+        }
+    }
 
     @OnClick(R.id.btnContNextQ)
     void onBtnContNextQClick() {
@@ -116,13 +118,23 @@ public class AddMarriedWomenActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                /*AppMain.fCount = 0;
-                AppMain.fTotal = 0;
-                AppMain.cCount = 0;
-                AppMain.cTotal = 0;
-                AppMain.mwraCount = 0;
-                AppMain.mwraTotal = 0;*/
                 Intent closeA = new Intent(this, HouseholdInfoActivity.class);
+                startActivity(closeA);
+            }
+        }
+    }
+
+    @OnClick(R.id.btnAddDelivery)
+    void onBtnAddDeliveryClick() {
+        if (formValidation()) {
+
+            SaveDraft();
+            if (UpdateDB()) {
+
+                dCount = 0;
+                AppMain.mwraCount++;
+
+                Intent closeA = new Intent(this, AddDeliveryActivity.class);
                 startActivity(closeA);
             }
         }
@@ -160,14 +172,10 @@ public class AddMarriedWomenActivity extends Activity {
 
         AppMain.mwra.setMw01(mw01.getText().toString());
         AppMain.mwra.setMw02(mw02.isChecked() ? "1" : "2");
-        AppMain.mwra.setMw03(mw03a.isChecked() ? "1"
-                : mw03b.isChecked() ? "2"
-                : mw03c.isChecked() ? "3"
-                : mw03d.isChecked() ? "4"
-                : mw03e.isChecked() ? "5"
-                : mw03f.isChecked() ? "6"
-                : "default"
-        );
+        AppMain.mwra.setMw03(mw03.getText().toString());
+
+        dTotal = Integer.valueOf(mw03.getText().toString());
+
         AppMain.mwra.setMw04(mw04.isChecked() ? "1" : "2");
         AppMain.mwra.setMw05(mw05.getText().toString());
         AppMain.mwra.setMWRAID(String.valueOf(AppMain.mwraCount));
@@ -188,13 +196,13 @@ public class AddMarriedWomenActivity extends Activity {
 
         if (mw02.isChecked()) {
 
-            if (mw03.getCheckedRadioButtonId() == -1) {
-                Toast.makeText(this, "NotSelected(mw04):" + getResources().getString(R.string.mw03), Toast.LENGTH_LONG).show();
-                mw03f.setError("Please one option");
-                Log.i(TAG, "Please one option");
+            if (mw03.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Empty(mw03):" + getResources().getString(R.string.mw03), Toast.LENGTH_LONG).show();
+                mw03.setError("Cannot be empty");
+                Log.i(TAG, "mw03 not given");
                 return false;
             } else {
-                mw03f.setError(null);
+                mw03.setError(null);
             }
         }
 

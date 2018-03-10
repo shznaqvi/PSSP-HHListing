@@ -7,6 +7,7 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -28,7 +29,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -81,6 +84,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return false;
             }
         });
+
+        try {
+            long installedOn = this
+                    .getPackageManager()
+                    .getPackageInfo("edu.aku.hassannaqvi.nns_2018", 0)
+                    .lastUpdateTime;
+            AppMain.versionCode = this
+                    .getPackageManager()
+                    .getPackageInfo("edu.aku.hassannaqvi.nns_2018", 0)
+                    .versionCode;
+            AppMain.versionName = this
+                    .getPackageManager()
+                    .getPackageInfo("edu.aku.hassannaqvi.nns_2018", 0)
+                    .versionName;
+            txtinstalldate.setText("Ver. " + AppMain.versionName + "." + String.valueOf(AppMain.versionCode) + " \r\n( Last Updated: " + new SimpleDateFormat("dd MMM. yyyy").format(new Date(installedOn)) + " )");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 

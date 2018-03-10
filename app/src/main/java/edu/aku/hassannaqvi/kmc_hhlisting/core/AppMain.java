@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import java.util.List;
+
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.ChildContract;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.DeliveryContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.ListingContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.MwraContract;
 
@@ -31,6 +35,8 @@ public class AppMain extends Application {
     public static String TAG = "AppMain";
     public static ListingContract lc;
     public static MwraContract mwra;
+    public static ChildContract cc;
+    public static DeliveryContract dc;
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static String hh04txt;
@@ -46,6 +52,9 @@ public class AppMain extends Application {
     public static SharedPreferences sharedPref;
     public static String username;
     protected static LocationManager locationManager;
+    public static int versionCode;
+    public static String versionName;
+    public static List<MwraContract> mwraList;
 
     public static void updatePSU(String villageCode, String structureNo) {
 
