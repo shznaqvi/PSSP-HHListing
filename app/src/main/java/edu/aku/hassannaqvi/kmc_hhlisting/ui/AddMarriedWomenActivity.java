@@ -132,8 +132,6 @@ public class AddMarriedWomenActivity extends Activity {
             if (UpdateDB()) {
 
                 dCount = 0;
-                AppMain.mwraCount++;
-
                 Intent closeA = new Intent(this, AddDeliveryActivity.class);
                 startActivity(closeA);
             }
@@ -202,6 +200,15 @@ public class AddMarriedWomenActivity extends Activity {
                 Toast.makeText(this, "Empty(mw03):" + getResources().getString(R.string.mw03), Toast.LENGTH_LONG).show();
                 mw03.setError("Cannot be empty");
                 Log.i(TAG, "mw03 not given");
+                return false;
+            } else {
+                mw03.setError(null);
+            }
+
+            if (Integer.valueOf(mw03.getText().toString()) < 1) {
+                Toast.makeText(this, "Invalid(mw03):" + getResources().getString(R.string.mw03), Toast.LENGTH_LONG).show();
+                mw03.setError("Greater then 0");
+                Log.i(TAG, "mw03 Greater then 0");
                 return false;
             } else {
                 mw03.setError(null);

@@ -35,6 +35,12 @@ public class AppMain extends Application {
     public static final String _HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/kmc/api/";
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
+    private static final long MILLIS_IN_SECOND = 1000;
+    private static final long SECONDS_IN_MINUTE = 60;
+    private static final long MINUTES_IN_HOUR = 60;
+    private static final long HOURS_IN_DAY = 24;
+    private static final long DAYS_IN_5_YEAR = 365 * 5;
+    public static final long MILLISECONDS_IN_5Years = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAYS_IN_5_YEAR;
     private static final int TWO_MINUTES = 1000 * 60 * 2;
     public static String TAG = "AppMain";
     public static ListingContract lc;

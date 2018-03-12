@@ -146,7 +146,6 @@ public class HouseholdInfoActivity extends Activity {
             SaveDraft();
             if (UpdateDB()) {
                 AppMain.cCount = 0;
-                AppMain.cTotal = 0;
                 Intent fA = new Intent(this, AddChildActivity.class);
                 startActivity(fA);
             }
@@ -191,6 +190,15 @@ public class HouseholdInfoActivity extends Activity {
                 Toast.makeText(this, "Cannot be Empty", Toast.LENGTH_LONG).show();
                 hh11.setError("Cannot be Empty");
                 Log.i(TAG, "Cannot be Empty");
+                return false;
+            } else {
+                hh11.setError(null);
+            }
+
+            if (Integer.valueOf(hh11.getText().toString()) < 1) {
+                Toast.makeText(this, "Invalid(hh11):" + getResources().getString(R.string.hh11), Toast.LENGTH_LONG).show();
+                hh11.setError("Greater then 0");
+                Log.i(TAG, "hh11 Greater then 0");
                 return false;
             } else {
                 hh11.setError(null);

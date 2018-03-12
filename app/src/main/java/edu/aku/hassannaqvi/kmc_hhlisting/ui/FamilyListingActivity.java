@@ -189,7 +189,7 @@ public class FamilyListingActivity extends Activity {
 
         if (!hh09b.getText().toString().isEmpty() && Integer.valueOf(hh09b.getText().toString()) < 1) {
             Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
-            hh09.setError("Invalid Value!");
+            hh09b.setError("Invalid Value!");
             Log.i(TAG, "Invalid Value!");
             return false;
         } else {

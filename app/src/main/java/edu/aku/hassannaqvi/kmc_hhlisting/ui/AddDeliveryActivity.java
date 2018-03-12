@@ -49,7 +49,7 @@ public class AddDeliveryActivity extends AppCompatActivity {
             binding.btnAddDelivery.setVisibility(View.VISIBLE);
             binding.btnHouseholdInfo.setVisibility(View.GONE);
             binding.btnAddWRA.setVisibility(View.GONE);
-        } else if (AddMarriedWomenActivity.dCount >= AddMarriedWomenActivity.dTotal && AppMain.mwraCount < AppMain.mwraTotal) {
+        } else if (AddMarriedWomenActivity.dCount == AddMarriedWomenActivity.dTotal && AppMain.mwraCount < AppMain.mwraTotal) {
             binding.btnAddWRA.setVisibility(View.VISIBLE);
             binding.btnHouseholdInfo.setVisibility(View.GONE);
             binding.btnAddDelivery.setVisibility(View.GONE);

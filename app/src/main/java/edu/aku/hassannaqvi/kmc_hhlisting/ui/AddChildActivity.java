@@ -109,6 +109,8 @@ public class AddChildActivity extends AppCompatActivity {
                     } else {
                         binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTimeInMillis()));
                     }
+                } else {
+                    binding.ch04.setMinDate(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTimeInMillis() - (AppMain.MILLISECONDS_IN_5Years)));
                 }
 
             }
