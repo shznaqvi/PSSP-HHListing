@@ -173,7 +173,9 @@ public class HouseholdInfoActivity extends Activity {
         AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
         AppMain.lc.setHh11(hh11.getText().toString());
 
-        AppMain.cTotal = Integer.valueOf(hh11.getText().toString());
+        if (hh10.isChecked()) {
+            AppMain.cTotal = Integer.valueOf(hh11.getText().toString());
+        }
 
         AppMain.lc.setHh12(hh12.isChecked() ? "1" : "2");
         AppMain.lc.setHh13(hh13.getText().toString());
