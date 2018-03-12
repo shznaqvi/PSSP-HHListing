@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -100,14 +99,16 @@ public class AddChildActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                binding.ch04.setMinDate(AppMain.convertDateFormat(binding.ch03.getText().toString()));
-                Calendar calendar = AppMain.getCalendarDate(binding.ch03.getText().toString());
-                Calendar today = Calendar.getInstance();
-                calendar.add(Calendar.DAY_OF_MONTH, 28);
-                if (calendar.after(today)) {
-                    binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
-                } else {
-                    binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTimeInMillis()));
+                if (!binding.ch03.getText().toString().isEmpty()) {
+                    binding.ch04.setMinDate(AppMain.convertDateFormat(binding.ch03.getText().toString()));
+                    Calendar calendar = AppMain.getCalendarDate(binding.ch03.getText().toString());
+                    Calendar today = Calendar.getInstance();
+                    calendar.add(Calendar.DAY_OF_MONTH, 28);
+                    if (calendar.after(today)) {
+                        binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+                    } else {
+                        binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTimeInMillis()));
+                    }
                 }
 
             }
@@ -118,15 +119,15 @@ public class AddChildActivity extends AppCompatActivity {
             }
         });
 
-        binding.ch03a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*binding.ch03a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    binding.ch04.setMinDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+                    //binding.ch04.setMinDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
                     binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
                 }
             }
-        });
+        });*/
 
     }
 
