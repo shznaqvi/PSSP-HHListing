@@ -22,7 +22,7 @@ import edu.aku.hassannaqvi.kmc_hhlisting.R;
 import edu.aku.hassannaqvi.kmc_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.kmc_hhlisting.core.FormsDBHelper;
 
-public class ClosingActivity extends Activity {
+public class HouseholdInfoActivity extends Activity {
 
     @BindView(R.id.activity_add_child)
     ScrollView activityAddChild;
@@ -38,34 +38,38 @@ public class ClosingActivity extends Activity {
     Button btnAddFamilty;
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
+    @BindView(R.id.btnAddChild)
+    Button btnAddChild;
     @BindView(R.id.fldGrpHH11)
     LinearLayout fldGrpHH11;
     @BindView(R.id.fldGrpHH13)
     LinearLayout fldGrpHH13;
-    private String TAG = "ClosingActivity";
+    private String TAG = "HouseholdInfoActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_closing);
+        setContentView(R.layout.activity_household_info);
         ButterKnife.bind(this);
 
-        if (AppMain.fCount < AppMain.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-        } else {
-            btnAddFamilty.setVisibility(View.GONE);
-            btnAddHousehold.setVisibility(View.VISIBLE);
-        }
+        SetupButtons();
 
         hh10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     fldGrpHH11.setVisibility(View.VISIBLE);
+
+                    btnAddChild.setVisibility(View.VISIBLE);
+                    btnAddFamilty.setVisibility(View.GONE);
+                    btnAddHousehold.setVisibility(View.GONE);
+
                 } else {
                     fldGrpHH11.setVisibility(View.GONE);
                     hh11.setText(null);
+
+                    btnAddChild.setVisibility(View.GONE);
+                    SetupButtons();
                 }
             }
         });
@@ -80,6 +84,16 @@ public class ClosingActivity extends Activity {
                 }
             }
         });
+    }
+
+    public void SetupButtons() {
+        if (AppMain.fCount < AppMain.fTotal) {
+            btnAddFamilty.setVisibility(View.VISIBLE);
+            btnAddHousehold.setVisibility(View.GONE);
+        } else {
+            btnAddFamilty.setVisibility(View.GONE);
+            btnAddHousehold.setVisibility(View.VISIBLE);
+        }
     }
 
     @OnClick(R.id.btnAddFamily)
@@ -125,6 +139,21 @@ public class ClosingActivity extends Activity {
         }
     }
 
+    @OnClick(R.id.btnAddChild)
+    void onBtnAddChildClick() {
+        if (formValidation()) {
+
+            SaveDraft();
+            if (UpdateDB()) {
+                AppMain.cCount = 0;
+                AppMain.cTotal = 0;
+                Intent fA = new Intent(this, AddChildActivity.class);
+                startActivity(fA);
+            }
+
+        }
+    }
+
     private boolean UpdateDB() {
         FormsDBHelper db = new FormsDBHelper(this);
 
@@ -143,6 +172,9 @@ public class ClosingActivity extends Activity {
 
         AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
         AppMain.lc.setHh11(hh11.getText().toString());
+
+        AppMain.cTotal = Integer.valueOf(hh11.getText().toString());
+
         AppMain.lc.setHh12(hh12.isChecked() ? "1" : "2");
         AppMain.lc.setHh13(hh13.getText().toString());
         AppMain.lc.setUID(AppMain.lc.getDeviceID() + AppMain.lc.getID());
@@ -162,6 +194,7 @@ public class ClosingActivity extends Activity {
                 hh11.setError(null);
             }
         }
+
         if (hh12.isChecked()) {
             if (hh13.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Cannot be Empty", Toast.LENGTH_LONG).show();

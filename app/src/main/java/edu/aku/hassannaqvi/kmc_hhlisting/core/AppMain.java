@@ -10,6 +10,14 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.ChildContract;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.DeliveryContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.ListingContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.MwraContract;
 
@@ -31,6 +39,8 @@ public class AppMain extends Application {
     public static String TAG = "AppMain";
     public static ListingContract lc;
     public static MwraContract mwra;
+    public static ChildContract cc;
+    public static DeliveryContract dc;
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static String hh04txt;
@@ -46,22 +56,25 @@ public class AppMain extends Application {
     public static SharedPreferences sharedPref;
     public static String username;
     protected static LocationManager locationManager;
+    public static int versionCode;
+    public static String versionName;
+    public static List<MwraContract> mwraList;
 
-    public static void updatePSU(String psuCode, String structureNo) {
+    public static void updatePSU(String villageCode, String structureNo) {
 
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        editor.putString(psuCode, structureNo);
+        editor.putString(villageCode, structureNo);
 
         editor.apply();
-        Log.d(TAG, "updatePSU: " + psuCode + " " + structureNo);
+        Log.d(TAG, "updatePSU: " + villageCode + " " + structureNo);
 
     }
 
-    public static Boolean PSUExist(String psuCode) {
-        Log.d(TAG, "PSUExist: " + psuCode);
-        AppMain.hh03txt = Integer.valueOf(sharedPref.getString(psuCode, "0"));
-        Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(psuCode, "0"));
+    public static Boolean PSUExist(String villageCode) {
+        Log.d(TAG, "PSUExist: " + villageCode);
+        AppMain.hh03txt = Integer.valueOf(sharedPref.getString(villageCode, "0"));
+        Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(villageCode, "0"));
 
         if (AppMain.hh03txt == 0) {
             Log.d(TAG, "PSUExist (False): " + AppMain.hh03txt);
@@ -72,6 +85,34 @@ public class AppMain extends Application {
 
             return true;
         }
+    }
+
+
+    public static String convertDateFormat(String dateStr) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date d = sdf.parse(dateStr);
+            return new SimpleDateFormat("dd/MM/yyyy").format(d);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        return "";
+    }
+
+
+    public static Calendar getCalendarDate(String value) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar calendar = Calendar.getInstance();
+        try {
+            Date date = sdf.parse(value);
+            calendar.setTime(date);
+            return calendar;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return calendar;
     }
 
     @Override

@@ -17,6 +17,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -51,7 +53,6 @@ public class FamilyListingActivity extends Activity {
 
 
         txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
-        AppMain.lc.setHhChildNm(null);
 
         /*if (AppMain.fCount < AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);
@@ -85,20 +86,10 @@ public class FamilyListingActivity extends Activity {
                 if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
                     Toast.makeText(FamilyListingActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
                     btnAddMWRA.setVisibility(View.VISIBLE);
-                    /*btnAddFamilty.setVisibility(View.GONE);
-                    btnAddHousehold.setVisibility(View.GONE);*/
                     btnContNextQ.setVisibility(View.GONE);
                 } else {
                     btnAddMWRA.setVisibility(View.GONE);
                     btnContNextQ.setVisibility(View.VISIBLE);
-                   /* if (AppMain.fCount < AppMain.fTotal) {
-                        btnAddFamilty.setVisibility(View.VISIBLE);
-                        btnAddHousehold.setVisibility(View.GONE);
-                    } else {
-                        btnAddFamilty.setVisibility(View.GONE);
-                        btnAddHousehold.setVisibility(View.VISIBLE);
-                    }*/
-
                 }
             }
 
@@ -108,6 +99,9 @@ public class FamilyListingActivity extends Activity {
             }
         });
 
+//        Initializing wra list
+        AppMain.mwraList = new ArrayList<>();
+
     }
 
     @OnClick(R.id.btnContNextQ)
@@ -115,13 +109,13 @@ public class FamilyListingActivity extends Activity {
         if (formValidation()) {
             SaveDraft();
             if (UpdateDB()) {
-                AppMain.fCount = 0;
+                /*AppMain.fCount = 0;
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
                 AppMain.mwraCount = 0;
-                AppMain.mwraTotal = 0;
-                Intent closeA = new Intent(this, setupActivity.class);
+                AppMain.mwraTotal = 0;*/
+                Intent closeA = new Intent(this, HouseholdInfoActivity.class);
                 startActivity(closeA);
             } else {
                 Toast.makeText(this, "Saving Draft... Failed!", Toast.LENGTH_LONG).show();

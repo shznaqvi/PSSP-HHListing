@@ -16,17 +16,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-import edu.aku.hassannaqvi.kmc_hhlisting.contract.DistrictsContract;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.*;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.ChildContract.ChildTable;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.DeliveryContract.DeliveryTable;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.DistrictsContract.singleDistrict;
-import edu.aku.hassannaqvi.kmc_hhlisting.contract.ListingContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.ListingContract.ListingEntry;
-import edu.aku.hassannaqvi.kmc_hhlisting.contract.MwraContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.MwraContract.MwraEntry;
-import edu.aku.hassannaqvi.kmc_hhlisting.contract.UCsContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.UCsContract.singleUC;
-import edu.aku.hassannaqvi.kmc_hhlisting.contract.UsersContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.UsersContract.singleUser;
-import edu.aku.hassannaqvi.kmc_hhlisting.contract.VillagesContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.VillagesContract.singleVillage;
 
 
@@ -60,6 +57,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHADD + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH04_VILLAGE + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH04x + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
@@ -74,7 +72,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_CHILD_NAME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
@@ -128,6 +125,42 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 + singleUC.COLUMN_DISTRICT_CODE + " TEXT,"
                 + singleUC.COLUMN_UC_CODE + " TEXT );";
 
+        final String SQL_CREATE_CHILD_FORMS = "CREATE TABLE "
+                + ChildTable.TABLE_NAME + "("
+                + ChildTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + ChildTable.COLUMN_PROJECTNAME + " TEXT," +
+                ChildTable.COLUMN_UID + " TEXT," +
+                ChildTable.COLUMN_UUID + " TEXT," +
+                ChildTable.COLUMN_FORMDATE + " TEXT," +
+                ChildTable.COLUMN_USER + " TEXT," +
+                ChildTable.COLUMN_C1SERIALNO + " TEXT," +
+                ChildTable.COLUMN_SC1 + " TEXT," +
+/*                ChildTable.COLUMN_SC2 + " TEXT," +
+                ChildTable.COLUMN_SC3 + " TEXT," +
+                ChildTable.COLUMN_SC4 + " TEXT," +
+                ChildTable.COLUMN_SC5 + " TEXT," +*/
+                ChildTable.COLUMN_DEVICEID + " TEXT," +
+                ChildTable.COLUMN_DEVICETAGID + " TEXT," +
+                ChildTable.COLUMN_SYNCED + " TEXT," +
+                ChildTable.COLUMN_SYNCED_DATE + " TEXT," +
+                ChildTable.COLUMN_APPVERSION + " TEXT " + " );";
+
+        final String SQL_CREATE_DELIVERY_FORMS = "CREATE TABLE "
+                + DeliveryTable.TABLE_NAME + "("
+                + DeliveryTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + DeliveryTable.COLUMN_PROJECTNAME + " TEXT," +
+                DeliveryTable.COLUMN_UID + " TEXT," +
+                DeliveryTable.COLUMN_UUID + " TEXT," +
+                DeliveryTable.COLUMN_FORMDATE + " TEXT," +
+                DeliveryTable.COLUMN_USER + " TEXT," +
+                DeliveryTable.COLUMN_D1SerialNo + " TEXT," +
+                DeliveryTable.COLUMN_SD1 + " TEXT," +
+                DeliveryTable.COLUMN_DEVICEID + " TEXT," +
+                DeliveryTable.COLUMN_DEVICETAGID + " TEXT," +
+                DeliveryTable.COLUMN_SYNCED + " TEXT," +
+                DeliveryTable.COLUMN_SYNCED_DATE + " TEXT," +
+                DeliveryTable.COLUMN_APPVERSION + " TEXT " + " );";
+
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_MWRA_TABLE);
@@ -135,6 +168,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
         db.execSQL(SQL_CREATE_UCS);
+        db.execSQL(SQL_CREATE_DELIVERY_FORMS);
+
+        db.execSQL(SQL_CREATE_CHILD_FORMS);
     }
 
     @Override
@@ -146,6 +182,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + singleVillage.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUC.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ChildTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DeliveryTable.TABLE_NAME);
         onCreate(db);
     }
 
@@ -177,8 +215,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
+        values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
 
-        AppMain.updatePSU(lc.getHh02(), lc.getHh03());
+        AppMain.updatePSU(lc.getHh04Village(), lc.getHh03());
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
         values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());
@@ -190,7 +229,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
         values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
-        values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
@@ -238,6 +276,102 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         DB_MWRA_ID = String.valueOf(newRowId);
 
         return newRowId;
+    }
+
+    public Long addChildForm(ChildContract cc) {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(ChildTable.COLUMN_PROJECTNAME, cc.getProjectName());
+        values.put(ChildTable.COLUMN_UUID, cc.getUUID());
+        values.put(ChildTable.COLUMN_FORMDATE, cc.getFormDate());
+        values.put(ChildTable.COLUMN_USER, cc.getUser());
+        values.put(ChildTable.COLUMN_C1SERIALNO, cc.getC1SerialNo());
+        values.put(ChildTable.COLUMN_SC1, cc.getsC1());
+/*        values.put(ChildTable.COLUMN_SC2, cc.getsC2());
+        values.put(ChildTable.COLUMN_SC3, cc.getsC3());
+        values.put(ChildTable.COLUMN_SC4, cc.getsC4());
+        values.put(ChildTable.COLUMN_SC5, cc.getsC5());*/
+        values.put(ChildTable.COLUMN_DEVICEID, cc.getDeviceID());
+        values.put(ChildTable.COLUMN_DEVICETAGID, cc.getDevicetagID());
+        values.put(ChildTable.COLUMN_SYNCED, cc.getSynced());
+        values.put(ChildTable.COLUMN_SYNCED_DATE, cc.getSynced_date());
+        values.put(ChildTable.COLUMN_APPVERSION, cc.getAppversion());
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId;
+        newRowId = db.insert(
+                ChildTable.TABLE_NAME,
+                ChildTable.COLUMN_NAME_NULLABLE,
+                values);
+        return newRowId;
+    }
+
+    public int updateFormChildID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ChildTable.COLUMN_UID, AppMain.cc.getUID());
+
+        // Which row to update, based on the ID
+        String selection = ChildTable.COLUMN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(AppMain.cc.get_ID())};
+
+        int count = db.update(ChildTable.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
+    }
+
+    public Long addDeliveryForm(DeliveryContract dc) {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(DeliveryTable.COLUMN_PROJECTNAME, dc.getProjectName());
+        values.put(DeliveryTable.COLUMN_UUID, dc.getUUID());
+        values.put(DeliveryTable.COLUMN_FORMDATE, dc.getFormDate());
+        values.put(DeliveryTable.COLUMN_USER, dc.getUser());
+        values.put(DeliveryTable.COLUMN_D1SerialNo, dc.getD1SerialNo());
+        values.put(DeliveryTable.COLUMN_SD1, dc.getsD1());
+        values.put(DeliveryTable.COLUMN_DEVICEID, dc.getDeviceID());
+        values.put(DeliveryTable.COLUMN_DEVICETAGID, dc.getDevicetagID());
+        values.put(DeliveryTable.COLUMN_SYNCED, dc.getSynced());
+        values.put(DeliveryTable.COLUMN_SYNCED_DATE, dc.getSynced_date());
+        values.put(DeliveryTable.COLUMN_APPVERSION, dc.getAppversion());
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId;
+        newRowId = db.insert(
+                DeliveryTable.TABLE_NAME,
+                DeliveryTable.COLUMN_NAME_NULLABLE,
+                values);
+        return newRowId;
+    }
+
+    public int updateFormDeliveryID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(DeliveryTable.COLUMN_UID, AppMain.dc.getUID());
+
+        // Which row to update, based on the ID
+        String selection = DeliveryTable.COLUMN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(AppMain.dc.get_ID())};
+
+        int count = db.update(DeliveryTable.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
     }
 
     public void updateSyncedForms(String id) {
@@ -366,7 +500,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_HH12,
                 ListingEntry.COLUMN_NAME_HH13,
-                ListingEntry.COLUMN_NAME_CHILD_NAME,
+                ListingEntry.COLUMN_NAME_HH04_VILLAGE,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
@@ -481,7 +615,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String having = null;
 
         String orderBy =
-                singleDistrict._ID + " ASC";
+                singleDistrict.COLUMN_DISTRICT_NAME + " ASC";
 
         Collection<DistrictsContract> allDC = new ArrayList<DistrictsContract>();
         try {
@@ -509,7 +643,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allDC;
     }
 
-    public Collection<VillagesContract> getAllPSUsByDistrict(String district_code, String uc_code, String vil_code) {
+    public Collection<VillagesContract> getAllPSUsByDistrict(String district_code, String uc_code) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -521,20 +655,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         };
 
-       /* String whereClause = "SELECT * FROM " + singleVillage.COLUMN_DISTRICT_CODE + " where "
-                + singleVillage.COLUMN_DISTRICT_CODE + " = '" + district_code + "' AND " +
-                singleVillage.COLUMN_UC_CODE + " = '" + uc_code + "';";
-*/
+        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " =? AND " + singleVillage.COLUMN_UC_CODE + " =?";
 
-        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " =? AND " + singleVillage.COLUMN_UC_CODE + " =? AND "
-                + singleVillage.COLUMN_VILLAGE_CODE + " =? ";
-
-        String[] whereArgs = {district_code, uc_code, vil_code};
+        String[] whereArgs = {district_code, uc_code};
         String groupBy = null;
         String having = null;
 
         String orderBy =
-                singleVillage.COLUMN_VILLAGE_CODE + " ASC";
+                singleVillage.COLUMN_VILLAGE_NAME + " ASC";
 
         Collection<VillagesContract> allPC = new ArrayList<VillagesContract>();
         try {
@@ -585,7 +713,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
         values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
-        values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
+        values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
@@ -619,7 +747,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
         lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
-        lc.setHhChildNm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CHILD_NAME))));
+        lc.setHh04Village(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04_VILLAGE))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
@@ -813,7 +941,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
         return allPC;
     }
-
 
 
     public void syncDistricts(JSONArray dcList) {

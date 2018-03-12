@@ -1,75 +1,232 @@
 package edu.aku.hassannaqvi.kmc_hhlisting.ui;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import edu.aku.hassannaqvi.kmc_hhlisting.R;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.ChildContract;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.MwraContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.kmc_hhlisting.core.FormsDBHelper;
+import edu.aku.hassannaqvi.kmc_hhlisting.databinding.ActivityAddChildBinding;
+import edu.aku.hassannaqvi.kmc_hhlisting.validation.validatorClass;
 
-public class AddChildActivity extends Activity {
+public class AddChildActivity extends AppCompatActivity {
 
     public static String TAG = "ChildListingActivity";
 
+    ActivityAddChildBinding binding;
+    String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
-    @BindView(R.id.activity_add_child)
-    LinearLayout activityAddChild;
-    @BindView(R.id.txtChildListing)
-    TextView txtChildListing;
-    @BindView(R.id.icName)
-    EditText icName;
-
-    @BindView(R.id.btnAddChild)
-    Button btnAddChild;
-    @BindView(R.id.btnAddFamily)
-    Button btnAddFamilty;
-    @BindView(R.id.btnAddHousehold)
-    Button btnAddHousehold;
+    List<String> childU5;
+    Map<String, MwraContract> childMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_child);
-        ButterKnife.bind(this);
-        txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.cCount + " of " + AppMain.cTotal + ")");
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_child);
+//        Assigning data to UI binding
+        binding.setCallback(this);
+
+//        Setup Date
+        binding.ch03.setManager(getSupportFragmentManager());
+        binding.ch03.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+
+        binding.ch04.setManager(getSupportFragmentManager());
+        binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+
+//        Spinner setup
+        childU5 = new ArrayList<>();
+        childMap = new HashMap<>();
+
+        childU5.add("....");
+
+        childU5.add("N/A");
+        childMap.put("N/A", new MwraContract("00"));
+
+        for (MwraContract fmc : AppMain.mwraList) {
+            childMap.put(fmc.getMw01(), fmc);
+            childU5.add(fmc.getMw01());
+        }
+
+        binding.ch01.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, childU5));
+
+//        Setup Buttons
+        AppMain.cCount++;
+        binding.txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " \n(" + AppMain.cCount + " of " + AppMain.cTotal + ")");
         if (AppMain.cCount < AppMain.cTotal) {
-            btnAddChild.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-            btnAddFamilty.setVisibility(View.GONE);
+            binding.btnAddChild.setVisibility(View.VISIBLE);
+            binding.btnAddHousehold.setVisibility(View.GONE);
+            binding.btnAddFamily.setVisibility(View.GONE);
         } else if (AppMain.cCount >= AppMain.cTotal && AppMain.fCount < AppMain.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-            btnAddChild.setVisibility(View.GONE);
+            binding.btnAddFamily.setVisibility(View.VISIBLE);
+            binding.btnAddHousehold.setVisibility(View.GONE);
+            binding.btnAddChild.setVisibility(View.GONE);
         } else {
-            btnAddFamilty.setVisibility(View.GONE);
-            btnAddHousehold.setVisibility(View.VISIBLE);
-            btnAddChild.setVisibility(View.GONE);
+            binding.btnAddFamily.setVisibility(View.GONE);
+            binding.btnAddHousehold.setVisibility(View.VISIBLE);
+            binding.btnAddChild.setVisibility(View.GONE);
+        }
+
+//        Listener
+        binding.ch03.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                binding.ch04.setMinDate(AppMain.convertDateFormat(binding.ch03.getText().toString()));
+                Calendar calendar = AppMain.getCalendarDate(binding.ch03.getText().toString());
+                Calendar today = Calendar.getInstance();
+                calendar.add(Calendar.DAY_OF_MONTH, 28);
+                if (calendar.after(today)) {
+                    binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+                } else {
+                    binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTimeInMillis()));
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.ch03a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    binding.ch04.setMinDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+                    binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+                }
+            }
+        });
+
+    }
+
+    private boolean UpdateDB() {
+
+        //Long rowId;
+        FormsDBHelper db = new FormsDBHelper(this);
+
+        Long updcount = db.addChildForm(AppMain.cc);
+        AppMain.cc.set_ID(String.valueOf(updcount));
+
+        if (updcount != 0) {
+
+            AppMain.cc.setUID(
+                    (AppMain.cc.getDeviceID() + AppMain.cc.get_ID()));
+            db.updateFormChildID();
+
+            return true;
+        } else {
+            Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
     }
 
-    @OnClick(R.id.btnAddChild)
-    void onBtnAddChildClick() {
+    private void SaveDraft() throws JSONException {
+
+        AppMain.cc = new ChildContract();
+
+//        AppMain.cc.setDevicetagID(AppMain.getTagName(this));
+        AppMain.cc.setFormDate(dtToday);
+        AppMain.cc.setUser(AppMain.username);
+        AppMain.cc.setDeviceID(Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID));
+        AppMain.cc.setAppversion(AppMain.versionName + "." + AppMain.versionCode);
+        AppMain.cc.setUUID(AppMain.lc.getUID());
+        AppMain.cc.setC1SerialNo(String.valueOf(AppMain.cCount));
+
+        JSONObject sC1 = new JSONObject();
+
+        sC1.put("chMw01", childMap.get(binding.ch01.getSelectedItem().toString()).getMw01());
+        sC1.put("chMwSerial", childMap.get(binding.ch01.getSelectedItem().toString()).getMWRAID());
+        sC1.put("ch02", binding.ch02.getText().toString());
+        sC1.put("ch03a", binding.ch03a.isChecked() ? "1" : "2");
+        if (!binding.ch03a.isChecked()) {
+            sC1.put("ch03", binding.ch03.getText().toString());
+        } else {
+            sC1.put("ch05", binding.ch05.getText().toString());
+        }
+        sC1.put("ch04", binding.ch04.getText().toString());
+        sC1.put("ch06", binding.ch06.getText().toString());
+
+        AppMain.cc.setsC1(String.valueOf(sC1));
+
+        Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
+    }
+
+    private boolean formValidation() {
+
+//        ch01
+        if (!validatorClass.EmptySpinner(this, binding.ch01, getString(R.string.ch01))) {
+            return false;
+        }
+//        ch02
+        if (!validatorClass.EmptyTextBox(this, binding.ch02, getString(R.string.ch02))) {
+            return false;
+        }
+//        ch03
+        if (!binding.ch03a.isChecked()) {
+            if (!validatorClass.EmptyTextBox(this, binding.ch03, getString(R.string.ch03))) {
+                return false;
+            }
+        }
+//        ch04
+        if (!validatorClass.EmptyTextBox(this, binding.ch04, getString(R.string.ch04))) {
+            return false;
+        }
+//        ch05
+        if (binding.ch03a.isChecked()) {
+            if (!validatorClass.EmptyTextBox(this, binding.ch05, getString(R.string.ch05))) {
+                return false;
+            }
+            if (!validatorClass.RangeTextBox(this, binding.ch05, 0, 28, getString(R.string.ch05), " Range")) {
+                return false;
+            }
+        }
+//        ch06
+        return validatorClass.EmptyTextBox(this, binding.ch06, getString(R.string.ch06));
+    }
+
+    public void onBtnAddChildClick() {
         if (formValidation()) {
 
-            SaveDraft();
+            try {
+                SaveDraft();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (UpdateDB()) {
-                AppMain.cCount++;
-
-                AppMain.lc.setHhChildNm(null);
 
                 Intent fA = new Intent(this, AddChildActivity.class);
                 startActivity(fA);
@@ -78,49 +235,14 @@ public class AddChildActivity extends Activity {
         }
     }
 
-    private boolean UpdateDB() {
-        FormsDBHelper db = new FormsDBHelper(this);
-
-
-        long updcount = db.addForm(AppMain.lc);
-
-        if (updcount != 0) {
-            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.lc.setHhChildNm(null);
-
-        } else {
-            Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
-        }
-        return true;
-    }
-
-    private void SaveDraft() {
-        AppMain.lc.setHhChildNm(icName.getText().toString());
-
-        Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
-    }
-
-    private boolean formValidation() {
-
-        if (icName.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter name", Toast.LENGTH_LONG).show();
-            icName.setError("Please enter name");
-            Log.i(TAG, "Please enter name");
-            return false;
-        } else {
-            icName.setError(null);
-        }
-
-        return true;
-    }
-
-
-    @OnClick(R.id.btnAddFamily)
-    void onBtnAddFamilyClick() {
+    public void onBtnAddFamilyClick() {
         if (formValidation()) {
 
-            SaveDraft();
+            try {
+                SaveDraft();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (UpdateDB()) {
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
@@ -140,11 +262,14 @@ public class AddChildActivity extends Activity {
     }
 
 
-    @OnClick(R.id.btnAddHousehold)
-    void onBtnAddHouseholdClick() {
+    public void onBtnAddHouseholdClick() {
         if (formValidation()) {
 
-            SaveDraft();
+            try {
+                SaveDraft();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (UpdateDB()) {
                 AppMain.fCount = 0;
                 AppMain.fTotal = 0;

@@ -11,8 +11,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +31,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import edu.aku.hassannaqvi.kmc_hhlisting.R;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.DistrictsContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.UCsContract;
@@ -55,10 +52,12 @@ public class MainActivity extends Activity {
     private static String ipAddress = "192.168.1.10";
     private static String port = "3000";
 
-    public List<String> psuName;
-    public List<String> psuCode;
+    public List<String> psuName, districtNames, villageNames;
+    public List<String> psuCode, districtCodes, villageCodes;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
+    @BindView(R.id.MN00)
+    Spinner mN00;
     @BindView(R.id.MN01)
     Spinner mN01;
     @BindView(R.id.MN02)
@@ -74,7 +73,7 @@ public class MainActivity extends Activity {
 
     FormsDBHelper db;
 
-    Boolean flag = false;
+//    Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +88,7 @@ public class MainActivity extends Activity {
 
         populateSpinner(this);
 
-        villageCode.addTextChangedListener(new TextWatcher() {
+/*        villageCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -108,14 +107,18 @@ public class MainActivity extends Activity {
             public void afterTextChanged(Editable editable) {
 
             }
-        });
+        });*/
 
     }
 
     public void populateSpinner(final Context context) {
         // Spinner Drop down elements
-        List<String> districtNames = new ArrayList<>();
-        final List<String> districtCodes = new ArrayList<>();
+        districtNames = new ArrayList<>();
+        districtCodes = new ArrayList<>();
+
+        districtNames.add("....");
+        districtCodes.add("....");
+
         Collection<DistrictsContract> dc = db.getAllDistricts();
         Log.d(TAG, "onCreate: " + dc.size());
         for (DistrictsContract d : dc) {
@@ -128,19 +131,23 @@ public class MainActivity extends Activity {
                 android.R.layout.simple_spinner_item, districtNames);
 
         // Drop down layout style - list view with radio button
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        mN01.setAdapter(dataAdapter);
+        mN00.setAdapter(dataAdapter);
 
-        mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mN00.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 AppMain.hh01txt = districtCodes.get(position);
 
                 psuCode = new ArrayList<>();
                 psuName = new ArrayList<>();
+
+
+                psuCode.add("....");
+                psuName.add("....");
+
                 Collection<UCsContract> pc = db.getAllUCsbyTaluka(districtCodes.get(position));
                 for (UCsContract p : pc) {
                     psuCode.add(p.getUcCode());
@@ -151,8 +158,37 @@ public class MainActivity extends Activity {
 
                 psuAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mN02.setAdapter(psuAdapter);
+                mN01.setAdapter(psuAdapter);
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mN01.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                AppMain.hh02txt = psuCode.get(position);
+
+                villageCodes = new ArrayList<>();
+                villageNames = new ArrayList<>();
+                final List<String> villageNames1 = new ArrayList<>();
+
+                villageCodes.add("....");
+                villageNames.add("....");
+                villageNames1.add("....");
+
+                Collection<VillagesContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt, AppMain.hh02txt);
+                for (VillagesContract p : pc) {
+                    villageCodes.add(p.getVillageCode());
+                    villageNames.add(p.getVillageName());
+                    villageNames1.add(p.getVillageName().split("\\|")[2]);
+                }
+
+                mN02.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, villageNames1));
             }
 
             @Override
@@ -163,18 +199,26 @@ public class MainActivity extends Activity {
 
         mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                AppMain.hh02txt = psuCode.get(position);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (mN02.getSelectedItemPosition() != 0) {
+                    AppMain.hh04txt = villageCodes.get(i);
+                    String[] st = villageNames.get(i).split("\\|");
+
+                    districtN.setText(st[0]);
+                    ucN.setText(st[1]);
+                    psuN.setText(st[2]);
+                }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
     }
 
-
+/*
     @OnClick(R.id.checkVillage)
     void onCheckVillageClick() {
         //TODO implement
@@ -215,7 +259,7 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "Fill village code", Toast.LENGTH_SHORT).show();
         }
 
-    }
+    }*/
 
     public void alertPSU() {
 
@@ -245,18 +289,18 @@ public class MainActivity extends Activity {
     public void openForm(View view) {
 
 
-        if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null && flag) {
+        if (mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0) {
 
             Intent oF = new Intent(this, setupActivity.class);
 
-            if (AppMain.PSUExist(AppMain.hh02txt)) {
+            if (AppMain.PSUExist(AppMain.hh04txt)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
                 startActivity(oF);
             }
         } else {
-            Toast.makeText(this, "Click on check button", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Select values from dropdown", Toast.LENGTH_SHORT).show();
         }
     }
 

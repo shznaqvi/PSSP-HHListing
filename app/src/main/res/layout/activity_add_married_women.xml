@@ -84,60 +84,21 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/mw03" />
 
-            <RadioGroup
+            <EditText
                 android:id="@+id/mw03"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:hint="@string/mw03"
+                android:inputType="number"
+                android:maxLength="1"/>
 
-                <RadioButton
-                    android:id="@+id/mw03a"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:text="@string/mw03a"/>
-
-                <RadioButton
-                    android:id="@+id/mw03b"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:text="@string/mw03b" />
-
-                <RadioButton
-                    android:id="@+id/mw03c"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:text="@string/mw03c" />
-
-                <RadioButton
-                    android:id="@+id/mw03d"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:text="@string/mw03d" />
-
-                <RadioButton
-                    android:id="@+id/mw03e"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:text="@string/mw03e" />
-
-                <RadioButton
-                    android:id="@+id/mw03f"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:text="@string/mw03f" />
-            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
@@ -202,7 +163,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Goto Next Household"
+            android:text="Goto Household Info"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnAddDelivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Goto Delivery Info"
             android:visibility="gone" />
 
     </LinearLayout>

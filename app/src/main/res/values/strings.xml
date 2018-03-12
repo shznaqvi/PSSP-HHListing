@@ -20,12 +20,19 @@
     <string name="hh09"> رابطي جو نمبر </string>
     <string name="hh09a"> ڇا گهر ۾ 15 کان 49 سالن جي شادي شده عورت موجود آهي؟ </string>
     <string name="hh09b"> شادي شده عورتن جي تعداد </string>
-    <string name="hh10"> ڇا گهر ۾ 5 سالن کان گهٽ عمر جو ڪو ٻار موجود آهي؟ </string>
-    <string name="hh11"> ٻارن جو تعداد؟ </string>
-    <string name="child_name">بچے کا نام</string>
-    <string name="child_age">بچے کی عمر</string>
+    <string name="hh10"> ڇا گذريل پنجن سالن جي اندر هن گهر ۾ 0-28 ڏينهن جو ڪو ٻار وفات ڪري ويو آهي؟ </string>
+    <string name="hh11"> جيڪڏنهن ها ته ڪيترا ٻار وفات ڪري ويا؟ تعداد لکو </string>
     <string name="hh12">ڇا ليڊي هيلٿ ورڪر توهان جي گهر وزٽ تي ايندي آهي؟</string>
     <string name="hh13">جيڪڏهن ها ته ليڊي هيلٿ ورڪر جو نالو ڇا آهي؟</string>
+
+    <string name="dkn"> Dont know </string>
+    <string name="ch01"> ماءُ جو نالو۽ سيريل نمبر </string>
+    <string name="ch02"> ٻار جو نالو </string>
+    <string name="ch03"> پیدائش جي تاريخ </string>
+    <string name="ch04"> وفات جي تاريخ </string>
+    <string name="ch05"> وفات وقت عمر ڏينهن ۾ </string>
+    <string name="ch06"> وفات جو سبب </string>
+
     <string name="yes"> ها </string>
     <string name="no"> نه </string>
     <string name="months">مهينا</string>
@@ -37,17 +44,19 @@
 
 
     <string name="mw01">عورت جو نالو</string>
-    <string name="mw02">گذريل 1 سال ۾ ويم ٿيو؟</string>
-    <string name="mw03">ويم جو نتيجو</string>
-    <string name="mw03a">ضايع ٿي ويو</string>
-    <string name="mw03b">مرده ٻار جي پيدائش</string>
-    <string name="mw03c">زنده ٻار جي پيدائش</string>
-    <string name="mw03d">ٻن مرده ٻارن جي پيدائش</string>
-    <string name="mw03e">هڪ مرده ۽ هڪ زنده ٻارجي پيدائش</string>
-    <string name="mw03f">ٻن زنده ٻارن جي پيدائش</string>
+    <string name="mw02">گذريل 5 سال ۾ ويم ٿيو؟</string>
+    <string name="mw03"> گذريل 5 سال ۾ ويم جي تعداد </string>
     <string name="mw04"> ڇا(عورت جو نالو) حمل سان آهي؟ </string>
     <string name="mw05">حمل کي ڪيترو عرصو ٿيو آهي؟(مهينا لکو)</string>
 
+    <string name="mwdl01"> ويم جي تاريخ </string>
+    <string name="mwdl02"> ويم جو نتيجو </string>
+    <string name="mwdl02a">ضايع ٿي ويو</string>
+    <string name="mwdl02b">مرده ٻار جي پيدائش</string>
+    <string name="mwdl02c">زنده ٻار جي پيدائش</string>
+    <string name="mwdl02d">ٻن مرده ٻارن جي پيدائش</string>
+    <string name="mwdl02e">هڪ مرده ۽ هڪ زنده ٻارجي پيدائش</string>
+    <string name="mwdl02f">ٻن زنده ٻارن جي پيدائش</string>
 
     <!--Ali-->
     <string name="prompt_password">Password (optional)</string>

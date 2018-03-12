@@ -31,6 +31,10 @@ public class MwraContract {
     public MwraContract() {
     }
 
+    public MwraContract(String MWRAID) {
+        this.MWRAID = MWRAID;
+    }
+
     public MwraContract Sync(JSONObject jsonObject) throws JSONException {
         this.ID = jsonObject.getLong(MwraEntry.COLUMN_ID);
         this.MWRAID = jsonObject.getString(MwraEntry.MWRA_ID);

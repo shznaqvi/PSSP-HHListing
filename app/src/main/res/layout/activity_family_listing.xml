@@ -77,7 +77,7 @@
                 android:maxLength="11"/>
         </LinearLayout>
 
-
+        <!--09-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +99,6 @@
                 android:textOff="@string/no"
                 android:textOn="@string/yes" />
 
-
         </LinearLayout>
 
         <EditText
@@ -113,84 +112,12 @@
             android:maxLength="2"
             android:visibility="invisible"/>
 
-        <!-- <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="24dp"
-                 android:text="@string/child_name" />
-
-             <EditText
-                 android:id="@+id/child_name"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="24dp"
-                 android:layout_weight="1"
-                 android:inputType="textPersonName"
-                 android:hint="@string/child_name"
-                  />
-
-         </LinearLayout>
-
-      <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="24dp"
-              android:text="@string/child_age" />
-
-            <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="24dp"
-              android:text="@string/hh12m" />
-
-
-             <EditText
-                 android:id="@+id/hh12m"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="24dp"
-                 android:layout_weight="1"
-                 android:inputType="number"
-                 android:maxLength="2"
-                 android:hint="@string/hh12m"
-                  />
-
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="24dp"
-              android:text="@string/hh12d" />
-
-          <EditText
-                 android:id="@+id/hh12d"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="24dp"
-                 android:layout_weight="1"
-                 android:inputType="number"
-                 android:maxLength="2"
-                android:hint="@string/hh12d"
-                  />
-
-         </LinearLayout>
-         -->
         <Button
             android:id="@+id/btnContNextQ"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="contNextQuestion"
-            android:text="Goto Next Household"
+            android:text="Goto Household Info"
             android:visibility="visible" />
 
         <Button
@@ -198,7 +125,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="addMWRA"
             android:text="Add Married Women"
             android:visibility="gone" />
         <!--
