@@ -172,7 +172,9 @@ public class AddMarriedWomenActivity extends Activity {
         AppMain.mwra.setMw02(mw02.isChecked() ? "1" : "2");
         AppMain.mwra.setMw03(mw03.getText().toString());
 
-        dTotal = Integer.valueOf(mw03.getText().toString());
+        if (mw02.isChecked()) {
+            dTotal = Integer.valueOf(mw03.getText().toString());
+        }
 
         AppMain.mwra.setMw04(mw04.isChecked() ? "1" : "2");
         AppMain.mwra.setMw05(mw05.getText().toString());
