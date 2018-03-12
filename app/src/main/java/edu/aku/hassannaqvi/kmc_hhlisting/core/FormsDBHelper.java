@@ -16,14 +16,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-import edu.aku.hassannaqvi.kmc_hhlisting.contract.*;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.ChildContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.ChildContract.ChildTable;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.DeliveryContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.DeliveryContract.DeliveryTable;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.DistrictsContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.DistrictsContract.singleDistrict;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.ListingContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.ListingContract.ListingEntry;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.MwraContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.MwraContract.MwraEntry;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.UCsContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.UCsContract.singleUC;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.UsersContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.UsersContract.singleUser;
+import edu.aku.hassannaqvi.kmc_hhlisting.contract.VillagesContract;
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.VillagesContract.singleVillage;
 
 
@@ -393,6 +400,44 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 whereArgs);
     }
 
+    public void updateSyncedChild(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ChildTable.COLUMN_SYNCED, true);
+        values.put(ChildTable.COLUMN_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = ChildTable.COLUMN_ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                ChildTable.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
+    public void updateSyncedDelivery(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(DeliveryTable.COLUMN_SYNCED, true);
+        values.put(DeliveryTable.COLUMN_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = DeliveryTable.COLUMN_ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                DeliveryTable.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
     public void updateSyncedMwra(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -596,6 +641,106 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             }
         }
         return allMWRA;
+    }
+
+    public Collection<ChildContract> getAllChild() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                ChildTable.COLUMN_ID,
+                ChildTable.COLUMN_UID,
+                ChildTable.COLUMN_UUID,
+                ChildTable.COLUMN_FORMDATE,
+                ChildTable.COLUMN_USER,
+                ChildTable.COLUMN_C1SERIALNO,
+                ChildTable.COLUMN_SC1,
+                ChildTable.COLUMN_DEVICEID,
+                ChildTable.COLUMN_DEVICETAGID,
+                ChildTable.COLUMN_APPVERSION
+        };
+
+        String whereClause = ChildTable.COLUMN_SYNCED + " is null";
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                ChildTable._ID + " ASC";
+
+        Collection<ChildContract> allChild = new ArrayList<>();
+        try {
+            c = db.query(
+                    ChildTable.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                ChildContract mwra = new ChildContract();
+                allChild.add(mwra.Hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allChild;
+    }
+
+    public Collection<DeliveryContract> getAllDelivery() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                DeliveryTable.COLUMN_ID,
+                DeliveryTable.COLUMN_UID,
+                DeliveryTable.COLUMN_UUID,
+                DeliveryTable.COLUMN_FORMDATE,
+                DeliveryTable.COLUMN_USER,
+                DeliveryTable.COLUMN_D1SerialNo,
+                DeliveryTable.COLUMN_SD1,
+                DeliveryTable.COLUMN_DEVICEID,
+                DeliveryTable.COLUMN_DEVICETAGID,
+                DeliveryTable.COLUMN_APPVERSION
+        };
+
+        String whereClause = DeliveryTable.COLUMN_SYNCED + " is null";
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                DeliveryTable._ID + " ASC";
+
+        Collection<DeliveryContract> allDelivery = new ArrayList<>();
+        try {
+            c = db.query(
+                    DeliveryTable.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                DeliveryContract mwra = new DeliveryContract();
+                allDelivery.add(mwra.Hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allDelivery;
     }
 
 

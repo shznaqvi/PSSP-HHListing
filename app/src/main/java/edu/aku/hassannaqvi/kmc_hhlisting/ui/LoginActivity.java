@@ -64,6 +64,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText mPasswordView;
     @BindView(R.id.txtinstalldate)
     TextView txtinstalldate;
+
+    @BindView(R.id.testing)
+    TextView testing;
+
     private UserLoginTask mAuthTask = null;
 
     @Override
@@ -88,19 +92,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         try {
             long installedOn = this
                     .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.nns_2018", 0)
+                    .getPackageInfo("edu.aku.hassannaqvi.kmc_hhlisting", 0)
                     .lastUpdateTime;
             AppMain.versionCode = this
                     .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.nns_2018", 0)
+                    .getPackageInfo("edu.aku.hassannaqvi.kmc_hhlisting", 0)
                     .versionCode;
             AppMain.versionName = this
                     .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.nns_2018", 0)
+                    .getPackageInfo("edu.aku.hassannaqvi.kmc_hhlisting", 0)
                     .versionName;
             txtinstalldate.setText("Ver. " + AppMain.versionName + "." + String.valueOf(AppMain.versionCode) + " \r\n( Last Updated: " + new SimpleDateFormat("dd MMM. yyyy").format(new Date(installedOn)) + " )");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+        }
+
+//        Testing visibility
+        if (Integer.valueOf(AppMain.versionName.split("\\.")[0]) > 0) {
+            testing.setVisibility(View.GONE);
+        }else {
+            testing.setVisibility(View.VISIBLE);
         }
 
     }

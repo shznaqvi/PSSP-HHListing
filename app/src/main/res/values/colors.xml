@@ -18,5 +18,5 @@
     <color name="whiteOverlay">#99ffffff</color>
     <color name="dullWhile">#d6d6d6</color>
     <color name="dullWhileOverlay">#99d6d6d6</color>
-
+    <color name="red">#f44336</color>
 </resources>

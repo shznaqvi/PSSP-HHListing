@@ -71,6 +71,9 @@ public class MainActivity extends Activity {
     @BindView(R.id.villageCode)
     EditText villageCode;
 
+    @BindView(R.id.testing)
+    TextView testing;
+
     FormsDBHelper db;
 
 //    Boolean flag = false;
@@ -108,6 +111,13 @@ public class MainActivity extends Activity {
 
             }
         });*/
+
+//        Testing visibility
+        if (Integer.valueOf(AppMain.versionName.split("\\.")[0]) > 0) {
+            testing.setVisibility(View.GONE);
+        }else {
+            testing.setVisibility(View.VISIBLE);
+        }
 
     }
 
