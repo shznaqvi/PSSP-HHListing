@@ -42,6 +42,8 @@ import edu.aku.hassannaqvi.kmc_hhlisting.get.GetDistricts;
 import edu.aku.hassannaqvi.kmc_hhlisting.get.GetUCs;
 import edu.aku.hassannaqvi.kmc_hhlisting.get.GetUsers;
 import edu.aku.hassannaqvi.kmc_hhlisting.get.GetVillages;
+import edu.aku.hassannaqvi.kmc_hhlisting.sync.SyncChild;
+import edu.aku.hassannaqvi.kmc_hhlisting.sync.SyncDelivery;
 import edu.aku.hassannaqvi.kmc_hhlisting.sync.SyncListing;
 import edu.aku.hassannaqvi.kmc_hhlisting.sync.SyncMwras;
 
@@ -389,6 +391,12 @@ public class MainActivity extends Activity {
 
                     Toast.makeText(getApplicationContext(), "Syncing Mwras", Toast.LENGTH_SHORT).show();
                     new SyncMwras(mContext).execute();
+
+                    Toast.makeText(getApplicationContext(), "Syncing Delivery", Toast.LENGTH_SHORT).show();
+                    new SyncDelivery(mContext).execute();
+
+                    Toast.makeText(getApplicationContext(), "Syncing Child", Toast.LENGTH_SHORT).show();
+                    new SyncChild(mContext).execute();
 
                     GetUsers u = new GetUsers(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
