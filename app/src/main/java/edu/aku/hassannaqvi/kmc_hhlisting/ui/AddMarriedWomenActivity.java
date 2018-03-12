@@ -180,6 +180,8 @@ public class AddMarriedWomenActivity extends Activity {
         AppMain.mwra.setMw05(mw05.getText().toString());
         AppMain.mwra.setMWRAID(String.valueOf(AppMain.mwraCount));
 
+        AppMain.mwraList.add(AppMain.mwra);
+
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
     }
 

@@ -168,6 +168,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
         db.execSQL(SQL_CREATE_UCS);
+        db.execSQL(SQL_CREATE_DELIVERY_FORMS);
 
         db.execSQL(SQL_CREATE_CHILD_FORMS);
     }

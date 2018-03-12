@@ -37,12 +37,13 @@ public class AddDeliveryActivity extends AppCompatActivity {
         binding.setCallback(this);
 
 //        Setup Date
+        binding.mwdl01.setFocusable(false);
         binding.mwdl01.setManager(getSupportFragmentManager());
         binding.mwdl01.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
 
 //        Setup Buttons
         AddMarriedWomenActivity.dCount++;
-        binding.txtDeliveryListing.setText("Delivery Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AddMarriedWomenActivity.dCount + " of " + AddMarriedWomenActivity.dTotal + ")");
+        binding.txtDeliveryListing.setText("Delivery Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " \n(" + AddMarriedWomenActivity.dCount + " of " + AddMarriedWomenActivity.dTotal + ")");
 
         if (AddMarriedWomenActivity.dCount < AddMarriedWomenActivity.dTotal) {
             binding.btnAddDelivery.setVisibility(View.VISIBLE);

@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import edu.aku.hassannaqvi.kmc_hhlisting.contract.ChildContract;
@@ -81,6 +85,34 @@ public class AppMain extends Application {
 
             return true;
         }
+    }
+
+
+    public static String convertDateFormat(String dateStr) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date d = sdf.parse(dateStr);
+            return new SimpleDateFormat("dd/MM/yyyy").format(d);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        return "";
+    }
+
+
+    public static Calendar getCalendarDate(String value) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar calendar = Calendar.getInstance();
+        try {
+            Date date = sdf.parse(value);
+            calendar.setTime(date);
+            return calendar;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return calendar;
     }
 
     @Override

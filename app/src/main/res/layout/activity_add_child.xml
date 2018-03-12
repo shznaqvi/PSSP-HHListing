@@ -104,6 +104,7 @@
                 android:layout_marginTop="1dp"
                 android:focusable="true"
                 android:hint="@string/ch04"
+                android:text='@{ch03a.checked ? "" : ch04.getText.toString}'
                 android:padding="15dp"
                 android:textColor="@android:color/black"
                 app:dateFormat="dd-MM-yyyy" />

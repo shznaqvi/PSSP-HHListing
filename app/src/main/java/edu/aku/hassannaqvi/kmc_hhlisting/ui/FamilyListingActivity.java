@@ -17,6 +17,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -96,6 +98,9 @@ public class FamilyListingActivity extends Activity {
 
             }
         });
+
+//        Initializing wra list
+        AppMain.mwraList = new ArrayList<>();
 
     }
 

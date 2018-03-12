@@ -15,6 +15,18 @@
 
     </style>
 
+    <style name="AppTheme1" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:scrollViewStyle">@style/BackgroundStyle</item>
+        <item name="android:textViewStyle">@style/lblTextView</item>
+        <item name="android:editTextStyle">@style/txtEditText</item>
+        <item name="android:radioButtonStyle">@style/btnRadioButton</item>
+        <item name="android:checkboxStyle">@style/chkBox</item>
+        <item name="android:layoutDirection">rtl</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:buttonStyle">@style/btnButton</item>
+        <!-- Customize your theme here. -->
+    </style>
+
     <style name="BackgroundStyle" parent="android:Widget.Holo.Light.ScrollView">
         <item name="android:padding">24dp</item>
     </style>

@@ -5,8 +5,12 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -14,6 +18,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -66,9 +71,11 @@ public class AddChildActivity extends AppCompatActivity {
             childU5.add(fmc.getMw01());
         }
 
+        binding.ch01.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, childU5));
+
 //        Setup Buttons
         AppMain.cCount++;
-        binding.txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.cCount + " of " + AppMain.cTotal + ")");
+        binding.txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " \n(" + AppMain.cCount + " of " + AppMain.cTotal + ")");
         if (AppMain.cCount < AppMain.cTotal) {
             binding.btnAddChild.setVisibility(View.VISIBLE);
             binding.btnAddHousehold.setVisibility(View.GONE);
@@ -82,6 +89,44 @@ public class AddChildActivity extends AppCompatActivity {
             binding.btnAddHousehold.setVisibility(View.VISIBLE);
             binding.btnAddChild.setVisibility(View.GONE);
         }
+
+//        Listener
+        binding.ch03.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                binding.ch04.setMinDate(AppMain.convertDateFormat(binding.ch03.getText().toString()));
+                Calendar calendar = AppMain.getCalendarDate(binding.ch03.getText().toString());
+                Calendar today = Calendar.getInstance();
+                calendar.add(Calendar.DAY_OF_MONTH, 28);
+                if (calendar.after(today)) {
+                    binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+                } else {
+                    binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTimeInMillis()));
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.ch03a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    binding.ch04.setMinDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+                    binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+                }
+            }
+        });
 
     }
 
@@ -163,6 +208,9 @@ public class AddChildActivity extends AppCompatActivity {
 //        ch05
         if (binding.ch03a.isChecked()) {
             if (!validatorClass.EmptyTextBox(this, binding.ch05, getString(R.string.ch05))) {
+                return false;
+            }
+            if (!validatorClass.RangeTextBox(this, binding.ch05, 0, 28, getString(R.string.ch05), " Range")) {
                 return false;
             }
         }

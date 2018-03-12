@@ -238,7 +238,7 @@ public class DeliveryContract {
         public static final String TABLE_NAME = "delivery";
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
 
-        public static final String COLUMN_PROJECTNAME = "KMC-HHListing";
+        public static final String COLUMN_PROJECTNAME = "projectname";
         public static final String COLUMN_ID = "_id ";
         public static final String COLUMN_UID = "_uid ";
         public static final String COLUMN_UUID = "uuid ";
