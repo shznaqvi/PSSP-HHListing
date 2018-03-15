@@ -196,9 +196,9 @@ public class HouseholdInfoActivity extends Activity {
             }
 
             if (Integer.valueOf(hh11.getText().toString()) < 1) {
-                Toast.makeText(this, "Invalid(hh11):" + getResources().getString(R.string.hh11), Toast.LENGTH_LONG).show();
-                hh11.setError("Greater then 0");
-                Log.i(TAG, "hh11 Greater then 0");
+                Toast.makeText(this, "Death range is 1 to 9:" + getResources().getString(R.string.hh11), Toast.LENGTH_LONG).show();
+                hh11.setError("Death range is 1 to 9");
+                Log.i(TAG, "hh11: Death range is 1 to 9");
                 return false;
             } else {
                 hh11.setError(null);

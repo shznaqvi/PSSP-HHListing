@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">KMC-HHListing </string>
-    <string name="hh01"> UC ڪوڊ </string>
-    <string name="hh02"> Village ڪوڊ </string>
+    <string name="hh01"> يونين ڪائونسل جو ڪوڊ </string>
+    <string name="hh02"> ڳوٺ جو کوڈ </string>
     <string name="hh03"> عمارت جو نمبر </string>
-    <string name="hhadd"> پتو </string>
+    <string name="hhadd"> گهر جو پتو </string>
     <string name="hh04"> عمارت جو قسم </string>
     <string name="hh04a"> رهائشي </string>
     <string name="hh04b"> دڪان / مارڪيٽ / پلازا </string>
@@ -37,7 +37,7 @@
     <string name="no"> نه </string>
     <string name="months">مهينا</string>
 
-    <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
+    <string name="txtMsg">abcdefghijklmnopqrstuvwxyz QWERTYUIOPASDFGHJKLZXCVBNM1234567890</string>
     <string name="txtName">qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM</string>
 
     <!--sidra-->

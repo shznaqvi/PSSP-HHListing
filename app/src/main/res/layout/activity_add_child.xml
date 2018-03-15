@@ -104,25 +104,33 @@
                 android:layout_marginTop="1dp"
                 android:focusable="true"
                 android:hint="@string/ch04"
-                android:text='@{ch03a.checked ? "" : ch04.getText.toString}'
                 android:padding="15dp"
+                android:text='@{ch03a.checked ? "" : ch04.getText.toString}'
                 android:textColor="@android:color/black"
                 app:dateFormat="dd-MM-yyyy" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/ch05" />
+                android:orientation="vertical"
+                android:visibility="@{ch03a.checked ? View.VISIBLE : View.GONE}">
 
-            <EditText
-                android:id="@+id/ch05"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="@{ch03a.checked ? true : false}"
-                android:hint="@string/ch05"
-                android:inputType="number"
-                android:text='@{ch03a.checked ? ch05.getText.toString : ""}' />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/ch05" />
+
+                <EditText
+                    android:id="@+id/ch05"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="@{ch03a.checked ? true : false}"
+                    android:hint="@string/ch05"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:text='@{ch03a.checked ? ch05.getText.toString : ""}' />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"

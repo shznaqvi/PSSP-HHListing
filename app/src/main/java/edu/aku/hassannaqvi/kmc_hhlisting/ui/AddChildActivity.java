@@ -52,6 +52,7 @@ public class AddChildActivity extends AppCompatActivity {
 //        Setup Date
         binding.ch03.setManager(getSupportFragmentManager());
         binding.ch03.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+        binding.ch03.setMinDate(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTimeInMillis() - (AppMain.MILLISECONDS_IN_5Years)));
 
         binding.ch04.setManager(getSupportFragmentManager());
         binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
@@ -90,6 +91,7 @@ public class AddChildActivity extends AppCompatActivity {
         }
 
 //        Listener
+
         binding.ch03.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -120,16 +122,6 @@ public class AddChildActivity extends AppCompatActivity {
 
             }
         });
-
-        /*binding.ch03a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    //binding.ch04.setMinDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
-                    binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
-                }
-            }
-        });*/
 
     }
 

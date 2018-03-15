@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import edu.aku.hassannaqvi.kmc_hhlisting.R;
@@ -40,6 +41,7 @@ public class AddDeliveryActivity extends AppCompatActivity {
         binding.mwdl01.setFocusable(false);
         binding.mwdl01.setManager(getSupportFragmentManager());
         binding.mwdl01.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+        binding.mwdl01.setMinDate(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTimeInMillis() - (AppMain.MILLISECONDS_IN_5Years)));
 
 //        Setup Buttons
         AddMarriedWomenActivity.dCount++;

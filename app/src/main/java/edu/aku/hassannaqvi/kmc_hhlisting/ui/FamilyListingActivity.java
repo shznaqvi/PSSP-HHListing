@@ -187,10 +187,10 @@ public class FamilyListingActivity extends Activity {
             hh09b.setError(null);
         }
 
-        if (!hh09b.getText().toString().isEmpty() && Integer.valueOf(hh09b.getText().toString()) < 1) {
-            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
-            hh09b.setError("Invalid Value!");
-            Log.i(TAG, "Invalid Value!");
+        if (!hh09b.getText().toString().isEmpty() && (Integer.valueOf(hh09b.getText().toString()) < 1 || Integer.valueOf(hh09b.getText().toString()) > 15 )) {
+            Toast.makeText(this, "MWRA range is 1 to 15!", Toast.LENGTH_LONG).show();
+            hh09b.setError("MWRA range is 1 to 15!");
+            Log.i(TAG, "MWRA range is 1 to 15!");
             return false;
         } else {
             hh09b.setError(null);

@@ -296,10 +296,10 @@ public class setupActivity extends Activity {
             hh06.setError(null);
         }
 
-        if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) <= 1) {
-            Toast.makeText(this, "Answers do not match!", Toast.LENGTH_LONG).show();
-            hh06.setError("Answers do not match!");
-            Log.i(TAG, "Answers do not match!");
+        if (!hh06.getText().toString().isEmpty() && (Integer.valueOf(hh06.getText().toString()) < 2 || Integer.valueOf(hh06.getText().toString()) > 15)) {
+            Toast.makeText(this, "Household range is 2 to 15!", Toast.LENGTH_LONG).show();
+            hh06.setError("Household range is 2 to 15!");
+            Log.i(TAG, "Household range is 2 to 15!");
             return false;
         } else {
             hh06.setError(null);

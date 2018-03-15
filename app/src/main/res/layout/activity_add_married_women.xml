@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:digits="@string/txtMsg"
+                android:digits="@string/txtName"
                 android:hint="@string/mw01"
                 android:inputType="text"
                 android:maxLength="24"/>
