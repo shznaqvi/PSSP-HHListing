@@ -74,6 +74,9 @@ public class MainActivity extends Activity {
     @BindView(R.id.msgText)
     TextView msgText;
 
+    @BindView(R.id.testing)
+    TextView testing;
+
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
     AlertDialog.Builder builder;
@@ -145,6 +148,13 @@ public class MainActivity extends Activity {
 
         );
         spinnersFill();
+
+//        Testing visibility
+        if (Integer.valueOf(AppMain.versionName.split("\\.")[0]) > 0) {
+            testing.setVisibility(View.GONE);
+        } else {
+            testing.setVisibility(View.VISIBLE);
+        }
 
     }
 
