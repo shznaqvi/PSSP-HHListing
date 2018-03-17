@@ -208,9 +208,9 @@ public class AddMarriedWomenActivity extends Activity {
             }
 
             if (Integer.valueOf(mw03.getText().toString()) < 1) {
-                Toast.makeText(this, "No deliveries range is 1 to 9:" + getResources().getString(R.string.mw03), Toast.LENGTH_LONG).show();
-                mw03.setError("No deliveries range is 1 to 9");
-                Log.i(TAG, "mw03: No deliveries range is 1 to 9");
+                Toast.makeText(this, "Number of deliveries range is 1 to 9:" + getResources().getString(R.string.mw03), Toast.LENGTH_LONG).show();
+                mw03.setError("Number of deliveries range is 1 to 9");
+                Log.i(TAG, "mw03: Number of deliveries range is 1 to 9");
                 return false;
             } else {
                 mw03.setError(null);

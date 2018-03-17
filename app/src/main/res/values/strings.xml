@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">KMC-HHListing </string>
     <string name="hh01"> يونين ڪائونسل جو ڪوڊ </string>
-    <string name="hh02"> ڳوٺ جو کوڈ </string>
+    <string name="hh02"> ڳوٺ جو ڪوڊ </string>
     <string name="hh03"> عمارت جو نمبر </string>
     <string name="hhadd"> گهر جو پتو </string>
     <string name="hh04"> عمارت جو قسم </string>
@@ -25,7 +25,7 @@
     <string name="hh12">ڇا ليڊي هيلٿ ورڪر توهان جي گهر وزٽ تي ايندي آهي؟</string>
     <string name="hh13">جيڪڏهن ها ته ليڊي هيلٿ ورڪر جو نالو ڇا آهي؟</string>
 
-    <string name="dkn"> Dont know </string>
+    <string name="dkn"> ياد نه آهي </string>
     <string name="ch01"> ماءُ جو نالو۽ سيريل نمبر </string>
     <string name="ch02"> ٻار جو نالو </string>
     <string name="ch03"> پیدائش جي تاريخ </string>

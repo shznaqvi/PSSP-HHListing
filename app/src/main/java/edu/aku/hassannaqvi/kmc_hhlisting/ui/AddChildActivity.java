@@ -205,7 +205,7 @@ public class AddChildActivity extends AppCompatActivity {
             if (!validatorClass.EmptyTextBox(this, binding.ch05, getString(R.string.ch05))) {
                 return false;
             }
-            if (!validatorClass.RangeTextBox(this, binding.ch05, 0, 28, getString(R.string.ch05), " Range")) {
+            if (!validatorClass.RangeTextBox(this, binding.ch05, 0, 28, getString(R.string.ch05), "")) {
                 return false;
             }
         }
