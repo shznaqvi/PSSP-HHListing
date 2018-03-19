@@ -304,8 +304,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ChildTable.COLUMN_SC5, cc.getsC5());*/
         values.put(ChildTable.COLUMN_DEVICEID, cc.getDeviceID());
         values.put(ChildTable.COLUMN_DEVICETAGID, cc.getDevicetagID());
-        values.put(ChildTable.COLUMN_SYNCED, cc.getSynced());
-        values.put(ChildTable.COLUMN_SYNCED_DATE, cc.getSynced_date());
         values.put(ChildTable.COLUMN_APPVERSION, cc.getAppversion());
 
         // Insert the new row, returning the primary key value of the new row
@@ -350,8 +348,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(DeliveryTable.COLUMN_SD1, dc.getsD1());
         values.put(DeliveryTable.COLUMN_DEVICEID, dc.getDeviceID());
         values.put(DeliveryTable.COLUMN_DEVICETAGID, dc.getDevicetagID());
-        values.put(DeliveryTable.COLUMN_SYNCED, dc.getSynced());
-        values.put(DeliveryTable.COLUMN_SYNCED_DATE, dc.getSynced_date());
         values.put(DeliveryTable.COLUMN_APPVERSION, dc.getAppversion());
 
         // Insert the new row, returning the primary key value of the new row
@@ -659,7 +655,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildTable.COLUMN_APPVERSION
         };
 
-        String whereClause = ChildTable.COLUMN_SYNCED + " is null";
+        String whereClause = ChildTable.COLUMN_SYNCED + " is null || " + ChildTable.COLUMN_SYNCED + "=''";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
@@ -709,7 +705,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 DeliveryTable.COLUMN_APPVERSION
         };
 
-        String whereClause = DeliveryTable.COLUMN_SYNCED + " is null";
+        String whereClause = DeliveryTable.COLUMN_SYNCED + " is null || " + DeliveryTable.COLUMN_SYNCED + "=''";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
