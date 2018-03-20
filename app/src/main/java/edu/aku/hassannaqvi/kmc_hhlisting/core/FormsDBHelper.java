@@ -655,7 +655,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildTable.COLUMN_APPVERSION
         };
 
-        String whereClause = ChildTable.COLUMN_SYNCED + " is null || " + ChildTable.COLUMN_SYNCED + "=''";
+        String whereClause = ChildTable.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
@@ -705,7 +705,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 DeliveryTable.COLUMN_APPVERSION
         };
 
-        String whereClause = DeliveryTable.COLUMN_SYNCED + " is null || " + DeliveryTable.COLUMN_SYNCED + "=''";
+        String whereClause = DeliveryTable.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
