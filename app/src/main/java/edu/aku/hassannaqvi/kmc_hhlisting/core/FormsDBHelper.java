@@ -292,7 +292,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(ChildTable.COLUMN_PROJECTNAME, cc.getProjectName());
+        //values.put(ChildTable.COLUMN_PROJECTNAME, cc.getProjectName());
+        values.put(ChildTable.COLUMN_UID, cc.getUID());
         values.put(ChildTable.COLUMN_UUID, cc.getUUID());
         values.put(ChildTable.COLUMN_FORMDATE, cc.getFormDate());
         values.put(ChildTable.COLUMN_USER, cc.getUser());
@@ -340,7 +341,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(DeliveryTable.COLUMN_PROJECTNAME, dc.getProjectName());
+        //values.put(DeliveryTable.COLUMN_PROJECTNAME, dc.getProjectName());
+        values.put(DeliveryTable.COLUMN_UID, dc.getUID());
         values.put(DeliveryTable.COLUMN_UUID, dc.getUUID());
         values.put(DeliveryTable.COLUMN_FORMDATE, dc.getFormDate());
         values.put(DeliveryTable.COLUMN_USER, dc.getUser());
@@ -652,6 +654,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildTable.COLUMN_SC1,
                 ChildTable.COLUMN_DEVICEID,
                 ChildTable.COLUMN_DEVICETAGID,
+                ChildTable.COLUMN_SYNCED,
+                ChildTable.COLUMN_SYNCED_DATE,
                 ChildTable.COLUMN_APPVERSION
         };
 
@@ -702,6 +706,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 DeliveryTable.COLUMN_SD1,
                 DeliveryTable.COLUMN_DEVICEID,
                 DeliveryTable.COLUMN_DEVICETAGID,
+                DeliveryTable.COLUMN_SYNCED_DATE,
+                DeliveryTable.COLUMN_SYNCED,
                 DeliveryTable.COLUMN_APPVERSION
         };
 
