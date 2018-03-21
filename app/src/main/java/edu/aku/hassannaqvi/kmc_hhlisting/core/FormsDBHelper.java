@@ -292,7 +292,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        //values.put(ChildTable.COLUMN_PROJECTNAME, cc.getProjectName());
+        values.put(ChildTable.COLUMN_PROJECTNAME, cc.getProjectName());
         values.put(ChildTable.COLUMN_UID, cc.getUID());
         values.put(ChildTable.COLUMN_UUID, cc.getUUID());
         values.put(ChildTable.COLUMN_FORMDATE, cc.getFormDate());
@@ -341,7 +341,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        //values.put(DeliveryTable.COLUMN_PROJECTNAME, dc.getProjectName());
+        values.put(DeliveryTable.COLUMN_PROJECTNAME, dc.getProjectName());
         values.put(DeliveryTable.COLUMN_UID, dc.getUID());
         values.put(DeliveryTable.COLUMN_UUID, dc.getUUID());
         values.put(DeliveryTable.COLUMN_FORMDATE, dc.getFormDate());

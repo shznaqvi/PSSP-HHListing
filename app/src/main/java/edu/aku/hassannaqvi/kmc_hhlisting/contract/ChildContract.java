@@ -239,9 +239,9 @@ public class ChildContract {
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
 
         public static final String COLUMN_PROJECTNAME = "projectname";
-        public static final String COLUMN_ID = "_id ";
-        public static final String COLUMN_UID = "_uid ";
-        public static final String COLUMN_UUID = "uuid ";
+        public static final String COLUMN_ID = "_id";
+        public static final String COLUMN_UID = "_uid";
+        public static final String COLUMN_UUID = "uuid";
         public static final String COLUMN_FORMDATE = "formdate";
         public static final String COLUMN_USER = "user";
         public static final String COLUMN_C1SERIALNO = "c1serialno";
@@ -250,10 +250,10 @@ public class ChildContract {
                 public static final String COLUMN_SC3 = "sc3";
                 public static final String COLUMN_SC4 = "sc4";
                 public static final String COLUMN_SC5 = "sc5";*/
-        public static final String COLUMN_DEVICEID = "deviceid ";
-        public static final String COLUMN_DEVICETAGID = "devicetagid ";
-        public static final String COLUMN_SYNCED = "synced ";
-        public static final String COLUMN_SYNCED_DATE = "synced_date ";
+        public static final String COLUMN_DEVICEID = "deviceid";
+        public static final String COLUMN_DEVICETAGID = "devicetagid";
+        public static final String COLUMN_SYNCED = "synced";
+        public static final String COLUMN_SYNCED_DATE = "synced_date";
         public static final String COLUMN_APPVERSION = "appversion";
 
         public static String _URL = "childlisting.php";
