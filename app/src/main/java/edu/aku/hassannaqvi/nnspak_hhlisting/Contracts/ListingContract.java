@@ -35,6 +35,7 @@ public class ListingContract {
     public String hh15;
     public String hh16;
     public String hhadd;
+    public String isNewHH;
     public String DeviceID;
     public String GPSLat;
     public String GPSLng;
@@ -322,6 +323,14 @@ public class ListingContract {
         this.hh16 = hh16;
     }
 
+    public String getIsNewHH() {
+        return isNewHH;
+    }
+
+    public void setIsNewHH(String isNewHH) {
+        this.isNewHH = isNewHH;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -360,6 +369,8 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_APPVER, this.AppVer);
         json.put(ListingEntry.COLUMN_USERNAME, this.username);
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
+
+        json.put(ListingEntry.COLUMN_ISNEWHH, this.isNewHH);
 
         return json;
     }
@@ -402,6 +413,8 @@ public class ListingContract {
         lc.setTagId(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_TAGID))));
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
 
+        lc.setIsNewHH(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ISNEWHH))));
+
         return lc;
     }
 
@@ -435,6 +448,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH15 = "hh15";
         public static final String COLUMN_NAME_HH16 = "hh16";
         public static final String COLUMN_ADDRESS = "hhadd";
+        public static final String COLUMN_ISNEWHH = "isnewhh";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
         public static final String COLUMN_NAME_GPSLng = "gpslng";

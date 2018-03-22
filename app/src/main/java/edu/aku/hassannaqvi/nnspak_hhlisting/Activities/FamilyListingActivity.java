@@ -48,10 +48,12 @@ public class FamilyListingActivity extends Activity {
     EditText hh15;
     @BindView(R.id.hh16)
     EditText hh16;
+    @BindView(R.id.hh17)
+    Switch hh17;
 
 
-    @BindView(R.id.btnAddChild)
-    Button btnAddChild;
+    @BindView(R.id.btnAddNewHousehold)
+    Button btnAddNewHousehold;
     @BindView(R.id.btnAddFamily)
     Button btnAddFamilty;
     @BindView(R.id.btnAddHousehold)
@@ -59,6 +61,8 @@ public class FamilyListingActivity extends Activity {
 
     @BindViews({R.id.hh10, R.id.hh12, R.id.hh14})
     List<Switch> hh10_12;
+
+    static Boolean familyFlag = false;
 
     //@BindView(R.id.fldGrpHH14)
     //LinearLayout fldGrpHH14;
@@ -69,17 +73,10 @@ public class FamilyListingActivity extends Activity {
         setContentView(R.layout.activity_family_listing);
         ButterKnife.bind(this);
 
-
         txtFamilyListing.setText("Household Information");
         txtTeamNoWithFam.setText(String.format("%04d", AppMain.hh03txt) + "-" + AppMain.hh07txt);
 
-        if (AppMain.fCount < AppMain.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-        } else {
-            btnAddFamilty.setVisibility(View.GONE);
-            btnAddHousehold.setVisibility(View.VISIBLE);
-        }
+        setupButtons();
 
         // =================== Q 10 12 Skip Pattern ================
         for (Switch sw : hh10_12) {
@@ -90,7 +87,7 @@ public class FamilyListingActivity extends Activity {
                         hh11.setVisibility(View.VISIBLE);
                         hh11.requestFocus();
                     } else {
-                        hh11.setVisibility(View.INVISIBLE);
+                        hh11.setVisibility(View.GONE);
                         hh11.setText(null);
                     }
 
@@ -98,27 +95,17 @@ public class FamilyListingActivity extends Activity {
                         hh13.setVisibility(View.VISIBLE);
                         hh13.requestFocus();
                     } else {
-                        hh13.setVisibility(View.INVISIBLE);
+                        hh13.setVisibility(View.GONE);
                         hh13.setText(null);
                     }
-
 
                     if (hh14.isChecked()) {
                         hh15.setVisibility(View.VISIBLE);
                         hh15.requestFocus();
                     } else {
-                        hh15.setVisibility(View.INVISIBLE);
+                        hh15.setVisibility(View.GONE);
                         hh15.setText(null);
                     }
-
-
-                    /*if (hh10.isChecked() || hh12.isChecked()){
-                        fldGrpHH14.setVisibility(View.VISIBLE);
-                    }else {
-                        fldGrpHH14.setVisibility(View.GONE);
-                        hh14.setText(null);
-                    }*/
-
                 }
             });
         }
@@ -182,20 +169,61 @@ public class FamilyListingActivity extends Activity {
             }
         });*/
 
+        hh17.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    btnAddNewHousehold.setVisibility(View.VISIBLE);
+                    btnAddHousehold.setVisibility(View.GONE);
+                } else {
+                    btnAddNewHousehold.setVisibility(View.GONE);
+
+                    setupButtons();
+                }
+            }
+        });
+
     }
 
-    @OnClick(R.id.btnAddChild)
-    void onBtnAddChildClick() {
+    public void setupButtons() {
+        if (AppMain.fCount < AppMain.fTotal) {
+            btnAddFamilty.setVisibility(View.VISIBLE);
+            btnAddHousehold.setVisibility(View.GONE);
+
+            hh17.setVisibility(View.GONE);
+        } else {
+            btnAddFamilty.setVisibility(View.GONE);
+            btnAddHousehold.setVisibility(View.VISIBLE);
+
+            hh17.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @OnClick(R.id.btnAddNewHousehold)
+    void onBtnAddNewHouseHoldClick() {
 
         if (formValidation()) {
 
             SaveDraft();
-            AppMain.cTotal = Integer.parseInt(hh11.getText().toString());
-            AppMain.cCount++;
-            Toast.makeText(this, AppMain.cCount + ":" + AppMain.cTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
-            finish();
-            Intent fA = new Intent(this, AddChildActivity.class);
-            startActivity(fA);
+            if (UpdateDB()) {
+                if (familyFlag) {
+                    AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
+                } else {
+                    if (AppMain.hh07txt.equals("X")) {
+                        AppMain.hh07txt = "B";
+                    } else {
+                        AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
+                    }
+                    familyFlag = true;
+                }
+                AppMain.lc.setHh07(AppMain.hh07txt.toString());
+                AppMain.fCount++;
+
+                finish();
+                Intent fA = new Intent(this, FamilyListingActivity.class);
+                startActivity(fA);
+            }
         }
 
     }
@@ -211,6 +239,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh14(hh14.isChecked() ? "1" : "2");
         AppMain.lc.setHh15(hh15.getText().toString().isEmpty() ? "0" : hh15.getText().toString());
         AppMain.lc.setHh16(hh16.getText().toString());
+        AppMain.lc.setIsNewHH(hh17.isChecked() ? "1" : "2");
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
@@ -333,8 +362,8 @@ public class FamilyListingActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                AppMain.cCount = 0;
-                AppMain.cTotal = 0;
+                /*AppMain.cCount = 0;
+                AppMain.cTotal = 0;*/
                 AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
                 AppMain.fCount++;
@@ -358,6 +387,7 @@ public class FamilyListingActivity extends Activity {
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
+                familyFlag = false;
                 finish();
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);

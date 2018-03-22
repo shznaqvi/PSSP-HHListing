@@ -66,6 +66,8 @@ public class setupActivity extends Activity {
     RadioButton hh04h;
     @BindView(R.id.hh04i)
     RadioButton hh04i;
+    @BindView(R.id.hh04j)
+    RadioButton hh04j;
 
     /*    @BindView(R.id.hh04c)
         RadioButton hh04c;
@@ -143,7 +145,7 @@ public class setupActivity extends Activity {
 
                 }
 
-                if (hh04a.isChecked() || hh04g.isChecked() || hh04h.isChecked() || hh04fb.isChecked()) {
+                if (hh04a.isChecked() || hh04g.isChecked() || hh04h.isChecked() || hh04fb.isChecked() || hh04i.isChecked()) {
                     hh09a1.setVisibility(View.GONE);
                     hh09a1.setChecked(false);
 
@@ -297,6 +299,9 @@ public class setupActivity extends Activity {
                 AppMain.lc.setHh04("9");
                 break;
             case R.id.hh04i:
+                AppMain.lc.setHh04("10");
+                break;
+            case R.id.hh04j:
                 AppMain.lc.setHh04("88");
                 break;
 
@@ -381,11 +386,11 @@ public class setupActivity extends Activity {
         }
         if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
-            hh04i.setError("Please one option");
+            hh04j.setError("Please one option");
             Log.i(TAG, "Please one option");
             return false;
         } else {
-            hh04i.setError(null);
+            hh04j.setError(null);
         }
 
         if (hh04a.isChecked()) {

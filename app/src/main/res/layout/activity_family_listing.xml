@@ -95,22 +95,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
 
             <Switch
                 android:id="@+id/hh10"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_weight="4"
                 android:text="@string/hh10"
                 android:textColor="@color/colorPrimaryDark"
                 android:textOff="@string/no"
-                android:textOn="@string/yes" />
+                android:textOn="@string/yes"
+                android:textSize="@dimen/_10sdp" />
 
             <EditText
                 android:id="@+id/hh11"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
@@ -118,29 +120,31 @@
                 android:hint="@string/hh10a"
                 android:inputType="number"
                 android:maxLength="2"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
 
             <Switch
                 android:id="@+id/hh12"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_weight="4"
                 android:text="@string/hh12"
                 android:textColor="@color/colorPrimaryDark"
                 android:textOff="@string/no"
-                android:textOn="@string/yes" />
+                android:textOn="@string/yes"
+                android:textSize="@dimen/_10sdp" />
 
             <EditText
                 android:id="@+id/hh13"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
@@ -148,29 +152,31 @@
                 android:hint="@string/hh12a"
                 android:inputType="number"
                 android:maxLength="2"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
 
             <Switch
                 android:id="@+id/hh14"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_weight="4"
                 android:text="@string/hh14"
                 android:textColor="@color/colorPrimaryDark"
                 android:textOff="@string/no"
-                android:textOn="@string/yes" />
+                android:textOn="@string/yes"
+                android:textSize="@dimen/_10sdp" />
 
             <EditText
                 android:id="@+id/hh15"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
@@ -178,17 +184,36 @@
                 android:hint="@string/hh14a"
                 android:inputType="number"
                 android:maxLength="2"
-                android:visibility="invisible" />
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+            <Switch
+                android:id="@+id/hh17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_weight="4"
+                android:text="@string/hh17"
+                android:textColor="@color/colorPrimaryDark"
+                android:textOff="@string/no"
+                android:textOn="@string/yes"
+                android:textSize="@dimen/_10sdp" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnAddChild"
+            android:id="@+id/btnAddNewHousehold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="addChild"
-            android:text="Add A Child"
+            android:text="Add New Family"
             android:visibility="gone" />
 
         <Button
