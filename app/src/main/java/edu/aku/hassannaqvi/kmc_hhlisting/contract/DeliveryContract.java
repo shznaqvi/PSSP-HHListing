@@ -100,7 +100,7 @@ public class DeliveryContract {
         json.put(DeliveryTable.COLUMN_D1SerialNo, this.d1SerialNo == null ? JSONObject.NULL : this.d1SerialNo);
 
         if (!this.sD1.equals("")) {
-            json.put(DeliveryTable.COLUMN_SD1, this.sD1 == null ? JSONObject.NULL : this.sD1);
+            json.put(DeliveryTable.COLUMN_SD1, this.sD1.equals("") ? JSONObject.NULL : new JSONObject(this.sD1));
         }
 
         /*if (!this.sC2.equals("")) {

@@ -100,7 +100,7 @@ public class ChildContract {
         json.put(ChildTable.COLUMN_C1SERIALNO, this.c1SerialNo == null ? JSONObject.NULL : this.c1SerialNo);
 
         if (!this.sC1.equals("")) {
-            json.put(ChildTable.COLUMN_SC1, this.sC1 == null ? JSONObject.NULL : this.sC1);
+            json.put(ChildTable.COLUMN_SC1, this.sC1.equals("") ? JSONObject.NULL : new JSONObject(this.sC1));
         }
 
         /*if (!this.sC2.equals("")) {
