@@ -27,6 +27,20 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/testing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@color/red"
+            android:elevation="2dp"
+            android:gravity="center_horizontal"
+            android:keepScreenOn="true"
+            android:text="ONLY FOR TESTING"
+            android:textColor="@color/dullWhile"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/msgText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,6 +57,7 @@
             android:background="#d6d6d6"
             android:text="Select Taluka"
             android:textAlignment="center" />
+
         <Spinner
             android:id="@+id/MN01"
             android:layout_width="match_parent"

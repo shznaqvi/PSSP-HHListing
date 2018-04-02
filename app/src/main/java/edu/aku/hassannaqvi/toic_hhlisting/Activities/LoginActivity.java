@@ -99,6 +99,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     @BindView(R.id.syncData)
     Button syncData;
 
+    @BindView(R.id.testing)
+    TextView testing;
+
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
@@ -156,6 +159,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 //        DB backup
 
         dbBackup();
+
+//        Testing visibility
+        if (Integer.valueOf(AppMain.versionName.split("\\.")[0]) > 0) {
+            testing.setVisibility(View.GONE);
+        }else {
+            testing.setVisibility(View.VISIBLE);
+        }
     }
 
     public void dbBackup() {
