@@ -272,38 +272,39 @@ public class MainActivity extends Activity {
 
             FormsDBHelper db = new FormsDBHelper(this);
             EnumBlockContract enumBlockContract = db.getEnumBlock(txtPSU.getText().toString());
-            String selected = enumBlockContract.getGeoarea();
+            if (enumBlockContract != null) {
+                String selected = enumBlockContract.getGeoarea();
 
-            if (!selected.equals("")) {
+                if (!selected.equals("")) {
 
-                String[] selSplit = selected.split("\\|");
+                    String[] selSplit = selected.split("\\|");
 
-                na101a.setText(selSplit[0]);
-                na101b.setText(selSplit[1].equals("") ? "----" : selSplit[1]);
-                na101c.setText(selSplit[2].equals("") ? "----" : selSplit[2]);
-                na101d.setText(selSplit[3]);
+                    na101a.setText(selSplit[0]);
+                    na101b.setText(selSplit[1].equals("") ? "----" : selSplit[1]);
+                    na101c.setText(selSplit[2].equals("") ? "----" : selSplit[2]);
+                    na101d.setText(selSplit[3]);
 
-                na101e.setText(enumBlockContract.getEbcode());
+                    na101e.setText(enumBlockContract.getEbcode());
 
-                fldGrpna101.setVisibility(View.VISIBLE);
+                    fldGrpna101.setVisibility(View.VISIBLE);
 
-                flag = true;
-                chkconfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (chkconfirm.isChecked()) {
-                            openForm.setBackgroundColor(getResources().getColor(R.color.green));
-                            openForm.setVisibility(View.VISIBLE);
-                        } else {
-                            openForm.setVisibility(View.GONE);
+                    flag = true;
+                    chkconfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            if (chkconfirm.isChecked()) {
+                                openForm.setBackgroundColor(getResources().getColor(R.color.green));
+                                openForm.setVisibility(View.VISIBLE);
+                            } else {
+                                openForm.setVisibility(View.GONE);
 
+                            }
                         }
-                    }
-                });
+                    });
 
-                AppMain.hh02txt = txtPSU.getText().toString();
-                AppMain.enumCode = enumBlockContract.getEbcode();
-
+                    AppMain.hh02txt = txtPSU.getText().toString();
+                    AppMain.enumCode = enumBlockContract.getEbcode();
+                }
             } else {
                 Toast.makeText(this, "Sorry not found any block", Toast.LENGTH_SHORT).show();
                 flag = false;
