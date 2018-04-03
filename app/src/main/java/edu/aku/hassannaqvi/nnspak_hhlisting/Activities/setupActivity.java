@@ -107,7 +107,7 @@ public class setupActivity extends Activity {
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        hh02.setText(String.valueOf(AppMain.enumCode));
+        hh02.setText(AppMain.enumCode);
         hh02.setEnabled(false);
 
         if (AppMain.hh02txt == null) {
@@ -116,7 +116,7 @@ public class setupActivity extends Activity {
             AppMain.hh03txt++;
             //AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
             //hh02.setText(AppMain.hh02txt.toString());
-            hh02.setText(String.valueOf(AppMain.enumCode));
+            hh02.setText(AppMain.enumCode);
             hh02.setEnabled(false);
         }
 
@@ -263,7 +263,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setAppVer(AppMain.versionName + "." + AppMain.versionCode);
         AppMain.lc.setHhDT(dtToday);
 
-        AppMain.lc.setEnumCode(String.valueOf(AppMain.enumCode));
+        AppMain.lc.setEnumCode(AppMain.enumCode);
         AppMain.lc.setEnumStr(AppMain.enumStr);
 
         AppMain.lc.setHh01(String.valueOf(AppMain.hh01txt));

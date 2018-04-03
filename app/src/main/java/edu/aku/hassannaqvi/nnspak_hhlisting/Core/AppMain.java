@@ -44,7 +44,7 @@ public class AppMain extends Application {
     public static int fTotal = 0;
     public static int cCount = 0;
 
-    public static int enumCode = 0;
+    public static String enumCode = "";
     public static String enumStr = "";
 
     public static int hh07 = 0;

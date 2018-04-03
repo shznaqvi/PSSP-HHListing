@@ -44,6 +44,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
@@ -88,6 +89,8 @@ public class MainActivity extends Activity {
     TextView na101c;
     @BindView(R.id.na101d)
     TextView na101d;
+    @BindView(R.id.na101e)
+    TextView na101e;
 
     @BindView(R.id.fldGrpna101)
     LinearLayout fldGrpna101;
@@ -268,7 +271,8 @@ public class MainActivity extends Activity {
             txtPSU.setError(null);
 
             FormsDBHelper db = new FormsDBHelper(this);
-            String selected = db.getEnumBlock(txtPSU.getText().toString());
+            EnumBlockContract enumBlockContract = db.getEnumBlock(txtPSU.getText().toString());
+            String selected = enumBlockContract.getGeoarea();
 
             if (!selected.equals("")) {
 
@@ -278,6 +282,8 @@ public class MainActivity extends Activity {
                 na101b.setText(selSplit[1].equals("") ? "----" : selSplit[1]);
                 na101c.setText(selSplit[2].equals("") ? "----" : selSplit[2]);
                 na101d.setText(selSplit[3]);
+
+                na101e.setText(enumBlockContract.getEbcode());
 
                 fldGrpna101.setVisibility(View.VISIBLE);
 
@@ -296,6 +302,7 @@ public class MainActivity extends Activity {
                 });
 
                 AppMain.hh02txt = txtPSU.getText().toString();
+                AppMain.enumCode = enumBlockContract.getEbcode();
 
             } else {
                 Toast.makeText(this, "Sorry not found any block", Toast.LENGTH_SHORT).show();

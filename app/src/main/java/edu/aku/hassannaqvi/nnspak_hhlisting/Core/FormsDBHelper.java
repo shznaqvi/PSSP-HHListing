@@ -97,7 +97,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + EnumBlockTable.TABLE_NAME + " (" +
             EnumBlockTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             EnumBlockTable.COLUMN_EB_CODE + " TEXT, " +
-            EnumBlockTable.COLUMN_GEO_AREA + " TEXT " +
+            EnumBlockTable.COLUMN_GEO_AREA + " TEXT, " +
+            EnumBlockTable.COLUMN_CLUSTER_AREA + " TEXT " +
             ");";
 
     final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
@@ -170,7 +171,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ContentValues values = new ContentValues();
 
                 values.put(EnumBlockTable.COLUMN_EB_CODE, Vc.getEbcode());
-                values.put(EnumBlockTable.COLUMN_GEO_AREA, Vc.getTalukaName());
+                values.put(EnumBlockTable.COLUMN_GEO_AREA, Vc.getGeoarea());
+                values.put(EnumBlockTable.COLUMN_CLUSTER_AREA, Vc.getCluster());
 
                 db.insert(EnumBlockTable.TABLE_NAME, null, values);
             }
@@ -603,26 +605,26 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public String getEnumBlock(String enumBlock) {
+    public EnumBlockContract getEnumBlock(String cluster) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
                 EnumBlockTable._ID,
                 EnumBlockTable.COLUMN_EB_CODE,
-                EnumBlockTable.COLUMN_GEO_AREA
+                EnumBlockTable.COLUMN_GEO_AREA,
+                EnumBlockTable.COLUMN_CLUSTER_AREA
         };
 
-        String whereClause = EnumBlockTable.COLUMN_EB_CODE + " =?";
-        String[] whereArgs = new String[]{enumBlock};
+        String whereClause = EnumBlockTable.COLUMN_CLUSTER_AREA + " =?";
+        String[] whereArgs = new String[]{cluster};
         String groupBy = null;
         String having = null;
 
         String orderBy =
                 EnumBlockTable._ID + " ASC";
 
-//        Collection<EnumBlockContract> allEB = new ArrayList<>();
-        String allEB = "";
+        EnumBlockContract allEB = null;
         try {
             c = db.query(
                     EnumBlockTable.TABLE_NAME,  // The table to query
@@ -634,13 +636,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     orderBy                    // The sort order
             );
             while (c.moveToNext()) {
-//                EnumBlockContract eb = new EnumBlockContract();
-//                allEB.add(eb.HydrateTalukas(c));
-
-                AppMain.enumCode = c.getInt(c.getColumnIndex(EnumBlockTable.COLUMN_EB_CODE));
-                AppMain.enumStr = c.getString(c.getColumnIndex(EnumBlockTable.COLUMN_GEO_AREA));
-
-                allEB = c.getString(c.getColumnIndex(EnumBlockTable.COLUMN_GEO_AREA));
+                allEB = new EnumBlockContract().HydrateEnum(c);
             }
         } finally {
             if (c != null) {
