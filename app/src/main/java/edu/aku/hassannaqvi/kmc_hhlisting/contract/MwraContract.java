@@ -16,6 +16,7 @@ public class MwraContract {
     public String MWRAID;
     public String UUID;
     public String UID;
+    public String mwUSERNAME;
     public String mwDT;
     public String mwVillageCode;
     public String mwStructureNo;
@@ -40,6 +41,7 @@ public class MwraContract {
         this.MWRAID = jsonObject.getString(MwraEntry.MWRA_ID);
         this.UUID = jsonObject.getString(MwraEntry.MWRA_UUID);
         this.UID = jsonObject.getString(MwraEntry.MWRA_UID);
+        this.mwUSERNAME = jsonObject.getString(MwraEntry.MWRA_USERNAME);
         this.mwDT = jsonObject.getString(MwraEntry.MWRA_MWDT);
         this.mwVillageCode = jsonObject.getString(MwraEntry.MWRA_MWVILLAGECODE);
         this.mwStructureNo = jsonObject.getString(MwraEntry.MWRA_MWSTRUCTURENO);
@@ -60,6 +62,7 @@ public class MwraContract {
         this.MWRAID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_UID));
+        this.mwUSERNAME = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_USERNAME));
         this.mwDT = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MWDT));
         this.mwVillageCode = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MWVILLAGECODE));
         this.mwStructureNo = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MWSTRUCTURENO));
@@ -86,7 +89,13 @@ public class MwraContract {
     public String getMWRAID() {
         return MWRAID;
     }
+    public String getMwUSERNAME() {
+        return mwUSERNAME;
+    }
 
+    public void setMwUSERNAME(String mwUSERNAME) {
+        this.mwUSERNAME = mwUSERNAME;
+    }
     public void setMWRAID(String MWRAID) {
         this.MWRAID = MWRAID;
     }
@@ -194,6 +203,7 @@ public class MwraContract {
         json.put(MwraEntry.MWRA_ID, this.MWRAID == null ? JSONObject.NULL : this.MWRAID);
         json.put(MwraEntry.MWRA_UUID, this.UUID == null ? JSONObject.NULL : this.UUID);
         json.put(MwraEntry.MWRA_UID, this.UID == null ? JSONObject.NULL : this.UID);
+        json.put(MwraEntry.MWRA_USERNAME, this.mwUSERNAME == null ? JSONObject.NULL : this.mwUSERNAME);
         json.put(MwraEntry.MWRA_MWDT, this.mwDT == null ? JSONObject.NULL : this.mwDT);
         json.put(MwraEntry.MWRA_MWVILLAGECODE, this.mwVillageCode == null ? JSONObject.NULL : this.mwVillageCode);
         json.put(MwraEntry.MWRA_MWSTRUCTURENO, this.mwStructureNo == null ? JSONObject.NULL : this.mwStructureNo);
@@ -218,6 +228,7 @@ public class MwraContract {
         public static final String MWRA_ID = "sno";
         public static final String MWRA_UUID = "uuid";
         public static final String MWRA_UID = "uid";
+        public static final String MWRA_USERNAME = "user";
         public static final String MWRA_MWDT = "mwdt";
         public static final String MWRA_MWVILLAGECODE = "mwvillagecode";
         public static final String MWRA_MWSTRUCTURENO = "mwstructureno";

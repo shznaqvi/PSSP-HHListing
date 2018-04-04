@@ -331,10 +331,17 @@ public class setupActivity extends Activity {
         FormsDBHelper db = new FormsDBHelper(this);
         Log.d(TAG, "UpdateDB: Structure" + AppMain.lc.getHh03().toString());
 
-        long updcount = db.addForm(AppMain.lc);
+        long rowId = db.addForm(AppMain.lc);
+        AppMain.lc.setID(String.valueOf(rowId));
 
-        if (updcount != 0) {
+        if (rowId != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+            AppMain.lc.setUID(
+                    (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+
+            db.updateFormUID();
+
+            Toast.makeText(this, "Current Form No: " + AppMain.lc.getUID(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }

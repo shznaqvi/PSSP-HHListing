@@ -95,6 +95,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 MwraEntry.MWRA_ID + " TEXT," +
                 MwraEntry.MWRA_UUID + " TEXT," +
                 MwraEntry.MWRA_UID + " TEXT," +
+                MwraEntry.MWRA_USERNAME + " TEXT," +
                 MwraEntry.MWRA_MWDT + " TEXT," +
                 MwraEntry.MWRA_MWVILLAGECODE + " TEXT," +
                 MwraEntry.MWRA_MWSTRUCTURENO + " TEXT," +
@@ -266,6 +267,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(MwraEntry.MWRA_ID, mwra.getMWRAID());
         values.put(MwraEntry.MWRA_UUID, mwra.getUUID());
         values.put(MwraEntry.MWRA_UID, mwra.getUID());
+        values.put(MwraEntry.MWRA_USERNAME, mwra.getMwUSERNAME());
         values.put(MwraEntry.MWRA_MWDT, mwra.getMwDT());
         values.put(MwraEntry.MWRA_MWVILLAGECODE, mwra.getMwVillageCode());
         values.put(MwraEntry.MWRA_MWSTRUCTURENO, mwra.getMwStructureNo());
@@ -517,6 +519,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    public int updateFormUID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ListingEntry.COLUMN_NAME_UID, AppMain.lc.getUID());
+        values.put(ListingEntry.COLUMN_NAME_FORMSTATUS, "1");
+
+// Which row to update, based on the ID
+        String selection = ListingEntry._ID + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(AppMain.lc.getID())};
+
+        int count = db.update(ListingEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
+    }
+
 
     public Collection<ListingContract> getAllListings() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -594,6 +615,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 MwraEntry.MWRA_ID,
                 MwraEntry.MWRA_UUID,
                 MwraEntry.MWRA_UID,
+                MwraEntry.MWRA_USERNAME,
                 MwraEntry.MWRA_MWDT,
                 MwraEntry.MWRA_MWVILLAGECODE,
                 MwraEntry.MWRA_MWSTRUCTURENO,

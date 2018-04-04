@@ -149,6 +149,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh09(hh09.getText().toString());
         AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
         AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());
+//        Log.d("Username:",AppMain.lc.getUserName());
 
         setGPS();
 

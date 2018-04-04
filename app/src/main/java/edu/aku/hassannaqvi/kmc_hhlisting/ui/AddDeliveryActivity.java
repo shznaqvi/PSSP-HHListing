@@ -99,6 +99,10 @@ public class AddDeliveryActivity extends AppCompatActivity {
         AppMain.dc.setd1SerialNo(String.valueOf(AddMarriedWomenActivity.dCount));
 
         JSONObject sD1 = new JSONObject();
+        sD1.put("mwd_villagecode", AppMain.lc.getHh04Village());
+        sD1.put("mwd_hhno", AppMain.lc.getHh03() + "-" + AppMain.lc.getHh07());
+        sD1.put("mwd_wserial_no", AppMain.mwra.getMWRAID());
+
 
         sD1.put("mwdl01", binding.mwdl01.getText().toString());
         sD1.put("mwdl02", binding.mwdl02a.isChecked() ? "1"
