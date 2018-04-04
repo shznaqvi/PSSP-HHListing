@@ -26,6 +26,7 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract.singleTaluka;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract.singleUser;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.BLRandomContract.*;
 
 
 /**
@@ -107,6 +108,18 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             + singleUser.ROW_PASSWORD + " TEXT );";
 
     final String SQL_COUNT_LISTINGS = "SELECT count(*) " + ListingEntry.TABLE_NAME;
+
+    public static final String SQL_CREATE_BL_RANDOM = "CREATE TABLE " + singleRandomHH.TABLE_NAME + "("
+            + singleRandomHH.COLUMN_ID + " TEXT,"
+            + singleRandomHH.COLUMN_ENUM_BLOCK_CODE + " TEXT,"
+            + singleRandomHH.COLUMN_LUID + " TEXT,"
+            + singleRandomHH.COLUMN_HH + " TEXT,"
+            + singleRandomHH.COLUMN_STRUCTURE_NO + " TEXT,"
+            + singleRandomHH.COLUMN_FAMILY_EXT_CODE + " TEXT,"
+            + singleRandomHH.COLUMN_HH_HEAD + " TEXT,"
+            + singleRandomHH.COLUMN_CONTACT + " TEXT,"
+            + singleRandomHH.COLUMN_HH_SELECTED_STRUCT + " TEXT,"
+            + singleRandomHH.COLUMN_RANDOMDT + " TEXT );";
 
     public FormsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -371,6 +384,80 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
         return allLC;
     }
+
+/*    public void addAllListingsInRandom() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                ListingEntry._ID,
+                ListingEntry.COLUMN_NAME_UID,
+                ListingEntry.COLUMN_NAME_HHDATETIME,
+                ListingEntry.COLUMN_NAME_ENUMCODE,
+                ListingEntry.COLUMN_NAME_ENUMSTR,
+                ListingEntry.COLUMN_NAME_HH01,
+                ListingEntry.COLUMN_NAME_HH02,
+                ListingEntry.COLUMN_NAME_HH03,
+                ListingEntry.COLUMN_NAME_HH04,
+                ListingEntry.COLUMN_NAME_HH05,
+                ListingEntry.COLUMN_NAME_HH06,
+                ListingEntry.COLUMN_NAME_HH07,
+                ListingEntry.COLUMN_NAME_HH07n,
+                ListingEntry.COLUMN_NAME_HH08,
+                ListingEntry.COLUMN_NAME_HH09,
+                ListingEntry.COLUMN_NAME_HH09A1,
+                ListingEntry.COLUMN_NAME_HH10,
+                ListingEntry.COLUMN_NAME_HH11,
+                ListingEntry.COLUMN_NAME_HH12,
+                ListingEntry.COLUMN_NAME_HH13,
+                ListingEntry.COLUMN_NAME_HH14,
+                ListingEntry.COLUMN_NAME_HH15,
+                ListingEntry.COLUMN_NAME_HH16,
+                ListingEntry.COLUMN_ADDRESS,
+                ListingEntry.COLUMN_ISNEWHH,
+                ListingEntry.COLUMN_USERNAME,
+                ListingEntry.COLUMN_NAME_DEVICEID,
+                ListingEntry.COLUMN_TAGID,
+                ListingEntry.COLUMN_NAME_GPSLat,
+                ListingEntry.COLUMN_NAME_GPSLng,
+                ListingEntry.COLUMN_NAME_GPSTime,
+                ListingEntry.COLUMN_NAME_GPSAccuracy,
+                ListingEntry.COLUMN_NAME_GPSAltitude,
+                ListingEntry.COLUMN_APPVER
+        };
+
+        String whereClause = ListingEntry.COLUMN_SYNCED + " is null";
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                ListingEntry._ID + " ASC";
+
+        Collection<ListingContract> allLC = new ArrayList<ListingContract>();
+        try {
+            c = db.query(
+                    ListingEntry.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                ListingContract listing = new ListingContract();
+                allLC.add(listing.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allLC;
+    }*/
 
     public Collection<TeamsContract> getAllTeams() {
         SQLiteDatabase db = this.getReadableDatabase();
