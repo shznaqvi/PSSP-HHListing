@@ -3,7 +3,6 @@ package edu.aku.hassannaqvi.kmc_hhlisting.ui;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -89,11 +88,11 @@ public class AddDeliveryActivity extends AppCompatActivity {
 
         AppMain.dc = new DeliveryContract();
 
-        AppMain.cc.setDevicetagID(AppMain.lc.getDeviceTagID());
+        AppMain.dc.setDevicetagID(AppMain.lc.getDeviceTagID());
         AppMain.dc.setFormDate(AppMain.lc.getHhDT());
-        AppMain.dc.setUser(AppMain.lc.getUserName());
+        AppMain.dc.setUser(AppMain.lc.getHh07n());
         AppMain.dc.setDeviceID(AppMain.lc.getDeviceID());
-        AppMain.dc.setAppversion(AppMain.versionName + "." + AppMain.versionCode);
+        AppMain.dc.setAppversion(AppMain.lc.getAppVersion());
 
         AppMain.dc.setUUID(AppMain.mwra.getUID());
         AppMain.dc.setd1SerialNo(String.valueOf(AddMarriedWomenActivity.dCount));

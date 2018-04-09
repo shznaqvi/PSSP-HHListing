@@ -145,6 +145,7 @@ public class FamilyListingActivity extends Activity {
 
     private void SaveDraft() {
 
+        AppMain.lc.setDeviceTagID(AppMain.getTagName(this));
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
         AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
@@ -188,7 +189,7 @@ public class FamilyListingActivity extends Activity {
             hh09b.setError(null);
         }
 
-        if (!hh09b.getText().toString().isEmpty() && (Integer.valueOf(hh09b.getText().toString()) < 1 || Integer.valueOf(hh09b.getText().toString()) > 15 )) {
+        if (!hh09b.getText().toString().isEmpty() && (Integer.valueOf(hh09b.getText().toString()) < 1 || Integer.valueOf(hh09b.getText().toString()) > 15)) {
             Toast.makeText(this, "MWRA range is 1 to 15!", Toast.LENGTH_LONG).show();
             hh09b.setError("MWRA range is 1 to 15!");
             Log.i(TAG, "MWRA range is 1 to 15!");
@@ -248,6 +249,9 @@ public class FamilyListingActivity extends Activity {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
             AppMain.lc.setUID(
                     (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+
+            db.updateFormUID(0);
+
             Toast.makeText(this, "Current Form No: " + AppMain.lc.getUID(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
@@ -268,8 +272,8 @@ public class FamilyListingActivity extends Activity {
 
         Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
     }
-    
-    
+
+
     @Override
     public void onBackPressed() {
         Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();

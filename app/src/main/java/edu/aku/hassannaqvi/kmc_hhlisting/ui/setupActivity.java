@@ -194,9 +194,9 @@ public class setupActivity extends Activity {
         AppMain.lc.setDeviceTagID(AppMain.getTagName(this));
         AppMain.lc.setHhDT(dtToday);
         AppMain.lc.setHh07n(AppMain.username); // username
-        AppMain.lc.setUserName(AppMain.username); // username
         AppMain.lc.setHh01(AppMain.hh01txt); // tehsil
         AppMain.lc.setHh02(AppMain.hh02txt); // uc code
+        AppMain.lc.setAppVersion(AppMain.versionName + "." + AppMain.versionCode);
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt)); //structure no
         AppMain.lc.setHh04Village(AppMain.hh04txt); //village no
         AppMain.lc.setHhadd(hhadd.getText().toString());
@@ -341,7 +341,7 @@ public class setupActivity extends Activity {
             AppMain.lc.setUID(
                     (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
 
-            db.updateFormUID();
+            db.updateFormUID(1);
 
             Toast.makeText(this, "Current Form No: " + AppMain.lc.getUID(), Toast.LENGTH_SHORT).show();
         } else {

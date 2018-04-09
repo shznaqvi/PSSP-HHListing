@@ -40,7 +40,7 @@ import edu.aku.hassannaqvi.kmc_hhlisting.contract.VillagesContract.singleVillage
 public class FormsDBHelper extends SQLiteOpenHelper {
 
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     // The name of database.
     private static final String DATABASE_NAME = "kmc-hhl.db";
     public static String TAG = "FormsDBHelper";
@@ -55,6 +55,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     // Create a table to hold Listings.
     final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE " + ListingEntry.TABLE_NAME + " (" +
             ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            ListingEntry.COLUMN_NAME_DEVICETAGID + " TEXT, " +
+            ListingEntry.APP_VERSION + " TEXT, " +
             ListingEntry.COLUMN_NAME_UID + " TEXT, " +
             ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
@@ -89,11 +91,17 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
     final String SQL_CREATE_LISTING1 = "ALTER TABLE " +
             ListingEntry.TABLE_NAME + " ADD COLUMN " +
-            ListingEntry.COLUMN_NAME_DEVICETAGID + " TEXT";
+            ListingEntry.COLUMN_NAME_DEVICETAGID + " TEXT;";
+
+    final String SQL_CREATE_LISTING2 = "ALTER TABLE " +
+            ListingEntry.TABLE_NAME + " ADD COLUMN " +
+            ListingEntry.APP_VERSION + " TEXT;";
 
     final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
             MwraEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             MwraEntry.MWRA_ID + " TEXT," +
+            MwraEntry.DEVICE_TAGID + " TEXT," +
+            MwraEntry.APP_VERSION + " TEXT," +
             MwraEntry.MWRA_UUID + " TEXT," +
             MwraEntry.MWRA_UID + " TEXT," +
             MwraEntry.MWRA_USERNAME + " TEXT," +
@@ -111,7 +119,11 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
     final String SQL_CREATE_MWRA1 = "ALTER TABLE " +
             MwraEntry.TABLE_NAME + " ADD COLUMN " +
-            MwraEntry.DEVICE_TAGID + " TEXT";
+            MwraEntry.DEVICE_TAGID + " TEXT;";
+
+    final String SQL_CREATE_MWRA2 = "ALTER TABLE " +
+            MwraEntry.TABLE_NAME + " ADD COLUMN " +
+            MwraEntry.APP_VERSION + " TEXT;";
 
     final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
             singleDistrict._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -206,7 +218,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             case 1:
                 db.execSQL(SQL_CREATE_LISTING1);
                 db.execSQL(SQL_CREATE_MWRA1);
-
+            case 2:
+                db.execSQL(SQL_CREATE_LISTING2);
+                db.execSQL(SQL_CREATE_MWRA2);
         }
     }
 
@@ -254,6 +268,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_DEVICETAGID, lc.getDeviceTagID());
+        values.put(ListingEntry.APP_VERSION, lc.getAppVersion());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
@@ -537,16 +552,18 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public int updateFormUID() {
+    public int updateFormUID(int type) {
         SQLiteDatabase db = this.getReadableDatabase();
 
 // New value for one column
         ContentValues values = new ContentValues();
         values.put(ListingEntry.COLUMN_NAME_UID, AppMain.lc.getUID());
-        values.put(ListingEntry.COLUMN_NAME_FORMSTATUS, "1");
+        if (type == 1) {
+            values.put(ListingEntry.COLUMN_NAME_FORMSTATUS, "1");
+        }
 
 // Which row to update, based on the ID
-        String selection = ListingEntry._ID + " LIKE ?";
+        String selection = ListingEntry._ID + " =?";
         String[] selectionArgs = {String.valueOf(AppMain.lc.getID())};
 
         int count = db.update(ListingEntry.TABLE_NAME,
@@ -941,6 +958,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh04Village(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04_VILLAGE))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setDeviceTagID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICETAGID))));
+        lc.setAppVersion(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.APP_VERSION))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));

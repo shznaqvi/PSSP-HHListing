@@ -163,6 +163,7 @@ public class AddMarriedWomenActivity extends Activity {
         AppMain.mwra.setDeviceTagID(AppMain.lc.getDeviceTagID());
         AppMain.mwra.setUUID(AppMain.lc.getUID());
         AppMain.mwra.setMwDT(AppMain.lc.getHhDT());
+        AppMain.mwra.setAppVersion(AppMain.lc.getAppVersion());
         //AppMain.mwra.setMwVillageCode(AppMain.lc.getHh02());
         AppMain.mwra.setMwVillageCode(AppMain.lc.getHh04Village());
 

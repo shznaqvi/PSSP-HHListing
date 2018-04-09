@@ -161,9 +161,9 @@ public class AddChildActivity extends AppCompatActivity {
 
         AppMain.cc.setDevicetagID(AppMain.lc.getDeviceTagID());
         AppMain.cc.setFormDate(AppMain.lc.getHhDT());
-        AppMain.cc.setUser(AppMain.lc.getUserName());
+        AppMain.cc.setUser(AppMain.lc.getHh07n());
         AppMain.cc.setDeviceID(AppMain.lc.getDeviceID());
-        AppMain.cc.setAppversion(AppMain.versionName + "." + AppMain.versionCode);
+        AppMain.cc.setAppversion(AppMain.lc.getAppVersion());
 
         AppMain.cc.setUUID(AppMain.lc.getUID());
         AppMain.cc.setC1SerialNo(String.valueOf(AppMain.cCount));
