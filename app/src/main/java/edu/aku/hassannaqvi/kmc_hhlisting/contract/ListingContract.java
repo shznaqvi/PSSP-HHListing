@@ -35,6 +35,7 @@ public class ListingContract {
     public String hh04Village;
     public String DeviceID;
     public String DeviceTagID;
+    public String AppVersion;
     public String GPSLat;
     public String GPSLng;
     public String GPSTime;
@@ -74,6 +75,14 @@ public class ListingContract {
 
     public void setDeviceTagID(String deviceTagID) {
         DeviceTagID = deviceTagID;
+    }
+
+    public String getAppVersion() {
+        return AppVersion;
+    }
+
+    public void setAppVersion(String appVersion) {
+        AppVersion = appVersion;
     }
     public String getID() {
         return ID;
@@ -358,6 +367,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, this.hh04Village);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
         json.put(ListingEntry.COLUMN_NAME_DEVICETAGID, this.DeviceTagID);
+        json.put(ListingEntry.APP_VERSION, this.AppVersion);
         json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
         json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
@@ -401,6 +411,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH04_VILLAGE = "hh04Village";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_DEVICETAGID = "devicetagid";
+        public static final String APP_VERSION = "appversion";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
         public static final String COLUMN_NAME_GPSLng = "gpslng";
         public static final String COLUMN_NAME_GPSTime = "gpstime";

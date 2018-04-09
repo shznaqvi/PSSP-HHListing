@@ -238,6 +238,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
         values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
+        values.put(ListingEntry.COLUMN_NAME_DEVICETAGID, lc.getDeviceTagID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
@@ -276,6 +277,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(MwraEntry.MWRA_MW03, mwra.getMw03());
         values.put(MwraEntry.MWRA_MW04, mwra.getMw04());
         values.put(MwraEntry.MWRA_MW05, mwra.getMw05());
+        values.put(MwraEntry.DEVICE_TAGID, mwra.getDeviceTagID());
+        values.put(MwraEntry.APP_VERSION, mwra.getAppVersion());
 
         long newRowId;
         newRowId = db.insert(
@@ -571,7 +574,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSTime,
                 ListingEntry.COLUMN_NAME_GPSAccuracy,
                 ListingEntry.COLUMN_NAME_ROUND,
-                ListingEntry.COLUMN_NAME_FORMSTATUS
+                ListingEntry.COLUMN_NAME_FORMSTATUS,
+                ListingEntry.COLUMN_NAME_DEVICETAGID,
+                ListingEntry.APP_VERSION
         };
 
         String whereClause = ListingEntry.COLUMN_SYNCED + " is null";
@@ -624,6 +629,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 MwraEntry.MWRA_MW03,
                 MwraEntry.MWRA_MW04,
                 MwraEntry.MWRA_MW05,
+                MwraEntry.DEVICE_TAGID,
+                MwraEntry.APP_VERSION
 /*                MwraEntry.COLUMN_SYNCED,
                 MwraEntry.COLUMN_SYNCED_DATE,*/
 
@@ -918,6 +925,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
         lc.setHh04Village(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04_VILLAGE))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
+        lc.setDeviceTagID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICETAGID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
