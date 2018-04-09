@@ -129,6 +129,10 @@ public class MainActivity extends Activity {
         }
 
     }
+    public static String getTagName(Context mContext) {
+        SharedPreferences sharedPref = mContext.getSharedPreferences("tagName", MODE_PRIVATE);
+        return sharedPref.getString("tagName", null);
+    }
 
     private void setTagID() {
           /*TagID Start*/
