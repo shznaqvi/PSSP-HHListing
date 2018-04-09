@@ -26,6 +26,16 @@ public class MwraContract {
     public String mw04;
     public String mw05;
 
+    public String getDeviceTagID() {
+        return DeviceTagID;
+    }
+
+    public void setDeviceTagID(String deviceTagID) {
+        DeviceTagID = deviceTagID;
+    }
+
+    public String DeviceTagID;
+
     private String synced = "";
     private String synced_date = "";
 
@@ -50,6 +60,7 @@ public class MwraContract {
         this.mw03 = jsonObject.getString(MwraEntry.MWRA_MW03);
         this.mw04 = jsonObject.getString(MwraEntry.MWRA_MW04);
         this.mw05 = jsonObject.getString(MwraEntry.MWRA_MW05);
+        this.DeviceTagID = jsonObject.getString(MwraEntry.DEVICE_TAGID);
 
 /*        this.synced = jsonObject.getString(MwraEntry.COLUMN_SYNCED);
         this.synced_date = jsonObject.getString(MwraEntry.COLUMN_SYNCED_DATE);*/
@@ -71,6 +82,7 @@ public class MwraContract {
         this.mw03 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW03));
         this.mw04 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW04));
         this.mw05 = cursor.getString(cursor.getColumnIndex(MwraEntry.MWRA_MW05));
+        this.DeviceTagID = cursor.getString(cursor.getColumnIndex(MwraEntry.DEVICE_TAGID));
 
 /*        this.synced = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_SYNCED));
         this.synced_date = cursor.getString(cursor.getColumnIndex(MwraEntry.COLUMN_SYNCED_DATE));*/
@@ -212,6 +224,7 @@ public class MwraContract {
         json.put(MwraEntry.MWRA_MW03, this.mw03 == null ? JSONObject.NULL : this.mw03);
         json.put(MwraEntry.MWRA_MW04, this.mw04 == null ? JSONObject.NULL : this.mw04);
         json.put(MwraEntry.MWRA_MW05, this.mw05 == null ? JSONObject.NULL : this.mw05);
+        json.put(MwraEntry.DEVICE_TAGID, this.mw05 == null ? JSONObject.NULL : this.mw05);
 
 /*        json.put(MwraEntry.COLUMN_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
         json.put(MwraEntry.COLUMN_SYNCED_DATE, this.synced_date == null ? JSONObject.NULL : this.synced_date);*/
@@ -237,6 +250,7 @@ public class MwraContract {
         public static final String MWRA_MW03 = "mw03";
         public static final String MWRA_MW04 = "mw04";
         public static final String MWRA_MW05 = "mw05";
+        public static final String DEVICE_TAGID = "devicetagid";
 
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";
