@@ -163,10 +163,17 @@ public class AddMarriedWomenActivity extends Activity {
 
         AppMain.mwra.setUUID(AppMain.lc.getUID());
         AppMain.mwra.setMwDT(dtToday);
-        AppMain.mwra.setMwVillageCode(AppMain.lc.getHh02());
+        //AppMain.mwra.setMwVillageCode(AppMain.lc.getHh02());
+        AppMain.mwra.setMwVillageCode(AppMain.lc.getHh04Village());
+
+        AppMain.mwra.setUID(AppMain.lc.getDeviceID() + AppMain.lc.getID());
+
         Log.d(TAG, "SaveDraft-hh02: " + AppMain.lc.getHh02());
         AppMain.mwra.setMwStructureNo(AppMain.lc.getHh03() + "-" + AppMain.lc.getHh07());
         Log.d(TAG, "SaveDraft-hh07: " + AppMain.lc.getHh07());
+        AppMain.mwra.setMwUSERNAME(AppMain.username);
+      //  Log.d("Username:",AppMain.lc.getUserName());
+
 
         AppMain.mwra.setMw01(mw01.getText().toString());
         AppMain.mwra.setMw02(mw02.isChecked() ? "1" : "2");

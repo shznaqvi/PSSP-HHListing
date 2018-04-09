@@ -112,6 +112,14 @@ public class AddChildActivity extends AppCompatActivity {
                         binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTimeInMillis()));
                     }
                 } else {
+                    Calendar calendar = AppMain.getCalendarDate(binding.ch03.getText().toString());
+                    Calendar today = Calendar.getInstance();
+                    calendar.add(Calendar.DAY_OF_MONTH, 28);
+                    if (calendar.after(today)) {
+                        binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis()));
+                    } else {
+                        binding.ch04.setMaxDate(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTimeInMillis()));
+                    }
                     binding.ch04.setMinDate(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTimeInMillis() - (AppMain.MILLISECONDS_IN_5Years)));
                 }
 
@@ -161,6 +169,9 @@ public class AddChildActivity extends AppCompatActivity {
         AppMain.cc.setC1SerialNo(String.valueOf(AppMain.cCount));
 
         JSONObject sC1 = new JSONObject();
+
+        sC1.put("ch_villageCode",AppMain.lc.getHh04Village());
+        sC1.put("ch_hhno",AppMain.lc.getHh03() + "-" + AppMain.lc.getHh07());
 
         sC1.put("chMw01", childMap.get(binding.ch01.getSelectedItem().toString()).getMw01());
         sC1.put("chMwSerial", childMap.get(binding.ch01.getSelectedItem().toString()).getMWRAID());
