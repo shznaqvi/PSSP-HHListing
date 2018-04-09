@@ -77,6 +77,11 @@ public class AppMain extends Application {
 
     }
 
+    public static String getTagName(Context mContext) {
+        SharedPreferences sharedPref = mContext.getSharedPreferences("tagName", MODE_PRIVATE);
+        return sharedPref.getString("tagName", null);
+    }
+
     public static Boolean PSUExist(String villageCode) {
         Log.d(TAG, "PSUExist: " + villageCode);
         AppMain.hh03txt = Integer.valueOf(sharedPref.getString(villageCode, "0"));

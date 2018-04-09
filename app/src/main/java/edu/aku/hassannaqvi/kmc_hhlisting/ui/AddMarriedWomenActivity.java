@@ -160,9 +160,9 @@ public class AddMarriedWomenActivity extends Activity {
     private void SaveDraft() {
 
         AppMain.mwra = new MwraContract();
-
+        AppMain.mwra.setDeviceTagID(AppMain.lc.getDeviceTagID());
         AppMain.mwra.setUUID(AppMain.lc.getUID());
-        AppMain.mwra.setMwDT(dtToday);
+        AppMain.mwra.setMwDT(AppMain.lc.getHhDT());
         //AppMain.mwra.setMwVillageCode(AppMain.lc.getHh02());
         AppMain.mwra.setMwVillageCode(AppMain.lc.getHh04Village());
 

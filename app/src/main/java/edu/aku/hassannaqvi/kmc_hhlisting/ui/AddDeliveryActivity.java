@@ -89,12 +89,12 @@ public class AddDeliveryActivity extends AppCompatActivity {
 
         AppMain.dc = new DeliveryContract();
 
-//        AppMain.cc.setDevicetagID(AppMain.getTagName(this));
-        AppMain.dc.setFormDate(dtToday);
-        AppMain.dc.setUser(AppMain.username);
-        AppMain.dc.setDeviceID(Settings.Secure.getString(getApplicationContext().getContentResolver(),
-                Settings.Secure.ANDROID_ID));
+        AppMain.cc.setDevicetagID(AppMain.lc.getDeviceTagID());
+        AppMain.dc.setFormDate(AppMain.lc.getHhDT());
+        AppMain.dc.setUser(AppMain.lc.getUserName());
+        AppMain.dc.setDeviceID(AppMain.lc.getDeviceID());
         AppMain.dc.setAppversion(AppMain.versionName + "." + AppMain.versionCode);
+
         AppMain.dc.setUUID(AppMain.mwra.getUID());
         AppMain.dc.setd1SerialNo(String.valueOf(AddMarriedWomenActivity.dCount));
 

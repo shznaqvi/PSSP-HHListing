@@ -191,8 +191,10 @@ public class setupActivity extends Activity {
     private void SaveDraft() {
 
         AppMain.lc = new ListingContract();
+        AppMain.lc.setDeviceTagID(AppMain.getTagName(this));
         AppMain.lc.setHhDT(dtToday);
         AppMain.lc.setHh07n(AppMain.username); // username
+        AppMain.lc.setUserName(AppMain.username); // username
         AppMain.lc.setHh01(AppMain.hh01txt); // tehsil
         AppMain.lc.setHh02(AppMain.hh02txt); // uc code
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt)); //structure no
