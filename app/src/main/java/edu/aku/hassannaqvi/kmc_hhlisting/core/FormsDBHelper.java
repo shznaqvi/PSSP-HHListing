@@ -40,7 +40,7 @@ import edu.aku.hassannaqvi.kmc_hhlisting.contract.VillagesContract.singleVillage
 public class FormsDBHelper extends SQLiteOpenHelper {
 
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // The name of database.
     private static final String DATABASE_NAME = "kmc-hhl.db";
     public static String TAG = "FormsDBHelper";
@@ -52,122 +52,130 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Create a table to hold Listings.
+    final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE " + ListingEntry.TABLE_NAME + " (" +
+            ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            ListingEntry.COLUMN_NAME_UID + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HHADD + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH04_VILLAGE + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH04x + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH09A + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH09B + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
+            ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
+            ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
+            ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
+            ListingEntry.COLUMN_NAME_ROUND + " TEXT, " +
+            ListingEntry.COLUMN_NAME_FORMSTATUS + " TEXT, " +
+            ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
+            ListingEntry.COLUMN_SYNCED + " TEXT, " +
+            ListingEntry.COLUMN_SYNCED_DATE + " TEXT " +
+            " );";
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        // Create a table to hold Listings.
-        final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE " + ListingEntry.TABLE_NAME + " (" +
-                ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                ListingEntry.COLUMN_NAME_UID + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HHADD + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH04_VILLAGE + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH04x + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH09A + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH09B + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
-                ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
-                ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
-                ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
-                ListingEntry.COLUMN_NAME_ROUND + " TEXT, " +
-                ListingEntry.COLUMN_NAME_FORMSTATUS + " TEXT, " +
-                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
-                ListingEntry.COLUMN_SYNCED + " TEXT, " +
-                ListingEntry.COLUMN_SYNCED_DATE + " TEXT " +
-                " );";
+    final String SQL_CREATE_LISTING1 = "ALTER TABLE " +
+            ListingEntry.TABLE_NAME + " ADD COLUMN " +
+            ListingEntry.COLUMN_NAME_DEVICETAGID + " TEXT";
 
-        final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
-                MwraEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                MwraEntry.MWRA_ID + " TEXT," +
-                MwraEntry.MWRA_UUID + " TEXT," +
-                MwraEntry.MWRA_UID + " TEXT," +
-                MwraEntry.MWRA_USERNAME + " TEXT," +
-                MwraEntry.MWRA_MWDT + " TEXT," +
-                MwraEntry.MWRA_MWVILLAGECODE + " TEXT," +
-                MwraEntry.MWRA_MWSTRUCTURENO + " TEXT," +
-                MwraEntry.MWRA_MW01 + " TEXT," +
-                MwraEntry.MWRA_MW02 + " TEXT," +
-                MwraEntry.MWRA_MW03 + " TEXT," +
-                MwraEntry.MWRA_MW04 + " TEXT," +
-                MwraEntry.MWRA_MW05 + " TEXT," +
-                MwraEntry.COLUMN_SYNCED + " TEXT, " +
-                MwraEntry.COLUMN_SYNCED_DATE + " TEXT " +
-                " );";
+    final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
+            MwraEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            MwraEntry.MWRA_ID + " TEXT," +
+            MwraEntry.MWRA_UUID + " TEXT," +
+            MwraEntry.MWRA_UID + " TEXT," +
+            MwraEntry.MWRA_USERNAME + " TEXT," +
+            MwraEntry.MWRA_MWDT + " TEXT," +
+            MwraEntry.MWRA_MWVILLAGECODE + " TEXT," +
+            MwraEntry.MWRA_MWSTRUCTURENO + " TEXT," +
+            MwraEntry.MWRA_MW01 + " TEXT," +
+            MwraEntry.MWRA_MW02 + " TEXT," +
+            MwraEntry.MWRA_MW03 + " TEXT," +
+            MwraEntry.MWRA_MW04 + " TEXT," +
+            MwraEntry.MWRA_MW05 + " TEXT," +
+            MwraEntry.COLUMN_SYNCED + " TEXT, " +
+            MwraEntry.COLUMN_SYNCED_DATE + " TEXT " +
+            " );";
 
-        final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
-                singleDistrict._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                singleDistrict.COLUMN_DISTRICT_CODE + " TEXT, " +
-                singleDistrict.COLUMN_DISTRICT_NAME + " TEXT " +
-                ");";
+    final String SQL_CREATE_MWRA1 = "ALTER TABLE " +
+            MwraEntry.TABLE_NAME + " ADD COLUMN " +
+            MwraEntry.DEVICE_TAGID + " TEXT";
 
-        final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singleVillage.TABLE_NAME + " (" +
-                singleVillage._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                singleVillage.COLUMN_VILLAGE_CODE + " TEXT, " +
-                singleVillage.COLUMN_VILLAGE_NAME + " TEXT, " +
-                singleVillage.COLUMN_DISTRICT_CODE + " TEXT, " +
-                singleVillage.COLUMN_UC_CODE + " TEXT " +
-                ");";
+    final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
+            singleDistrict._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            singleDistrict.COLUMN_DISTRICT_CODE + " TEXT, " +
+            singleDistrict.COLUMN_DISTRICT_NAME + " TEXT " +
+            ");";
 
-        final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
-                + singleUser._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + singleUser.ROW_USERNAME + " TEXT,"
-                + singleUser.ROW_PASSWORD + " TEXT );";
+    final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singleVillage.TABLE_NAME + " (" +
+            singleVillage._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            singleVillage.COLUMN_VILLAGE_CODE + " TEXT, " +
+            singleVillage.COLUMN_VILLAGE_NAME + " TEXT, " +
+            singleVillage.COLUMN_DISTRICT_CODE + " TEXT, " +
+            singleVillage.COLUMN_UC_CODE + " TEXT " +
+            ");";
 
-        final String SQL_CREATE_UCS = "CREATE TABLE " + singleUC.TABLE_NAME + "("
-                + singleUC._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + singleUC.COLUMN_UC_NAME + " TEXT,"
-                + singleUC.COLUMN_DISTRICT_CODE + " TEXT,"
-                + singleUC.COLUMN_UC_CODE + " TEXT );";
+    final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
+            + singleUser._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + singleUser.ROW_USERNAME + " TEXT,"
+            + singleUser.ROW_PASSWORD + " TEXT );";
 
-        final String SQL_CREATE_CHILD_FORMS = "CREATE TABLE "
-                + ChildTable.TABLE_NAME + "("
-                + ChildTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + ChildTable.COLUMN_PROJECTNAME + " TEXT," +
-                ChildTable.COLUMN_UID + " TEXT," +
-                ChildTable.COLUMN_UUID + " TEXT," +
-                ChildTable.COLUMN_FORMDATE + " TEXT," +
-                ChildTable.COLUMN_USER + " TEXT," +
-                ChildTable.COLUMN_C1SERIALNO + " TEXT," +
-                ChildTable.COLUMN_SC1 + " TEXT," +
+    final String SQL_CREATE_UCS = "CREATE TABLE " + singleUC.TABLE_NAME + "("
+            + singleUC._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + singleUC.COLUMN_UC_NAME + " TEXT,"
+            + singleUC.COLUMN_DISTRICT_CODE + " TEXT,"
+            + singleUC.COLUMN_UC_CODE + " TEXT );";
+
+    final String SQL_CREATE_CHILD_FORMS = "CREATE TABLE "
+            + ChildTable.TABLE_NAME + "("
+            + ChildTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + ChildTable.COLUMN_PROJECTNAME + " TEXT," +
+            ChildTable.COLUMN_UID + " TEXT," +
+            ChildTable.COLUMN_UUID + " TEXT," +
+            ChildTable.COLUMN_FORMDATE + " TEXT," +
+            ChildTable.COLUMN_USER + " TEXT," +
+            ChildTable.COLUMN_C1SERIALNO + " TEXT," +
+            ChildTable.COLUMN_SC1 + " TEXT," +
 /*                ChildTable.COLUMN_SC2 + " TEXT," +
                 ChildTable.COLUMN_SC3 + " TEXT," +
                 ChildTable.COLUMN_SC4 + " TEXT," +
                 ChildTable.COLUMN_SC5 + " TEXT," +*/
-                ChildTable.COLUMN_DEVICEID + " TEXT," +
-                ChildTable.COLUMN_DEVICETAGID + " TEXT," +
-                ChildTable.COLUMN_SYNCED + " TEXT," +
-                ChildTable.COLUMN_SYNCED_DATE + " TEXT," +
-                ChildTable.COLUMN_APPVERSION + " TEXT " + " );";
+            ChildTable.COLUMN_DEVICEID + " TEXT," +
+            ChildTable.COLUMN_DEVICETAGID + " TEXT," +
+            ChildTable.COLUMN_SYNCED + " TEXT," +
+            ChildTable.COLUMN_SYNCED_DATE + " TEXT," +
+            ChildTable.COLUMN_APPVERSION + " TEXT " + " );";
 
-        final String SQL_CREATE_DELIVERY_FORMS = "CREATE TABLE "
-                + DeliveryTable.TABLE_NAME + "("
-                + DeliveryTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + DeliveryTable.COLUMN_PROJECTNAME + " TEXT," +
-                DeliveryTable.COLUMN_UID + " TEXT," +
-                DeliveryTable.COLUMN_UUID + " TEXT," +
-                DeliveryTable.COLUMN_FORMDATE + " TEXT," +
-                DeliveryTable.COLUMN_USER + " TEXT," +
-                DeliveryTable.COLUMN_D1SerialNo + " TEXT," +
-                DeliveryTable.COLUMN_SD1 + " TEXT," +
-                DeliveryTable.COLUMN_DEVICEID + " TEXT," +
-                DeliveryTable.COLUMN_DEVICETAGID + " TEXT," +
-                DeliveryTable.COLUMN_SYNCED + " TEXT," +
-                DeliveryTable.COLUMN_SYNCED_DATE + " TEXT," +
-                DeliveryTable.COLUMN_APPVERSION + " TEXT " + " );";
+    final String SQL_CREATE_DELIVERY_FORMS = "CREATE TABLE "
+            + DeliveryTable.TABLE_NAME + "("
+            + DeliveryTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + DeliveryTable.COLUMN_PROJECTNAME + " TEXT," +
+            DeliveryTable.COLUMN_UID + " TEXT," +
+            DeliveryTable.COLUMN_UUID + " TEXT," +
+            DeliveryTable.COLUMN_FORMDATE + " TEXT," +
+            DeliveryTable.COLUMN_USER + " TEXT," +
+            DeliveryTable.COLUMN_D1SerialNo + " TEXT," +
+            DeliveryTable.COLUMN_SD1 + " TEXT," +
+            DeliveryTable.COLUMN_DEVICEID + " TEXT," +
+            DeliveryTable.COLUMN_DEVICETAGID + " TEXT," +
+            DeliveryTable.COLUMN_SYNCED + " TEXT," +
+            DeliveryTable.COLUMN_SYNCED_DATE + " TEXT," +
+            DeliveryTable.COLUMN_APPVERSION + " TEXT " + " );";
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
@@ -184,7 +192,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Simply discard all old data and start over when upgrading.
-        db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
+        /*db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + MwraEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleVillage.TABLE_NAME);
@@ -192,7 +200,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + singleUC.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ChildTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + DeliveryTable.TABLE_NAME);
-        onCreate(db);
+        onCreate(db);*/
+
+        switch (oldVersion) {
+            case 1:
+                db.execSQL(SQL_CREATE_LISTING1);
+                db.execSQL(SQL_CREATE_MWRA1);
+
+        }
     }
 
     public Long lastInsertId() {

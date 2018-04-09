@@ -159,12 +159,12 @@ public class AddChildActivity extends AppCompatActivity {
 
         AppMain.cc = new ChildContract();
 
-//        AppMain.cc.setDevicetagID(AppMain.getTagName(this));
-        AppMain.cc.setFormDate(dtToday);
-        AppMain.cc.setUser(AppMain.username);
-        AppMain.cc.setDeviceID(Settings.Secure.getString(getApplicationContext().getContentResolver(),
-                Settings.Secure.ANDROID_ID));
+        AppMain.cc.setDevicetagID(AppMain.lc.getDeviceTagID());
+        AppMain.cc.setFormDate(AppMain.lc.getHhDT());
+        AppMain.cc.setUser(AppMain.lc.getUserName());
+        AppMain.cc.setDeviceID(AppMain.lc.getDeviceID());
         AppMain.cc.setAppversion(AppMain.versionName + "." + AppMain.versionCode);
+
         AppMain.cc.setUUID(AppMain.lc.getUID());
         AppMain.cc.setC1SerialNo(String.valueOf(AppMain.cCount));
 
