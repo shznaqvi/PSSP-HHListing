@@ -141,10 +141,10 @@ public class HouseholdInfoActivity extends Activity {
 
     private void SaveDraft() {
 
-        AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
+        /*AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
         AppMain.lc.setHh11(hh11.getText().toString());
         AppMain.lc.setHh12(hh12.isChecked() ? "1" : "2");
-        AppMain.lc.setHh13(hh13.getText().toString());
+        AppMain.lc.setHh13(hh13.getText().toString());*/
         AppMain.lc.setUID(AppMain.lc.getDeviceID() + AppMain.lc.getID());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();

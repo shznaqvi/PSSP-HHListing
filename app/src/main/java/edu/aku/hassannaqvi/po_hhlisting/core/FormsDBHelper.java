@@ -69,12 +69,15 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH09A + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH09B + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH12 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH01 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH01M + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH01F + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH02 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH02M + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH02F + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH03 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH03M + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH03F + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
@@ -189,8 +192,15 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
-        values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
-        values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
+        values.put(ListingEntry.COLUMN_NAME_CH01, lc.getCh01());
+        values.put(ListingEntry.COLUMN_NAME_CH01M, lc.getCh01m());
+        values.put(ListingEntry.COLUMN_NAME_CH01F, lc.getCh01f());
+        values.put(ListingEntry.COLUMN_NAME_CH02, lc.getCh02());
+        values.put(ListingEntry.COLUMN_NAME_CH02M, lc.getCh02m());
+        values.put(ListingEntry.COLUMN_NAME_CH02F, lc.getCh02f());
+        values.put(ListingEntry.COLUMN_NAME_CH03, lc.getCh03());
+        values.put(ListingEntry.COLUMN_NAME_CH03M, lc.getCh03m());
+        values.put(ListingEntry.COLUMN_NAME_CH03M, lc.getCh03f());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
@@ -322,10 +332,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 // New value for one column
         ContentValues values = new ContentValues();
         values.put(ListingEntry.COLUMN_NAME_UID, AppMain.lc.getUID());
-        values.put(ListingEntry.COLUMN_NAME_HH10, AppMain.lc.getHh10());
+        /*values.put(ListingEntry.COLUMN_NAME_HH10, AppMain.lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, AppMain.lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12, AppMain.lc.getHh12());
-        values.put(ListingEntry.COLUMN_NAME_HH13, AppMain.lc.getHh13());
+        values.put(ListingEntry.COLUMN_NAME_HH13, AppMain.lc.getHh13());*/
         values.put(ListingEntry.COLUMN_NAME_FORMSTATUS, "1");
 
 
@@ -360,12 +370,15 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
-                ListingEntry.COLUMN_NAME_HH09A,
-                ListingEntry.COLUMN_NAME_HH09B,
-                ListingEntry.COLUMN_NAME_HH10,
-                ListingEntry.COLUMN_NAME_HH11,
-                ListingEntry.COLUMN_NAME_HH12,
-                ListingEntry.COLUMN_NAME_HH13,
+                ListingEntry.COLUMN_NAME_CH01,
+                ListingEntry.COLUMN_NAME_CH01M,
+                ListingEntry.COLUMN_NAME_CH01F,
+                ListingEntry.COLUMN_NAME_CH02,
+                ListingEntry.COLUMN_NAME_CH02M,
+                ListingEntry.COLUMN_NAME_CH02F,
+                ListingEntry.COLUMN_NAME_CH03,
+                ListingEntry.COLUMN_NAME_CH03M,
+                ListingEntry.COLUMN_NAME_CH03F,
                 ListingEntry.COLUMN_NAME_HH04_VILLAGE,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_GPSLat,
@@ -573,12 +586,15 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
-        values.put(ListingEntry.COLUMN_NAME_HH09A, lc.getHh09a());
-        values.put(ListingEntry.COLUMN_NAME_HH09B, lc.getHh09b());
-        values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
-        values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
-        values.put(ListingEntry.COLUMN_NAME_HH12, lc.getHh12());
-        values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
+        values.put(ListingEntry.COLUMN_NAME_CH01, lc.getCh01());
+        values.put(ListingEntry.COLUMN_NAME_CH01M, lc.getCh01m());
+        values.put(ListingEntry.COLUMN_NAME_CH01F, lc.getCh01f());
+        values.put(ListingEntry.COLUMN_NAME_CH02, lc.getCh02());
+        values.put(ListingEntry.COLUMN_NAME_CH02M, lc.getCh02m());
+        values.put(ListingEntry.COLUMN_NAME_CH02F, lc.getCh02f());
+        values.put(ListingEntry.COLUMN_NAME_CH03, lc.getCh03());
+        values.put(ListingEntry.COLUMN_NAME_CH03M, lc.getCh03m());
+        values.put(ListingEntry.COLUMN_NAME_CH03F, lc.getCh03f());
         values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
@@ -607,12 +623,26 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh07n(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07n))));
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
-        lc.setHh09a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09A))));
+
+        lc.setCh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH01))));
+        lc.setCh01m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH01M))));
+        lc.setCh01f(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH01F))));
+
+        lc.setCh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH02))));
+        lc.setCh02m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH02M))));
+        lc.setCh02f(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH02F))));
+
+        lc.setCh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH03))));
+        lc.setCh03m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH03M))));
+        lc.setCh03f(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH03F))));
+
+
+        /*lc.setHh09a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09A))));
         lc.setHh09b(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09B))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
-        lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
+        lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));*/
         lc.setHh04Village(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04_VILLAGE))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
@@ -807,7 +837,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
         return allPC;
     }
-
 
 
     public void syncDistricts(JSONArray dcList) {

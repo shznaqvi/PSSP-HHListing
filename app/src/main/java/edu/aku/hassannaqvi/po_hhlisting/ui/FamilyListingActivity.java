@@ -34,10 +34,27 @@ public class FamilyListingActivity extends Activity {
     EditText hh08;
     @BindView(R.id.hh09)
     EditText hh09;
-    @BindView(R.id.hh09a)
-    Switch hh09a;
-    @BindView(R.id.hh09b)
-    EditText hh09b;
+    @BindView(R.id.ch01)
+    Switch ch01;
+    @BindView(R.id.ch01m)
+    EditText ch01m;
+    @BindView(R.id.ch01f)
+    EditText ch01f;
+
+    @BindView(R.id.ch02a)
+    Switch ch02a;
+    @BindView(R.id.ch02m)
+    EditText ch02m;
+    @BindView(R.id.ch02f)
+    EditText ch02f;
+
+    @BindView(R.id.ch03a)
+    Switch ch03a;
+    @BindView(R.id.ch03m)
+    EditText ch03m;
+    @BindView(R.id.ch03f)
+    EditText ch03f;
+
     @BindView(R.id.btnContNextQ)
     Button btnContNextQ;
     @BindView(R.id.btnAddMWRA)
@@ -60,7 +77,7 @@ public class FamilyListingActivity extends Activity {
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
 */
-        hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -72,8 +89,8 @@ public class FamilyListingActivity extends Activity {
                 }
             }
         });
-
-        hh09b.addTextChangedListener(new TextWatcher() {
+*/
+        /*hh09b.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -95,7 +112,59 @@ public class FamilyListingActivity extends Activity {
             public void afterTextChanged(Editable s) {
 
             }
+        });*/
+
+
+        ch01.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    ch01m.setVisibility(View.VISIBLE);
+                    ch01f.setVisibility(View.VISIBLE);
+                    ch01m.requestFocus();
+                } else {
+                    ch01m.setVisibility(View.INVISIBLE);
+                    ch01f.setVisibility(View.INVISIBLE);
+                    ch01m.setText(null);
+                    ch01f.setText(null);
+                }
+            }
         });
+
+
+        ch02a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    ch02m.setVisibility(View.VISIBLE);
+                    ch02f.setVisibility(View.VISIBLE);
+                    ch02m.requestFocus();
+                } else {
+                    ch02m.setVisibility(View.INVISIBLE);
+                    ch02f.setVisibility(View.INVISIBLE);
+                    ch02m.setText(null);
+                    ch02f.setText(null);
+                }
+            }
+        });
+
+
+        ch03a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    ch03m.setVisibility(View.VISIBLE);
+                    ch03f.setVisibility(View.VISIBLE);
+                    ch03m.requestFocus();
+                } else {
+                    ch03m.setVisibility(View.INVISIBLE);
+                    ch03f.setVisibility(View.INVISIBLE);
+                    ch03m.setText(null);
+                    ch03f.setText(null);
+                }
+            }
+        });
+
 
     }
 
@@ -126,7 +195,8 @@ public class FamilyListingActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                AppMain.mwraTotal = Integer.parseInt(hh09b.getText().toString());
+                //AppMain.mwraTotal = Integer.parseInt(hh09b.getText().toString());
+
                 AppMain.mwraCount = 1;
                 Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
                 Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
@@ -142,8 +212,21 @@ public class FamilyListingActivity extends Activity {
 
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
-        AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
-        AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());
+
+        AppMain.lc.setCh01(ch01.isChecked() ? "1" : "2");
+        AppMain.lc.setCh01m(ch01m.getText().toString());
+        AppMain.lc.setCh01f(ch01f.getText().toString());
+
+        AppMain.lc.setCh02(ch02a.isChecked() ? "1" : "2");
+        AppMain.lc.setCh02m(ch02m.getText().toString());
+        AppMain.lc.setCh02f(ch02f.getText().toString());
+
+        AppMain.lc.setCh03(ch03a.isChecked() ? "1" : "2");
+        AppMain.lc.setCh03m(ch03m.getText().toString());
+        AppMain.lc.setCh03f(ch03f.getText().toString());
+
+        /*AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
+        AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());*/
 
         setGPS();
 
@@ -173,7 +256,7 @@ public class FamilyListingActivity extends Activity {
             hh09.setError(null);
         }
 
-        if (hh09a.isChecked() && hh09b.getText().toString().isEmpty()) {
+        /*if (hh09a.isChecked() && hh09b.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
             hh09b.setError("Please enter child count");
             Log.i(TAG, "Please enter child count");
@@ -189,7 +272,7 @@ public class FamilyListingActivity extends Activity {
             return false;
         } else {
             hh09b.setError(null);
-        }
+        }*/
 
         return true;
     }
@@ -262,8 +345,8 @@ public class FamilyListingActivity extends Activity {
 
         Toast.makeText(this, "GPS set", Toast.LENGTH_SHORT).show();
     }
-    
-    
+
+
     @Override
     public void onBackPressed() {
         Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();
