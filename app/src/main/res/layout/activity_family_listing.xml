@@ -27,7 +27,7 @@
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="40sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:text="@string/hh08"/>
+                android:text="@string/hh08" />
 
             <EditText
                 android:id="@+id/hh08"
@@ -49,7 +49,7 @@
                 android:digits="@string/txtName"
                 android:hint="@string/hh08"
                 android:inputType="text"
-                android:maxLength="24"/>
+                android:maxLength="24" />
 
         </LinearLayout>
 
@@ -74,7 +74,7 @@
                 android:digits="1234567890- ()"
                 android:hint="@string/hh09"
                 android:inputType="number"
-                android:maxLength="11"/>
+                android:maxLength="11" />
         </LinearLayout>
 
 
@@ -88,10 +88,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:text="@string/hh09a"/>
+                android:text="@string/ch01" />
 
             <Switch
-                android:id="@+id/hh09a"
+                android:id="@+id/ch01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -99,19 +99,51 @@
                 android:textOff="@string/no"
                 android:textOn="@string/yes" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:text="@string/chmale" />
+
+            <EditText
+                android:id="@+id/ch01m"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:digits="1234567890"
+                android:hint="@string/chmale"
+                android:inputType="number"
+                android:maxLength="2"
+                android:visibility="invisible" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:text="@string/chfemale" />
+
+            <EditText
+                android:id="@+id/ch01f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:digits="1234567890"
+                android:hint="@string/chfemale"
+                android:inputType="number"
+                android:maxLength="2"
+                android:visibility="invisible" />
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/hh09b"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:digits="1234567890"
-            android:hint="@string/hh09b"
-            android:inputType="number"
-            android:maxLength="2"
-            android:visibility="invisible"/>
 
         <!-- <LinearLayout
              android:layout_width="match_parent"

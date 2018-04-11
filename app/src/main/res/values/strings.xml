@@ -48,6 +48,24 @@
     <string name="mw04"> ڇا(عورت جو نالو) حمل سان آهي؟ </string>
     <string name="mw05">حمل کي ڪيترو عرصو ٿيو آهي؟(مهينا لکو)</string>
 
+    <string name="ch01">2 مهينن کان گهٽ وارا ٻار</string>
+    <string name="ch02">2 کان 59 مهينن تائين جا ٻار</string>
+    <string name="ch03">مرد ڀاتي ۽ 5 سالن کان مٿي</string>
+    <string name="ch04">ڪل گهر ڀاتين جو تعداد</string>
+
+    <string name="chmale">مرد</string>
+    <string name="chfemale">عورت</string>
+
+    <string name="ch06">ٻار جو نالو</string>
+    <string name="ch07">ٻار جي پيءُ جو نالو</string>
+    <string name="ch08">جنس</string>
+    <string name="ch09">عمر</string>
+    <string name="ch10y">سال</string>
+    <string name="ch10m">مهينا</string>
+    <string name="ch10d">ڌينهن</string>
+    <string name="chdob">ڄمڻ جي تاريخ</string>
+    <string name="chsource">عمر جو ذريعو</string>
+
 
     <!--Ali-->
     <string name="prompt_password">Password (optional)</string>
