@@ -17,7 +17,7 @@ android {
         versionProps.store(versionPropsFile.newWriter(), null)
 
         defaultConfig {
-            applicationId "edu.aku.hassannaqvi.kmc"
+            applicationId "edu.aku.hassannaqvi.POLineListing"
             minSdkVersion 19
             targetSdkVersion 19
             versionCode code

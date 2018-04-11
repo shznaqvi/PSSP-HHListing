@@ -5,7 +5,7 @@
     android:id="@+id/activity_splash_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.aku.hassannaqvi.kmc_hhlisting.ui.SplashScreen">
+    tools:context="edu.aku.hassannaqvi.po_hhlisting.ui.SplashScreen">
 
     <LinearLayout
         android:layout_width="match_parent"
