@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.BLRandomContract.singleRandomHH;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract.EnumBlockTable;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
@@ -26,7 +27,6 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract.singleTaluka;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract.singleUser;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.BLRandomContract.*;
 
 
 /**
@@ -49,6 +49,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_UID + " TEXT, " +
             ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
             ListingEntry.COLUMN_NAME_ENUMCODE + " TEXT, " +
+            ListingEntry.COLUMN_NAME_CLUSTERCODE + " TEXT, " +
             ListingEntry.COLUMN_NAME_ENUMSTR + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
@@ -248,6 +249,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
 
         values.put(ListingEntry.COLUMN_NAME_ENUMCODE, lc.getEnumCode());
+        values.put(ListingEntry.COLUMN_NAME_CLUSTERCODE, lc.getClusterCode());
         values.put(ListingEntry.COLUMN_NAME_ENUMSTR, lc.getEnumStr());
 
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
@@ -320,6 +322,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_UID,
                 ListingEntry.COLUMN_NAME_HHDATETIME,
                 ListingEntry.COLUMN_NAME_ENUMCODE,
+                ListingEntry.COLUMN_NAME_CLUSTERCODE,
                 ListingEntry.COLUMN_NAME_ENUMSTR,
                 ListingEntry.COLUMN_NAME_HH01,
                 ListingEntry.COLUMN_NAME_HH02,

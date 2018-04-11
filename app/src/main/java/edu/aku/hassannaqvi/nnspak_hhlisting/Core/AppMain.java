@@ -45,6 +45,7 @@ public class AppMain extends Application {
     public static int cCount = 0;
 
     public static String enumCode = "";
+    public static String clusterCode = "";
     public static String enumStr = "";
 
     public static int hh07 = 0;
@@ -169,10 +170,7 @@ public class AppMain extends Application {
             return true;
         } else if (isNewer && !isLessAccurate) {
             return true;
-        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-            return true;
-        }
-        return false;
+        } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
     }
 
     private class MyLocationListener implements LocationListener {

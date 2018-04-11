@@ -304,6 +304,7 @@ public class MainActivity extends Activity {
 
                     AppMain.hh02txt = txtPSU.getText().toString();
                     AppMain.enumCode = enumBlockContract.getEbcode();
+                    AppMain.clusterCode = txtPSU.getText().toString();
                 }
             } else {
                 Toast.makeText(this, "Sorry not found any block", Toast.LENGTH_SHORT).show();

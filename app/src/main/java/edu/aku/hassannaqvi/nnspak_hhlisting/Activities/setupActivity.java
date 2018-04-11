@@ -107,7 +107,7 @@ public class setupActivity extends Activity {
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        hh02.setText(AppMain.enumCode);
+        hh02.setText(AppMain.clusterCode);
         hh02.setEnabled(false);
 
         if (AppMain.hh02txt == null) {
@@ -116,14 +116,14 @@ public class setupActivity extends Activity {
             AppMain.hh03txt++;
             //AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
             //hh02.setText(AppMain.hh02txt.toString());
-            hh02.setText(AppMain.enumCode);
+            hh02.setText(AppMain.clusterCode);
             hh02.setEnabled(false);
         }
 
         AppMain.hh07txt = "X";
 
         //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
-        String StructureNumber = "NNS-" + AppMain.enumCode + "-" + String.format("%04d", AppMain.hh03txt);
+        String StructureNumber = "NNS-" + AppMain.clusterCode + "-" + String.format("%04d", AppMain.hh03txt);
 
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);
@@ -264,6 +264,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setHhDT(dtToday);
 
         AppMain.lc.setEnumCode(AppMain.enumCode);
+        AppMain.lc.setClusterCode(AppMain.clusterCode);
         AppMain.lc.setEnumStr(AppMain.enumStr);
 
         AppMain.lc.setHh01(String.valueOf(AppMain.hh01txt));
