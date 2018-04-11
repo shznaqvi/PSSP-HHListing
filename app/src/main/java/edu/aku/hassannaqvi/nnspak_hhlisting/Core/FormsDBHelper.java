@@ -108,6 +108,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             + singleUser.ROW_PASSWORD + " TEXT );";
 
     final String SQL_COUNT_LISTINGS = "SELECT count(*) " + ListingEntry.TABLE_NAME;
+    final String SQL_COUNT_RESIDENTIAL = "SELECT count(*) " + ListingEntry.TABLE_NAME + "where ";
 
     public static final String SQL_CREATE_BL_RANDOM = "CREATE TABLE " + singleRandomHH.TABLE_NAME + "("
             + singleRandomHH.COLUMN_ID + " TEXT,"
