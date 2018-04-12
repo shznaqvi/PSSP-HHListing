@@ -87,36 +87,38 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
             FormsDBHelper db = new FormsDBHelper(mContext);
             Collection<ListingContract> listings = db.getAllListings();
             Log.d(TAG, String.valueOf(listings.size()));
+            if (listings.size() > 0) {
 //            pd.setMessage("Total Listings: " );
-            for (ListingContract lc : listings) {
+                for (ListingContract lc : listings) {
 
-                jsonSync.put(lc.toJSONObject());
-                //wr.writeBytes(jsonParam.toString().replace("\uFEFF", "") + "\n");
+                    jsonSync.put(lc.toJSONObject());
+                    //wr.writeBytes(jsonParam.toString().replace("\uFEFF", "") + "\n");
 
-            }
-            wr.writeBytes(jsonSync.toString().replace("\uFEFF", "") + "\n");
-            longInfo(jsonSync.toString().replace("\uFEFF", "") + "\n");
-            wr.flush();
-            int HttpResult = connection.getResponseCode();
-            if (HttpResult == HttpURLConnection.HTTP_OK) {
-
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        connection.getInputStream(), "utf-8"));
-                StringBuffer sb = new StringBuffer();
-
-                while ((line = br.readLine()) != null) {
-                    sb.append(line + "\n");
-
-                    //pd.show();
                 }
-                br.close();
+                wr.writeBytes(jsonSync.toString().replace("\uFEFF", "") + "\n");
+                longInfo(jsonSync.toString().replace("\uFEFF", "") + "\n");
+                wr.flush();
+                int HttpResult = connection.getResponseCode();
+                if (HttpResult == HttpURLConnection.HTTP_OK) {
 
-                System.out.println("" + sb.toString());
-                return sb.toString();
-            } else {
-                System.out.println(connection.getResponseMessage());
-                return connection.getResponseMessage();
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader(
+                            connection.getInputStream(), "utf-8"));
+                    StringBuffer sb = new StringBuffer();
+
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line + "\n");
+
+                        //pd.show();
+                    }
+                    br.close();
+
+                    System.out.println("" + sb.toString());
+                    return sb.toString();
+                } else {
+                    System.out.println(connection.getResponseMessage());
+                    return connection.getResponseMessage();
+                }
             }
         } catch (MalformedURLException e) {
 
@@ -137,11 +139,7 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        try {
-            return downloadUrl(AppMain._HOST_URL + "listings.php");
-        } catch (IOException e) {
-            return "Unable to upload data. Server may be down.";
-        }
+        return downloadUrl(AppMain._HOST_URL + "listings.php");
     }
 
     @Override
