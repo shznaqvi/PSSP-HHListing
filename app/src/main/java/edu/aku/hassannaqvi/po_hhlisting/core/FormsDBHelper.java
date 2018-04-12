@@ -16,12 +16,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import edu.aku.hassannaqvi.po_hhlisting.contract.ChildContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.DistrictsContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.DistrictsContract.singleDistrict;
 import edu.aku.hassannaqvi.po_hhlisting.contract.ListingContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.ListingContract.ListingEntry;
 import edu.aku.hassannaqvi.po_hhlisting.contract.MwraContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.MwraContract.MwraEntry;
+import edu.aku.hassannaqvi.po_hhlisting.contract.ChildContract;
+import edu.aku.hassannaqvi.po_hhlisting.contract.ChildContract.ChildEntry;
 import edu.aku.hassannaqvi.po_hhlisting.contract.UCsContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.UCsContract.singleUC;
 import edu.aku.hassannaqvi.po_hhlisting.contract.UsersContract;
@@ -42,6 +45,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
     public static String DB_MWRA_ID;
+    public static String DB_CHILD_ID;
 
 
     public FormsDBHelper(Context context) {
@@ -73,8 +77,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_CH01 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CH02a + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CH02 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_CH03a + " TEXT, " +
-                ListingEntry.COLUMN_NAME_CH03 + " TEXT, " +
+                //ListingEntry.COLUMN_NAME_CH03a + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH03m + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CH03f + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CH04 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
@@ -86,6 +91,26 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_SYNCED + " TEXT, " +
                 ListingEntry.COLUMN_SYNCED_DATE + " TEXT " +
                 " );";
+
+
+        final String SQL_CREATE_CHILD_TABLE = "CREATE TABLE " + ChildEntry.TABLE_NAME + " (" +
+                ChildEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                ChildEntry.CHILD_ID + " TEXT," +
+                ChildEntry.CHILD_UUID + " TEXT," +
+                ChildEntry.CHILD_UID + " TEXT," +
+                ChildEntry.CHILD_CHDT + " TEXT," +
+                ChildEntry.CHILD_CHVILLAGECODE + " TEXT," +
+                ChildEntry.CHILD_CHSTRUCTURENO + " TEXT," +
+                ChildEntry.CHILD_CH01 + " TEXT," +
+                ChildEntry.CHILD_CH02 + " TEXT," +
+                ChildEntry.CHILD_CH03 + " TEXT," +
+                ChildEntry.CHILD_CH04 + " TEXT," +
+                ChildEntry.CHILD_CH05 + " TEXT," +
+                ChildEntry.CHILD_CHILD + " TEXT," +
+                ChildEntry.COLUMN_SYNCED + " TEXT, " +
+                ChildEntry.COLUMN_SYNCED_DATE + " TEXT " +
+                " );";
+
 
         final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
                 MwraEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -132,6 +157,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_MWRA_TABLE);
+        db.execSQL(SQL_CREATE_CHILD_TABLE);
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
@@ -143,6 +169,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         // Simply discard all old data and start over when upgrading.
         db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + MwraEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ChildContract.ChildEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleVillage.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
@@ -194,8 +221,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_CH01, lc.getCh01());
         values.put(ListingEntry.COLUMN_NAME_CH02a, lc.getCh02a());
         values.put(ListingEntry.COLUMN_NAME_CH02, lc.getCh02());
-        values.put(ListingEntry.COLUMN_NAME_CH03a, lc.getCh03a());
-        values.put(ListingEntry.COLUMN_NAME_CH03, lc.getCh03());
+        //values.put(ListingEntry.COLUMN_NAME_CH03a, lc.getCh03a());
+        values.put(ListingEntry.COLUMN_NAME_CH03m, lc.getCh03m());
+        values.put(ListingEntry.COLUMN_NAME_CH03f, lc.getCh03f());
         values.put(ListingEntry.COLUMN_NAME_CH04, lc.getCh04());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
@@ -214,6 +242,40 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         return newRowId;
     }
+
+
+    public Long addChild(ChildContract childContract) {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+
+        values.put(ChildEntry.COLUMN_ID, childContract.getID());
+        values.put(ChildEntry.CHILD_ID, childContract.getCHILDID());
+        values.put(ChildEntry.CHILD_UUID, childContract.getUUID());
+        values.put(ChildEntry.CHILD_UID, childContract.getUID());
+        values.put(ChildEntry.CHILD_CHDT, childContract.getChDT());
+        values.put(ChildEntry.CHILD_CHVILLAGECODE, childContract.getChVillageCode());
+        values.put(ChildEntry.CHILD_CHSTRUCTURENO, childContract.getChStructureNo());
+        values.put(ChildEntry.CHILD_CH01, childContract.getCh01());
+        values.put(ChildEntry.CHILD_CH02, childContract.getCh02());
+        values.put(ChildEntry.CHILD_CH03, childContract.getCh03());
+        values.put(ChildEntry.CHILD_CH04, childContract.getCh04());
+        values.put(ChildEntry.CHILD_CH05, childContract.getCh05());
+        values.put(ChildEntry.CHILD_CHILD, childContract.getChild());
+
+        long newRowId;
+        newRowId = db.insert(
+                ChildEntry.TABLE_NAME,
+                ChildEntry.CH_NULLABLE,
+                values);
+        DB_CHILD_ID = String.valueOf(newRowId);
+
+        return newRowId;
+    }
+
 
     public Long addMwra(MwraContract mwra) {
 
@@ -370,8 +432,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_CH01,
                 ListingEntry.COLUMN_NAME_CH02a,
                 ListingEntry.COLUMN_NAME_CH02,
-                ListingEntry.COLUMN_NAME_CH03a,
-                ListingEntry.COLUMN_NAME_CH03,
+                //ListingEntry.COLUMN_NAME_CH03a,
+                ListingEntry.COLUMN_NAME_CH03m,
+                ListingEntry.COLUMN_NAME_CH03f,
                 ListingEntry.COLUMN_NAME_CH04,
                 ListingEntry.COLUMN_NAME_HH04_VILLAGE,
                 ListingEntry.COLUMN_NAME_DEVICEID,
@@ -584,8 +647,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_CH01, lc.getCh01());
         values.put(ListingEntry.COLUMN_NAME_CH02a, lc.getCh02a());
         values.put(ListingEntry.COLUMN_NAME_CH02, lc.getCh02());
-        values.put(ListingEntry.COLUMN_NAME_CH03a, lc.getCh03a());
-        values.put(ListingEntry.COLUMN_NAME_CH03, lc.getCh03());
+        //values.put(ListingEntry.COLUMN_NAME_CH03a, lc.getCh03a());
+        values.put(ListingEntry.COLUMN_NAME_CH03m, lc.getCh03m());
+        values.put(ListingEntry.COLUMN_NAME_CH03f, lc.getCh03f());
         values.put(ListingEntry.COLUMN_NAME_CH04, lc.getCh04());
         values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
@@ -622,8 +686,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setCh02a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH02a))));
         lc.setCh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH02))));
 
-        lc.setCh03a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH03a))));
-        lc.setCh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH03))));
+        //lc.setCh03a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH03a))));
+        lc.setCh03m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH03m))));
+        lc.setCh03f(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH03f))));
         lc.setCh04(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH04))));
 
 

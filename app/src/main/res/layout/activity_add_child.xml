@@ -1,87 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_child"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.aku.hassannaqvi.po_hhlisting.ui.AddChildActivity">
-
-    <TextView
-        android:id="@+id/txtChildListing"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:background="#d6d6d6"
-        android:text="Child Listing"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/ch06" />
-
-    <EditText
-        android:id="@+id/ch06"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/child_name" />
-
-    <EditText
-        android:id="@+id/icName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    tools:context=".ui.AddChildActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/txtChildListing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="#d6d6d6"
+            android:text="Child Listing"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtCounter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:background="#d6d6d6"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/child_age" />
+            android:text="@string/ch06" />
 
+        <EditText
+            android:id="@+id/ch06"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/ch07" />
+
+        <EditText
+            android:id="@+id/ch07"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/ch08" />
+
+        <RadioGroup
+            android:id="@+id/ch08"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/ch08a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/chmale" />
+
+            <RadioButton
+                android:id="@+id/ch08b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/chfemale" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/ch09" />
+
+        <io.blackbox_vision.datetimepickeredittext.view.DatePickerInputEditText
+            android:id="@+id/ch09"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:focusable="true"
+            android:hint="@string/ch09"
+            android:padding="15dp"
+            app:dateFormat="dd-MM-yyyy" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:text="@string/ch10d" />
+
+            <EditText
+                android:id="@+id/ch10d"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:digits="1234567890"
+                android:hint="@string/ch10d"
+                android:inputType="number"
+                android:maxLength="2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:text="@string/ch10m" />
+
+            <EditText
+                android:id="@+id/ch10m"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:digits="1234567890"
+                android:hint="@string/ch10m"
+                android:inputType="number"
+                android:maxLength="2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:text="@string/ch10y" />
+
+            <EditText
+                android:id="@+id/ch10y"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:digits="1234567890"
+                android:hint="@string/ch10y"
+                android:inputType="number"
+                android:maxLength="2" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:text="@string/ch11" />
+
+        <RadioGroup
+            android:id="@+id/ch11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/ch11a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/ch11a" />
+
+            <RadioButton
+                android:id="@+id/ch11b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/ch11b" />
+
+            <RadioButton
+                android:id="@+id/ch11c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/ch11c" />
+
+            <RadioButton
+                android:id="@+id/ch11d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/ch11d" />
+
+            <RadioButton
+                android:id="@+id/ch11e"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/ch11e" />
+
+            <RadioButton
+                android:id="@+id/ch11f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/ch11f" />
+
+            <RadioButton
+                android:id="@+id/ch11g"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/ch11g" />
+
+            <RadioButton
+                android:id="@+id/ch11h"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:text="@string/ch11h" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/ch1188"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz"
+            android:hint="@string/ch11h"
+            android:inputType="textCapWords"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnAddChild"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Add A Child"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnAddFamily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Add Next Family"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnAddHousehold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Goto Next Household"
+            android:visibility="gone" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnAddChild"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Add A Child"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btnAddFamily"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Add Next Family"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btnAddHousehold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Goto Next Household"
-        android:visibility="gone" />
-
-</LinearLayout>
+</ScrollView>

@@ -34,8 +34,9 @@ public class ListingContract {
     public String ch02a;
     public String ch02;
 
-    public String ch03a;
-    public String ch03;
+    //public String ch03a;
+    public String ch03m;
+    public String ch03f;
 
     public String ch04;
 
@@ -234,20 +235,29 @@ public class ListingContract {
     }
 
 
-    public String getCh03a() {
+    /*public String getCh03a() {
         return ch03a;
     }
 
     public void setCh03a(String ch03a) {
         this.ch03a = ch03a;
     }
-
-    public String getCh03() {
-        return ch03;
+*/
+    public String getCh03m() {
+        return ch03m;
     }
 
-    public void setCh03(String ch03) {
-        this.ch03 = ch03;
+    public void setCh03m(String ch03m) {
+        this.ch03m = ch03m;
+    }
+
+
+    public String getCh03f() {
+        return ch03f;
+    }
+
+    public void setCh03f(String ch03f) {
+        this.ch03f = ch03f;
     }
 
 
@@ -402,8 +412,9 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_CH01, this.ch01);
         json.put(ListingEntry.COLUMN_NAME_CH02a, this.ch02a);
         json.put(ListingEntry.COLUMN_NAME_CH02, this.ch02);
-        json.put(ListingEntry.COLUMN_NAME_CH03a, this.ch03a);
-        json.put(ListingEntry.COLUMN_NAME_CH03, this.ch03);
+        //json.put(ListingEntry.COLUMN_NAME_CH03a, this.ch03a);
+        json.put(ListingEntry.COLUMN_NAME_CH03m, this.ch03m);
+        json.put(ListingEntry.COLUMN_NAME_CH03f, this.ch03f);
         json.put(ListingEntry.COLUMN_NAME_CH04, this.ch04);
 
         /*json.put(ListingEntry.COLUMN_NAME_HH09B, this.hh09b);
@@ -451,8 +462,9 @@ public class ListingContract {
         public static final String COLUMN_NAME_CH01 = "ch01";
         public static final String COLUMN_NAME_CH02a = "ch02a";
         public static final String COLUMN_NAME_CH02 = "ch02";
-        public static final String COLUMN_NAME_CH03a = "ch03a";
-        public static final String COLUMN_NAME_CH03 = "ch03";
+        //public static final String COLUMN_NAME_CH03a = "ch03a";
+        public static final String COLUMN_NAME_CH03m = "ch03m";
+        public static final String COLUMN_NAME_CH03f = "ch03f";
         public static final String COLUMN_NAME_CH04 = "ch04";
 
         /*public static final String COLUMN_NAME_HH09A = "hh09a";
