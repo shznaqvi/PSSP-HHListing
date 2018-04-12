@@ -35,26 +35,38 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
     EditText hh08;
     @BindView(R.id.hh09)
     EditText hh09;
+    @BindView(R.id.ch01a)
+    Switch ch01a;
+
     @BindView(R.id.ch01)
-    Switch ch01;
-    @BindView(R.id.ch01m)
+    EditText ch01;
+
+    /*@BindView(R.id.ch01m)
     EditText ch01m;
     @BindView(R.id.ch01f)
-    EditText ch01f;
+    EditText ch01f;*/
 
     @BindView(R.id.ch02a)
     Switch ch02a;
-    @BindView(R.id.ch02m)
+
+    @BindView(R.id.ch02)
+    EditText ch02;
+
+    /*@BindView(R.id.ch02m)
     EditText ch02m;
     @BindView(R.id.ch02f)
-    EditText ch02f;
+    EditText ch02f;*/
 
     @BindView(R.id.ch03a)
     Switch ch03a;
-    @BindView(R.id.ch03m)
+
+    @BindView(R.id.ch03)
+    EditText ch03;
+
+    /*@BindView(R.id.ch03m)
     EditText ch03m;
     @BindView(R.id.ch03f)
-    EditText ch03f;
+    EditText ch03f;*/
 
     @BindView(R.id.ch04)
     EditText ch04;
@@ -64,7 +76,7 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
     @BindView(R.id.btnAddMWRA)
     Button btnAddMWRA;
 
-    @BindViews({R.id.ch01, R.id.ch02a, R.id.ch03a})
+    @BindViews({R.id.ch01a, R.id.ch02a, R.id.ch03a})
     List<Switch> grpch;
 
     @Override
@@ -126,21 +138,17 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
         });*/
 
 
-        ch01.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ch01a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    ch01m.setVisibility(View.VISIBLE);
-                    ch01f.setVisibility(View.VISIBLE);
-
+                    ch01.setVisibility(View.VISIBLE);
                     ch04.setVisibility(View.VISIBLE);
 
-                    ch01m.requestFocus();
+                    ch01.requestFocus();
                 } else {
-                    ch01m.setVisibility(View.INVISIBLE);
-                    ch01f.setVisibility(View.INVISIBLE);
-                    ch01m.setText(null);
-                    ch01f.setText(null);
+                    ch01.setVisibility(View.INVISIBLE);
+                    ch01.setText(null);
                 }
             }
         });
@@ -150,17 +158,13 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    ch02m.setVisibility(View.VISIBLE);
-                    ch02f.setVisibility(View.VISIBLE);
-
+                    ch02.setVisibility(View.VISIBLE);
                     ch04.setVisibility(View.VISIBLE);
 
-                    ch02m.requestFocus();
+                    ch02.requestFocus();
                 } else {
-                    ch02m.setVisibility(View.INVISIBLE);
-                    ch02f.setVisibility(View.INVISIBLE);
-                    ch02m.setText(null);
-                    ch02f.setText(null);
+                    ch02.setVisibility(View.INVISIBLE);
+                    ch02.setText(null);
                 }
             }
         });
@@ -170,17 +174,13 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    ch03m.setVisibility(View.VISIBLE);
-                    ch03f.setVisibility(View.VISIBLE);
-
+                    ch03.setVisibility(View.VISIBLE);
                     ch04.setVisibility(View.VISIBLE);
 
-                    ch03m.requestFocus();
+                    ch03.requestFocus();
                 } else {
-                    ch03m.setVisibility(View.INVISIBLE);
-                    ch03f.setVisibility(View.INVISIBLE);
-                    ch03m.setText(null);
-                    ch03f.setText(null);
+                    ch03.setVisibility(View.INVISIBLE);
+                    ch03.setText(null);
                 }
             }
         });
@@ -220,30 +220,20 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
                 //AppMain.mwraCount = 1;
 
 
-                if (ch01m.getText().toString().isEmpty()) {
-                    AppMain.cCount2m = Integer.valueOf(ch01m.getText().toString());
-                }
-
-                if (ch01f.getText().toString().isEmpty()) {
-                    AppMain.cCount2f = Integer.valueOf(ch01m.getText().toString());
-                }
-
-                if (ch02m.getText().toString().isEmpty()) {
-                    AppMain.cCount59m = Integer.valueOf(ch02m.getText().toString());
-                }
-
-                if (ch02f.getText().toString().isEmpty()) {
-                    AppMain.cCount59f = Integer.valueOf(ch02f.getText().toString());
+                if (!ch01.getText().toString().isEmpty()) {
+                    AppMain.cCount2m = Integer.valueOf(ch01.getText().toString());
                 }
 
 
-                if (ch03m.getText().toString().isEmpty()) {
-                    AppMain.cCount5m = Integer.valueOf(ch03m.getText().toString());
+                if (!ch02.getText().toString().isEmpty()) {
+                    AppMain.cCount59m = Integer.valueOf(ch02.getText().toString());
                 }
 
-                if (ch03f.getText().toString().isEmpty()) {
-                    AppMain.cCount5f = Integer.valueOf(ch03f.getText().toString());
+
+                if (!ch03.getText().toString().isEmpty()) {
+                    AppMain.cCount5m = Integer.valueOf(ch03.getText().toString());
                 }
+
 
                 Toast.makeText(this, AppMain.cCount2m + ":"
                                 + AppMain.cCount2f + "\n"
@@ -270,17 +260,14 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
 
-        AppMain.lc.setCh01(ch01.isChecked() ? "1" : "2");
-        AppMain.lc.setCh01m(ch01m.getText().toString());
-        AppMain.lc.setCh01f(ch01f.getText().toString());
+        AppMain.lc.setCh01a(ch01a.isChecked() ? "1" : "2");
+        AppMain.lc.setCh01(ch01.getText().toString());
 
-        AppMain.lc.setCh02(ch02a.isChecked() ? "1" : "2");
-        AppMain.lc.setCh02m(ch02m.getText().toString());
-        AppMain.lc.setCh02f(ch02f.getText().toString());
+        AppMain.lc.setCh02a(ch02a.isChecked() ? "1" : "2");
+        AppMain.lc.setCh02(ch02.getText().toString());
 
-        AppMain.lc.setCh03(ch03a.isChecked() ? "1" : "2");
-        AppMain.lc.setCh03m(ch03m.getText().toString());
-        AppMain.lc.setCh03f(ch03f.getText().toString());
+        AppMain.lc.setCh03a(ch03a.isChecked() ? "1" : "2");
+        AppMain.lc.setCh03(ch03.getText().toString());
 
         AppMain.lc.setCh04(ch04.getText().toString());
 
@@ -334,79 +321,46 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
         }*/
 
 
-        if (ch01.isChecked() && ch01m.getText().toString().isEmpty()) {
+        if (ch01a.isChecked() && ch01.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch01m.setError("Please enter child count");
+            ch01.setError("Please enter child count");
             Log.i(TAG, "Please enter child count");
             return false;
         } else {
-            ch01m.setError(null);
+            ch01.setError(null);
         }
 
-        if (ch01.isChecked() && ch01f.getText().toString().isEmpty()) {
+
+        if (ch02a.isChecked() && ch02.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch01f.setError("Please enter child count");
+            ch02.setError("Please enter child count");
             Log.i(TAG, "Please enter child count");
             return false;
         } else {
-            ch01f.setError(null);
+            ch02.setError(null);
         }
 
 
-        if (ch02a.isChecked() && ch02m.getText().toString().isEmpty()) {
+        if (ch03a.isChecked() && ch03.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch02m.setError("Please enter child count");
+            ch03.setError("Please enter child count");
             Log.i(TAG, "Please enter child count");
             return false;
         } else {
-            ch02m.setError(null);
-        }
-
-        if (ch02a.isChecked() && ch02f.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch02f.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
-            return false;
-        } else {
-            ch02f.setError(null);
+            ch03.setError(null);
         }
 
 
-        if (ch01.isChecked() && ch01f.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch01f.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
-            return false;
-        } else {
-            ch01f.setError(null);
+        int totalMember = 0;
+
+        if (!ch01.getText().toString().isEmpty()) {
+            totalMember = Integer.valueOf(ch01.getText().toString());
+        } else if (!ch02.getText().toString().isEmpty()) {
+            totalMember = totalMember + Integer.valueOf(ch02.getText().toString());
+        } else if (!ch03.getText().toString().isEmpty()) {
+            totalMember = totalMember + Integer.valueOf(ch03.getText().toString());
         }
 
-
-        if (ch03a.isChecked() && ch03m.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch03m.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
-            return false;
-        } else {
-            ch03m.setError(null);
-        }
-
-        if (ch03a.isChecked() && ch03f.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch03f.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
-            return false;
-        } else {
-            ch03f.setError(null);
-        }
-
-
-        int totalMember = Integer.valueOf(ch01m.getText().toString()) +
-                Integer.valueOf(ch01f.getText().toString()) +
-                Integer.valueOf(ch02m.getText().toString()) +
-                Integer.valueOf(ch02f.getText().toString()) +
-                Integer.valueOf(ch03m.getText().toString()) +
-                Integer.valueOf(ch03f.getText().toString());
 
         if (ch04.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter total members", Toast.LENGTH_LONG).show();
@@ -510,10 +464,10 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (ch01.isChecked() && ch02a.isChecked() && ch03a.isChecked()) {
-            ch04.setVisibility(View.GONE);
-        } else {
+        if (ch01a.isChecked() || ch02a.isChecked() || ch03a.isChecked()) {
             ch04.setVisibility(View.VISIBLE);
+        } else {
+            ch04.setVisibility(View.GONE);
         }
 
     }
