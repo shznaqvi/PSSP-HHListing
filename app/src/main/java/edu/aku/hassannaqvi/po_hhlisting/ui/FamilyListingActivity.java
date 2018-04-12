@@ -25,7 +25,7 @@ import edu.aku.hassannaqvi.po_hhlisting.R;
 import edu.aku.hassannaqvi.po_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.po_hhlisting.core.FormsDBHelper;
 
-public class FamilyListingActivity extends Activity implements CompoundButton.OnCheckedChangeListener {
+public class FamilyListingActivity extends Activity {
 
     public static String TAG = "FamilyListingActivity";
 
@@ -79,114 +79,47 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
     @BindViews({R.id.ch01a, R.id.ch02a, R.id.ch03a})
     List<Switch> grpch;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_family_listing);
-        ButterKnife.bind(this);
+    Switch.OnCheckedChangeListener grpchlis = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (ch01a.isChecked() || ch02a.isChecked() || ch03a.isChecked()) {
+                ch04.setVisibility(View.VISIBLE);
+            } else if (!ch01a.isChecked() && !ch02a.isChecked() && !ch03a.isChecked()) {
+                ch04.setVisibility(View.GONE);
+            }
+
+            if (ch01a.isChecked()) {
+                ch01.setVisibility(View.VISIBLE);
+                //ch04.setVisibility(View.VISIBLE);
+                ch01.requestFocus();
+            } else {
+                ch01.setVisibility(View.INVISIBLE);
+                ch01.setText(null);
+            }
+
+            if (ch02a.isChecked()) {
+                ch02.setVisibility(View.VISIBLE);
+                //ch04.setVisibility(View.VISIBLE);
+
+                ch02.requestFocus();
+            } else {
+                ch02.setVisibility(View.INVISIBLE);
+                ch02.setText(null);
+            }
+
+            if (ch03a.isChecked()) {
+                ch03.setVisibility(View.VISIBLE);
+                //ch04.setVisibility(View.VISIBLE);
+
+                ch03.requestFocus();
+            } else {
+                ch03.setVisibility(View.INVISIBLE);
+                ch03.setText(null);
+            }
 
 
-        txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
-
-        for (Switch sw : grpch) {
-            sw.setOnCheckedChangeListener(this);
         }
-
-        /*if (AppMain.fCount < AppMain.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-        } else {
-            btnAddFamilty.setVisibility(View.GONE);
-            btnAddHousehold.setVisibility(View.VISIBLE);
-        }
-*/
-        /*hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    hh09b.setVisibility(View.VISIBLE);
-                    hh09b.requestFocus();
-                } else {
-                    hh09b.setVisibility(View.INVISIBLE);
-                    hh09b.setText(null);
-                }
-            }
-        });
-*/
-        /*hh09b.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
-                    Toast.makeText(FamilyListingActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
-                    btnAddMWRA.setVisibility(View.VISIBLE);
-                    btnContNextQ.setVisibility(View.GONE);
-                } else {
-                    btnAddMWRA.setVisibility(View.GONE);
-                    btnContNextQ.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-
-
-        ch01a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    ch01.setVisibility(View.VISIBLE);
-                    ch04.setVisibility(View.VISIBLE);
-
-                    ch01.requestFocus();
-                } else {
-                    ch01.setVisibility(View.INVISIBLE);
-                    ch01.setText(null);
-                }
-            }
-        });
-
-
-        ch02a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    ch02.setVisibility(View.VISIBLE);
-                    ch04.setVisibility(View.VISIBLE);
-
-                    ch02.requestFocus();
-                } else {
-                    ch02.setVisibility(View.INVISIBLE);
-                    ch02.setText(null);
-                }
-            }
-        });
-
-
-        ch03a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    ch03.setVisibility(View.VISIBLE);
-                    ch04.setVisibility(View.VISIBLE);
-
-                    ch03.requestFocus();
-                } else {
-                    ch03.setVisibility(View.INVISIBLE);
-                    ch03.setText(null);
-                }
-            }
-        });
-
-
-    }
+    };
 
     @OnClick(R.id.btnContNextQ)
     void onBtnContNextQClick() {
@@ -462,16 +395,68 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
 
     }
 
-
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (ch01a.isChecked() || ch02a.isChecked() || ch03a.isChecked()) {
-            ch04.setVisibility(View.VISIBLE);
-        } else {
-            ch04.setVisibility(View.GONE);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_family_listing);
+        ButterKnife.bind(this);
+
+
+        txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
+
+        for (Switch sw : grpch) {
+            sw.setOnCheckedChangeListener(grpchlis);
         }
 
+        /*if (AppMain.fCount < AppMain.fTotal) {
+            btnAddFamilty.setVisibility(View.VISIBLE);
+            btnAddHousehold.setVisibility(View.GONE);
+        } else {
+            btnAddFamilty.setVisibility(View.GONE);
+            btnAddHousehold.setVisibility(View.VISIBLE);
+        }
+*/
+        /*hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    hh09b.setVisibility(View.VISIBLE);
+                    hh09b.requestFocus();
+                } else {
+                    hh09b.setVisibility(View.INVISIBLE);
+                    hh09b.setText(null);
+                }
+            }
+        });
+*/
+        /*hh09b.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
+                    Toast.makeText(FamilyListingActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
+                    btnAddMWRA.setVisibility(View.VISIBLE);
+                    btnContNextQ.setVisibility(View.GONE);
+                } else {
+                    btnAddMWRA.setVisibility(View.GONE);
+                    btnContNextQ.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });*/
+
+
     }
+
+
 
 
 }
