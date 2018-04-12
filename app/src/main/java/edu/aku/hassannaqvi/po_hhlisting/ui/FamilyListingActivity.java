@@ -25,7 +25,7 @@ import edu.aku.hassannaqvi.po_hhlisting.R;
 import edu.aku.hassannaqvi.po_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.po_hhlisting.core.FormsDBHelper;
 
-public class FamilyListingActivity extends Activity implements CompoundButton.OnCheckedChangeListener {
+public class FamilyListingActivity extends Activity {
 
     public static String TAG = "FamilyListingActivity";
 
@@ -67,126 +67,16 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
     @BindViews({R.id.ch01, R.id.ch02a, R.id.ch03a})
     List<Switch> grpch;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_family_listing);
-        ButterKnife.bind(this);
-
-
-        txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
-
-        for (Switch sw : grpch) {
-            sw.setOnCheckedChangeListener(this);
+    Switch.OnCheckedChangeListener grpch01 = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (ch01.isChecked() && ch02a.isChecked() && ch03a.isChecked()) {
+                ch04.setVisibility(View.GONE);
+            } else {
+                ch04.setVisibility(View.VISIBLE);
+            }
         }
-
-        /*if (AppMain.fCount < AppMain.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-        } else {
-            btnAddFamilty.setVisibility(View.GONE);
-            btnAddHousehold.setVisibility(View.VISIBLE);
-        }
-*/
-        /*hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    hh09b.setVisibility(View.VISIBLE);
-                    hh09b.requestFocus();
-                } else {
-                    hh09b.setVisibility(View.INVISIBLE);
-                    hh09b.setText(null);
-                }
-            }
-        });
-*/
-        /*hh09b.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
-                    Toast.makeText(FamilyListingActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
-                    btnAddMWRA.setVisibility(View.VISIBLE);
-                    btnContNextQ.setVisibility(View.GONE);
-                } else {
-                    btnAddMWRA.setVisibility(View.GONE);
-                    btnContNextQ.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-
-
-        ch01.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    ch01m.setVisibility(View.VISIBLE);
-                    ch01f.setVisibility(View.VISIBLE);
-
-                    ch04.setVisibility(View.VISIBLE);
-
-                    ch01m.requestFocus();
-                } else {
-                    ch01m.setVisibility(View.INVISIBLE);
-                    ch01f.setVisibility(View.INVISIBLE);
-                    ch01m.setText(null);
-                    ch01f.setText(null);
-                }
-            }
-        });
-
-
-        ch02a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    ch02m.setVisibility(View.VISIBLE);
-                    ch02f.setVisibility(View.VISIBLE);
-
-                    ch04.setVisibility(View.VISIBLE);
-
-                    ch02m.requestFocus();
-                } else {
-                    ch02m.setVisibility(View.INVISIBLE);
-                    ch02f.setVisibility(View.INVISIBLE);
-                    ch02m.setText(null);
-                    ch02f.setText(null);
-                }
-            }
-        });
-
-
-        ch03a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    ch03m.setVisibility(View.VISIBLE);
-                    ch03f.setVisibility(View.VISIBLE);
-
-                    ch04.setVisibility(View.VISIBLE);
-
-                    ch03m.requestFocus();
-                } else {
-                    ch03m.setVisibility(View.INVISIBLE);
-                    ch03f.setVisibility(View.INVISIBLE);
-                    ch03m.setText(null);
-                    ch03f.setText(null);
-                }
-            }
-        });
-
-
-    }
+    };
 
     @OnClick(R.id.btnContNextQ)
     void onBtnContNextQClick() {
@@ -508,16 +398,128 @@ public class FamilyListingActivity extends Activity implements CompoundButton.On
 
     }
 
-
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (ch01.isChecked() && ch02a.isChecked() && ch03a.isChecked()) {
-            ch04.setVisibility(View.GONE);
-        } else {
-            ch04.setVisibility(View.VISIBLE);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_family_listing);
+        ButterKnife.bind(this);
+
+
+        txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
+
+        for (Switch sw : grpch) {
+            sw.setOnCheckedChangeListener(grpch01);
         }
 
+        /*if (AppMain.fCount < AppMain.fTotal) {
+            btnAddFamilty.setVisibility(View.VISIBLE);
+            btnAddHousehold.setVisibility(View.GONE);
+        } else {
+            btnAddFamilty.setVisibility(View.GONE);
+            btnAddHousehold.setVisibility(View.VISIBLE);
+        }
+*/
+        /*hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    hh09b.setVisibility(View.VISIBLE);
+                    hh09b.requestFocus();
+                } else {
+                    hh09b.setVisibility(View.INVISIBLE);
+                    hh09b.setText(null);
+                }
+            }
+        });
+*/
+        /*hh09b.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
+                    Toast.makeText(FamilyListingActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
+                    btnAddMWRA.setVisibility(View.VISIBLE);
+                    btnContNextQ.setVisibility(View.GONE);
+                } else {
+                    btnAddMWRA.setVisibility(View.GONE);
+                    btnContNextQ.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });*/
+
+
+        ch01.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    ch01m.setVisibility(View.VISIBLE);
+                    ch01f.setVisibility(View.VISIBLE);
+
+                    ch04.setVisibility(View.VISIBLE);
+
+                    ch01m.requestFocus();
+                } else {
+                    ch01m.setVisibility(View.INVISIBLE);
+                    ch01f.setVisibility(View.INVISIBLE);
+                    ch01m.setText(null);
+                    ch01f.setText(null);
+                }
+            }
+        });
+
+
+        ch02a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    ch02m.setVisibility(View.VISIBLE);
+                    ch02f.setVisibility(View.VISIBLE);
+
+                    ch04.setVisibility(View.VISIBLE);
+
+                    ch02m.requestFocus();
+                } else {
+                    ch02m.setVisibility(View.INVISIBLE);
+                    ch02f.setVisibility(View.INVISIBLE);
+                    ch02m.setText(null);
+                    ch02f.setText(null);
+                }
+            }
+        });
+
+
+        ch03a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    ch03m.setVisibility(View.VISIBLE);
+                    ch03f.setVisibility(View.VISIBLE);
+
+                    ch04.setVisibility(View.VISIBLE);
+
+                    ch03m.requestFocus();
+                } else {
+                    ch03m.setVisibility(View.INVISIBLE);
+                    ch03f.setVisibility(View.INVISIBLE);
+                    ch03m.setText(null);
+                    ch03f.setText(null);
+                }
+            }
+        });
+
+
     }
+
+
 
 
 }
