@@ -201,6 +201,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_CH03, lc.getCh03());
         values.put(ListingEntry.COLUMN_NAME_CH03M, lc.getCh03m());
         values.put(ListingEntry.COLUMN_NAME_CH03M, lc.getCh03f());
+        values.put(ListingEntry.COLUMN_NAME_CH04, lc.getCh04());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());

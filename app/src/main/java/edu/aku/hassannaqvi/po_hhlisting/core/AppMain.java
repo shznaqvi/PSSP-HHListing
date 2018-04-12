@@ -39,6 +39,16 @@ public class AppMain extends Application {
     public static int fCount = 0;
     public static int fTotal = 0;
     public static int cCount = 0;
+
+    public static int cCount2m = 0;
+    public static int cCount2f = 0;
+
+    public static int cCount59m = 0;
+    public static int cCount59f = 0;
+
+    public static int cCount5m = 0;
+    public static int cCount5f = 0;
+
     public static int hh07 = 0;
     public static int cTotal = 0;
     public static int mwraCount = 0;

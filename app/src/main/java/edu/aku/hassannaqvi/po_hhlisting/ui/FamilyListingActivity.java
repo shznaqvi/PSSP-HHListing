@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.aku.hassannaqvi.po_hhlisting.R;
@@ -54,6 +55,9 @@ public class FamilyListingActivity extends Activity {
     EditText ch03m;
     @BindView(R.id.ch03f)
     EditText ch03f;
+
+    @BindView(R.id.ch04)
+    EditText ch04;
 
     @BindView(R.id.btnContNextQ)
     Button btnContNextQ;
@@ -121,6 +125,9 @@ public class FamilyListingActivity extends Activity {
                 if (isChecked) {
                     ch01m.setVisibility(View.VISIBLE);
                     ch01f.setVisibility(View.VISIBLE);
+
+                    ch04.setVisibility(View.VISIBLE);
+
                     ch01m.requestFocus();
                 } else {
                     ch01m.setVisibility(View.INVISIBLE);
@@ -138,6 +145,9 @@ public class FamilyListingActivity extends Activity {
                 if (isChecked) {
                     ch02m.setVisibility(View.VISIBLE);
                     ch02f.setVisibility(View.VISIBLE);
+
+                    ch04.setVisibility(View.VISIBLE);
+
                     ch02m.requestFocus();
                 } else {
                     ch02m.setVisibility(View.INVISIBLE);
@@ -155,6 +165,9 @@ public class FamilyListingActivity extends Activity {
                 if (isChecked) {
                     ch03m.setVisibility(View.VISIBLE);
                     ch03f.setVisibility(View.VISIBLE);
+
+                    ch04.setVisibility(View.VISIBLE);
+
                     ch03m.requestFocus();
                 } else {
                     ch03m.setVisibility(View.INVISIBLE);
@@ -197,10 +210,47 @@ public class FamilyListingActivity extends Activity {
             if (UpdateDB()) {
                 //AppMain.mwraTotal = Integer.parseInt(hh09b.getText().toString());
 
-                AppMain.mwraCount = 1;
-                Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
-                Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
-                startActivity(mwraA);
+                //AppMain.mwraCount = 1;
+
+
+                if (ch01m.getText().toString().isEmpty()) {
+                    AppMain.cCount2m = Integer.valueOf(ch01m.getText().toString());
+                }
+
+                if (ch01f.getText().toString().isEmpty()) {
+                    AppMain.cCount2f = Integer.valueOf(ch01m.getText().toString());
+                }
+
+                if (ch02m.getText().toString().isEmpty()) {
+                    AppMain.cCount59m = Integer.valueOf(ch02m.getText().toString());
+                }
+
+                if (ch02f.getText().toString().isEmpty()) {
+                    AppMain.cCount59f = Integer.valueOf(ch02f.getText().toString());
+                }
+
+
+                if (ch03m.getText().toString().isEmpty()) {
+                    AppMain.cCount5m = Integer.valueOf(ch03m.getText().toString());
+                }
+
+                if (ch03f.getText().toString().isEmpty()) {
+                    AppMain.cCount5f = Integer.valueOf(ch03f.getText().toString());
+                }
+
+                Toast.makeText(this, AppMain.cCount2m + ":"
+                                + AppMain.cCount2f + "\n"
+                                + AppMain.cCount59m + "\n"
+                                + AppMain.cCount59f + "\n"
+                                + AppMain.cCount5m + "\n"
+                                + AppMain.cCount5f + "\n"
+                        , Toast.LENGTH_SHORT).show();
+
+                //Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
+
+                //Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
+                Intent childActivity = new Intent(this, AddChildActivity.class);
+                startActivity(childActivity);
             } else {
                 Toast.makeText(this, "Saving Draft... Failed!", Toast.LENGTH_LONG).show();
             }
@@ -224,6 +274,8 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setCh03(ch03a.isChecked() ? "1" : "2");
         AppMain.lc.setCh03m(ch03m.getText().toString());
         AppMain.lc.setCh03f(ch03f.getText().toString());
+
+        AppMain.lc.setCh04(ch04.getText().toString());
 
         /*AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
         AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());*/
@@ -339,6 +391,34 @@ public class FamilyListingActivity extends Activity {
             return false;
         } else {
             ch03f.setError(null);
+        }
+
+
+
+        int totalMember = Integer.valueOf(ch01m.getText().toString()) +
+                Integer.valueOf(ch01f.getText().toString()) +
+                Integer.valueOf(ch02m.getText().toString()) +
+                Integer.valueOf(ch02f.getText().toString()) +
+                Integer.valueOf(ch03m.getText().toString()) +
+                Integer.valueOf(ch03f.getText().toString());
+
+        if (ch04.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter total members", Toast.LENGTH_LONG).show();
+            ch04.setError("Please enter total members");
+            Log.i(TAG, "Please enter total members");
+            return false;
+        } else {
+            ch04.setError(null);
+        }
+
+
+        if (Integer.valueOf(ch04.getText().toString()) != totalMember) {
+            Toast.makeText(this, "Please check total members", Toast.LENGTH_LONG).show();
+            ch04.setError("Please check total members");
+            Log.i(TAG, "Please check total members");
+            return false;
+        } else {
+            ch04.setError(null);
         }
 
 
