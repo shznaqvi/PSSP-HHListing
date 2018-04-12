@@ -15,6 +15,7 @@ public class ListingContract {
     public String UID;
     public String hhDT;
     public String enumCode;
+    public String clusterCode;
     public String enumStr;
     public String hh01;
     public String hh02;
@@ -52,6 +53,14 @@ public class ListingContract {
 
     public ListingContract(String ID) {
         this.ID = ID;
+    }
+
+    public String getClusterCode() {
+        return clusterCode;
+    }
+
+    public void setClusterCode(String clusterCode) {
+        this.clusterCode = clusterCode;
     }
 
     public String getID() {
@@ -338,6 +347,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
 
         json.put(ListingEntry.COLUMN_NAME_ENUMCODE, this.enumCode);
+        json.put(ListingEntry.COLUMN_NAME_CLUSTERCODE, this.clusterCode);
         json.put(ListingEntry.COLUMN_NAME_ENUMSTR, this.enumStr);
 
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
@@ -381,6 +391,7 @@ public class ListingContract {
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
 
         lc.setEnumCode(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ENUMCODE))));
+        lc.setEnumCode(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CLUSTERCODE))));
         lc.setEnumStr(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ENUMSTR))));
 
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
@@ -427,6 +438,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HHDATETIME = "hhdt";
 
         public static final String COLUMN_NAME_ENUMCODE = "enumcode";
+        public static final String COLUMN_NAME_CLUSTERCODE = "clustercode";
         public static final String COLUMN_NAME_ENUMSTR = "enumstr";
 
         public static final String COLUMN_NAME_HH01 = "hh01";

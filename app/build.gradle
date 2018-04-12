@@ -20,7 +20,7 @@ android {
             minSdkVersion 22
             targetSdkVersion 22
             versionCode code
-            versionName "0.5"
+            versionName "1.5"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         }
     } else {
