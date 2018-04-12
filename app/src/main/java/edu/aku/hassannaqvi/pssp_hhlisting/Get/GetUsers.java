@@ -21,8 +21,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import edu.aku.hassannaqvi.pssp_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.UsersContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.pssp_hhlisting.Core.FormsDBHelper;
 
 /**
@@ -55,7 +55,7 @@ public class GetUsers extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._HOST_URL + "/users/");
+            URL url = new URL(AppMain._HOST_URL + "users.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());

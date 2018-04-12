@@ -9,9 +9,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -53,18 +55,18 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Please wait... Processing Forms");
+        pd.setTitle("Please wait... Processing Listings");
         pd.show();
 
     }
 
-    private String downloadUrl(String myurl) throws IOException {
+    private String downloadUrl(String myurl) {
         String line = "No Response";
 
         HttpURLConnection connection = null;
         try {
             String request = myurl;
-            //String request = "http://10.1.42.30:3000/forms";
+            //String request = "http://10.1.42.30:3000/Listings";
             pd.setTitle("Connecting to... " + request);
             //pd.show();
             URL url = new URL(request);
@@ -85,7 +87,7 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
             FormsDBHelper db = new FormsDBHelper(mContext);
             Collection<ListingContract> listings = db.getAllListings();
             Log.d(TAG, String.valueOf(listings.size()));
-//            pd.setMessage("Total Forms: " );
+//            pd.setMessage("Total Listings: " );
             for (ListingContract lc : listings) {
 
                 jsonSync.put(lc.toJSONObject());
@@ -136,7 +138,7 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return downloadUrl(AppMain._HOST_URL + "/forms/");
+            return downloadUrl(AppMain._HOST_URL + "listings.php");
         } catch (IOException e) {
             return "Unable to upload data. Server may be down.";
         }
@@ -145,8 +147,41 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        pd.setMessage("Server Response: " + result);
-        pd.setTitle("Done!... Synced Forms");
-        //pd.show();
+        int sSynced = 0;
+        int sDuplicate = 0;
+        String sSyncedError = "";
+        JSONArray json = null;
+        try {
+            json = new JSONArray(result);
+
+            //DatabaseHelper db = new DatabaseHelper(mContext); // Database Helper
+            for (int i = 0; i < json.length(); i++) {
+                JSONObject jsonObject = new JSONObject(json.getString(i));
+                if (jsonObject.getString("status").equals("1") && jsonObject.getString("error").equals("0")) {
+
+                    // db.updateSyncedListings(jsonObject.getString("id"));  // UPDATE SYNCED
+                    sSynced++;
+                } else if (jsonObject.getString("status").equals("2") && jsonObject.getString("error").equals("0")) {
+                    //db.updateSyncedListings(jsonObject.getString("id")); // UPDATE DUPLICATES
+                    sDuplicate++;
+                } else {
+                    sSyncedError += "\nError: " + jsonObject.getString("message");
+                }
+            }
+            Toast.makeText(mContext, " Listings synced: " + sSynced + "\r\n\r\n Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
+
+            pd.setMessage(" Listings synced: " + sSynced + "\r\n\r\n Duplicates: " + sDuplicate + "\r\n\r\n Errors: " + sSyncedError);
+            pd.setTitle("Done uploading Listings data");
+            pd.show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(mContext, "Failed Sync " + result, Toast.LENGTH_SHORT).show();
+
+            pd.setMessage(result);
+            pd.setTitle("Listings Sync Failed");
+            pd.show();
+
+
+        }
     }
 }

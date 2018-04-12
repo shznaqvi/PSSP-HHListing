@@ -20,8 +20,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import edu.aku.hassannaqvi.pssp_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.pssp_hhlisting.Contracts.DistrictsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.pssp_hhlisting.Core.FormsDBHelper;
 
 /**
@@ -57,7 +57,7 @@ public class GetDistricts extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._HOST_URL + "/districts/");
+            URL url = new URL(AppMain._HOST_URL + "districts.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();
