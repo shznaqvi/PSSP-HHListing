@@ -304,6 +304,7 @@ public class MainActivity extends Activity {
 
                     AppMain.hh02txt = txtPSU.getText().toString();
                     AppMain.enumCode = enumBlockContract.getEbcode();
+                    AppMain.enumStr = enumBlockContract.getGeoarea();
                     AppMain.clusterCode = txtPSU.getText().toString();
                 }
             } else {
