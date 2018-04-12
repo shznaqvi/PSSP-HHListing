@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,6 +102,8 @@ public class AddChildActivity extends AppCompatActivity {
 
     static int count = 0;
 
+    String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,11 +184,14 @@ public class AddChildActivity extends AppCompatActivity {
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.lc.setHh04Village(null);
+            //AppMain.lc.setHh04Village(null);
 
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
+
+        updcount = db.updateChild();
+
         return true;
     }
 
@@ -195,6 +201,7 @@ public class AddChildActivity extends AppCompatActivity {
 
         AppMain.childContract = new ChildContract();
 
+        AppMain.childContract.chDT = dtToday;
         AppMain.childContract.ch01 = AppMain.hh01txt;
         AppMain.childContract.ch02 = AppMain.hh02txt;
         AppMain.childContract.ch03 = String.valueOf(AppMain.hh03txt);

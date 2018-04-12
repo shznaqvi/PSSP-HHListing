@@ -365,6 +365,27 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
+
+    public int updateChild() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ChildEntry.CHILD_UID, AppMain.childContract.getUID());
+
+
+// Which row to update, based on the ID
+        String selection = ChildEntry._ID + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(AppMain.childContract.getID())};
+
+        int count = db.update(ChildEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
+    }
+
+
     public int updateMwra() {
         SQLiteDatabase db = this.getReadableDatabase();
 
