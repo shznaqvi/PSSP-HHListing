@@ -274,6 +274,74 @@ public class FamilyListingActivity extends Activity {
             hh09b.setError(null);
         }*/
 
+
+        if (ch01.isChecked() && ch01m.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
+            ch01m.setError("Please enter child count");
+            Log.i(TAG, "Please enter child count");
+            return false;
+        } else {
+            ch01m.setError(null);
+        }
+
+        if (ch01.isChecked() && ch01f.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
+            ch01f.setError("Please enter child count");
+            Log.i(TAG, "Please enter child count");
+            return false;
+        } else {
+            ch01f.setError(null);
+        }
+
+
+        if (ch02a.isChecked() && ch02m.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
+            ch02m.setError("Please enter child count");
+            Log.i(TAG, "Please enter child count");
+            return false;
+        } else {
+            ch02m.setError(null);
+        }
+
+        if (ch02a.isChecked() && ch02f.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
+            ch02f.setError("Please enter child count");
+            Log.i(TAG, "Please enter child count");
+            return false;
+        } else {
+            ch02f.setError(null);
+        }
+
+
+        if (ch01.isChecked() && ch01f.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
+            ch01f.setError("Please enter child count");
+            Log.i(TAG, "Please enter child count");
+            return false;
+        } else {
+            ch01f.setError(null);
+        }
+
+
+        if (ch03a.isChecked() && ch03m.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
+            ch03m.setError("Please enter child count");
+            Log.i(TAG, "Please enter child count");
+            return false;
+        } else {
+            ch03m.setError(null);
+        }
+
+        if (ch03a.isChecked() && ch03f.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
+            ch03f.setError("Please enter child count");
+            Log.i(TAG, "Please enter child count");
+            return false;
+        } else {
+            ch03f.setError(null);
+        }
+
+
         return true;
     }
 
