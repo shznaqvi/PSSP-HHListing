@@ -394,7 +394,6 @@ public class FamilyListingActivity extends Activity {
         }
 
 
-
         int totalMember = Integer.valueOf(ch01m.getText().toString()) +
                 Integer.valueOf(ch01f.getText().toString()) +
                 Integer.valueOf(ch02m.getText().toString()) +
