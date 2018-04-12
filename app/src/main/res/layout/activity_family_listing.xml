@@ -98,17 +98,41 @@
             android:orientation="vertical"
             android:padding="@dimen/_5sdp">
 
-            <Switch
-                android:id="@+id/hh10"
+            <!--            <Switch
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_weight="4"
+                            android:text="@string/hh10"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textOff="@string/no"
+                            android:textOn="@string/yes"
+                            android:textSize="@dimen/_10sdp" />-->
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_weight="4"
-                android:text="@string/hh10"
-                android:textColor="@color/colorPrimaryDark"
-                android:textOff="@string/no"
-                android:textOn="@string/yes"
-                android:textSize="@dimen/_10sdp" />
+                android:text="@string/hh10" />
+
+            <RadioGroup
+                android:id="@+id/hh10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/hh10a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/hh10b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no" />
+
+            </RadioGroup>
 
             <EditText
                 android:id="@+id/hh11"
@@ -130,7 +154,7 @@
             android:orientation="vertical"
             android:padding="@dimen/_5sdp">
 
-            <Switch
+            <!--<Switch
                 android:id="@+id/hh12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,7 +164,32 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textOff="@string/no"
                 android:textOn="@string/yes"
-                android:textSize="@dimen/_10sdp" />
+                android:textSize="@dimen/_10sdp" />-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/hh12" />
+
+            <RadioGroup
+                android:id="@+id/hh12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/hh12a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/hh12b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no" />
+
+            </RadioGroup>
 
             <EditText
                 android:id="@+id/hh13"
@@ -161,6 +210,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/_5sdp">
+<!--
 
             <Switch
                 android:id="@+id/hh14"
@@ -172,7 +222,32 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textOff="@string/no"
                 android:textOn="@string/yes"
-                android:textSize="@dimen/_10sdp" />
+                android:textSize="@dimen/_10sdp" />-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/hh14" />
+
+            <RadioGroup
+                android:id="@+id/hh14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/hh14a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/hh14b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no" />
+
+            </RadioGroup>
 
             <EditText
                 android:id="@+id/hh15"
