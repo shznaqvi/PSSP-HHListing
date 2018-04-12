@@ -295,6 +295,7 @@ public class MainActivity extends Activity {
                             if (chkconfirm.isChecked()) {
                                 openForm.setBackgroundColor(getResources().getColor(R.color.green));
                                 openForm.setVisibility(View.VISIBLE);
+                                AppMain.hh01txt = 1;
                             } else {
                                 openForm.setVisibility(View.GONE);
 

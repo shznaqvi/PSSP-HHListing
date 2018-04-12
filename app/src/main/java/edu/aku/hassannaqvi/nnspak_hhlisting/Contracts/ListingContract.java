@@ -342,6 +342,7 @@ public class ListingContract {
 
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
+        json.put("projectname", "NNS-LINELISTING 2018");
         json.put(ListingEntry._ID, this.ID);
         json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
@@ -439,7 +440,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_CLUSTERCODE = "clustercode";
         public static final String COLUMN_NAME_ENUMSTR = "enumstr";
 
-        public static final String COLUMN_NAME_HH01 = "hh01";
+        public static final String COLUMN_NAME_HH01 = "chkconfirm";
         public static final String COLUMN_NAME_HH02 = "hh02";
         public static final String COLUMN_NAME_HH03 = "hh03";
         public static final String COLUMN_NAME_HH04 = "hh04";
