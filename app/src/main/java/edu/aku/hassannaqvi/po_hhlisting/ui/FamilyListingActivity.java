@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +15,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
@@ -25,7 +25,7 @@ import edu.aku.hassannaqvi.po_hhlisting.R;
 import edu.aku.hassannaqvi.po_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.po_hhlisting.core.FormsDBHelper;
 
-public class FamilyListingActivity extends Activity {
+public class FamilyListingActivity extends Activity implements CompoundButton.OnCheckedChangeListener {
 
     public static String TAG = "FamilyListingActivity";
 
@@ -64,6 +64,9 @@ public class FamilyListingActivity extends Activity {
     @BindView(R.id.btnAddMWRA)
     Button btnAddMWRA;
 
+    @BindViews({R.id.ch01, R.id.ch02a, R.id.ch03a})
+    List<Switch> grpch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,10 @@ public class FamilyListingActivity extends Activity {
 
 
         txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
+
+        for (Switch sw : grpch) {
+            sw.setOnCheckedChangeListener(this);
+        }
 
         /*if (AppMain.fCount < AppMain.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);
@@ -497,6 +504,17 @@ public class FamilyListingActivity extends Activity {
     @Override
     public void onBackPressed() {
         Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (ch01.isChecked() && ch02a.isChecked() && ch03a.isChecked()) {
+            ch04.setVisibility(View.GONE);
+        } else {
+            ch04.setVisibility(View.VISIBLE);
+        }
 
     }
 
