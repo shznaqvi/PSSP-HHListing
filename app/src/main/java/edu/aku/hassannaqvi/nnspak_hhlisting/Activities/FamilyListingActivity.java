@@ -355,15 +355,17 @@ public class FamilyListingActivity extends Activity {
             hh11.setError(null);
         }*/
 
-        if (!validatorClass.EmptyRadioButton(this, hh12, hh12a, getString(R.string.hh12))) {
-            return false;
-        }
-        if (!validatorClass.EmptyRadioButton(this, hh12, hh12a, hh13, "Children count")) {
-            return false;
-        }
-        if (hh12a.isChecked()) {
-            if (!validatorClass.RangeTextBox(this, hh13, 1, 99, getString(R.string.hh12), "for Childrens")) {
+        if (false) {
+            if (!validatorClass.EmptyRadioButton(this, hh12, hh12a, getString(R.string.hh12))) {
                 return false;
+            }
+            if (!validatorClass.EmptyRadioButton(this, hh12, hh12a, hh13, "Children count")) {
+                return false;
+            }
+            if (hh12a.isChecked()) {
+                if (!validatorClass.RangeTextBox(this, hh13, 1, 99, getString(R.string.hh12), "for Childrens")) {
+                    return false;
+                }
             }
         }
 

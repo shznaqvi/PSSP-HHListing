@@ -328,7 +328,7 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh05(hh05.isChecked() ? "1" : "2");
         AppMain.lc.setHh06(hh06.getText().toString());
         AppMain.lc.setHh07(AppMain.hh07txt);
-        AppMain.lc.setHh09a1(hh09a1.isChecked() ? "1" : "2");
+        AppMain.lc.setHh09a1(hh04a.isChecked() || hh09a1.isChecked() ? "1" : "2");
 //        AppMain.lc.setHhadd(hhadd.getText().toString());
 
         AppMain.lc.setDeviceID(deviceId);

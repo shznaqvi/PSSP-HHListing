@@ -46,9 +46,37 @@ public class ListingContract {
     public String AppVer;
     public String tagId;
 
+    public String isRandom;
+    public String resCount;
+    public String childCount;
+
     private String username; // User Name
 
     public ListingContract() {
+    }
+
+    public String getIsRandom() {
+        return isRandom;
+    }
+
+    public void setIsRandom(String isRandom) {
+        this.isRandom = isRandom;
+    }
+
+    public String getResCount() {
+        return resCount;
+    }
+
+    public void setResCount(String resCount) {
+        this.resCount = resCount;
+    }
+
+    public String getChildCount() {
+        return childCount;
+    }
+
+    public void setChildCount(String childCount) {
+        this.childCount = childCount;
     }
 
     public ListingContract(String ID) {
@@ -382,11 +410,12 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
 
         json.put(ListingEntry.COLUMN_ISNEWHH, this.isNewHH);
+        json.put(ListingEntry.COLUMN_RANDOMIZED, this.isRandom);
 
         return json;
     }
 
-    public ListingContract hydrate(Cursor c) {
+    public ListingContract hydrate(Cursor c, int type) {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
         lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
@@ -426,6 +455,11 @@ public class ListingContract {
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
 
         lc.setIsNewHH(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ISNEWHH))));
+        lc.setIsRandom(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_RANDOMIZED))));
+
+        if (type == 1) {
+            lc.setResCount(String.valueOf(c.getString(c.getColumnIndex("RESCOUNTER"))));
+        }
 
         return lc;
     }
@@ -472,6 +506,7 @@ public class ListingContract {
         public static final String COLUMN_TAGID = "tagId";
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";
+        public static final String COLUMN_RANDOMIZED = "randomized";
 
         public static final String COLUMN_USERNAME = "username";
         public static final String _URL = "listings.php";

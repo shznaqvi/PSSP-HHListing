@@ -48,6 +48,10 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     compile 'com.android.support:appcompat-v7:27.1.0'
+
+    // RecyclerView
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+
     testCompile 'junit:junit:4.12'
 
     compile 'com.intuit.sdp:sdp-android:1.0.5'
