@@ -217,12 +217,22 @@ public class AddChildActivity extends AppCompatActivity {
                 count += count;
 
                 if (total2Months != 0) {
-                    txtCounter.setText("Child 0 or less 2 months - " + count + " out of " + total2Months);
-                    txtCounter1.setText(count + " out of " + total2Months);
+
+                    if (total2Months == 1) {
+                        txtCounter.setText("Child 0 - 59 months");
+                        txtCounter1.setText(count + " out of " + total59Months);
+                    } else {
+                        txtCounter.setText("Child 0 or less 2 months");
+                        txtCounter1.setText(count + " out of " + total2Months);
+                    }
+
                 } else if (total59Months != 0) {
-                    txtCounter.setText("Child 0 - 59 months - " + count + " out of " + total59Months);
+                    txtCounter.setText("Child 0 - 59 months");
                     txtCounter1.setText(count + " out of " + total59Months);
                 }
+
+                Log.d(TAG, "count: " + count + " - " + total2Months);
+                Log.d(TAG, "count: " + count + " - " + total59Months);
 
 
                 if (count > total2Months) {
@@ -230,20 +240,18 @@ public class AddChildActivity extends AppCompatActivity {
                     total2Months = 0;
 
                     if (total59Months == 0) {
-                        btnAddChild.setVisibility(View.GONE);
 
-                        Intent setupActivity = new Intent(this, setupActivity.class);
-                        startActivity(setupActivity);
+                        //Intent setupActivity = new Intent(this, setupActivity.class);
+                        //startActivity(setupActivity);
                     }
                 }
 
                 if (count > total59Months) {
                     count = 1;
                     total59Months = 0;
-                    btnAddChild.setVisibility(View.GONE);
 
-                    Intent setupActivity = new Intent(this, setupActivity.class);
-                    startActivity(setupActivity);
+                    //Intent setupActivity = new Intent(this, setupActivity.class);
+                    //startActivity(setupActivity);
                 }
 
             }
