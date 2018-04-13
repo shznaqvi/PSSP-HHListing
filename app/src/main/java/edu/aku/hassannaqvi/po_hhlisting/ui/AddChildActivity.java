@@ -144,8 +144,6 @@ public class AddChildActivity extends AppCompatActivity {
         txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months);
 
 
-
-
         btnAddChild.setVisibility(View.VISIBLE);
         btnAddHousehold.setVisibility(View.VISIBLE);
 
@@ -221,8 +219,6 @@ public class AddChildActivity extends AppCompatActivity {
 
         long updcount = db.addChild(AppMain.childContract);
 
-        AppMain.childContract.setID(updcount);
-
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
@@ -247,6 +243,19 @@ public class AddChildActivity extends AppCompatActivity {
 
         AppMain.childContract = new ChildContract();
 
+        /*cc.setChDT(dtToday);
+        cc.setCHILDID(String.valueOf(count_2));
+        cc.setCh01(AppMain.hh01txt);
+        cc.setCh02(AppMain.hh02txt);
+        cc.setCh03(String.valueOf(AppMain.hh03txt));
+        cc.setCh04(AppMain.hh04txt);
+        cc.setCh05(AppMain.lhwCode);
+
+        cc.setUID(AppMain.lc.getDeviceID() + AppMain.lc.getID());
+        cc.setUUID(AppMain.lc.getUID());
+        cc.setHhno(AppMain.hhno);*/
+
+
         AppMain.childContract.chDT = dtToday;
         AppMain.childContract.CHILDID = String.valueOf(count_2);
 
@@ -254,7 +263,11 @@ public class AddChildActivity extends AppCompatActivity {
         AppMain.childContract.ch02 = AppMain.hh02txt;
         AppMain.childContract.ch03 = String.valueOf(AppMain.hh03txt);
         AppMain.childContract.ch04 = AppMain.hh04txt;
+        AppMain.childContract.ch05 = AppMain.lhwCode;
+
         AppMain.childContract.UUID = AppMain.lc.getUID();
+        AppMain.childContract.hhno = AppMain.hhno;
+
 
         JSONObject js = new JSONObject();
 
@@ -276,6 +289,9 @@ public class AddChildActivity extends AppCompatActivity {
                 : "0");
 
         js.put("ch1188", ch1188.getText().toString());
+
+
+        //cc.setChild(String.valueOf(js));
 
         AppMain.childContract.setChild(String.valueOf(js));
 
@@ -448,6 +464,11 @@ public class AddChildActivity extends AppCompatActivity {
     void onBtnAddHouseholdClick() {
         if (formValidation()) {
 
+            if (AppMain.cCount2m != count_2) {
+                Toast.makeText(getApplicationContext(), "Please Insert the data of the remaining children", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             try {
                 SaveDraft();
             } catch (JSONException e) {
@@ -456,7 +477,6 @@ public class AddChildActivity extends AppCompatActivity {
             if (UpdateDB()) {
 
                 if (AppMain.cCount2m != count_2) {
-                    Toast.makeText(getApplicationContext(), "Please Insert the data of the remaining children", Toast.LENGTH_SHORT).show();
                 } else {
                     AppMain.fCount = 0;
                     AppMain.fTotal = 0;

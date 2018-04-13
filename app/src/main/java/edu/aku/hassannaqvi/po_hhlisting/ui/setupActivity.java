@@ -86,8 +86,6 @@ public class setupActivity extends Activity {
         setContentView(R.layout.activity_setup);
         ButterKnife.bind(this);
 
-        hh04a.setChecked(true);
-
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -186,7 +184,6 @@ public class setupActivity extends Activity {
         AppMain.hh02txt = null;
         Intent fA = new Intent(this, MainActivity.class);
         startActivity(fA);
-
     }
 
 
@@ -200,6 +197,9 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt)); //structure no
         AppMain.lc.setHh04Village(AppMain.hh04txt); //village no
         AppMain.lc.setHhadd(hhadd.getText().toString());
+
+        AppMain.hhno = hhadd.getText().toString();
+
         switch (hh04.getCheckedRadioButtonId()) {
             case R.id.hh04a:
                 AppMain.lc.setHh04("1");
@@ -271,7 +271,7 @@ public class setupActivity extends Activity {
             hhadd.setError(null);
         }
 
-        /*if (hh04.getCheckedRadioButtonId() == -1) {
+        if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
             hh04x.setError("Please one option");
             Log.i(TAG, "Please one option");
@@ -287,7 +287,7 @@ public class setupActivity extends Activity {
             return false;
         } else {
             hh04x88.setError(null);
-        }*/
+        }
 
         if (hh05.isChecked() && hh06.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter number", Toast.LENGTH_LONG).show();

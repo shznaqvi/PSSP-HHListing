@@ -132,21 +132,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/hh04"
-            android:visibility="gone" />
+            android:text="@string/hh04" />
 
         <RadioGroup
             android:id="@+id/hh04"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/hh04a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/hh04a"
-                android:visibility="gone" />
+                android:text="@string/hh04a" />
 
             <RadioButton
                 android:id="@+id/hh04b"
@@ -193,8 +190,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:text="@string/hh04g"
-                android:visibility="gone" />
+                android:text="@string/hh04g" />
 
             <RadioButton
                 android:id="@+id/hh04x"
@@ -228,7 +224,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
 
                 <!--Are there more than one Families?-->
                 <TextView
@@ -312,7 +307,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Change Village"
+            android:text="Change Village / LHW"
             android:visibility="gone" />
     </LinearLayout>
 

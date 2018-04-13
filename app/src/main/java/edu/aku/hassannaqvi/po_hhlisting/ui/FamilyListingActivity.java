@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -76,14 +77,27 @@ public class FamilyListingActivity extends Activity {
     @OnClick(R.id.btnContNextQ)
     void onBtnContNextQClick() {
         if (formValidation()) {
+
+            if (AppMain.fCount < AppMain.fTotal) {
+                btnAddMWRA.setVisibility(View.GONE);
+                btnContNextQ.setVisibility(View.VISIBLE);
+            } else {
+                btnAddMWRA.setVisibility(View.VISIBLE);
+                btnContNextQ.setVisibility(View.GONE);
+            }
+
             SaveDraft();
             if (UpdateDB()) {
+
+                AppMain.fCount++;
+
                 /*AppMain.fCount = 0;
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
                 AppMain.mwraCount = 0;
                 AppMain.mwraTotal = 0;*/
+
 
                 //Intent closeA = new Intent(this, HouseholdInfoActivity.class);
                 AddChildActivity.count_2 = 1;
@@ -392,7 +406,6 @@ public class FamilyListingActivity extends Activity {
     @Override
     public void onBackPressed() {
         Toast.makeText(getApplicationContext(), "Back Button NOT Allowed!", Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -400,7 +413,6 @@ public class FamilyListingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_listing);
         ButterKnife.bind(this);
-
 
         txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
 
@@ -432,15 +444,18 @@ public class FamilyListingActivity extends Activity {
         });*/
 
 
+        Log.d(TAG, "onCreate: " + AppMain.fCount + " - " + AppMain.fTotal);
 
-        /*if (AppMain.fCount < AppMain.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
+
+        if (AppMain.fCount < AppMain.fTotal) {
+            btnAddMWRA.setVisibility(View.GONE);
+            btnContNextQ.setVisibility(View.VISIBLE);
         } else {
-            btnAddFamilty.setVisibility(View.GONE);
-            btnAddHousehold.setVisibility(View.VISIBLE);
+            btnAddMWRA.setVisibility(View.VISIBLE);
+            btnContNextQ.setVisibility(View.GONE);
         }
-*/
+
+
         /*hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

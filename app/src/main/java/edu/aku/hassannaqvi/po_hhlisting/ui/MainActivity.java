@@ -201,6 +201,9 @@ public class MainActivity extends Activity {
                 mN02.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, villageNames));
 
 
+                lhwCodes.add("....");
+                lhwNames.add("....");
+
                 Collection<LHWContract> lhw = db.getAllLHWsByDistrict(AppMain.hh01txt, AppMain.hh02txt);
                 for (LHWContract p : lhw) {
                     lhwCodes.add(p.getLhwcode());
@@ -217,12 +220,40 @@ public class MainActivity extends Activity {
             }
         });
 
+
+        MN03.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (MN03.getSelectedItemPosition() != 0) {
+                    AppMain.lhwCode = lhwCodes.get(i);
+                    AppMain.lhwName = lhwNames.get(i);
+
+                    //String[] st = villageNames.get(i).split("\\|");
+
+                    /*districtN.setText(AppMain.hh01txt);
+                    ucN.setText(AppMain.hh02txt);
+                    psuN.setText(AppMain.lhwName);*/
+
+                    //districtN.setText(st[0]);
+                    //ucN.setText(st[1]);
+                    //psuN.setText(st[2]);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 if (mN02.getSelectedItemPosition() != 0) {
                     AppMain.hh04txt = villageCodes.get(i);
+                    AppMain.villageCode = villageCodes.get(i);
                     AppMain.villageName = villageNames.get(i);
 
                     //String[] st = villageNames.get(i).split("\\|");

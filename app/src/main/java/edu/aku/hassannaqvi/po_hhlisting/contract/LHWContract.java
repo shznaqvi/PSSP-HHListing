@@ -61,12 +61,10 @@ public class LHWContract {
         this.uccode = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_UC_CODE));
         this.ucname = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_UC_NAME));
         this.lhwcode = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_LHW_CODE));
-        this.lhwname = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_LHW_CODE));
+        this.lhwname = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_LHW_NAME));
 
         return this;
     }
-
-
 
 
     public static abstract class lhwEntry implements BaseColumns {

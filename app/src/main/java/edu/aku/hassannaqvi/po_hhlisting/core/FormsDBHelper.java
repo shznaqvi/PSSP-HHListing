@@ -103,6 +103,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildEntry.CHILD_CHDT + " TEXT," +
                 //ChildEntry.CHILD_CHVILLAGECODE + " TEXT," +
                 //ChildEntry.CHILD_CHSTRUCTURENO + " TEXT," +
+                ChildEntry.CHILD_HHNO + " TEXT," +
                 ChildEntry.CHILD_CH01 + " TEXT," +
                 ChildEntry.CHILD_CH02 + " TEXT," +
                 ChildEntry.CHILD_CH03 + " TEXT," +
@@ -270,13 +271,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
 
-        values.put(ChildEntry.COLUMN_ID, childContract.getID());
         values.put(ChildEntry.CHILD_ID, childContract.getCHILDID());
         values.put(ChildEntry.CHILD_UUID, childContract.getUUID());
         values.put(ChildEntry.CHILD_UID, childContract.getUID());
         values.put(ChildEntry.CHILD_CHDT, childContract.getChDT());
         //values.put(ChildEntry.CHILD_CHVILLAGECODE, childContract.getChVillageCode());
         //values.put(ChildEntry.CHILD_CHSTRUCTURENO, childContract.getChStructureNo());
+        values.put(ChildEntry.CHILD_HHNO, AppMain.hhno);
         values.put(ChildEntry.CHILD_CH01, childContract.getCh01());
         values.put(ChildEntry.CHILD_CH02, childContract.getCh02());
         values.put(ChildEntry.CHILD_CH03, childContract.getCh03());
@@ -673,10 +674,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Cursor c = null;
         String[] columns = {
                 lhwEntry._ID,
-                lhwEntry.COLUMN_LHW_CODE,
-                lhwEntry.COLUMN_LHW_NAME,
                 lhwEntry.COLUMN_TALUKA_CODE,
-                lhwEntry.COLUMN_UC_CODE
+                lhwEntry.COLUMN_TALUKA_NAME,
+                lhwEntry.COLUMN_UC_CODE,
+                lhwEntry.COLUMN_UC_NAME,
+                lhwEntry.COLUMN_LHW_CODE,
+                lhwEntry.COLUMN_LHW_NAME
         };
 
         String whereClause = lhwEntry.COLUMN_TALUKA_CODE + " =? AND " + lhwEntry.COLUMN_UC_CODE + " =?";
