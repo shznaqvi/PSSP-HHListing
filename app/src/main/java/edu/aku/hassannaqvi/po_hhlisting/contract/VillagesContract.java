@@ -12,64 +12,78 @@ import org.json.JSONObject;
 
 public class VillagesContract {
 
-    private String villageCode;
-    private String villageName;
-    private String districtCode;
-    private String ucCode;
+    private String talukacode;
+    private String talukaname;
+    private String uccode;
+    private String ucname;
+    private String villagecode;
+    private String villagename;
 
 
     public VillagesContract() {
     }
 
+
+    public String getTalukacode() {
+        return talukacode;
+    }
+
+    public String getTalukaname() {
+        return talukaname;
+    }
+
+    public String getUccode() {
+        return uccode;
+    }
+
+    public String getUcname() {
+        return ucname;
+    }
+
+    public String getVillagecode() {
+        return villagecode;
+    }
+
+    public String getVillagename() {
+        return villagename;
+    }
+
     public VillagesContract sync(JSONObject jsonObject) throws JSONException {
-        this.villageCode = jsonObject.getString(singleVillage.COLUMN_VILLAGE_CODE);
-        this.villageName = jsonObject.getString(singleVillage.COLUMN_VILLAGE_NAME);
-        this.districtCode = jsonObject.getString(singleVillage.COLUMN_DISTRICT_CODE);
-        this.ucCode = jsonObject.getString(singleVillage.COLUMN_UC_CODE);
-
-
+        this.talukacode = jsonObject.getString(singleVillage.COLUMN_TALUKA_CODE);
+        this.talukaname = jsonObject.getString(singleVillage.COLUMN_TALUKA_NAME);
+        this.uccode = jsonObject.getString(singleVillage.COLUMN_UC_CODE);
+        this.ucname = jsonObject.getString(singleVillage.COLUMN_UC_NAME);
+        this.villagecode = jsonObject.getString(singleVillage.COLUMN_VILLAGE_CODE);
+        this.villagename = jsonObject.getString(singleVillage.COLUMN_VILLAGE_NAME);
 
         return this;
     }
 
     public VillagesContract hydrate(Cursor cursor) {
-        this.villageCode = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_VILLAGE_CODE));
-        this.villageName = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_VILLAGE_NAME));
-        this.districtCode = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_DISTRICT_CODE));
-        this.ucCode = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_UC_CODE));
+        this.talukacode = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_TALUKA_CODE));
+        this.talukaname = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_TALUKA_NAME));
+        this.uccode = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_UC_CODE));
+        this.ucname = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_UC_NAME));
+        this.villagecode = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_VILLAGE_CODE));
+        this.villagename = cursor.getString(cursor.getColumnIndex(singleVillage.COLUMN_VILLAGE_NAME));
 
         return this;
     }
 
-
-    public String getUcCode() {
-        return ucCode;
-    }
-
-    public String getVillageCode() {
-        return villageCode;
-    }
-
-    public String getVillageName() {
-        return villageName;
-    }
-
-    public String getDistrictCode() {
-        return districtCode;
-    }
 
     public static abstract class singleVillage implements BaseColumns {
 
         public static final String TABLE_NAME = "Villages";
         public static final String COLUMN_NAME_NULLABLE = "nullColumnHack";
         public static final String _ID = "_ID";
+        public static final String COLUMN_TALUKA_CODE = "taluka_code";
+        public static final String COLUMN_TALUKA_NAME = "taluka_name";
+        public static final String COLUMN_UC_CODE = "uc_code";
+        public static final String COLUMN_UC_NAME = "uc_name";
         public static final String COLUMN_VILLAGE_CODE = "village_code";
         public static final String COLUMN_VILLAGE_NAME = "village_name";
-        public static final String COLUMN_DISTRICT_CODE = "taluka_code";
-        public static final String COLUMN_UC_CODE = "uc_code";
 
-        public static final String _URI  = "villages.php";
-
+        public static final String _URI = "villages.php";
     }
 
 }

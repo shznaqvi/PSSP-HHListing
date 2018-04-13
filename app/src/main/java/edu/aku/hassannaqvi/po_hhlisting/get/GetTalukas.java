@@ -19,21 +19,21 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.aku.hassannaqvi.po_hhlisting.contract.DistrictsContract;
+import edu.aku.hassannaqvi.po_hhlisting.contract.TalukasContract;
 import edu.aku.hassannaqvi.po_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.po_hhlisting.core.FormsDBHelper;
 
 /**
  * Created by hassan.naqvi on 4/28/2016.
  */
-public class GetDistricts extends AsyncTask<String, String, String> {
+public class GetTalukas extends AsyncTask<String, String, String> {
 
-    private final String TAG = "GetDistricts()";
+    private final String TAG = "GetTalukas()";
     HttpURLConnection urlConnection;
     private Context mContext;
     private ProgressDialog pd;
 
-    public GetDistricts(Context context) {
+    public GetTalukas(Context context) {
         mContext = context;
     }
 
@@ -41,7 +41,7 @@ public class GetDistricts extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Syncing Districts");
+        pd.setTitle("Syncing Talukas");
         pd.setMessage("Getting connected to server...");
         pd.show();
 
@@ -54,7 +54,7 @@ public class GetDistricts extends AsyncTask<String, String, String> {
 
         URL url = null;
         try {
-            url = new URL(AppMain._HOST_URL + DistrictsContract.singleDistrict._URI);
+            url = new URL(AppMain._HOST_URL + TalukasContract.singleDistrict._URI);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
@@ -66,7 +66,7 @@ public class GetDistricts extends AsyncTask<String, String, String> {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "Districts In: " + line);
+                    Log.i(TAG, "Talukas In: " + line);
                     result.append(line);
                 }
             }

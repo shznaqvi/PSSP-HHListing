@@ -17,13 +17,13 @@ import java.util.Collection;
 import java.util.Date;
 
 import edu.aku.hassannaqvi.po_hhlisting.contract.ChildContract;
-import edu.aku.hassannaqvi.po_hhlisting.contract.DistrictsContract;
-import edu.aku.hassannaqvi.po_hhlisting.contract.DistrictsContract.singleDistrict;
+import edu.aku.hassannaqvi.po_hhlisting.contract.LHWContract;
+import edu.aku.hassannaqvi.po_hhlisting.contract.TalukasContract;
+import edu.aku.hassannaqvi.po_hhlisting.contract.TalukasContract.singleDistrict;
 import edu.aku.hassannaqvi.po_hhlisting.contract.ListingContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.ListingContract.ListingEntry;
 import edu.aku.hassannaqvi.po_hhlisting.contract.MwraContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.MwraContract.MwraEntry;
-import edu.aku.hassannaqvi.po_hhlisting.contract.ChildContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.ChildContract.ChildEntry;
 import edu.aku.hassannaqvi.po_hhlisting.contract.UCsContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.UCsContract.singleUC;
@@ -31,6 +31,8 @@ import edu.aku.hassannaqvi.po_hhlisting.contract.UsersContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.UsersContract.singleUser;
 import edu.aku.hassannaqvi.po_hhlisting.contract.VillagesContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.VillagesContract.singleVillage;
+import edu.aku.hassannaqvi.po_hhlisting.contract.LHWContract;
+import edu.aku.hassannaqvi.po_hhlisting.contract.LHWContract.lhwEntry;
 
 
 /**
@@ -112,7 +114,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 " );";
 
 
-        final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
+        /*final String SQL_CREATE_MWRA_TABLE = "CREATE TABLE " + MwraEntry.TABLE_NAME + " (" +
                 MwraEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 MwraEntry.MWRA_ID + " TEXT," +
                 MwraEntry.MWRA_UUID + " TEXT," +
@@ -127,7 +129,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 MwraEntry.MWRA_MW05 + " TEXT," +
                 MwraEntry.COLUMN_SYNCED + " TEXT, " +
                 MwraEntry.COLUMN_SYNCED_DATE + " TEXT " +
-                " );";
+                " );";*/
 
         final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
                 singleDistrict._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -135,12 +137,31 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleDistrict.COLUMN_DISTRICT_NAME + " TEXT " +
                 ");";
 
+        final String SQL_CREATE_UCS = "CREATE TABLE " + singleUC.TABLE_NAME + "("
+                + singleUC._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + singleUC.COLUMN_DISTRICT_CODE + " TEXT,"
+                + singleUC.COLUMN_UC_CODE + " TEXT,"
+                + singleUC.COLUMN_UC_NAME + " TEXT" +
+                ");";
+
         final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singleVillage.TABLE_NAME + " (" +
                 singleVillage._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singleVillage.COLUMN_TALUKA_CODE + " TEXT, " +
+                singleVillage.COLUMN_TALUKA_NAME + " TEXT, " +
+                singleVillage.COLUMN_UC_CODE + " TEXT, " +
+                singleVillage.COLUMN_UC_NAME + " TEXT, " +
                 singleVillage.COLUMN_VILLAGE_CODE + " TEXT, " +
-                singleVillage.COLUMN_VILLAGE_NAME + " TEXT, " +
-                singleVillage.COLUMN_DISTRICT_CODE + " TEXT, " +
-                singleVillage.COLUMN_UC_CODE + " TEXT " +
+                singleVillage.COLUMN_VILLAGE_NAME + " TEXT " +
+                ");";
+
+        final String SQL_CREATE_LHW_TABLE = "CREATE TABLE " + lhwEntry.TABLE_NAME + " (" +
+                lhwEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                lhwEntry.COLUMN_TALUKA_CODE + " TEXT, " +
+                lhwEntry.COLUMN_TALUKA_NAME + " TEXT, " +
+                lhwEntry.COLUMN_UC_CODE + " TEXT, " +
+                lhwEntry.COLUMN_UC_NAME + " TEXT, " +
+                lhwEntry.COLUMN_LHW_CODE + " TEXT, " +
+                lhwEntry.COLUMN_LHW_NAME + " TEXT " +
                 ");";
 
         final String SQL_CREATE_USERS = "CREATE TABLE " + singleUser.TABLE_NAME + "("
@@ -148,20 +169,16 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 + singleUser.ROW_USERNAME + " TEXT,"
                 + singleUser.ROW_PASSWORD + " TEXT );";
 
-        final String SQL_CREATE_UCS = "CREATE TABLE " + singleUC.TABLE_NAME + "("
-                + singleUC._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + singleUC.COLUMN_UC_NAME + " TEXT,"
-                + singleUC.COLUMN_DISTRICT_CODE + " TEXT,"
-                + singleUC.COLUMN_UC_CODE + " TEXT );";
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
-        db.execSQL(SQL_CREATE_MWRA_TABLE);
+        //db.execSQL(SQL_CREATE_MWRA_TABLE);
         db.execSQL(SQL_CREATE_CHILD_TABLE);
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
+        db.execSQL(SQL_CREATE_UCS);
+        db.execSQL(SQL_CREATE_LHW_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
-        db.execSQL(SQL_CREATE_UCS);
     }
 
     @Override
@@ -169,6 +186,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         // Simply discard all old data and start over when upgrading.
         db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + MwraEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + lhwEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ChildContract.ChildEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleVillage.TABLE_NAME);
@@ -346,7 +364,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 whereArgs);
     }
 
-    public Long addDistrict(DistrictsContract dc) {
+    public Long addDistrict(TalukasContract dc) {
 
         // Gets the data repository in write mode
         SQLiteDatabase db = this.getWritableDatabase();
@@ -556,7 +574,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     }
 
 
-    public Collection<DistrictsContract> getAllDistricts() {
+    public Collection<TalukasContract> getAllDistricts() {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
@@ -574,7 +592,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String orderBy =
                 singleDistrict.COLUMN_DISTRICT_NAME + " ASC";
 
-        Collection<DistrictsContract> allDC = new ArrayList<DistrictsContract>();
+        Collection<TalukasContract> allDC = new ArrayList<TalukasContract>();
         try {
             c = db.query(
                     singleDistrict.TABLE_NAME,  // The table to query
@@ -586,7 +604,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     orderBy                    // The sort order
             );
             while (c.moveToNext()) {
-                DistrictsContract dc = new DistrictsContract();
+                TalukasContract dc = new TalukasContract();
                 allDC.add(dc.hydrate(c));
             }
         } finally {
@@ -607,12 +625,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleVillage._ID,
                 singleVillage.COLUMN_VILLAGE_CODE,
                 singleVillage.COLUMN_VILLAGE_NAME,
-                singleVillage.COLUMN_DISTRICT_CODE,
+                singleVillage.COLUMN_TALUKA_CODE,
                 singleVillage.COLUMN_UC_CODE
 
         };
 
-        String whereClause = singleVillage.COLUMN_DISTRICT_CODE + " =? AND " + singleVillage.COLUMN_UC_CODE + " =?";
+        String whereClause = singleVillage.COLUMN_TALUKA_CODE + " =? AND " + singleVillage.COLUMN_UC_CODE + " =?";
 
         String[] whereArgs = {district_code, uc_code};
         String groupBy = null;
@@ -634,6 +652,53 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             );
             while (c.moveToNext()) {
                 VillagesContract pc = new VillagesContract();
+                allPC.add(pc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allPC;
+    }
+
+
+    public Collection<LHWContract> getAllLHWsByDistrict(String district_code, String uc_code) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                lhwEntry._ID,
+                lhwEntry.COLUMN_LHW_CODE,
+                lhwEntry.COLUMN_LHW_NAME,
+                lhwEntry.COLUMN_TALUKA_CODE,
+                lhwEntry.COLUMN_UC_CODE
+        };
+
+        String whereClause = lhwEntry.COLUMN_TALUKA_CODE + " =? AND " + lhwEntry.COLUMN_UC_CODE + " =?";
+
+        String[] whereArgs = {district_code, uc_code};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                lhwEntry.COLUMN_LHW_NAME + " ASC";
+
+        Collection<LHWContract> allPC = new ArrayList<LHWContract>();
+        try {
+            c = db.query(
+                    lhwEntry.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                LHWContract pc = new LHWContract();
                 allPC.add(pc.hydrate(c));
             }
         } finally {
@@ -870,6 +935,39 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    public void syncLHWs(JSONArray dcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(lhwEntry.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = dcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectDistrict = jsonArray.getJSONObject(i);
+
+                LHWContract dc = new LHWContract();
+                dc.sync(jsonObjectDistrict);
+
+                ContentValues values = new ContentValues();
+
+                values.put(lhwEntry.COLUMN_TALUKA_CODE, dc.getTalukacode());
+                values.put(lhwEntry.COLUMN_TALUKA_NAME, dc.getTalukaname());
+                values.put(lhwEntry.COLUMN_UC_CODE, dc.getUccode());
+                values.put(lhwEntry.COLUMN_UC_NAME, dc.getUcname());
+                values.put(lhwEntry.COLUMN_LHW_CODE, dc.getLhwcode());
+                values.put(lhwEntry.COLUMN_LHW_NAME, dc.getLhwname());
+
+                db.insert(lhwEntry.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+
+        }
+    }
+
+
     public Collection<UCsContract> getAllUCsbyTaluka(String taluka_code) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
@@ -925,7 +1023,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObjectDistrict = jsonArray.getJSONObject(i);
 
-                DistrictsContract dc = new DistrictsContract();
+                TalukasContract dc = new TalukasContract();
                 dc.sync(jsonObjectDistrict);
 
                 ContentValues values = new ContentValues();
@@ -958,10 +1056,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
 
-                values.put(singleVillage.COLUMN_UC_CODE, vc.getUcCode());
-                values.put(singleVillage.COLUMN_VILLAGE_CODE, vc.getVillageCode());
-                values.put(singleVillage.COLUMN_VILLAGE_NAME, vc.getVillageName());
-                values.put(singleVillage.COLUMN_DISTRICT_CODE, vc.getDistrictCode());
+                values.put(singleVillage.COLUMN_TALUKA_CODE, vc.getTalukacode());
+                values.put(singleVillage.COLUMN_TALUKA_NAME, vc.getTalukaname());
+                values.put(singleVillage.COLUMN_UC_CODE, vc.getUccode());
+                values.put(singleVillage.COLUMN_UC_NAME, vc.getUcname());
+                values.put(singleVillage.COLUMN_VILLAGE_CODE, vc.getVillagecode());
+                values.put(singleVillage.COLUMN_VILLAGE_NAME, vc.getVillagename());
 
                 db.insert(singleVillage.TABLE_NAME, null, values);
             }
