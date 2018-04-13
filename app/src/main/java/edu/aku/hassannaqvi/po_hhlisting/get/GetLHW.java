@@ -1,9 +1,5 @@
 package edu.aku.hassannaqvi.po_hhlisting.get;
 
-/**
- * Created by hassan.naqvi on 10/31/2016.
- */
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -19,22 +15,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.aku.hassannaqvi.po_hhlisting.contract.VillagesContract;
+import edu.aku.hassannaqvi.po_hhlisting.contract.UCsContract;
 import edu.aku.hassannaqvi.po_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.po_hhlisting.core.FormsDBHelper;
 
-/**
- * Created by hassan.naqvi on 4/28/2016.
- */
-public class GetVillages extends AsyncTask<String, String, String> {
+public class GetLHW extends AsyncTask<String, String, String> {
 
-    private final String TAG = "GetVillages()";
+    private final String TAG = "GetLHW()";
     HttpURLConnection urlConnection;
     private Context mContext;
     private ProgressDialog pd;
 
-
-    public GetVillages(Context context) {
+    public GetLHW(Context context) {
         mContext = context;
     }
 
@@ -43,7 +35,7 @@ public class GetVillages extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Syncing Villages");
+        pd.setTitle("Syncing LHWs");
         pd.setMessage("Getting connected to server...");
         pd.show();
 
@@ -56,7 +48,7 @@ public class GetVillages extends AsyncTask<String, String, String> {
 
         URL url = null;
         try {
-            url = new URL(AppMain._HOST_URL + VillagesContract.singleVillage._URI);
+            url = new URL(AppMain._HOST_URL + UCsContract.singleUC._URI);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
@@ -68,7 +60,7 @@ public class GetVillages extends AsyncTask<String, String, String> {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "Villages In: " + line);
+                    Log.i(TAG, "LHWs In: " + line);
                     result.append(line);
                 }
             }
@@ -95,7 +87,7 @@ public class GetVillages extends AsyncTask<String, String, String> {
                 FormsDBHelper db = new FormsDBHelper(mContext);
                 try {
                     JSONArray jsonArray = new JSONArray(json);
-                    db.syncVillages(jsonArray);
+                    db.syncLHWs(jsonArray);
                     pd.setMessage("Received: " + jsonArray.length());
                     pd.show();
                 } catch (JSONException e) {

@@ -32,13 +32,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.aku.hassannaqvi.po_hhlisting.R;
-import edu.aku.hassannaqvi.po_hhlisting.contract.DistrictsContract;
+import edu.aku.hassannaqvi.po_hhlisting.contract.TalukasContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.UCsContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.VillagesContract;
 import edu.aku.hassannaqvi.po_hhlisting.core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.po_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.po_hhlisting.core.FormsDBHelper;
-import edu.aku.hassannaqvi.po_hhlisting.get.GetDistricts;
+import edu.aku.hassannaqvi.po_hhlisting.get.GetTalukas;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetUCs;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetUsers;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetVillages;
@@ -119,9 +119,9 @@ public class MainActivity extends Activity {
         districtNames.add("....");
         districtCodes.add("....");
 
-        Collection<DistrictsContract> dc = db.getAllDistricts();
+        Collection<TalukasContract> dc = db.getAllDistricts();
         Log.d(TAG, "onCreate: " + dc.size());
-        for (DistrictsContract d : dc) {
+        for (TalukasContract d : dc) {
             districtNames.add(d.getDistrictName());
             districtCodes.add(d.getDistrictCode());
         }
@@ -183,9 +183,9 @@ public class MainActivity extends Activity {
 
                 Collection<VillagesContract> pc = db.getAllPSUsByDistrict(AppMain.hh01txt, AppMain.hh02txt);
                 for (VillagesContract p : pc) {
-                    villageCodes.add(p.getVillageCode());
-                    villageNames.add(p.getVillageName());
-                    villageNames1.add(p.getVillageName().split("\\|")[2]);
+                    villageCodes.add(p.getVillagecode());
+                    villageNames.add(p.getVillagename());
+                    villageNames1.add(p.getVillagename().split("\\|")[2]);
                 }
 
                 mN02.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, villageNames1));
@@ -393,7 +393,7 @@ public class MainActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Syncing UCs", Toast.LENGTH_SHORT).show();
                     gu.execute();
 
-                    GetDistricts gd = new GetDistricts(mContext);
+                    GetTalukas gd = new GetTalukas(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Talukas", Toast.LENGTH_SHORT).show();
                     gd.execute();
 

@@ -217,7 +217,6 @@ public class AddChildActivity extends AppCompatActivity {
                 count += count;
 
 
-
                 if (total2Months != 0) {
 
                     if (total2Months == 1) {
