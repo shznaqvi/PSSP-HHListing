@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,6 +43,7 @@ public class AddChildActivity extends AppCompatActivity {
     @BindView(R.id.txtChildListing)
     TextView txtChildListing;
 
+
     @BindView(R.id.ch06)
     EditText ch06;
 
@@ -56,6 +59,9 @@ public class AddChildActivity extends AppCompatActivity {
 
     @BindView(R.id.ch09)
     DatePickerInputEditText ch09;
+
+    @BindView(R.id.ch0999)
+    CheckBox ch0999;
 
     @BindView(R.id.ch10d)
     EditText ch10d;
@@ -93,6 +99,9 @@ public class AddChildActivity extends AppCompatActivity {
     @BindView(R.id.txtCounter)
     TextView txtCounter;
 
+    @BindView(R.id.txtCounter1)
+    TextView txtCounter1;
+
     @BindView(R.id.btnAddChild)
     Button btnAddChild;
     @BindView(R.id.btnAddFamily)
@@ -101,6 +110,9 @@ public class AddChildActivity extends AppCompatActivity {
     Button btnAddHousehold;
 
     static int count = 0;
+    static int total2Months = 0;
+    static int total59Months = 0;
+
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
@@ -120,11 +132,14 @@ public class AddChildActivity extends AppCompatActivity {
 
         count = 1;
 
-        int total2Months = Integer.valueOf(AppMain.cCount2m) + Integer.valueOf(AppMain.cCount2f);
-        int total59Months = Integer.valueOf(AppMain.cCount59m) + Integer.valueOf(AppMain.cCount59f);
+        total2Months = Integer.valueOf(AppMain.cCount2m) + Integer.valueOf(AppMain.cCount2f);
+        total59Months = Integer.valueOf(AppMain.cCount59m) + Integer.valueOf(AppMain.cCount59f);
 
+        Log.d(TAG, "0 - 2 months: " + total2Months + " - " + total59Months);
 
-        txtCounter.setText(count + " out of " + total2Months);
+        txtCounter.setText("Child 0 or less 2 months");
+        txtCounter1.setText(count + " out of " + total2Months);
+
 
         btnAddChild.setVisibility(View.VISIBLE);
 
@@ -155,6 +170,31 @@ public class AddChildActivity extends AppCompatActivity {
             }
         });
 
+
+        ch0999.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (ch0999.isChecked()) {
+                    ch09.setText(null);
+                    ch09.setVisibility(View.GONE);
+
+                    ch10d.setVisibility(View.VISIBLE);
+                    ch10m.setVisibility(View.VISIBLE);
+                    ch10y.setVisibility(View.VISIBLE);
+                } else {
+                    ch09.setVisibility(View.VISIBLE);
+
+                    ch10d.setText(null);
+                    ch10m.setText(null);
+                    ch10y.setText(null);
+
+                    ch10d.setVisibility(View.GONE);
+                    ch10m.setVisibility(View.GONE);
+                    ch10y.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
     @OnClick(R.id.btnAddChild)
@@ -173,6 +213,39 @@ public class AddChildActivity extends AppCompatActivity {
                 // AppMain.lc.setHh04Village(null);
                 //Intent fA = new Intent(this, AddChildActivity.class);
                 //startActivity(fA);
+
+                count += count;
+
+                if (total2Months != 0) {
+                    txtCounter.setText("Child 0 or less 2 months - " + count + " out of " + total2Months);
+                    txtCounter1.setText(count + " out of " + total2Months);
+                } else if (total59Months != 0) {
+                    txtCounter.setText("Child 0 - 59 months - " + count + " out of " + total59Months);
+                    txtCounter1.setText(count + " out of " + total59Months);
+                }
+
+
+                if (count > total2Months) {
+                    count = 1;
+                    total2Months = 0;
+
+                    if (total59Months == 0) {
+                        btnAddChild.setVisibility(View.GONE);
+
+                        Intent setupActivity = new Intent(this, setupActivity.class);
+                        startActivity(setupActivity);
+                    }
+                }
+
+                if (count > total59Months) {
+                    count = 1;
+                    total59Months = 0;
+                    btnAddChild.setVisibility(View.GONE);
+
+                    Intent setupActivity = new Intent(this, setupActivity.class);
+                    startActivity(setupActivity);
+                }
+
             }
 
         }
@@ -206,6 +279,7 @@ public class AddChildActivity extends AppCompatActivity {
         AppMain.childContract = new ChildContract();
 
         AppMain.childContract.chDT = dtToday;
+        AppMain.childContract.CHILDID = String.valueOf(count);
         AppMain.childContract.ch01 = AppMain.hh01txt;
         AppMain.childContract.ch02 = AppMain.hh02txt;
         AppMain.childContract.ch03 = String.valueOf(AppMain.hh03txt);
@@ -271,73 +345,77 @@ public class AddChildActivity extends AppCompatActivity {
         }
 
 
-        if (ch09.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter date of birth", Toast.LENGTH_LONG).show();
-            ch09.setError("Please enter date of birth");
-            Log.i(TAG, "Please enter date of birth");
-            return false;
+        if (!ch0999.isChecked()) {
+
+            if (ch09.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter date of birth", Toast.LENGTH_LONG).show();
+                ch09.setError("Please enter date of birth");
+                Log.i(TAG, "Please enter date of birth");
+                return false;
+            } else {
+                ch09.setError(null);
+            }
         } else {
-            ch09.setError(null);
-        }
+
+            if (ch10d.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter days", Toast.LENGTH_LONG).show();
+                ch10d.setError("Please enter days");
+                Log.i(TAG, "Please enter days");
+                return false;
+            } else {
+                ch10d.setError(null);
+            }
 
 
-        if (ch10d.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter days", Toast.LENGTH_LONG).show();
-            ch10d.setError("Please enter days");
-            Log.i(TAG, "Please enter days");
-            return false;
-        } else {
-            ch10d.setError(null);
-        }
+            if (Integer.valueOf(ch10d.getText().toString()) < 0 || Integer.valueOf(ch10d.getText().toString()) > 29) {
+                Toast.makeText(this, "Invalid days 0 - 29", Toast.LENGTH_LONG).show();
+                ch10d.setError("Invalid days 0 - 29");
+                Log.i(TAG, "Invalid days 0 - 29");
+                return false;
+            } else {
+                ch10d.setError(null);
+            }
 
 
-        if (Integer.valueOf(ch10d.getText().toString()) < 0 || Integer.valueOf(ch10d.getText().toString()) > 29) {
-            Toast.makeText(this, "Invalid days 0 - 29", Toast.LENGTH_LONG).show();
-            ch10d.setError("Invalid days 0 - 29");
-            Log.i(TAG, "Invalid days 0 - 29");
-            return false;
-        } else {
-            ch10d.setError(null);
-        }
+            if (ch10m.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter month", Toast.LENGTH_LONG).show();
+                ch10m.setError("Please enter month");
+                Log.i(TAG, "Please enter month");
+                return false;
+            } else {
+                ch10m.setError(null);
+            }
 
 
-        if (ch10m.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter month", Toast.LENGTH_LONG).show();
-            ch10m.setError("Please enter month");
-            Log.i(TAG, "Please enter month");
-            return false;
-        } else {
-            ch10m.setError(null);
-        }
+            if (Integer.valueOf(ch10m.getText().toString()) < 0 || Integer.valueOf(ch10m.getText().toString()) > 11) {
+                Toast.makeText(this, "Invalid month 0 - 11", Toast.LENGTH_LONG).show();
+                ch10m.setError("Invalid month 0 - 11");
+                Log.i(TAG, "Invalid month 0 - 11");
+                return false;
+            } else {
+                ch10m.setError(null);
+            }
 
 
-        if (Integer.valueOf(ch10m.getText().toString()) < 0 || Integer.valueOf(ch10m.getText().toString()) > 11) {
-            Toast.makeText(this, "Invalid month 0 - 11", Toast.LENGTH_LONG).show();
-            ch10m.setError("Invalid month 0 - 11");
-            Log.i(TAG, "Invalid month 0 - 11");
-            return false;
-        } else {
-            ch10m.setError(null);
-        }
+            if (ch10y.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter year", Toast.LENGTH_LONG).show();
+                ch10y.setError("Please enter year");
+                Log.i(TAG, "Please enter year");
+                return false;
+            } else {
+                ch10y.setError(null);
+            }
 
 
-        if (ch10y.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter year", Toast.LENGTH_LONG).show();
-            ch10y.setError("Please enter year");
-            Log.i(TAG, "Please enter year");
-            return false;
-        } else {
-            ch10y.setError(null);
-        }
+            if (Integer.valueOf(ch10y.getText().toString()) < 0 || Integer.valueOf(ch10y.getText().toString()) > 4) {
+                Toast.makeText(this, "Invalid year 0 - 4", Toast.LENGTH_LONG).show();
+                ch10y.setError("Invalid year 0 - 4");
+                Log.i(TAG, "Invalid year 0 - 4");
+                return false;
+            } else {
+                ch10y.setError(null);
+            }
 
-
-        if (Integer.valueOf(ch10y.getText().toString()) < 0 || Integer.valueOf(ch10y.getText().toString()) > 2) {
-            Toast.makeText(this, "Invalid year 0 - 2", Toast.LENGTH_LONG).show();
-            ch10y.setError("Invalid year 0 - 2");
-            Log.i(TAG, "Invalid year 0 - 2");
-            return false;
-        } else {
-            ch10y.setError(null);
         }
 
 

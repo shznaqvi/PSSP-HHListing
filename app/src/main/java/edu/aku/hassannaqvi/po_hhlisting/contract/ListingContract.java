@@ -28,10 +28,10 @@ public class ListingContract {
     public String hh09;
     public String hh09a;
 
-    public String ch01a;
+    //public String ch01a;
     public String ch01;
 
-    public String ch02a;
+    //public String ch02a;
     public String ch02;
 
     //public String ch03a;
@@ -201,13 +201,13 @@ public class ListingContract {
         this.hh09a = hh09a;
     }
 
-    public String getCh01a() {
+    /*public String getCh01a() {
         return ch01a;
     }
 
     public void setCh01a(String ch01a) {
         this.ch01a = ch01a;
-    }
+    }*/
 
     public String getCh01() {
         return ch01;
@@ -218,13 +218,13 @@ public class ListingContract {
     }
 
 
-    public String getCh02a() {
+    /*public String getCh02a() {
         return ch02a;
     }
 
     public void setCh02a(String ch02a) {
         this.ch02a = ch02a;
-    }
+    }*/
 
     public String getCh02() {
         return ch02;
@@ -408,9 +408,9 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH07n, this.hh07n);
         json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
-        json.put(ListingEntry.COLUMN_NAME_CH01a, this.ch01a);
+        //json.put(ListingEntry.COLUMN_NAME_CH01a, this.ch01a);
         json.put(ListingEntry.COLUMN_NAME_CH01, this.ch01);
-        json.put(ListingEntry.COLUMN_NAME_CH02a, this.ch02a);
+        //json.put(ListingEntry.COLUMN_NAME_CH02a, this.ch02a);
         json.put(ListingEntry.COLUMN_NAME_CH02, this.ch02);
         //json.put(ListingEntry.COLUMN_NAME_CH03a, this.ch03a);
         json.put(ListingEntry.COLUMN_NAME_CH03m, this.ch03m);
@@ -458,9 +458,9 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH07n = "hh07n";
         public static final String COLUMN_NAME_HH08 = "hh08";
         public static final String COLUMN_NAME_HH09 = "hh09";
-        public static final String COLUMN_NAME_CH01a = "ch01a";
+        //public static final String COLUMN_NAME_CH01a = "ch01a";
         public static final String COLUMN_NAME_CH01 = "ch01";
-        public static final String COLUMN_NAME_CH02a = "ch02a";
+        //public static final String COLUMN_NAME_CH02a = "ch02a";
         public static final String COLUMN_NAME_CH02 = "ch02";
         //public static final String COLUMN_NAME_CH03a = "ch03a";
         public static final String COLUMN_NAME_CH03m = "ch03m";

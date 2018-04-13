@@ -13,8 +13,8 @@ public class ChildContract {
     public String UUID;
     public String UID;
     public String chDT;
-    public String chVillageCode;
-    public String chStructureNo;
+    //public String chVillageCode;
+    //public String chStructureNo;
     public String ch01;
     public String ch02;
     public String ch03;
@@ -34,8 +34,8 @@ public class ChildContract {
         this.UUID = jsonObject.getString(ChildContract.ChildEntry.CHILD_UUID);
         this.UID = jsonObject.getString(ChildContract.ChildEntry.CHILD_UID);
         this.chDT = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHDT);
-        this.chVillageCode = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHVILLAGECODE);
-        this.chStructureNo = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO);
+        //this.chVillageCode = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHVILLAGECODE);
+        //this.chStructureNo = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO);
         this.ch01 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH01);
         this.ch02 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH02);
         this.ch03 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH03);
@@ -55,8 +55,8 @@ public class ChildContract {
         this.UUID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_UID));
         this.chDT = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHDT));
-        this.chVillageCode = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHVILLAGECODE));
-        this.chStructureNo = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO));
+        //this.chVillageCode = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHVILLAGECODE));
+        //this.chStructureNo = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO));
         this.ch01 = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CH01));
         this.ch02 = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CH02));
         this.ch03 = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CH03));
@@ -110,21 +110,21 @@ public class ChildContract {
         this.chDT = chDT;
     }
 
-    public String getChVillageCode() {
+    /*public String getChVillageCode() {
         return chVillageCode;
     }
 
     public void setChVillageCode(String chVillageCode) {
         this.chVillageCode = chVillageCode;
-    }
+    }*/
 
-    public String getChStructureNo() {
+    /*public String getChStructureNo() {
         return chStructureNo;
     }
 
     public void setChStructureNo(String chStructureNo) {
         this.chStructureNo = chStructureNo;
-    }
+    }*/
 
     public String getCh01() {
         return ch01;
@@ -200,8 +200,8 @@ public class ChildContract {
         json.put(ChildContract.ChildEntry.CHILD_UUID, this.UUID == null ? JSONObject.NULL : this.UUID);
         json.put(ChildContract.ChildEntry.CHILD_UID, this.UID == null ? JSONObject.NULL : this.UID);
         json.put(ChildContract.ChildEntry.CHILD_CHDT, this.chDT == null ? JSONObject.NULL : this.chDT);
-        json.put(ChildContract.ChildEntry.CHILD_CHVILLAGECODE, this.chVillageCode == null ? JSONObject.NULL : this.chVillageCode);
-        json.put(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO, this.chStructureNo == null ? JSONObject.NULL : this.chStructureNo);
+        //json.put(ChildContract.ChildEntry.CHILD_CHVILLAGECODE, this.chVillageCode == null ? JSONObject.NULL : this.chVillageCode);
+        //json.put(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO, this.chStructureNo == null ? JSONObject.NULL : this.chStructureNo);
         json.put(ChildContract.ChildEntry.CHILD_CH01, this.ch01 == null ? JSONObject.NULL : this.ch01);
         json.put(ChildContract.ChildEntry.CHILD_CH02, this.ch02 == null ? JSONObject.NULL : this.ch02);
         json.put(ChildContract.ChildEntry.CHILD_CH03, this.ch03 == null ? JSONObject.NULL : this.ch03);
@@ -225,8 +225,8 @@ public class ChildContract {
         public static final String CHILD_UUID = "uuid";
         public static final String CHILD_UID = "uid";
         public static final String CHILD_CHDT = "chdt";
-        public static final String CHILD_CHVILLAGECODE = "chvillagecode";
-        public static final String CHILD_CHSTRUCTURENO = "chstructureno";
+        //public static final String CHILD_CHVILLAGECODE = "chvillagecode";
+        //public static final String CHILD_CHSTRUCTURENO = "chstructureno";
         public static final String CHILD_CH01 = "ch01";
         public static final String CHILD_CH02 = "ch02";
         public static final String CHILD_CH03 = "ch03";

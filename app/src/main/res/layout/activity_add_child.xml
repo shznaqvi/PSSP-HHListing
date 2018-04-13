@@ -43,6 +43,18 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/txtCounter1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:background="#d6d6d6"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -110,6 +122,13 @@
             android:padding="15dp"
             app:dateFormat="dd-MM-yyyy" />
 
+        <CheckBox
+            android:id="@+id/ch0999"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:text="@string/ch0999" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -130,7 +149,8 @@
                 android:digits="1234567890"
                 android:hint="@string/ch10d"
                 android:inputType="number"
-                android:maxLength="2" />
+                android:maxLength="2"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -147,7 +167,8 @@
                 android:digits="1234567890"
                 android:hint="@string/ch10m"
                 android:inputType="number"
-                android:maxLength="2" />
+                android:maxLength="2"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -164,7 +185,8 @@
                 android:digits="1234567890"
                 android:hint="@string/ch10y"
                 android:inputType="number"
-                android:maxLength="2" />
+                android:maxLength="2"
+                android:visibility="gone" />
 
         </LinearLayout>
 

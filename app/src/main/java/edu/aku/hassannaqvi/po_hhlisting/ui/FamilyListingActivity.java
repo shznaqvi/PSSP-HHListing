@@ -33,8 +33,9 @@ public class FamilyListingActivity extends Activity {
     EditText hh08;
     @BindView(R.id.hh09)
     EditText hh09;
-    @BindView(R.id.ch01a)
-    Switch ch01a;
+
+    /*@BindView(R.id.ch01a)
+    Switch ch01a;*/
 
     @BindView(R.id.ch01)
     EditText ch01;
@@ -44,8 +45,8 @@ public class FamilyListingActivity extends Activity {
     @BindView(R.id.ch01f)
     EditText ch01f;*/
 
-    @BindView(R.id.ch02a)
-    Switch ch02a;
+    /*@BindView(R.id.ch02a)
+    Switch ch02a;*/
 
     @BindView(R.id.ch02)
     EditText ch02;
@@ -111,8 +112,14 @@ public class FamilyListingActivity extends Activity {
                 AppMain.cCountTotal = Integer.valueOf(ch04.getText().toString());
 
 
-                Intent childActivity = new Intent(this, AddChildActivity.class);
-                startActivity(childActivity);
+                if (ch01.getText().toString().equals("0") && ch02.getText().toString().equals("0")) {
+                    Intent setupActivity = new Intent(this, setupActivity.class);
+                    startActivity(setupActivity);
+                } else {
+                    Intent childActivity = new Intent(this, AddChildActivity.class);
+                    startActivity(childActivity);
+                }
+
             } else {
                 Toast.makeText(this, "Saving Draft... Failed!", Toast.LENGTH_LONG).show();
             }
@@ -158,10 +165,10 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
 
-        AppMain.lc.setCh01a(ch01a.isChecked() ? "1" : "2");
+        //AppMain.lc.setCh01a(ch01a.isChecked() ? "1" : "2");
         AppMain.lc.setCh01(ch01.getText().toString());
 
-        AppMain.lc.setCh02a(ch02a.isChecked() ? "1" : "2");
+        //AppMain.lc.setCh02a(ch02a.isChecked() ? "1" : "2");
         AppMain.lc.setCh02(ch02.getText().toString());
 
         //AppMain.lc.setCh03a(ch03a.isChecked() ? "1" : "2");
@@ -220,7 +227,7 @@ public class FamilyListingActivity extends Activity {
         }*/
 
 
-        if (ch01a.isChecked() && ch01.getText().toString().isEmpty()) {
+        if (ch01.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
             ch01.setError("Please enter child count");
             Log.i(TAG, "Please enter child count");
@@ -230,7 +237,7 @@ public class FamilyListingActivity extends Activity {
         }
 
 
-        if (ch02a.isChecked() && ch02.getText().toString().isEmpty()) {
+        if (ch02.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
             ch02.setError("Please enter child count");
             Log.i(TAG, "Please enter child count");
@@ -259,7 +266,7 @@ public class FamilyListingActivity extends Activity {
             ch03f.setError(null);
         }
 
-        if (ch03m.getText().toString() == "0" && ch03f.getText().toString() == "0") {
+        if (ch03m.getText().toString().equals("0") && ch03f.getText().toString().equals("0")) {
             Toast.makeText(this, "Please enter atleast 1 member", Toast.LENGTH_LONG).show();
             ch03m.setError("Please enter atleast 1 member");
             Log.i(TAG, "Please enter atleast 1 member");
@@ -397,7 +404,7 @@ public class FamilyListingActivity extends Activity {
         txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
 
 
-        ch01a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*ch01a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (ch01a.isChecked()) {
@@ -421,7 +428,7 @@ public class FamilyListingActivity extends Activity {
                     ch02.setVisibility(View.GONE);
                 }
             }
-        });
+        });*/
 
 
 

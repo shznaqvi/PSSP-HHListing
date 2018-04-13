@@ -73,9 +73,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_CH01a + " TEXT, " +
+                //ListingEntry.COLUMN_NAME_CH01a + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CH01 + " TEXT, " +
-                ListingEntry.COLUMN_NAME_CH02a + " TEXT, " +
+                //ListingEntry.COLUMN_NAME_CH02a + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CH02 + " TEXT, " +
                 //ListingEntry.COLUMN_NAME_CH03a + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CH03m + " TEXT, " +
@@ -99,8 +99,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildEntry.CHILD_UUID + " TEXT," +
                 ChildEntry.CHILD_UID + " TEXT," +
                 ChildEntry.CHILD_CHDT + " TEXT," +
-                ChildEntry.CHILD_CHVILLAGECODE + " TEXT," +
-                ChildEntry.CHILD_CHSTRUCTURENO + " TEXT," +
+                //ChildEntry.CHILD_CHVILLAGECODE + " TEXT," +
+                //ChildEntry.CHILD_CHSTRUCTURENO + " TEXT," +
                 ChildEntry.CHILD_CH01 + " TEXT," +
                 ChildEntry.CHILD_CH02 + " TEXT," +
                 ChildEntry.CHILD_CH03 + " TEXT," +
@@ -217,9 +217,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
-        values.put(ListingEntry.COLUMN_NAME_CH01a, lc.getCh01a());
+        //values.put(ListingEntry.COLUMN_NAME_CH01a, lc.getCh01a());
         values.put(ListingEntry.COLUMN_NAME_CH01, lc.getCh01());
-        values.put(ListingEntry.COLUMN_NAME_CH02a, lc.getCh02a());
+        //values.put(ListingEntry.COLUMN_NAME_CH02a, lc.getCh02a());
         values.put(ListingEntry.COLUMN_NAME_CH02, lc.getCh02());
         //values.put(ListingEntry.COLUMN_NAME_CH03a, lc.getCh03a());
         values.put(ListingEntry.COLUMN_NAME_CH03m, lc.getCh03m());
@@ -257,8 +257,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ChildEntry.CHILD_UUID, childContract.getUUID());
         values.put(ChildEntry.CHILD_UID, childContract.getUID());
         values.put(ChildEntry.CHILD_CHDT, childContract.getChDT());
-        values.put(ChildEntry.CHILD_CHVILLAGECODE, childContract.getChVillageCode());
-        values.put(ChildEntry.CHILD_CHSTRUCTURENO, childContract.getChStructureNo());
+        //values.put(ChildEntry.CHILD_CHVILLAGECODE, childContract.getChVillageCode());
+        //values.put(ChildEntry.CHILD_CHSTRUCTURENO, childContract.getChStructureNo());
         values.put(ChildEntry.CHILD_CH01, childContract.getCh01());
         values.put(ChildEntry.CHILD_CH02, childContract.getCh02());
         values.put(ChildEntry.CHILD_CH03, childContract.getCh03());
@@ -449,9 +449,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
-                ListingEntry.COLUMN_NAME_CH01a,
+                //ListingEntry.COLUMN_NAME_CH01a,
                 ListingEntry.COLUMN_NAME_CH01,
-                ListingEntry.COLUMN_NAME_CH02a,
+                //ListingEntry.COLUMN_NAME_CH02a,
                 ListingEntry.COLUMN_NAME_CH02,
                 //ListingEntry.COLUMN_NAME_CH03a,
                 ListingEntry.COLUMN_NAME_CH03m,
@@ -664,9 +664,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
-        values.put(ListingEntry.COLUMN_NAME_CH01a, lc.getCh01a());
+        //values.put(ListingEntry.COLUMN_NAME_CH01a, lc.getCh01a());
         values.put(ListingEntry.COLUMN_NAME_CH01, lc.getCh01());
-        values.put(ListingEntry.COLUMN_NAME_CH02a, lc.getCh02a());
+        //values.put(ListingEntry.COLUMN_NAME_CH02a, lc.getCh02a());
         values.put(ListingEntry.COLUMN_NAME_CH02, lc.getCh02());
         //values.put(ListingEntry.COLUMN_NAME_CH03a, lc.getCh03a());
         values.put(ListingEntry.COLUMN_NAME_CH03m, lc.getCh03m());
@@ -701,10 +701,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
 
-        lc.setCh01a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH01a))));
+        //lc.setCh01a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH01a))));
         lc.setCh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH01))));
 
-        lc.setCh02a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH02a))));
+        //lc.setCh02a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH02a))));
         lc.setCh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH02))));
 
         //lc.setCh03a(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CH03a))));
