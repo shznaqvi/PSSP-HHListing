@@ -623,10 +623,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Cursor c = null;
         String[] columns = {
                 singleVillage._ID,
-                singleVillage.COLUMN_VILLAGE_CODE,
-                singleVillage.COLUMN_VILLAGE_NAME,
                 singleVillage.COLUMN_TALUKA_CODE,
-                singleVillage.COLUMN_UC_CODE
+                singleVillage.COLUMN_TALUKA_NAME,
+                singleVillage.COLUMN_UC_CODE,
+                singleVillage.COLUMN_UC_NAME,
+                singleVillage.COLUMN_VILLAGE_CODE,
+                singleVillage.COLUMN_VILLAGE_NAME
 
         };
 

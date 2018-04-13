@@ -26,7 +26,7 @@
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="40sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="2"
-                android:text="@string/hh01"/>
+                android:text="@string/hh01" />
 
             <EditText
                 android:id="@+id/hh01"
@@ -51,7 +51,7 @@
                 android:hint="@string/hh01"
                 android:inputType="number"
                 android:maxLength="5"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
 
@@ -61,7 +61,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
             <!--PSU Code-->
 
             <TextView
@@ -70,7 +69,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_weight="2"
                 android:text="@string/hh02"
-                android:textAlignment="textEnd"/>
+                android:textAlignment="textEnd" />
 
             <EditText
                 android:id="@+id/hh02"
@@ -82,7 +81,7 @@
                 android:hint="@string/hh02"
                 android:inputType="number"
                 android:maxLength="5"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
 
             <!--Structure No. (Auto-Generate)-->
 
@@ -101,7 +100,8 @@
             android:layout_height="wrap_content"
             android:digits="@string/txtMsg"
             android:hint="@string/hhadd"
-            android:inputType="text"/>
+            android:inputType="text" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,67 +132,77 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/hh04" />
+            android:text="@string/hh04"
+            android:visibility="gone" />
 
         <RadioGroup
             android:id="@+id/hh04"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <RadioButton
                 android:id="@+id/hh04a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/hh04a" />
+                android:text="@string/hh04a"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh04b"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:text="@string/hh04b" />
+                android:text="@string/hh04b"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh04c"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:text="@string/hh04c" />
+                android:text="@string/hh04c"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh04d"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:text="@string/hh04d" />
+                android:text="@string/hh04d"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh04e"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:text="@string/hh04e" />
+                android:text="@string/hh04e"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh04f"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:text="@string/hh04f" />
+                android:text="@string/hh04f"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh04g"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:text="@string/hh04g" />
+                android:text="@string/hh04g"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh04x"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:text="@string/hh04x" />
+                android:text="@string/hh04x"
+                android:visibility="gone" />
 
         </RadioGroup>
 
@@ -203,7 +213,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:digits="@string/txtMsg"
-            android:hint="@string/hh04x" />
+            android:hint="@string/hh04x"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/fldGrpHH04"
@@ -248,7 +259,7 @@
                 android:hint="@string/hh06"
                 android:inputType="number"
                 android:maxLength="2"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
 
             <LinearLayout
@@ -261,7 +272,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_weight="2"
-                    android:text="@string/hh07"/>
+                    android:text="@string/hh07" />
 
                 <EditText
                     android:id="@+id/hh07"
@@ -272,7 +283,7 @@
                     android:enabled="false"
                     android:hint="@string/hh07"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 

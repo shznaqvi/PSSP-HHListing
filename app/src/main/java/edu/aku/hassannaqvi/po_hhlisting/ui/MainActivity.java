@@ -32,12 +32,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.aku.hassannaqvi.po_hhlisting.R;
+import edu.aku.hassannaqvi.po_hhlisting.contract.LHWContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.TalukasContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.UCsContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.VillagesContract;
 import edu.aku.hassannaqvi.po_hhlisting.core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.po_hhlisting.core.AppMain;
 import edu.aku.hassannaqvi.po_hhlisting.core.FormsDBHelper;
+import edu.aku.hassannaqvi.po_hhlisting.get.GetLHW;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetTalukas;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetUCs;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetUsers;
@@ -52,8 +54,8 @@ public class MainActivity extends Activity {
     private static String ipAddress = "192.168.1.10";
     private static String port = "3000";
 
-    public List<String> psuName, districtNames, villageNames;
-    public List<String> psuCode, districtCodes, villageCodes;
+    public List<String> psuName, districtNames, villageNames, lhwNames;
+    public List<String> psuCode, districtCodes, villageCodes, lhwCodes;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
     @BindView(R.id.MN00)
@@ -62,6 +64,10 @@ public class MainActivity extends Activity {
     Spinner mN01;
     @BindView(R.id.MN02)
     Spinner mN02;
+
+    @BindView(R.id.MN03)
+    Spinner MN03;
+
     @BindView(R.id.districtN)
     TextView districtN;
     @BindView(R.id.ucN)
@@ -175,6 +181,10 @@ public class MainActivity extends Activity {
 
                 villageCodes = new ArrayList<>();
                 villageNames = new ArrayList<>();
+
+                lhwCodes = new ArrayList<>();
+                lhwNames = new ArrayList<>();
+
                 final List<String> villageNames1 = new ArrayList<>();
 
                 villageCodes.add("....");
@@ -185,10 +195,20 @@ public class MainActivity extends Activity {
                 for (VillagesContract p : pc) {
                     villageCodes.add(p.getVillagecode());
                     villageNames.add(p.getVillagename());
-                    villageNames1.add(p.getVillagename().split("\\|")[2]);
+                    //villageNames1.add(p.getVillagename().split("\\|")[2]);
                 }
 
-                mN02.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, villageNames1));
+                mN02.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, villageNames));
+
+
+                Collection<LHWContract> lhw = db.getAllLHWsByDistrict(AppMain.hh01txt, AppMain.hh02txt);
+                for (LHWContract p : lhw) {
+                    lhwCodes.add(p.getLhwcode());
+                    lhwNames.add(p.getLhwname());
+                    //villageNames1.add(p.getVillagename().split("\\|")[2]);
+                }
+
+                MN03.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, lhwNames));
             }
 
             @Override
@@ -203,11 +223,13 @@ public class MainActivity extends Activity {
 
                 if (mN02.getSelectedItemPosition() != 0) {
                     AppMain.hh04txt = villageCodes.get(i);
-                    String[] st = villageNames.get(i).split("\\|");
+                    AppMain.villageName = villageNames.get(i);
 
-                    districtN.setText(st[0]);
-                    ucN.setText(st[1]);
-                    psuN.setText(st[2]);
+                    //String[] st = villageNames.get(i).split("\\|");
+
+                    //districtN.setText(st[0]);
+                    //ucN.setText(st[1]);
+                    //psuN.setText(st[2]);
                 }
             }
 
@@ -377,13 +399,16 @@ public class MainActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
                     new SyncListing(mContext).execute();
 
-                    Toast.makeText(getApplicationContext(), "Syncing Mwras", Toast.LENGTH_SHORT).show();
-                    new SyncMwras(mContext).execute();
+                    /*Toast.makeText(getApplicationContext(), "Syncing Mwras", Toast.LENGTH_SHORT).show();
+                    new SyncMwras(mContext).execute();*/
 
                     GetUsers u = new GetUsers(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
                     u.execute();
 
+                    GetLHW lhw = new GetLHW(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing LHWs", Toast.LENGTH_SHORT).show();
+                    lhw.execute();
 
                     GetVillages gp = new GetVillages(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Villages", Toast.LENGTH_SHORT).show();

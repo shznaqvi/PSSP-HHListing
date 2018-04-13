@@ -63,6 +63,9 @@ public class AppMain extends Application {
     public static int fTotal = 0;
     public static int cCount = 0;
 
+    public static String villageCode;
+    public static String villageName;
+
     public static int cCount2m = 0;
     public static int cCount2f = 0;
 

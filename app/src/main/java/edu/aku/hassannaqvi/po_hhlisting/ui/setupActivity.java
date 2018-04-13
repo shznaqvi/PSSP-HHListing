@@ -86,6 +86,8 @@ public class setupActivity extends Activity {
         setContentView(R.layout.activity_setup);
         ButterKnife.bind(this);
 
+        hh04a.setChecked(true);
+
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -269,7 +271,7 @@ public class setupActivity extends Activity {
             hhadd.setError(null);
         }
 
-        if (hh04.getCheckedRadioButtonId() == -1) {
+        /*if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
             hh04x.setError("Please one option");
             Log.i(TAG, "Please one option");
@@ -285,7 +287,7 @@ public class setupActivity extends Activity {
             return false;
         } else {
             hh04x88.setError(null);
-        }
+        }*/
 
         if (hh05.isChecked() && hh06.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter number", Toast.LENGTH_LONG).show();

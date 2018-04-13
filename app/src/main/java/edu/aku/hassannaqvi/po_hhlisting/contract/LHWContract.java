@@ -71,7 +71,7 @@ public class LHWContract {
 
     public static abstract class lhwEntry implements BaseColumns {
 
-        public static final String TABLE_NAME = "LHW";
+        public static final String TABLE_NAME = "lhw";
         public static final String COLUMN_NAME_NULLABLE = "nullColumnHack";
         public static final String _ID = "_ID";
         public static final String COLUMN_TALUKA_CODE = "taluka_code";
