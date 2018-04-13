@@ -109,9 +109,12 @@ public class AddChildActivity extends AppCompatActivity {
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
 
-    static int count = 0;
+    static int count_2 = 1;
+    static int count_59 = 1;
     static int total2Months = 0;
     static int total59Months = 0;
+    static Boolean flag59 = false;
+    Boolean flag2 = false;
 
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
@@ -130,33 +133,21 @@ public class AddChildActivity extends AppCompatActivity {
         ch09.setMaxDate(dateToday);
         ch09.setMinDate(minDate2years);
 
-        count = 1;
 
-        total2Months = Integer.valueOf(AppMain.cCount2m) + Integer.valueOf(AppMain.cCount2f);
-        total59Months = Integer.valueOf(AppMain.cCount59m) + Integer.valueOf(AppMain.cCount59f);
+        total2Months = Integer.valueOf(AppMain.cCount2m);
+        total59Months = Integer.valueOf(AppMain.cCount59m);
 
         Log.d(TAG, "0 - 2 months: " + total2Months + " - " + total59Months);
 
-        txtCounter.setText("Child 0 or less 2 months");
-        txtCounter1.setText(count + " out of " + total2Months);
+
+        txtCounter.setText("Child 0 t0 59 months");
+        txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months);
+
+
 
 
         btnAddChild.setVisibility(View.VISIBLE);
-
-        /*txtChildListing.setText("Child Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.cCount + " of " + AppMain.cTotal + ")");
-        if (AppMain.cCount < AppMain.cTotal) {
-            btnAddChild.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-            btnAddFamilty.setVisibility(View.GONE);
-        } else if (AppMain.cCount >= AppMain.cTotal && AppMain.fCount < AppMain.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-            btnAddChild.setVisibility(View.GONE);
-        } else {
-            btnAddFamilty.setVisibility(View.GONE);
-            btnAddHousehold.setVisibility(View.VISIBLE);
-            btnAddChild.setVisibility(View.GONE);
-        }*/
+        btnAddHousehold.setVisibility(View.VISIBLE);
 
         ch11.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -209,50 +200,15 @@ public class AddChildActivity extends AppCompatActivity {
 
             if (UpdateDB()) {
 
-                //AppMain.cCount++;
-                // AppMain.lc.setHh04Village(null);
-                //Intent fA = new Intent(this, AddChildActivity.class);
-                //startActivity(fA);
 
-                count += count;
-
-
-                if (total2Months != 0) {
-
-                    if (total2Months == 1) {
-                        txtCounter.setText("Child 0 - 59 months");
-                        txtCounter1.setText(count + " out of " + total59Months);
-                    } else {
-                        txtCounter.setText("Child 0 or less 2 months");
-                        txtCounter1.setText(count + " out of " + total2Months);
-                    }
-
-                } else if (total59Months != 0) {
-                    txtCounter.setText("Child 0 - 59 months");
-                    txtCounter1.setText(count + " out of " + total59Months);
-                }
-
-                Log.d(TAG, "count: " + count + " - " + total2Months);
-                Log.d(TAG, "count: " + count + " - " + total59Months);
-
-
-                if (count > total2Months) {
-                    count = 1;
-                    total2Months = 0;
-
-                    if (total59Months == 0) {
-
-                        //Intent setupActivity = new Intent(this, setupActivity.class);
-                        //startActivity(setupActivity);
-                    }
-                }
-
-                if (count > total59Months) {
-                    count = 1;
-                    total59Months = 0;
-
-                    //Intent setupActivity = new Intent(this, setupActivity.class);
-                    //startActivity(setupActivity);
+                if (AppMain.cCount2m == AddChildActivity.count_2) {
+                    btnAddHousehold.setEnabled(true);
+                    AddChildActivity.count_2++;
+                    AppMain.cCount2m++;
+                    startActivity(new Intent(this, AddChildActivity.class));
+                } else {
+                    AddChildActivity.count_2++;
+                    startActivity(new Intent(this, AddChildActivity.class));
                 }
 
             }
@@ -267,18 +223,22 @@ public class AddChildActivity extends AppCompatActivity {
 
         AppMain.childContract.setID(updcount);
 
-        db.updateChild();
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+            AppMain.lc.setUID(AppMain.lc.getDeviceID() + AppMain.lc.getID());
+            db.updateChild();
             //AppMain.lc.setHh04Village(null);
+            return true;
+
 
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
 
-        return true;
+        //return true;
     }
 
     private void SaveDraft() throws JSONException {
@@ -288,7 +248,8 @@ public class AddChildActivity extends AppCompatActivity {
         AppMain.childContract = new ChildContract();
 
         AppMain.childContract.chDT = dtToday;
-        AppMain.childContract.CHILDID = String.valueOf(count);
+        AppMain.childContract.CHILDID = String.valueOf(count_2);
+
         AppMain.childContract.ch01 = AppMain.hh01txt;
         AppMain.childContract.ch02 = AppMain.hh02txt;
         AppMain.childContract.ch03 = String.valueOf(AppMain.hh03txt);
@@ -493,14 +454,21 @@ public class AddChildActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (UpdateDB()) {
-                AppMain.fCount = 0;
-                AppMain.fTotal = 0;
-                AppMain.cCount = 0;
-                AppMain.cTotal = 0;
 
-                //Intent fA = new Intent(this, setupActivity.class);
-                Intent childActivity = new Intent(this, AddChildActivity.class);
-                startActivity(childActivity);
+                if (AppMain.cCount2m != count_2) {
+                    Toast.makeText(getApplicationContext(), "Please Insert the data of the remaining children", Toast.LENGTH_SHORT).show();
+                } else {
+                    AppMain.fCount = 0;
+                    AppMain.fTotal = 0;
+                    AppMain.cCount = 0;
+                    AppMain.cTotal = 0;
+                    AppMain.cCount2m = 0;
+
+
+                    //Intent fA = new Intent(this, setupActivity.class);
+                    Intent childActivity = new Intent(this, setupActivity.class);
+                    startActivity(childActivity);
+                }
 
             }
         }

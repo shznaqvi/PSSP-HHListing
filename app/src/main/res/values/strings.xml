@@ -48,7 +48,7 @@
     <string name="mw04"> ڇا(عورت جو نالو) حمل سان آهي؟ </string>
     <string name="mw05">حمل کي ڪيترو عرصو ٿيو آهي؟(مهينا لکو)</string>
 
-    <string name="ch01">2 مهينن کان گهٽ وارا ٻار</string>
+    <string name="ch01"> 0 کان 59 مهينن کان گهٽ وارا ٻار</string>
     <string name="ch02">2 کان 59 مهينن تائين جا ٻار</string>
     <string name="ch03">مرد ڀاتي ۽ 5 سالن کان مٿي</string>
     <string name="ch04">ڪل گهر ڀاتين جو تعداد</string>
