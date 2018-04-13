@@ -64,7 +64,15 @@
     <string name="ch10m">مهينا</string>
     <string name="ch10d">ڌينهن</string>
     <string name="chdob">ڄمڻ جي تاريخ</string>
-    <string name="chsource">عمر جو ذريعو</string>
+    <string name="ch11">عمر جو ذريعو</string>
+    <string name="ch11a">اسپتال جي طرفان مليل ڄمڻ وارو سرٽيفڪيٽ</string>
+    <string name="ch11b">نادرا جي طرفان مليل ڄمڻ وارو سرٽيفڪيٽ</string>
+    <string name="ch11c">اسڪول جو سرٽيفڪيٽ / ريڪارڊ</string>
+    <string name="ch11d">ويڪسينيشن/ صحت ڪارڊ</string>
+    <string name="ch11e">واقعي جو ڪئلينڊر</string>
+    <string name="ch11f">ياداشت / پڪ نه آهي</string>
+    <string name="ch11g">ليڊي هيلٿ ورڪر جو ريڪارڊ</string>
+    <string name="ch11h">ٻيو ڪجهه وضاحت ڪريو</string>
 
 
     <!--Ali-->

@@ -29,6 +29,7 @@
         <activity
             android:name="edu.aku.hassannaqvi.po_hhlisting.ui.AddChildActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme1"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="edu.aku.hassannaqvi.po_hhlisting.ui.setupActivity"

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import edu.aku.hassannaqvi.po_hhlisting.contract.ChildContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.ListingContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.MwraContract;
 
@@ -28,9 +29,31 @@ public class AppMain extends Application {
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     private static final int TWO_MINUTES = 1000 * 60 * 2;
+
+    public static final Integer MONTHS_LIMIT = 11;
+    public static final Integer DAYS_LIMIT = 29;
+
+    private static final int TWENTY_MINUTES = 1000 * 60 * 20;
+    private static final long MILLIS_IN_SECOND = 1000;
+    private static final long SECONDS_IN_MINUTE = 60;
+    private static final long MINUTES_IN_HOUR = 60;
+    private static final long HOURS_IN_DAY = 24;
+    public static final long MILLISECONDS_IN_DAY = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY;
+    private static final long DAYS_IN_YEAR = 365;
+    public static final long MILLISECONDS_IN_YEAR = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAYS_IN_YEAR;
+    private static final long DAYS_IN_6_MONTHS = 210;
+    public static final long MILLISECONDS_IN_6_MONTHS = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAYS_IN_6_MONTHS;
+    private static final long DAYS_IN_2_YEARS = 730;
+    public static final long MILLISECONDS_IN_2_YEARS = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAYS_IN_2_YEARS;
+    private static final long DAYS_IN_5Years = 1826;
+    public static final long MILLISECONDS_IN_5Years = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * DAYS_IN_5Years;
+
+
     public static String TAG = "AppMain";
     public static ListingContract lc;
     public static MwraContract mwra;
+    public static ChildContract childContract;
+
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static String hh04txt;
@@ -48,6 +71,7 @@ public class AppMain extends Application {
 
     public static int cCount5m = 0;
     public static int cCount5f = 0;
+    public static int cCountTotal = 0;
 
     public static int hh07 = 0;
     public static int cTotal = 0;
