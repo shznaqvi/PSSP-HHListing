@@ -123,6 +123,7 @@ public class AddChildActivity extends AppCompatActivity {
         int total2Months = Integer.valueOf(AppMain.cCount2m) + Integer.valueOf(AppMain.cCount2f);
         int total59Months = Integer.valueOf(AppMain.cCount59m) + Integer.valueOf(AppMain.cCount59f);
 
+
         txtCounter.setText(count + " out of " + total2Months);
 
         btnAddChild.setVisibility(View.VISIBLE);
@@ -182,6 +183,10 @@ public class AddChildActivity extends AppCompatActivity {
 
         long updcount = db.addChild(AppMain.childContract);
 
+        AppMain.childContract.setID(updcount);
+
+        db.updateChild();
+
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
             //AppMain.lc.setHh04Village(null);
@@ -190,7 +195,6 @@ public class AddChildActivity extends AppCompatActivity {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
 
-        updcount = db.updateChild();
 
         return true;
     }

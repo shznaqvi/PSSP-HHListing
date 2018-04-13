@@ -89,6 +89,28 @@ public class FamilyListingActivity extends Activity {
                 AppMain.mwraTotal = 0;*/
 
                 //Intent closeA = new Intent(this, HouseholdInfoActivity.class);
+
+                if (!ch01.getText().toString().isEmpty()) {
+                    AppMain.cCount2m = Integer.valueOf(ch01.getText().toString());
+                }
+
+
+                if (!ch02.getText().toString().isEmpty()) {
+                    AppMain.cCount59m = Integer.valueOf(ch02.getText().toString());
+                }
+
+
+                if (!ch03m.getText().toString().isEmpty()) {
+                    AppMain.cCount5m = Integer.valueOf(ch03m.getText().toString());
+                }
+
+                if (!ch03f.getText().toString().isEmpty()) {
+                    AppMain.cCount5f = Integer.valueOf(ch03f.getText().toString());
+                }
+
+                AppMain.cCountTotal = Integer.valueOf(ch04.getText().toString());
+
+
                 Intent childActivity = new Intent(this, AddChildActivity.class);
                 startActivity(childActivity);
             } else {
@@ -110,33 +132,14 @@ public class FamilyListingActivity extends Activity {
                 //AppMain.mwraCount = 1;
 
 
-                if (!ch01.getText().toString().isEmpty()) {
-                    AppMain.cCount2m = Integer.valueOf(ch01.getText().toString());
-                }
-
-
-                if (!ch02.getText().toString().isEmpty()) {
-                    AppMain.cCount59m = Integer.valueOf(ch02.getText().toString());
-                }
-
-
-                if (!ch03m.getText().toString().isEmpty()) {
-                    AppMain.cCount5m = Integer.valueOf(ch03m.getText().toString());
-                }
-
-                if (!ch03f.getText().toString().isEmpty()) {
-                    AppMain.cCount5f = Integer.valueOf(ch03f.getText().toString());
-                }
-
-                Toast.makeText(this, AppMain.cCount2m + ":"
+                /*Toast.makeText(this, AppMain.cCount2m + ":"
                                 + AppMain.cCount2f + "\n"
                                 + AppMain.cCount59m + "\n"
                                 + AppMain.cCount59f + "\n"
                                 + AppMain.cCount5m + "\n"
                                 + AppMain.cCount5f + "\n"
-                        , Toast.LENGTH_SHORT).show();
+                        , Toast.LENGTH_SHORT).show();*/
 
-                AppMain.cCountTotal = Integer.valueOf(ch04.getText().toString());
 
                 //Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
 
