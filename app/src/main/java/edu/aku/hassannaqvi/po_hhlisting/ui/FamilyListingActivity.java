@@ -7,14 +7,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,9 +44,9 @@ public class FamilyListingActivity extends Activity {
     /*@BindView(R.id.ch02a)
     Switch ch02a;*/
 
-    @BindView(R.id.ch02)
+    /*@BindView(R.id.ch02)
     EditText ch02;
-
+*/
     /*@BindView(R.id.ch02m)
     EditText ch02m;
     @BindView(R.id.ch02f)
@@ -90,16 +86,18 @@ public class FamilyListingActivity extends Activity {
                 AppMain.mwraTotal = 0;*/
 
                 //Intent closeA = new Intent(this, HouseholdInfoActivity.class);
+                AddChildActivity.count_2 = 1;
+                AddChildActivity.count_59 = 1;
 
                 if (!ch01.getText().toString().isEmpty()) {
                     AppMain.cCount2m = Integer.valueOf(ch01.getText().toString());
                 }
 
 
-                if (!ch02.getText().toString().isEmpty()) {
+                /*if (!ch02.getText().toString().isEmpty()) {
                     AppMain.cCount59m = Integer.valueOf(ch02.getText().toString());
                 }
-
+*/
 
                 if (!ch03m.getText().toString().isEmpty()) {
                     AppMain.cCount5m = Integer.valueOf(ch03m.getText().toString());
@@ -112,7 +110,7 @@ public class FamilyListingActivity extends Activity {
                 AppMain.cCountTotal = Integer.valueOf(ch04.getText().toString());
 
 
-                if (ch01.getText().toString().equals("0") && ch02.getText().toString().equals("0")) {
+                if (ch01.getText().toString().equals("0")) {
                     Intent setupActivity = new Intent(this, setupActivity.class);
                     startActivity(setupActivity);
                 } else {
@@ -151,8 +149,11 @@ public class FamilyListingActivity extends Activity {
                 //Toast.makeText(this, AppMain.mwraCount + ":" + AppMain.mwraTotal + ":" + AppMain.fCount + ":" + AppMain.fTotal, Toast.LENGTH_SHORT).show();
 
                 //Intent mwraA = new Intent(this, AddMarriedWomenActivity.class);
-                Intent childActivity = new Intent(this, AddChildActivity.class);
-                startActivity(childActivity);
+
+                if (AppMain.cCount2m > 0 || AppMain.cCount59m > 0) {
+                    Intent childActivity = new Intent(this, AddChildActivity.class);
+                    startActivity(childActivity);
+                }
             } else {
                 Toast.makeText(this, "Saving Draft... Failed!", Toast.LENGTH_LONG).show();
             }
@@ -169,7 +170,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setCh01(ch01.getText().toString());
 
         //AppMain.lc.setCh02a(ch02a.isChecked() ? "1" : "2");
-        AppMain.lc.setCh02(ch02.getText().toString());
+        //AppMain.lc.setCh02(ch02.getText().toString());
 
         //AppMain.lc.setCh03a(ch03a.isChecked() ? "1" : "2");
         AppMain.lc.setCh03m(ch03m.getText().toString());
@@ -237,14 +238,14 @@ public class FamilyListingActivity extends Activity {
         }
 
 
-        if (ch02.getText().toString().isEmpty()) {
+        /*if (ch02.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
             ch02.setError("Please enter child count");
             Log.i(TAG, "Please enter child count");
             return false;
         } else {
             ch02.setError(null);
-        }
+        }*/
 
 
         if (ch03m.getText().toString().isEmpty()) {
@@ -282,9 +283,9 @@ public class FamilyListingActivity extends Activity {
             totalMember = Integer.valueOf(ch01.getText().toString());
         }
 
-        if (!ch02.getText().toString().isEmpty()) {
+        /*if (!ch02.getText().toString().isEmpty()) {
             totalMember += Integer.valueOf(ch02.getText().toString());
-        }
+        }*/
 
         if (!ch03m.getText().toString().isEmpty()) {
             totalMember += Integer.valueOf(ch03m.getText().toString());
