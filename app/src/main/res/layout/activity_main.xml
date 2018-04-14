@@ -247,7 +247,16 @@
                 </LinearLayout>
 
             </LinearLayout>
-
+            <!--android:background="@drawable/clustermapicon"-->
+            <Button
+                android:id="@+id/openClusterMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:onClick="openClusterMap"
+                android:text="Check Cluster Map"
+                android:textColor="#7139c2" />
             <CheckBox
                 android:id="@+id/chkconfirm"
                 android:layout_width="match_parent"
