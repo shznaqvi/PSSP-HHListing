@@ -47,6 +47,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.VerticesContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
@@ -108,6 +109,7 @@ public class MainActivity extends MenuActivity {
     Boolean flag = false;
     FormsDBHelper db;
     ProgressDialog progressDoalog;
+    private String clusterName;
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -300,7 +302,7 @@ public class MainActivity extends MenuActivity {
                     na101b.setText(selSplit[1].equals("") ? "----" : selSplit[1]);
                     na101c.setText(selSplit[2].equals("") ? "----" : selSplit[2]);
                     na101d.setText(selSplit[3]);
-
+                    clusterName = selSplit[3];
                     na101e.setText(enumBlockContract.getEbcode());
 
                     fldGrpna101.setVisibility(View.VISIBLE);
@@ -361,6 +363,17 @@ public class MainActivity extends MenuActivity {
         builder.setTitle("Do you want to continue?");
         builder.setMessage("PSU data already exist.").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("Cancel", dialogClickListener).show();
+    }
+
+    public void openClusterMap(View view) {
+
+        FormsDBHelper db = new FormsDBHelper(this);
+        Collection<VerticesContract> v = db.getVerticesByCluster(txtPSU.getText().toString());
+        if (v.size() > 3) {
+            startActivity(new Intent(this, MapsActivity.class));
+        } else {
+            Toast.makeText(this, "Cluster map do not exist for " + clusterName, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void openForm(View view) {

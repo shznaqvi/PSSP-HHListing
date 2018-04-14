@@ -24,10 +24,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AndroidDatabaseManager;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUpdates;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncListing;
 
@@ -207,6 +207,8 @@ public class MenuActivity extends AppCompatActivity {
                         new GetAllData(mContext, "Team").execute();
                         Toast.makeText(MenuActivity.this, "Get Updates", Toast.LENGTH_SHORT).show();
                         new GetUpdates(mContext).execute();
+                        Toast.makeText(MenuActivity.this, "Get Vertices", Toast.LENGTH_SHORT).show();
+                        new GetVertices(mContext).execute();
                     } else {
                         SyncListing ff = new SyncListing(mContext);
                         Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();

@@ -56,6 +56,7 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUpdates;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 
 /**
@@ -527,6 +528,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     new GetAllData(mContext, "Team").execute();
                     Toast.makeText(LoginActivity.this, "Get Updates", Toast.LENGTH_SHORT).show();
                     new GetUpdates(mContext).execute();
+                    Toast.makeText(LoginActivity.this, "Get Vertices", Toast.LENGTH_SHORT).show();
+                    new GetVertices(mContext).execute();
                 }
             });
 
