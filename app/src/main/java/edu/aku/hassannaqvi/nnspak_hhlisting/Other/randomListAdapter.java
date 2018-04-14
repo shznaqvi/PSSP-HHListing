@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Activities.RandomizationActivity;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 
@@ -40,7 +42,7 @@ public class randomListAdapter extends RecyclerView.Adapter<randomListAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View statusContainer = LayoutInflater.from(parent.getContext()).inflate(R.layout.lstview_random, parent, false);
+        View statusContainer = LayoutInflater.from(parent.getContext()).inflate(R.layout.lstview_random1, parent, false);
         return new ViewHolder(statusContainer);
     }
 
@@ -49,11 +51,11 @@ public class randomListAdapter extends RecyclerView.Adapter<randomListAdapter.Vi
         this.holder = holder;
         this.holder.bindUser(list.get(position));
 
-        this.holder.checkSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+/*        this.holder.checkSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                /*if (b) {
+                *//*if (b) {
                     MainActivity.checkPos.add(position);
                     Toast.makeText(mContext, list.get(position).getPackageName(), Toast.LENGTH_SHORT).show();
                 } else {
@@ -63,9 +65,14 @@ public class randomListAdapter extends RecyclerView.Adapter<randomListAdapter.Vi
                             break;
                         }
                     }
-                }*/
+                }*//*
             }
-        });
+        });*/
+
+        if (list.get(position).getTotalhh().equals(list.get(position).randCount)) {
+            RandomizationActivity.hhRandomise.add(position);
+        }
+
     }
 
     @Override
@@ -76,13 +83,17 @@ public class randomListAdapter extends RecyclerView.Adapter<randomListAdapter.Vi
     class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.checkSelected)
-        CheckBox checkSelected;
+        ImageView checkSelected;
         @BindView(R.id.clusterCode)
         TextView clusterCode;
         @BindView(R.id.resCount)
         TextView resCount;
         @BindView(R.id.childCount)
         TextView childCount;
+        @BindView(R.id.rndCount)
+        TextView rndCount;
+        @BindView(R.id.totalCount)
+        TextView totalCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -91,8 +102,15 @@ public class randomListAdapter extends RecyclerView.Adapter<randomListAdapter.Vi
 
         public void bindUser(ListingContract contact) {
             clusterCode.setText(contact.getClusterCode());
-            resCount.setText("RESIDENTIAL: "+contact.getResCount());
-            childCount.setText("CHILD < 5: "+contact.getChildCount());
+            resCount.setText("Residential Count: " + contact.getResCount());
+            childCount.setText("Child < 5 Count: " + contact.getChildCount());
+            rndCount.setText("Randomized Count: " + contact.getRandCount());
+            totalCount.setText("Total HH Count: " + contact.getTotalhh());
+
+            if (contact.getTotalhh().equals(contact.randCount)) {
+                checkSelected.setVisibility(View.VISIBLE);
+            }
+
 //            checkSelected.setChecked(contact.getIsRandom().equals("1") ? true : false);
         }
     }

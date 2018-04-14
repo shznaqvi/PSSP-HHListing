@@ -20,5 +20,6 @@
     <color name="white">#ffffff</color>
     <color name="green">#009900</color>
     <color name="red">#990000</color>
+    <color name="brown">#795548</color>
     <color name="orange">#d6ffa500</color>
 </resources>

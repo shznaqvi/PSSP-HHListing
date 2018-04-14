@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class RandomizationActivity extends MenuActivity {
     FormsDBHelper db;
 
     ArrayList<ListingContract> listingDataList;
+    public static ArrayList<Integer> hhRandomise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class RandomizationActivity extends MenuActivity {
         db = new FormsDBHelper(this);
 
         lstList = new ArrayList<>();
+        hhRandomise = new ArrayList<>();
 
         new ApplicationsTask(this).execute();
 
@@ -67,33 +70,36 @@ public class RandomizationActivity extends MenuActivity {
                     public void onItemLongClick(final View view, final int position) {
 
                         if (position != -1) {
+                            Boolean flag = true;
+                            for (int item : hhRandomise) {
+                                if (item == position) {
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                            if (flag) {
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                        RandomizationActivity.this);
+                                alertDialogBuilder
+                                        .setMessage("Are you sure to randomize this cluster?")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Ok",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
 
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                                    RandomizationActivity.this);
-                            alertDialogBuilder
-                                    .setMessage("Are you sure to randomize this cluster?")
-                                    .setCancelable(false)
-                                    .setPositiveButton("Ok",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int id) {
+                                                        new RandomizationTask(RandomizationActivity.this, lstList.get(position).getClusterCode()).execute();
 
-                                                    /*double abc = 234/20d;
-
-                                                    Toast.makeText(RandomizationActivity.this, "" + abc, Toast.LENGTH_SHORT).show();*/
-
-                                                    new RandomizationTask(RandomizationActivity.this, lstList.get(position).getClusterCode()).execute();
-
-                                                }
-                                            });
-                            alertDialogBuilder.setNegativeButton("Cancel",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-                            AlertDialog alert = alertDialogBuilder.create();
-                            alert.show();
-
+                                                    }
+                                                });
+                                alertDialogBuilder.setNegativeButton("Cancel",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog alert = alertDialogBuilder.create();
+                                alert.show();
+                            }
                         }
                     }
                 })
@@ -110,7 +116,7 @@ public class RandomizationActivity extends MenuActivity {
         }
 
         protected void onPreExecute() {
-            this.dialog.setMessage("Analyzing Apps");
+            this.dialog.setMessage("Analyzing Data");
             this.dialog.show();
         }
 
@@ -168,15 +174,25 @@ public class RandomizationActivity extends MenuActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
 
-            if (dialog.isShowing()) {
-                dialog.dismiss();
-            }
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
 
-            if (success) {
-                Toast.makeText(context, "Randomized!!", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(context, "Error in Randomization!!", Toast.LENGTH_LONG).show();
-            }
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+
+                    if (success) {
+
+                        new ApplicationsTask(context).execute();
+
+                        Toast.makeText(context, "Randomized!!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context, "Error in Randomization!!", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }, 800);
         }
 
         protected Boolean doInBackground(final String... args) {
@@ -193,7 +209,7 @@ public class RandomizationActivity extends MenuActivity {
 
                     double lstSize = sum + random + 0d;
 
-                     while ((int) lstSize <= listingContracts.size()) {
+                    while ((int) lstSize <= listingContracts.size()) {
 
                         listingDataList.add(listingContracts.get((int) lstSize));
 

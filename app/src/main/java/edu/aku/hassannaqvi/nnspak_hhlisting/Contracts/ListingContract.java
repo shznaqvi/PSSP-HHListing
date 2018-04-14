@@ -50,10 +50,28 @@ public class ListingContract {
     public String isRandom;
     public String resCount;
     public String childCount;
+    public String randCount;
+    public String totalhh;
 
     private String username; // User Name
 
     public ListingContract() {
+    }
+
+    public String getTotalhh() {
+        return totalhh;
+    }
+
+    public void setTotalhh(String totalhh) {
+        this.totalhh = totalhh;
+    }
+
+    public String getRandCount() {
+        return randCount;
+    }
+
+    public void setRandCount(String randCount) {
+        this.randCount = randCount;
     }
 
     public String getIsRandom() {
@@ -471,6 +489,8 @@ public class ListingContract {
         if (type == 1) {
             lc.setResCount(String.valueOf(c.getString(c.getColumnIndex("RESCOUNTER"))));
             lc.setChildCount(String.valueOf(c.getString(c.getColumnIndex("CHILDCOUNTER"))));
+            lc.setRandCount(String.valueOf(c.getString(c.getColumnIndex("RANDCOUNTER"))));
+            lc.setTotalhh(String.valueOf(c.getString(c.getColumnIndex("TOTALHH"))));
         }
 
         return lc;

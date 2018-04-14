@@ -45,12 +45,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.BLRandomContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AndroidDatabaseManager;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncListing;
 
 public class MainActivity extends MenuActivity {
@@ -433,7 +435,27 @@ public class MainActivity extends MenuActivity {
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
 
-            new syncData(this).execute();
+//            new syncData(this).execute();
+
+            Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
+            new SyncAllData(
+                    this,
+                    "Listing",
+                    "updateSyncedForms",
+                    ListingContract.class,
+                    AppMain._HOST_URL + ListingContract.ListingEntry._URL,
+                    db.getAllListings()
+            ).execute();
+
+            /*Toast.makeText(getApplicationContext(), "Syncing BL Random", Toast.LENGTH_SHORT).show();
+            new SyncAllData(
+                    this,
+                    "BL_Random",
+                    "updateSyncedBLRandom",
+                    BLRandomContract.class,
+                    AppMain._HOST_URL + BLRandomContract.singleRandomHH._URL,
+                    db.getAllBLRandom()
+            ).execute();*/
 
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = syncPref.edit();
@@ -585,6 +607,8 @@ public class MainActivity extends MenuActivity {
                     SyncListing ff = new SyncListing(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
                     ff.execute();
+
+
                 }
             });
 

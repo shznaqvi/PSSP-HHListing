@@ -52,6 +52,10 @@ dependencies {
     // RecyclerView
     implementation 'com.android.support:recyclerview-v7:27.1.0'
 
+    // CardView
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:cardview-v7:27.1.0'
+
     testCompile 'junit:junit:4.12'
 
     compile 'com.intuit.sdp:sdp-android:1.0.5'
