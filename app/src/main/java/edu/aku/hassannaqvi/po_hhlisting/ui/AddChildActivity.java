@@ -112,8 +112,7 @@ public class AddChildActivity extends AppCompatActivity {
 
     static int count_2 = 1;
     static int count_59 = 1;
-    static int additionalCount = 1;
-    static int additionalCount1 = 1;
+    static int additionalCount = 0;
 
     static int total2Months = 0;
     static int total59Months = 0;
@@ -208,9 +207,19 @@ public class AddChildActivity extends AppCompatActivity {
                         btnAddHousehold.setVisibility(View.VISIBLE);
                         btnAddFamilty.setVisibility(View.GONE);
                     } else {
-                        btnAddHousehold.setVisibility(View.GONE);
-                        btnAddFamilty.setVisibility(View.VISIBLE);
+
+                        if (AppMain.fTotal > AppMain.fCount) {
+                            btnAddHousehold.setVisibility(View.GONE);
+                            btnAddFamilty.setVisibility(View.VISIBLE);
+                        } else {
+                            btnAddHousehold.setVisibility(View.VISIBLE);
+                            btnAddFamilty.setVisibility(View.GONE);
+                            btnAddChild.setVisibility(View.VISIBLE);
+                        }
                     }
+
+
+                    AddChildActivity.count_2++;
 
 
                     txtCounter.setText("Child 0 to 59 months");
@@ -221,24 +230,25 @@ public class AddChildActivity extends AppCompatActivity {
 
 
                     if (AddChildActivity.count_2 > AppMain.cCount2m) {
-                        additionalCount1 = 1;
-                        additionalCount = 1;
-                        txtCounter1.setText(additionalCount1 + " out of " + total2Months + " - (" + additionalCount + ")");
+                        additionalCount++;
+                        txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months + " - (" + additionalCount + ")");
                     }
 
 
-                    AddChildActivity.count_2++;
                     AppMain.cCount2m++;
-                    additionalCount++;
 
 
                     ClearFields();
 
+                    activityAddChild.setScrollX(0);
                     ch06.requestFocus();
 
                     //startActivity(new Intent(this, AddChildActivity.class));
                 } else {
+
                     AddChildActivity.count_2++;
+
+                    txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months);
 
                     ClearFields();
 
@@ -268,15 +278,14 @@ public class AddChildActivity extends AppCompatActivity {
 
         long updcount = db.addChild(AppMain.childContract);
 
+        AppMain.childContract.setID(updcount);
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.lc.setUID(AppMain.lc.getDeviceID() + AppMain.lc.getID());
+            AppMain.childContract.setUID(AppMain.childContract.getDeviceID() + AppMain.childContract.getID());
             db.updateChild();
             //AppMain.lc.setHh04Village(null);
             return true;
-
-
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
             return false;
@@ -495,7 +504,8 @@ public class AddChildActivity extends AppCompatActivity {
 
         AppMain.cCount = 0;
         AppMain.cTotal = 0;
-        AddChildActivity.count_2 = 0;
+        AddChildActivity.count_2 = 1;
+        additionalCount = 0;
 
         AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
         AppMain.lc.setHh07(AppMain.hh07txt.toString());
@@ -516,36 +526,36 @@ public class AddChildActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnAddHousehold)
     void onBtnAddHouseholdClick() {
-        if (formValidation()) {
+        //if (formValidation()) {
 
-            if (AppMain.cCount2m != count_2) {
-                Toast.makeText(getApplicationContext(), "Please Insert the data of the remaining children", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        if (AppMain.cCount2m != count_2) {
+            Toast.makeText(getApplicationContext(), "Please Insert the data of the remaining children", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            try {
+            /*try {
                 SaveDraft();
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-            if (UpdateDB()) {
+            }*/
+        //if (UpdateDB()) {
 
-                if (AppMain.cCount2m != count_2) {
-                } else {
-                    AppMain.fCount = 0;
-                    AppMain.fTotal = 0;
-                    AppMain.cCount = 0;
-                    AppMain.cTotal = 0;
-                    AppMain.cCount2m = 0;
+        if (AppMain.cCount2m != count_2) {
+        } else {
+            AppMain.fCount = 0;
+            AppMain.fTotal = 0;
+            AppMain.cCount = 0;
+            AppMain.cTotal = 0;
+            AppMain.cCount2m = 0;
 
 
-                    //Intent fA = new Intent(this, setupActivity.class);
-                    Intent childActivity = new Intent(this, setupActivity.class);
-                    startActivity(childActivity);
-                }
-
-            }
+            //Intent fA = new Intent(this, setupActivity.class);
+            Intent childActivity = new Intent(this, setupActivity.class);
+            startActivity(childActivity);
         }
+
+        //}
+        //}
     }
 
     @Override

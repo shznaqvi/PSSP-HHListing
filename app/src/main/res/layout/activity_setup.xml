@@ -80,7 +80,7 @@
                 android:digits="1234567890"
                 android:hint="@string/hh02"
                 android:inputType="number"
-                android:maxLength="5"
+                android:maxLength="10"
                 android:textColor="@color/colorPrimary" />
 
             <!--Structure No. (Auto-Generate)-->

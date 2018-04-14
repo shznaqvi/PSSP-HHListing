@@ -33,6 +33,7 @@ import edu.aku.hassannaqvi.po_hhlisting.contract.VillagesContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.VillagesContract.singleVillage;
 import edu.aku.hassannaqvi.po_hhlisting.contract.LHWContract;
 import edu.aku.hassannaqvi.po_hhlisting.contract.LHWContract.lhwEntry;
+import edu.aku.hassannaqvi.po_hhlisting.ui.FamilyListingActivity;
 
 
 /**
@@ -218,7 +219,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
+        //values.put(ListingEntry.COLUMN_NAME_UID, lc.getDeviceID() + lc.getID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
@@ -273,7 +274,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         values.put(ChildEntry.CHILD_ID, childContract.getCHILDID());
         values.put(ChildEntry.CHILD_UUID, childContract.getUUID());
-        values.put(ChildEntry.CHILD_UID, childContract.getUID());
         values.put(ChildEntry.CHILD_CHDT, childContract.getChDT());
         //values.put(ChildEntry.CHILD_CHVILLAGECODE, childContract.getChVillageCode());
         //values.put(ChildEntry.CHILD_CHSTRUCTURENO, childContract.getChStructureNo());
@@ -382,6 +382,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 values);
 
         return newRowId;
+    }
+
+
+    public int updateListing() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ListingEntry.COLUMN_NAME_UID, AppMain.lc.getUID());
+
+// Which row to update, based on the ID
+        String selection = ListingEntry._ID + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(AppMain.lc.getID())};
+
+        int count = db.update(ListingEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        return count;
     }
 
 

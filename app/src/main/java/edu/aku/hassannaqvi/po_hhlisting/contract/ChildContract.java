@@ -13,6 +13,8 @@ public class ChildContract {
     public String UUID;
     public String UID;
     public String chDT;
+    private String deviceID = "";
+
     //public String chVillageCode;
     //public String chStructureNo;
 
@@ -33,6 +35,7 @@ public class ChildContract {
     public ChildContract Sync(JSONObject jsonObject) throws JSONException {
         this.ID = jsonObject.getLong(ChildContract.ChildEntry.COLUMN_ID);
         this.CHILDID = jsonObject.getString(ChildContract.ChildEntry.CHILD_ID);
+        this.deviceID = jsonObject.getString(ChildContract.ChildEntry.CHILD_DEVICEID);
         this.UUID = jsonObject.getString(ChildContract.ChildEntry.CHILD_UUID);
         this.UID = jsonObject.getString(ChildContract.ChildEntry.CHILD_UID);
         this.chDT = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHDT);
@@ -57,6 +60,7 @@ public class ChildContract {
         this.CHILDID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_UID));
+        this.deviceID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_DEVICEID));
         this.chDT = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHDT));
         //this.chVillageCode = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHVILLAGECODE));
         //this.chStructureNo = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO));
@@ -89,6 +93,16 @@ public class ChildContract {
     public void setCHILDID(String MWRAID) {
         this.CHILDID = CHILDID;
     }
+
+
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+
 
     public String getUUID() {
         return UUID;
@@ -213,6 +227,7 @@ public class ChildContract {
         json.put(ChildContract.ChildEntry.CHILD_ID, this.CHILDID == null ? JSONObject.NULL : this.CHILDID);
         json.put(ChildContract.ChildEntry.CHILD_UUID, this.UUID == null ? JSONObject.NULL : this.UUID);
         json.put(ChildContract.ChildEntry.CHILD_UID, this.UID == null ? JSONObject.NULL : this.UID);
+        json.put(ChildContract.ChildEntry.CHILD_DEVICEID, this.deviceID == null ? JSONObject.NULL : this.deviceID);
         json.put(ChildContract.ChildEntry.CHILD_CHDT, this.chDT == null ? JSONObject.NULL : this.chDT);
         //json.put(ChildContract.ChildEntry.CHILD_CHVILLAGECODE, this.chVillageCode == null ? JSONObject.NULL : this.chVillageCode);
         //json.put(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO, this.chStructureNo == null ? JSONObject.NULL : this.chStructureNo);
@@ -239,6 +254,7 @@ public class ChildContract {
         public static final String CHILD_ID = "sno";
         public static final String CHILD_UUID = "uuid";
         public static final String CHILD_UID = "uid";
+        public static final String CHILD_DEVICEID = "deviceid";
         public static final String CHILD_CHDT = "chdt";
         //public static final String CHILD_CHVILLAGECODE = "chvillagecode";
         //public static final String CHILD_CHSTRUCTURENO = "chstructureno";

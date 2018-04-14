@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,9 @@ import edu.aku.hassannaqvi.po_hhlisting.core.FormsDBHelper;
 public class FamilyListingActivity extends Activity {
 
     public static String TAG = "FamilyListingActivity";
+
+    @BindView(R.id.activity_household_listing)
+    ScrollView activity_household_listing;
 
     @BindView(R.id.txtFamilyListing)
     TextView txtFamilyListing;
@@ -124,8 +128,39 @@ public class FamilyListingActivity extends Activity {
 
 
                 if (ch01.getText().toString().equals("0")) {
-                    Intent setupActivity = new Intent(this, setupActivity.class);
-                    startActivity(setupActivity);
+
+                    if (AppMain.fTotal == 1) {
+                        AppMain.fCount = 0;
+                        Intent setupActivity = new Intent(this, setupActivity.class);
+                        startActivity(setupActivity);
+                    } else {
+
+                        if (AppMain.fTotal < AppMain.fCount) {
+                            Intent childActivity = new Intent(this, AddChildActivity.class);
+                            startActivity(childActivity);
+                        }
+
+                        if (AppMain.fTotal == AppMain.fCount) {
+                            AppMain.fCount = 0;
+                            Intent setupActivity = new Intent(this, setupActivity.class);
+                            startActivity(setupActivity);
+                        }
+
+                        AppMain.cCount = 0;
+                        AppMain.cTotal = 0;
+                        AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
+                        AppMain.lc.setHh07(AppMain.hh07txt.toString());
+                        AppMain.fCount++;
+
+                        txtFamilyListing.setText("Family Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt);
+
+                        ClearFields();
+
+                        activity_household_listing.setScrollY(0);
+                        hh08.requestFocus();
+
+                    }
+
                 } else {
                     Intent childActivity = new Intent(this, AddChildActivity.class);
                     startActivity(childActivity);
@@ -135,6 +170,16 @@ public class FamilyListingActivity extends Activity {
                 Toast.makeText(this, "Saving Draft... Failed!", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+
+    private void ClearFields() {
+        hh08.setText(null);
+        hh09.setText(null);
+        ch01.setText(null);
+        ch03m.setText(null);
+        ch03f.setText(null);
+        ch04.setText(null);
     }
 
 
@@ -375,11 +420,12 @@ public class FamilyListingActivity extends Activity {
 
         AppMain.lc.setID(String.valueOf(rowId));
 
-
         if (rowId != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.lc.setUID(
-                    (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+
+            AppMain.lc.setUID(AppMain.lc.getDeviceID() + AppMain.lc.getID());
+            db.updateListing();
+
             Toast.makeText(this, "Current Form No: " + AppMain.lc.getUID(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
@@ -442,8 +488,6 @@ public class FamilyListingActivity extends Activity {
             }
         });*/
 
-
-        Log.d(TAG, "onCreate: " + AppMain.fCount + " - " + AppMain.fTotal);
 
 
         /*if (AppMain.fCount < AppMain.fTotal) {
