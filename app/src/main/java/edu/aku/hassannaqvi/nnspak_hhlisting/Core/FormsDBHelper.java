@@ -41,7 +41,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = DATABASE_NAME.replace(".db", "-copy.db");
     public static final String FOLDER_NAME = "DMU-NNSPAKHHL";
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 2;
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -175,7 +175,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 db.execSQL(SQL_ALTER_LISTING);
                 db.execSQL(SQL_ALTER_LISTING1);
                 db.execSQL(SQL_CREATE_BL_RANDOM);
-            case 2:
                 db.execSQL(SQL_CREATE_VERTICES_TABLE);
 
         }
