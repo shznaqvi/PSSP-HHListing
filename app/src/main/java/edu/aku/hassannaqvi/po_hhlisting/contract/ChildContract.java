@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 public class ChildContract {
 
-    public Long ID;
+    public String ID;
     public String CHILDID;
     public String UUID;
     public String UID;
@@ -33,7 +33,7 @@ public class ChildContract {
     }
 
     public ChildContract Sync(JSONObject jsonObject) throws JSONException {
-        this.ID = jsonObject.getLong(ChildContract.ChildEntry.COLUMN_ID);
+        this.ID = jsonObject.getString(ChildContract.ChildEntry.COLUMN_ID);
         this.CHILDID = jsonObject.getString(ChildContract.ChildEntry.CHILD_ID);
         this.deviceID = jsonObject.getString(ChildContract.ChildEntry.CHILD_DEVICEID);
         this.UUID = jsonObject.getString(ChildContract.ChildEntry.CHILD_UUID);
@@ -56,7 +56,7 @@ public class ChildContract {
     }
 
     public ChildContract Hydrate(Cursor cursor) {
-        this.ID = cursor.getLong(cursor.getColumnIndex(ChildContract.ChildEntry.COLUMN_ID));
+        this.ID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.COLUMN_ID));
         this.CHILDID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_UID));
@@ -78,11 +78,11 @@ public class ChildContract {
         return this;
     }
 
-    public Long getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(Long ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 

@@ -240,7 +240,7 @@ public class AddChildActivity extends AppCompatActivity {
 
                     ClearFields();
 
-                    activityAddChild.setScrollX(0);
+                    activityAddChild.setScrollY(0);
                     ch06.requestFocus();
 
                     //startActivity(new Intent(this, AddChildActivity.class));
@@ -278,7 +278,7 @@ public class AddChildActivity extends AppCompatActivity {
 
         long updcount = db.addChild(AppMain.childContract);
 
-        AppMain.childContract.setID(updcount);
+        AppMain.childContract.setID(String.valueOf(updcount));
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
