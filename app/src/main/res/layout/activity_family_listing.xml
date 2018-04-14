@@ -42,6 +42,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:text="@string/hh08a1" />
+
+        <RadioGroup
+            android:id="@+id/hh08a1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/hh08a1a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:checked="true"
+                android:text="@string/yes" />
+
+            <RadioButton
+                android:id="@+id/hh08a1b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/rfsd" />
+
+            <RadioButton
+                android:id="@+id/hh08a1c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/locked" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:text="@string/hh08" />
 
         <EditText
@@ -211,19 +246,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/_5sdp">
-<!--
+            <!--
 
-            <Switch
-                android:id="@+id/hh14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_weight="4"
-                android:text="@string/hh14"
-                android:textColor="@color/colorPrimaryDark"
-                android:textOff="@string/no"
-                android:textOn="@string/yes"
-                android:textSize="@dimen/_10sdp" />-->
+                        <Switch
+                            android:id="@+id/hh14"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_weight="4"
+                            android:text="@string/hh14"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textOff="@string/no"
+                            android:textOn="@string/yes"
+                            android:textSize="@dimen/_10sdp" />-->
 
             <TextView
                 android:layout_width="match_parent"

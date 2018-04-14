@@ -91,8 +91,8 @@ public class randomListAdapter extends RecyclerView.Adapter<randomListAdapter.Vi
 
         public void bindUser(ListingContract contact) {
             clusterCode.setText(contact.getClusterCode());
-            resCount.setText(contact.getResCount());
-            childCount.setText(contact.getChildCount());
+            resCount.setText("RESIDENTIAL: "+contact.getResCount());
+            childCount.setText("CHILD < 5: "+contact.getChildCount());
 //            checkSelected.setChecked(contact.getIsRandom().equals("1") ? true : false);
         }
     }

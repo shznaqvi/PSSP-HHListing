@@ -25,6 +25,7 @@ public class ListingContract {
     public String hh06;
     public String hh07;
     public String hh07n;
+    public String hh08a1;
     public String hh08;
     public String hh09;
     public String hh09a1;
@@ -368,6 +369,14 @@ public class ListingContract {
         this.isNewHH = isNewHH;
     }
 
+    public String getHh08a1() {
+        return hh08a1;
+    }
+
+    public void setHh08a1(String hh08a1) {
+        this.hh08a1 = hh08a1;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("projectname", "NNS-LINELISTING 2018");
@@ -391,6 +400,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH08, this.hh08);
         json.put(ListingEntry.COLUMN_NAME_HH09, this.hh09);
         json.put(ListingEntry.COLUMN_NAME_HH09A1, this.hh09a1);
+        json.put(ListingEntry.COLUMN_NAME_HH08A1, this.hh08a1);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
         json.put(ListingEntry.COLUMN_NAME_HH11, this.hh11);
         json.put(ListingEntry.COLUMN_NAME_HH12, this.hh12);
@@ -435,6 +445,7 @@ public class ListingContract {
         lc.setHh08(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08))));
         lc.setHh09(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09))));
         lc.setHh09a1(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH09A1))));
+        lc.setHh08a1(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH08A1))));
         lc.setHh10(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH10))));
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
@@ -459,6 +470,7 @@ public class ListingContract {
 
         if (type == 1) {
             lc.setResCount(String.valueOf(c.getString(c.getColumnIndex("RESCOUNTER"))));
+            lc.setChildCount(String.valueOf(c.getString(c.getColumnIndex("CHILDCOUNTER"))));
         }
 
         return lc;
@@ -486,6 +498,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH07n = "hh07n";
         public static final String COLUMN_NAME_HH08 = "hh08";
         public static final String COLUMN_NAME_HH09 = "hh09";
+        public static final String COLUMN_NAME_HH08A1 = "hh08a1";
         public static final String COLUMN_NAME_HH09A1 = "hh09a1";
         public static final String COLUMN_NAME_HH10 = "hh10";
         public static final String COLUMN_NAME_HH11 = "hh11";

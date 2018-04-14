@@ -216,7 +216,7 @@ public class RandomizationActivity extends MenuActivity {
                 /*Update in db*/
                 dialog.setTitle("Updating Listing");
 
-//                db.updateListingRecord(clustercode);
+                db.updateListingRecord(clustercode);
 
                 return true;
             } catch (Exception e) {

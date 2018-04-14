@@ -16,7 +16,7 @@
     <string name="hh04i"> انکار کردیا </string>
     <string name="hh04j"> دیگر </string>
 
-    <string name="hh08a1"> کیا کوئی جواب دہندہ موجود ہے </string>
+    <!--<string name="hh08a1"> کیا کوئی جواب دہندہ موجود ہے </string>-->
     <string name="confirmcity"> کیا آپ اُوپر دیئے گئے شہر/گاوُں میں موجود ہیں؟ </string>
     <string name="hh08a1a"> جواب دہندہ موجود ہے </string>
     <string name="hh08a1b"> گھرانے کا کوئی فرد یا باصلاحیت جواب دہندہ گھر پر موجود نہیں تھا</string>
@@ -32,6 +32,7 @@
     <string name="hh05"> کیا اس عمارت میں ایک سے زیادہ خاندان رہائش پزیر ہیں؟ </string>
     <string name="hh06"> خاندان کی تعداد؟ </string>
     <string name="hh07"> خاندان نمبر </string>
+    <string name="hh08a1"> یا کوئی جواب دہندہ موجود ہے؟ </string>
     <string name="hh08"> خاندان کے سربراہ کا نام </string>
     <string name="hh09"> موبائل نمبر </string>
     <string name="hh10a"> تعداد </string>
@@ -52,6 +53,8 @@
 
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>
+    <string name="rfsd"> انکار </string>
+    <string name="locked"> بند </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
     <string name="txtName"> qwertyuiop asdfghjkl zxcvbnm QWERTYUIOP ASDFGHJKL ZXCVBNM </string>

@@ -60,6 +60,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH07n + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH08 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH08A1 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH09 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH09A1 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH10 + " TEXT, " +
@@ -91,6 +92,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ");";
 
     private static final String SQL_ALTER_LISTING = "ALTER TABLE " +
+            ListingEntry.TABLE_NAME + " ADD COLUMN " +
+            ListingEntry.COLUMN_NAME_HH08A1 + " TEXT;";
+
+    private static final String SQL_ALTER_LISTING1 = "ALTER TABLE " +
             ListingEntry.TABLE_NAME + " ADD COLUMN " +
             ListingEntry.COLUMN_RANDOMIZED + " TEXT;";
 
@@ -156,6 +161,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         switch (oldVersion) {
             case 1:
                 db.execSQL(SQL_ALTER_LISTING);
+                db.execSQL(SQL_ALTER_LISTING1);
                 db.execSQL(SQL_CREATE_BL_RANDOM);
         }
 
@@ -278,6 +284,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH07n, lc.getHh07n());
         values.put(ListingEntry.COLUMN_NAME_HH08, lc.getHh08());
         values.put(ListingEntry.COLUMN_NAME_HH09, lc.getHh09());
+        values.put(ListingEntry.COLUMN_NAME_HH08A1, lc.getHh08a1());
         values.put(ListingEntry.COLUMN_NAME_HH09A1, lc.getHh09a1());
         values.put(ListingEntry.COLUMN_NAME_HH10, lc.getHh10());
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
@@ -358,7 +365,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 // New value for one column
         ContentValues values = new ContentValues();
-        values.put(ListingEntry.COLUMN_NAME_UID, AppMain.lc.getUID());
+        values.put(ListingEntry.COLUMN_RANDOMIZED, "1");
 
 // Which row to update, based on the title
         String where = ListingEntry.COLUMN_NAME_CLUSTERCODE + " = ?";
@@ -391,6 +398,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
+                ListingEntry.COLUMN_NAME_HH08A1,
                 ListingEntry.COLUMN_NAME_HH09A1,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
@@ -467,6 +475,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
+                ListingEntry.COLUMN_NAME_HH08A1,
                 ListingEntry.COLUMN_NAME_HH09A1,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,
@@ -487,15 +496,16 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSAltitude,
                 ListingEntry.COLUMN_APPVER,
                 ListingEntry.COLUMN_RANDOMIZED,
-                "COUNT(*) as RESCOUNTER"
+                "COUNT(*) as RESCOUNTER, " +
+                        "COUNT(case " + ListingEntry.COLUMN_NAME_HH10 + " when '1' then 1 else null end) as CHILDCOUNTER"
         };
 
-        String whereClause = ListingEntry.COLUMN_NAME_HH09A1 + " =? ";
-        String[] whereArgs = {"1", "1"};
+        String whereClause = ListingEntry.COLUMN_NAME_HH09A1 + " =? AND " + ListingEntry.COLUMN_RANDOMIZED + "=?";
+        String[] whereArgs = {"1", "2"};
         String groupBy = ListingEntry.COLUMN_NAME_CLUSTERCODE;
         String having = null;
 
-        String orderBy = null;
+        String orderBy = ListingEntry.COLUMN_NAME_CLUSTERCODE + " ASC";
 
         Collection<ListingContract> allLC = new ArrayList<>();
         try {
@@ -546,6 +556,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH07n,
                 ListingEntry.COLUMN_NAME_HH08,
                 ListingEntry.COLUMN_NAME_HH09,
+                ListingEntry.COLUMN_NAME_HH08A1,
                 ListingEntry.COLUMN_NAME_HH09A1,
                 ListingEntry.COLUMN_NAME_HH10,
                 ListingEntry.COLUMN_NAME_HH11,

@@ -333,6 +333,8 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setDeviceID(deviceId);
 
+        AppMain.lc.setIsRandom("2");
+
         setGPS();
 
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
