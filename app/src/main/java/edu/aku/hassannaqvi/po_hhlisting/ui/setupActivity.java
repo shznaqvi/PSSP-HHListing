@@ -76,6 +76,13 @@ public class setupActivity extends Activity {
     @BindView(R.id.btnChangePSU)
     Button btnChangPSU;
 
+    @BindView(R.id.lhwname)
+    EditText lhwname;
+
+    @BindView(R.id.villagename)
+    EditText villagename;
+
+
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
     private String TAG = "Setup Activity";
@@ -88,6 +95,11 @@ public class setupActivity extends Activity {
 
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+
+
+        lhwname.setText(AppMain.lhwName);
+        villagename.setText(AppMain.villageName);
+
 
         if (AppMain.hh02txt == null) {
             AppMain.hh03txt = 1;

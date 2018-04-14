@@ -68,6 +68,7 @@ public class FamilyListingActivity extends Activity {
     @BindView(R.id.ch04)
     EditText ch04;
 
+
     @BindView(R.id.btnContNextQ)
     Button btnContNextQ;
     @BindView(R.id.btnAddMWRA)
@@ -78,18 +79,16 @@ public class FamilyListingActivity extends Activity {
     void onBtnContNextQClick() {
         if (formValidation()) {
 
-            if (AppMain.fCount < AppMain.fTotal) {
+            /*if (AppMain.fCount < AppMain.fTotal) {
                 btnAddMWRA.setVisibility(View.GONE);
                 btnContNextQ.setVisibility(View.VISIBLE);
             } else {
                 btnAddMWRA.setVisibility(View.VISIBLE);
                 btnContNextQ.setVisibility(View.GONE);
-            }
+            }*/
 
             SaveDraft();
             if (UpdateDB()) {
-
-                AppMain.fCount++;
 
                 /*AppMain.fCount = 0;
                 AppMain.fTotal = 0;
@@ -447,13 +446,13 @@ public class FamilyListingActivity extends Activity {
         Log.d(TAG, "onCreate: " + AppMain.fCount + " - " + AppMain.fTotal);
 
 
-        if (AppMain.fCount < AppMain.fTotal) {
+        /*if (AppMain.fCount < AppMain.fTotal) {
             btnAddMWRA.setVisibility(View.GONE);
             btnContNextQ.setVisibility(View.VISIBLE);
         } else {
             btnAddMWRA.setVisibility(View.VISIBLE);
             btnContNextQ.setVisibility(View.GONE);
-        }
+        }*/
 
 
         /*hh09a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

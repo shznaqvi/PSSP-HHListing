@@ -109,8 +109,12 @@ public class AddChildActivity extends AppCompatActivity {
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
 
+
     static int count_2 = 1;
     static int count_59 = 1;
+    static int additionalCount = 1;
+    static int additionalCount1 = 1;
+
     static int total2Months = 0;
     static int total59Months = 0;
     static Boolean flag59 = false;
@@ -137,15 +141,14 @@ public class AddChildActivity extends AppCompatActivity {
         total2Months = Integer.valueOf(AppMain.cCount2m);
         total59Months = Integer.valueOf(AppMain.cCount59m);
 
-        Log.d(TAG, "0 - 2 months: " + total2Months + " - " + total59Months);
 
-
-        txtCounter.setText("Child 0 t0 59 months");
+        txtCounter.setText("Child 0 to 59 months");
         txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months);
 
 
         btnAddChild.setVisibility(View.VISIBLE);
-        btnAddHousehold.setVisibility(View.VISIBLE);
+        //btnAddHousehold.setVisibility(View.VISIBLE);
+        //btnAddFamilty.setVisibility(View.VISIBLE);
 
         ch11.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -200,18 +203,64 @@ public class AddChildActivity extends AppCompatActivity {
 
 
                 if (AppMain.cCount2m == AddChildActivity.count_2) {
-                    btnAddHousehold.setEnabled(true);
+
+                    if (AppMain.fTotal == 1) {
+                        btnAddHousehold.setVisibility(View.VISIBLE);
+                        btnAddFamilty.setVisibility(View.GONE);
+                    } else {
+                        btnAddHousehold.setVisibility(View.GONE);
+                        btnAddFamilty.setVisibility(View.VISIBLE);
+                    }
+
+
+                    txtCounter.setText("Child 0 to 59 months");
+
+                    if (AddChildActivity.count_2 == AppMain.cCount2m) {
+                        txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months);
+                    }
+
+
+                    if (AddChildActivity.count_2 > AppMain.cCount2m) {
+                        additionalCount1 = 1;
+                        additionalCount = 1;
+                        txtCounter1.setText(additionalCount1 + " out of " + total2Months + " - (" + additionalCount + ")");
+                    }
+
+
                     AddChildActivity.count_2++;
                     AppMain.cCount2m++;
-                    startActivity(new Intent(this, AddChildActivity.class));
+                    additionalCount++;
+
+
+                    ClearFields();
+
+                    ch06.requestFocus();
+
+                    //startActivity(new Intent(this, AddChildActivity.class));
                 } else {
                     AddChildActivity.count_2++;
-                    startActivity(new Intent(this, AddChildActivity.class));
+
+                    ClearFields();
+
+                    ch06.requestFocus();
+                    //startActivity(new Intent(this, AddChildActivity.class));
                 }
 
             }
 
         }
+    }
+
+    private void ClearFields() {
+        ch06.setText(null);
+        ch07.setText(null);
+        ch08.clearCheck();
+        ch09.setText(null);
+        ch0999.setChecked(false);
+        ch10d.setText(null);
+        ch10m.setText(null);
+        ch10y.setText(null);
+        ch11.clearCheck();
     }
 
     private boolean UpdateDB() {
@@ -434,29 +483,34 @@ public class AddChildActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnAddFamily)
     void onBtnAddFamilyClick() {
-        if (formValidation()) {
+        //if (formValidation()) {
 
-            try {
-                SaveDraft();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            if (UpdateDB()) {
-                AppMain.cCount = 0;
-                AppMain.cTotal = 0;
-                AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
-                AppMain.lc.setHh07(AppMain.hh07txt.toString());
-                AppMain.fCount++;
+        /*try {
+            SaveDraft();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
 
-                Intent fA = new Intent(this, FamilyListingActivity.class);
-                startActivity(fA);
-                try {
-                    Log.d(TAG, "onBtnAddFamilyClick: " + AppMain.lc.toJSONObject().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+        //if (UpdateDB()) {
+
+        AppMain.cCount = 0;
+        AppMain.cTotal = 0;
+        AddChildActivity.count_2 = 0;
+
+        AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
+        AppMain.lc.setHh07(AppMain.hh07txt.toString());
+        AppMain.fCount++;
+
+        Intent fA = new Intent(this, FamilyListingActivity.class);
+        startActivity(fA);
+        try {
+            Log.d(TAG, "onBtnAddFamilyClick: " + AppMain.lc.toJSONObject().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        //}
+        //}
     }
 
 
