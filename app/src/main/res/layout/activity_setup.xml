@@ -31,7 +31,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -68,17 +69,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="2"
-                android:text="@string/hh02"
-                android:textAlignment="textEnd" />
+                android:text="@string/lhwcode" />
 
             <EditText
                 android:id="@+id/hh02"
-                android:layout_width="match_parent"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
                 android:digits="1234567890"
-                android:hint="@string/hh02"
+                android:hint="@string/lhwcode"
                 android:inputType="number"
                 android:maxLength="10"
                 android:textColor="@color/colorPrimary" />
@@ -87,20 +86,6 @@
 
 
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/hhadd" />
-
-        <EditText
-            android:id="@+id/hhadd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:digits="@string/txtMsg"
-            android:hint="@string/hhadd"
-            android:inputType="text" />
 
         <TextView
             android:layout_width="match_parent"
@@ -129,6 +114,20 @@
             android:enabled="false"
             android:inputType="text"
             android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/hhadd" />
+
+        <EditText
+            android:id="@+id/hhadd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="@string/txtMsg"
+            android:hint="@string/hhadd"
+            android:inputType="text" />
 
         <LinearLayout
             android:layout_width="match_parent"
