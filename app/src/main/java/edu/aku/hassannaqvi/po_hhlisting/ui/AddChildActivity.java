@@ -1,6 +1,8 @@
 package edu.aku.hassannaqvi.po_hhlisting.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -186,6 +188,53 @@ public class AddChildActivity extends AppCompatActivity {
             }
         });
 
+
+        if (AppMain.cCount2m < AddChildActivity.count_2) {
+
+            if (AppMain.fTotal == 1) {
+                btnAddHousehold.setVisibility(View.VISIBLE);
+                btnAddFamilty.setVisibility(View.GONE);
+            } else {
+
+                if (AppMain.fTotal > AppMain.fCount) {
+                    btnAddHousehold.setVisibility(View.GONE);
+                    btnAddFamilty.setVisibility(View.VISIBLE);
+                } else {
+                    btnAddHousehold.setVisibility(View.VISIBLE);
+                    btnAddFamilty.setVisibility(View.GONE);
+                    btnAddChild.setVisibility(View.VISIBLE);
+                }
+            }
+
+
+            txtCounter.setText("Child 0 to 59 months");
+
+            if (AddChildActivity.count_2 == AppMain.cCount2m) {
+                txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months);
+            }
+
+
+            if (AddChildActivity.count_2 > AppMain.cCount2m) {
+                additionalCount++;
+                txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months + " - (" + additionalCount + ")");
+            }
+
+
+            /*AppMain.cCount2m++;
+            AddChildActivity.count_2++;*/
+
+
+        } else {
+
+            btnAddChild.setVisibility(View.VISIBLE);
+            btnAddFamilty.setVisibility(View.GONE);
+            btnAddHousehold.setVisibility(View.GONE);
+
+            /*txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months);
+            AddChildActivity.count_2++;            */
+        }
+
+
     }
 
     @OnClick(R.id.btnAddChild)
@@ -198,14 +247,18 @@ public class AddChildActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+
             if (UpdateDB()) {
 
 
-                if (AppMain.cCount2m == AddChildActivity.count_2) {
+                if (AppMain.cCount2m < AddChildActivity.count_2) {
 
                     if (AppMain.fTotal == 1) {
                         btnAddHousehold.setVisibility(View.VISIBLE);
                         btnAddFamilty.setVisibility(View.GONE);
+
+                        //IsChildExists();
+
                     } else {
 
                         if (AppMain.fTotal > AppMain.fCount) {
@@ -216,6 +269,10 @@ public class AddChildActivity extends AppCompatActivity {
                             btnAddFamilty.setVisibility(View.GONE);
                             btnAddChild.setVisibility(View.VISIBLE);
                         }
+
+
+                        //IsChildExists();
+
                     }
 
 
@@ -229,31 +286,26 @@ public class AddChildActivity extends AppCompatActivity {
                     }
 
 
-                    if (AddChildActivity.count_2 > AppMain.cCount2m) {
-                        additionalCount++;
-                        txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months + " - (" + additionalCount + ")");
-                    }
+                    //AppMain.cCount2m++;
 
 
-                    AppMain.cCount2m++;
-
-
-                    ClearFields();
-
+                    /*ClearFields();
                     activityAddChild.setScrollY(0);
-                    ch06.requestFocus();
+                    ch06.requestFocus();*/
 
-                    //startActivity(new Intent(this, AddChildActivity.class));
+                    startActivity(new Intent(this, AddChildActivity.class));
+
                 } else {
 
                     AddChildActivity.count_2++;
 
                     txtCounter1.setText(AddChildActivity.count_2 + " out of " + total2Months);
 
-                    ClearFields();
+                    /*ClearFields();
+                    activityAddChild.setScrollY(0);
+                    ch06.requestFocus();*/
 
-                    ch06.requestFocus();
-                    //startActivity(new Intent(this, AddChildActivity.class));
+                    startActivity(new Intent(this, AddChildActivity.class));
                 }
 
             }
@@ -412,9 +464,9 @@ public class AddChildActivity extends AppCompatActivity {
 
 
             if (Integer.valueOf(ch10d.getText().toString()) < 0 || Integer.valueOf(ch10d.getText().toString()) > 29) {
-                Toast.makeText(this, "Invalid days 0 - 29", Toast.LENGTH_LONG).show();
-                ch10d.setError("Invalid days 0 - 29");
-                Log.i(TAG, "Invalid days 0 - 29");
+                Toast.makeText(this, "Days range is 0 - 29", Toast.LENGTH_LONG).show();
+                ch10d.setError("Days range is 0 - 29");
+                Log.i(TAG, "Days range is 0 - 29");
                 return false;
             } else {
                 ch10d.setError(null);
@@ -432,9 +484,9 @@ public class AddChildActivity extends AppCompatActivity {
 
 
             if (Integer.valueOf(ch10m.getText().toString()) < 0 || Integer.valueOf(ch10m.getText().toString()) > 11) {
-                Toast.makeText(this, "Invalid month 0 - 11", Toast.LENGTH_LONG).show();
-                ch10m.setError("Invalid month 0 - 11");
-                Log.i(TAG, "Invalid month 0 - 11");
+                Toast.makeText(this, "Month range is 0 - 11", Toast.LENGTH_LONG).show();
+                ch10m.setError("Month range is 0 - 11");
+                Log.i(TAG, "Month range is 0 - 11");
                 return false;
             } else {
                 ch10m.setError(null);
@@ -452,9 +504,9 @@ public class AddChildActivity extends AppCompatActivity {
 
 
             if (Integer.valueOf(ch10y.getText().toString()) < 0 || Integer.valueOf(ch10y.getText().toString()) > 4) {
-                Toast.makeText(this, "Invalid year 0 - 4", Toast.LENGTH_LONG).show();
-                ch10y.setError("Invalid year 0 - 4");
-                Log.i(TAG, "Invalid year 0 - 4");
+                Toast.makeText(this, "Year range is 0 - 4", Toast.LENGTH_LONG).show();
+                ch10y.setError("Year range is 0 - 4");
+                Log.i(TAG, "Year range is 0 - 4");
                 return false;
             } else {
                 ch10y.setError(null);
@@ -524,11 +576,36 @@ public class AddChildActivity extends AppCompatActivity {
     }
 
 
+    public void IsChildExists() {
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Intent oF = new Intent(AddChildActivity.this, setupActivity.class);
+                        startActivity(oF);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Do you want to add more child ?");
+        builder.setMessage("Add More Child").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("Cancel", dialogClickListener).show();
+    }
+
+
     @OnClick(R.id.btnAddHousehold)
     void onBtnAddHouseholdClick() {
         //if (formValidation()) {
 
-        if (AppMain.cCount2m != count_2) {
+        if (AppMain.cCount2m > count_2) {
             Toast.makeText(getApplicationContext(), "Please Insert the data of the remaining children", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -540,7 +617,7 @@ public class AddChildActivity extends AppCompatActivity {
             }*/
         //if (UpdateDB()) {
 
-        if (AppMain.cCount2m != count_2) {
+        if (AppMain.cCount2m > count_2) {
         } else {
             AppMain.fCount = 0;
             AppMain.fTotal = 0;

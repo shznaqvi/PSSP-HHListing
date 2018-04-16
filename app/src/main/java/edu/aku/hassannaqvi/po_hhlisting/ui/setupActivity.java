@@ -106,7 +106,8 @@ public class setupActivity extends Activity {
         } else {
             AppMain.hh03txt++;
             //AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
-            hh02.setText(AppMain.hh04txt.toString());
+            //hh02.setText(AppMain.hh04txt.toString());
+            hh02.setText(AppMain.lhwCode);
             hh02.setEnabled(false);
 
         }
@@ -208,6 +209,8 @@ public class setupActivity extends Activity {
         AppMain.lc.setHh02(AppMain.hh02txt); // uc code
         AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt)); //structure no
         AppMain.lc.setHh04Village(AppMain.hh04txt); //village no
+        AppMain.lc.setHhLhwCode(AppMain.lhwCode); //lhw code
+
         AppMain.lc.setHhadd(hhadd.getText().toString());
 
         AppMain.hhno = hhadd.getText().toString();
@@ -255,7 +258,11 @@ public class setupActivity extends Activity {
         AppMain.lc.setGPSLat(sharedPref.getString("Time", ""));
 
 
-        AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
+        if (hh06.getText().toString().isEmpty()) {
+            AppMain.fTotal = 1;
+        } else {
+            AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
+        }
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03().toString());
@@ -285,11 +292,11 @@ public class setupActivity extends Activity {
 
         if (hh04.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please one option", Toast.LENGTH_LONG).show();
-            hh04x.setError("Please one option");
+            hh04a.setError("Please one option");
             Log.i(TAG, "Please one option");
             return false;
         } else {
-            hh04x.setError(null);
+            hh04a.setError(null);
         }
 
         if (hh04x.isChecked() && hh04x88.getText().toString().isEmpty()) {
@@ -310,14 +317,19 @@ public class setupActivity extends Activity {
             hh06.setError(null);
         }
 
-        if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) <= 1) {
-            Toast.makeText(this, "Answers do not match!", Toast.LENGTH_LONG).show();
-            hh06.setError("Answers do not match!");
-            Log.i(TAG, "Answers do not match!");
-            return false;
-        } else {
-            hh06.setError(null);
+
+        if (!hh06.getText().toString().isEmpty()) {
+
+            if (Integer.valueOf(hh06.getText().toString()) < 2 || Integer.valueOf(hh06.getText().toString()) > 15) {
+                Toast.makeText(this, "Household range is 2 - 15", Toast.LENGTH_LONG).show();
+                hh06.setError("Household range is 2 - 15");
+                Log.i(TAG, "Household range is 2 - 15");
+                return false;
+            } else {
+                hh06.setError(null);
+            }
         }
+
         return true;
     }
 

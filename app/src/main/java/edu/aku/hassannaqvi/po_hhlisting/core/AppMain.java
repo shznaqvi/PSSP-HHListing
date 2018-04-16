@@ -79,6 +79,11 @@ public class AppMain extends Application {
     public static int cCount59m = 0;
     public static int cCount59f = 0;
 
+    public static int count_2 = 1;
+    public static int count_59 = 1;
+    public static int additionalCount = 0;
+
+
     public static int cCount5m = 0;
     public static int cCount5f = 0;
     public static int cCountTotal = 0;

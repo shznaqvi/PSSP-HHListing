@@ -94,17 +94,20 @@
             android:id="@+id/districtN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp" />
+            android:layout_marginTop="80dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/ucN"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/psuN"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
 
         <Button

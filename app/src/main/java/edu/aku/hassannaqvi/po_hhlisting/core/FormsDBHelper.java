@@ -70,6 +70,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HHADD + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH04_VILLAGE + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH_LHWCODE + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH04x + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
@@ -108,6 +109,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 //ChildEntry.CHILD_CHVILLAGECODE + " TEXT," +
                 //ChildEntry.CHILD_CHSTRUCTURENO + " TEXT," +
                 ChildEntry.CHILD_HHNO + " TEXT," +
+                ChildEntry.CHILD_EXTNO + " TEXT," +
                 ChildEntry.CHILD_CH01 + " TEXT," +
                 ChildEntry.CHILD_CH02 + " TEXT," +
                 ChildEntry.CHILD_CH03 + " TEXT," +
@@ -229,6 +231,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HHADD, lc.getHhadd());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
         values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
+        values.put(ListingEntry.COLUMN_NAME_HH_LHWCODE, lc.getHhLhwCode());
 
         AppMain.updatePSU(lc.getHh04Village(), lc.getHh03());
 
@@ -282,6 +285,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         //values.put(ChildEntry.CHILD_CHVILLAGECODE, childContract.getChVillageCode());
         //values.put(ChildEntry.CHILD_CHSTRUCTURENO, childContract.getChStructureNo());
         values.put(ChildEntry.CHILD_HHNO, AppMain.hhno);
+        values.put(ChildEntry.CHILD_EXTNO, AppMain.hh07txt);
         values.put(ChildEntry.CHILD_CH01, childContract.getCh01());
         values.put(ChildEntry.CHILD_CH02, childContract.getCh02());
         values.put(ChildEntry.CHILD_CH03, childContract.getCh03());
@@ -500,6 +504,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_CH03f,
                 ListingEntry.COLUMN_NAME_CH04,
                 ListingEntry.COLUMN_NAME_HH04_VILLAGE,
+                ListingEntry.COLUMN_NAME_HH_LHWCODE,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
@@ -813,6 +818,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh12(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12))));
         lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));*/
         lc.setHh04Village(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04_VILLAGE))));
+        lc.setHhLhwCode(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH_LHWCODE))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));

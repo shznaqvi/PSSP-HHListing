@@ -19,6 +19,7 @@ public class ChildContract {
     //public String chStructureNo;
 
     public String hhno;
+    public String extno;
     public String ch01;
     public String ch02;
     public String ch03;
@@ -42,6 +43,7 @@ public class ChildContract {
         //this.chVillageCode = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHVILLAGECODE);
         //this.chStructureNo = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO);
         this.hhno = jsonObject.getString(ChildContract.ChildEntry.CHILD_HHNO);
+        this.extno = jsonObject.getString(ChildContract.ChildEntry.CHILD_EXTNO);
         this.ch01 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH01);
         this.ch02 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH02);
         this.ch03 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH03);
@@ -65,6 +67,7 @@ public class ChildContract {
         //this.chVillageCode = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHVILLAGECODE));
         //this.chStructureNo = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO));
         this.hhno = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_HHNO));
+        this.extno = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_EXTNO));
         this.ch01 = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CH01));
         this.ch02 = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CH02));
         this.ch03 = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CH03));
@@ -204,6 +207,15 @@ public class ChildContract {
     }
 
 
+    public String getExtno() {
+        return hhno;
+    }
+
+    public void setExtno(String extno) {
+        this.extno = extno;
+    }
+
+
     public String getSynced() {
         return synced;
     }
@@ -232,6 +244,7 @@ public class ChildContract {
         //json.put(ChildContract.ChildEntry.CHILD_CHVILLAGECODE, this.chVillageCode == null ? JSONObject.NULL : this.chVillageCode);
         //json.put(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO, this.chStructureNo == null ? JSONObject.NULL : this.chStructureNo);
         json.put(ChildContract.ChildEntry.CHILD_HHNO, this.hhno == null ? JSONObject.NULL : this.hhno);
+        json.put(ChildContract.ChildEntry.CHILD_EXTNO, this.extno == null ? JSONObject.NULL : this.extno);
         json.put(ChildContract.ChildEntry.CHILD_CH01, this.ch01 == null ? JSONObject.NULL : this.ch01);
         json.put(ChildContract.ChildEntry.CHILD_CH02, this.ch02 == null ? JSONObject.NULL : this.ch02);
         json.put(ChildContract.ChildEntry.CHILD_CH03, this.ch03 == null ? JSONObject.NULL : this.ch03);
@@ -259,6 +272,7 @@ public class ChildContract {
         //public static final String CHILD_CHVILLAGECODE = "chvillagecode";
         //public static final String CHILD_CHSTRUCTURENO = "chstructureno";
         public static final String CHILD_HHNO = "hhno";
+        public static final String CHILD_EXTNO = "extno";
         public static final String CHILD_CH01 = "ch01";
         public static final String CHILD_CH02 = "ch02";
         public static final String CHILD_CH03 = "ch03";

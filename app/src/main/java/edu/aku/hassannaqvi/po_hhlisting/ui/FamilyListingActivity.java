@@ -297,6 +297,21 @@ public class FamilyListingActivity extends Activity {
         }
 
 
+        if (!ch01.getText().toString().isEmpty()) {
+
+            if (Integer.valueOf(ch01.getText().toString()) > 20) {
+                Toast.makeText(this, "Child 0 to 59 months range is 0 to 20", Toast.LENGTH_LONG).show();
+                ch01.setError("Child 0 to 59 months range is 0 to 20");
+                Log.i(TAG, "Child 0 to 59 months range is 0 to 20");
+                return false;
+            } else {
+                ch01.setError(null);
+            }
+
+        }
+
+
+
         /*if (ch02.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
             ch02.setError("Please enter child count");
@@ -308,9 +323,9 @@ public class FamilyListingActivity extends Activity {
 
 
         if (ch03m.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch03m.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
+            Toast.makeText(this, "Please enter male child count", Toast.LENGTH_LONG).show();
+            ch03m.setError("Please enter male child count");
+            Log.i(TAG, "Please enter male child count");
             return false;
         } else {
             ch03m.setError(null);
@@ -318,9 +333,9 @@ public class FamilyListingActivity extends Activity {
 
 
         if (ch03f.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch03f.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
+            Toast.makeText(this, "Please enter female child count", Toast.LENGTH_LONG).show();
+            ch03f.setError("Please enter female child count");
+            Log.i(TAG, "Please enter female child count");
             return false;
         } else {
             ch03f.setError(null);

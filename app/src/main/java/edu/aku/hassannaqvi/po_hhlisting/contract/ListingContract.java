@@ -48,6 +48,7 @@ public class ListingContract {
     public String hh12;
     public String hh13;*/
     public String hh04Village;
+    public String hhLhwCode;
     public String DeviceID;
     public String GPSLat;
     public String GPSLng;
@@ -377,6 +378,15 @@ public class ListingContract {
     }
 
 
+    public String getHhLhwCode() {
+        return hhLhwCode;
+    }
+
+    public void setHhLhwCode(String hhLhwCode) {
+        this.hhLhwCode = hhLhwCode;
+    }
+
+
     public String getfStatus() {
         return fStatus;
     }
@@ -436,6 +446,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH13, this.hh13);*/
 
         json.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, this.hh04Village);
+        json.put(ListingEntry.COLUMN_NAME_HH_LHWCODE, this.hhLhwCode);
         json.put(ListingEntry.COLUMN_NAME_DEVICEID, this.DeviceID);
         json.put(ListingEntry.COLUMN_NAME_GPSLat, this.GPSLat);
         json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
@@ -487,7 +498,8 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH12 = "hh12";
         public static final String COLUMN_NAME_HH13 = "hh13";*/
 
-        public static final String COLUMN_NAME_HH04_VILLAGE = "hh04Village";
+        public static final String COLUMN_NAME_HH04_VILLAGE = "hh04village";
+        public static final String COLUMN_NAME_HH_LHWCODE = "lhwcode";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
         public static final String COLUMN_NAME_GPSLng = "gpslng";

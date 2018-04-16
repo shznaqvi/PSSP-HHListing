@@ -39,7 +39,7 @@
     <string name="no"> نه </string>
     <string name="months">مهينا</string>
 
-    <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
+    <string name="txtMsg">1234567890 qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM</string>
     <string name="txtName">qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM</string>
 
     <!--sidra-->
@@ -59,7 +59,9 @@
 
     <string name="ch01"> 0 کان 59 مهينن کان گهٽ وارا ٻار</string>
     <string name="ch02">2 کان 59 مهينن تائين جا ٻار</string>
-    <string name="ch03">مرد ڀاتي ۽ 5 سالن کان مٿي</string>
+    <string name="ch03">مرد ڀاتي 5 ۽ 5 سالن کان مٿي</string>
+    <string name="ch03f">عورت ڀاتي 5 ۽ 5 سالن کان مٿي</string>
+
     <string name="ch04">ڪل گهر ڀاتين جو تعداد</string>
 
     <string name="chmale">مرد</string>

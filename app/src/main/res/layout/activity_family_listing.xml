@@ -206,35 +206,44 @@
                 android:layout_weight="1"
                 android:text="@string/ch03" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/ch03m"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/ch03m"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginTop="1dp"
-                    android:digits="1234567890"
-                    android:hint="@string/chmale"
-                    android:inputType="number"
-                    android:maxLength="2" />
-
-                <EditText
-                    android:id="@+id/ch03f"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:digits="1234567890"
-                    android:hint="@string/chfemale"
-                    android:inputType="number"
-                    android:maxLength="2" />
-
-            </LinearLayout>
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="1dp"
+                android:digits="1234567890"
+                android:hint="@string/chmale"
+                android:inputType="number"
+                android:maxLength="2" />
 
         </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:text="@string/ch03f" />
+
+            <EditText
+                android:id="@+id/ch03f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:digits="1234567890"
+                android:hint="@string/chfemale"
+                android:inputType="number"
+                android:maxLength="2" />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
