@@ -45,7 +45,6 @@ import edu.aku.hassannaqvi.po_hhlisting.get.GetUCs;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetUsers;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetVillages;
 import edu.aku.hassannaqvi.po_hhlisting.sync.SyncListing;
-import edu.aku.hassannaqvi.po_hhlisting.sync.SyncMwras;
 
 public class MainActivity extends Activity {
 
@@ -133,15 +132,17 @@ public class MainActivity extends Activity {
             districtCodes.add(d.getDistrictCode());
         }
 
-        // Creating adapter for spinner
+       /* // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_item, districtNames);
+                android.R.layout.simple_spinner_dropdown_item, districtNames);
 
         // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);*/
+
+        mN00.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, districtNames));
 
         // attaching data adapter to spinner
-        mN00.setAdapter(dataAdapter);
+        //mN00.setAdapter(dataAdapter);
 
         mN00.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -160,12 +161,15 @@ public class MainActivity extends Activity {
                     psuCode.add(p.getUcCode());
                     psuName.add(p.getUcName());
                 }
-                ArrayAdapter<String> psuAdapter = new ArrayAdapter<>(context,
-                        android.R.layout.simple_spinner_item, psuName);
+
+                mN01.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, psuName));
+
+                /*ArrayAdapter<String> psuAdapter = new ArrayAdapter<>(context,
+                        android.R.layout.simple_spinner_dropdown_item, psuName);
 
                 psuAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mN01.setAdapter(psuAdapter);
+                mN01.setAdapter(psuAdapter);*/
 
             }
 
