@@ -17,11 +17,11 @@ android {
         versionProps.store(versionPropsFile.newWriter(), null)
 
         defaultConfig {
-            applicationId "edu.aku.hassannaqvi.POLineListing"
+            applicationId "edu.aku.hassannaqvi.po_hhlisting"
             minSdkVersion 19
             targetSdkVersion 19
             versionCode code
-            versionName "1.0"
+            versionName "0.1"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         }
     } else {

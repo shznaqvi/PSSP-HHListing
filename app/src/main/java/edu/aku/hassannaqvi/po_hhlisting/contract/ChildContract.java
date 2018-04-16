@@ -8,13 +8,17 @@ import org.json.JSONObject;
 
 public class ChildContract {
 
-    public Long ID;
+    public String ID;
     public String CHILDID;
     public String UUID;
     public String UID;
     public String chDT;
+    private String deviceID = "";
+
     //public String chVillageCode;
     //public String chStructureNo;
+
+    public String hhno;
     public String ch01;
     public String ch02;
     public String ch03;
@@ -29,13 +33,15 @@ public class ChildContract {
     }
 
     public ChildContract Sync(JSONObject jsonObject) throws JSONException {
-        this.ID = jsonObject.getLong(ChildContract.ChildEntry.COLUMN_ID);
+        this.ID = jsonObject.getString(ChildContract.ChildEntry.COLUMN_ID);
         this.CHILDID = jsonObject.getString(ChildContract.ChildEntry.CHILD_ID);
+        this.deviceID = jsonObject.getString(ChildContract.ChildEntry.CHILD_DEVICEID);
         this.UUID = jsonObject.getString(ChildContract.ChildEntry.CHILD_UUID);
         this.UID = jsonObject.getString(ChildContract.ChildEntry.CHILD_UID);
         this.chDT = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHDT);
         //this.chVillageCode = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHVILLAGECODE);
         //this.chStructureNo = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO);
+        this.hhno = jsonObject.getString(ChildContract.ChildEntry.CHILD_HHNO);
         this.ch01 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH01);
         this.ch02 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH02);
         this.ch03 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH03);
@@ -50,13 +56,15 @@ public class ChildContract {
     }
 
     public ChildContract Hydrate(Cursor cursor) {
-        this.ID = cursor.getLong(cursor.getColumnIndex(ChildContract.ChildEntry.COLUMN_ID));
+        this.ID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.COLUMN_ID));
         this.CHILDID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_UUID));
         this.UID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_UID));
+        this.deviceID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_DEVICEID));
         this.chDT = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHDT));
         //this.chVillageCode = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHVILLAGECODE));
         //this.chStructureNo = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO));
+        this.hhno = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_HHNO));
         this.ch01 = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CH01));
         this.ch02 = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CH02));
         this.ch03 = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_CH03));
@@ -70,11 +78,11 @@ public class ChildContract {
         return this;
     }
 
-    public Long getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(Long ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
@@ -85,6 +93,16 @@ public class ChildContract {
     public void setCHILDID(String MWRAID) {
         this.CHILDID = CHILDID;
     }
+
+
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+
 
     public String getUUID() {
         return UUID;
@@ -125,6 +143,16 @@ public class ChildContract {
     public void setChStructureNo(String chStructureNo) {
         this.chStructureNo = chStructureNo;
     }*/
+
+
+    public String getHhno() {
+        return hhno;
+    }
+
+    public void setHhno(String hhno) {
+        this.hhno = hhno;
+    }
+
 
     public String getCh01() {
         return ch01;
@@ -199,9 +227,11 @@ public class ChildContract {
         json.put(ChildContract.ChildEntry.CHILD_ID, this.CHILDID == null ? JSONObject.NULL : this.CHILDID);
         json.put(ChildContract.ChildEntry.CHILD_UUID, this.UUID == null ? JSONObject.NULL : this.UUID);
         json.put(ChildContract.ChildEntry.CHILD_UID, this.UID == null ? JSONObject.NULL : this.UID);
+        json.put(ChildContract.ChildEntry.CHILD_DEVICEID, this.deviceID == null ? JSONObject.NULL : this.deviceID);
         json.put(ChildContract.ChildEntry.CHILD_CHDT, this.chDT == null ? JSONObject.NULL : this.chDT);
         //json.put(ChildContract.ChildEntry.CHILD_CHVILLAGECODE, this.chVillageCode == null ? JSONObject.NULL : this.chVillageCode);
         //json.put(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO, this.chStructureNo == null ? JSONObject.NULL : this.chStructureNo);
+        json.put(ChildContract.ChildEntry.CHILD_HHNO, this.hhno == null ? JSONObject.NULL : this.hhno);
         json.put(ChildContract.ChildEntry.CHILD_CH01, this.ch01 == null ? JSONObject.NULL : this.ch01);
         json.put(ChildContract.ChildEntry.CHILD_CH02, this.ch02 == null ? JSONObject.NULL : this.ch02);
         json.put(ChildContract.ChildEntry.CHILD_CH03, this.ch03 == null ? JSONObject.NULL : this.ch03);
@@ -224,9 +254,11 @@ public class ChildContract {
         public static final String CHILD_ID = "sno";
         public static final String CHILD_UUID = "uuid";
         public static final String CHILD_UID = "uid";
+        public static final String CHILD_DEVICEID = "deviceid";
         public static final String CHILD_CHDT = "chdt";
         //public static final String CHILD_CHVILLAGECODE = "chvillagecode";
         //public static final String CHILD_CHSTRUCTURENO = "chstructureno";
+        public static final String CHILD_HHNO = "hhno";
         public static final String CHILD_CH01 = "ch01";
         public static final String CHILD_CH02 = "ch02";
         public static final String CHILD_CH03 = "ch03";

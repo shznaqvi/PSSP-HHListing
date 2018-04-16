@@ -61,17 +61,15 @@ public class LHWContract {
         this.uccode = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_UC_CODE));
         this.ucname = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_UC_NAME));
         this.lhwcode = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_LHW_CODE));
-        this.lhwname = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_LHW_CODE));
+        this.lhwname = cursor.getString(cursor.getColumnIndex(LHWContract.lhwEntry.COLUMN_LHW_NAME));
 
         return this;
     }
 
 
-
-
     public static abstract class lhwEntry implements BaseColumns {
 
-        public static final String TABLE_NAME = "LHW";
+        public static final String TABLE_NAME = "lhw";
         public static final String COLUMN_NAME_NULLABLE = "nullColumnHack";
         public static final String _ID = "_ID";
         public static final String COLUMN_TALUKA_CODE = "taluka_code";

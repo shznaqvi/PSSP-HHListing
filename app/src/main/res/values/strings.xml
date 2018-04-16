@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">PO-HHListing </string>
+    <string name="app_name1">Pulse Oximetry Line Listing</string>
     <string name="hh01"> UC ڪوڊ </string>
-    <string name="hh02"> Village ڪوڊ </string>
+    <string name="hh02"> ايل ايڇ وي جو ڪوڊ </string>
+
+    <string name="talukaname"> تعلقي جو نالو</string>
+    <string name="ucname"> يونين كائونسل جو نالو</string>
+    <string name="lhwname"> ليڊي هيلٿ ورڪر جو نالو</string>
+    <string name="villagename"> ڳوٺ جو نالو </string>
+    <string name="lhwcode"> ليڊي هيلٿ ورڪر جو کوڈ </string>
+
+
     <string name="hh03"> عمارت جو نمبر </string>
     <string name="hhadd"> پتو </string>
     <string name="hh04"> عمارت جو قسم </string>

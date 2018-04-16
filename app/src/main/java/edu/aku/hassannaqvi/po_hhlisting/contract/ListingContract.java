@@ -39,6 +39,7 @@ public class ListingContract {
     public String ch03f;
 
     public String ch04;
+    public String version;
 
 
     /*public String hh09b;
@@ -367,6 +368,15 @@ public class ListingContract {
         ListingContract.userName = userName;
     }
 
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+
     public String getfStatus() {
         return fStatus;
     }
@@ -374,6 +384,7 @@ public class ListingContract {
     public void setfStatus(String fStatus) {
         this.fStatus = fStatus;
     }
+
 
     public String getSynced() {
         return synced;
@@ -416,6 +427,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_CH03m, this.ch03m);
         json.put(ListingEntry.COLUMN_NAME_CH03f, this.ch03f);
         json.put(ListingEntry.COLUMN_NAME_CH04, this.ch04);
+        json.put(ListingEntry.COLUMN_NAME_VERSION, this.version);
 
         /*json.put(ListingEntry.COLUMN_NAME_HH09B, this.hh09b);
         json.put(ListingEntry.COLUMN_NAME_HH10, this.hh10);
@@ -466,6 +478,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_CH03m = "ch03m";
         public static final String COLUMN_NAME_CH03f = "ch03f";
         public static final String COLUMN_NAME_CH04 = "ch04";
+        public static final String COLUMN_NAME_VERSION = "version";
 
         /*public static final String COLUMN_NAME_HH09A = "hh09a";
         public static final String COLUMN_NAME_HH09B = "hh09b";

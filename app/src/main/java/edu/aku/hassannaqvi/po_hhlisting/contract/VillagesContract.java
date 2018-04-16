@@ -73,7 +73,7 @@ public class VillagesContract {
 
     public static abstract class singleVillage implements BaseColumns {
 
-        public static final String TABLE_NAME = "Villages";
+        public static final String TABLE_NAME = "villages";
         public static final String COLUMN_NAME_NULLABLE = "nullColumnHack";
         public static final String _ID = "_ID";
         public static final String COLUMN_TALUKA_CODE = "taluka_code";

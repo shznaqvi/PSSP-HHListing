@@ -54,6 +54,9 @@ public class AppMain extends Application {
     public static MwraContract mwra;
     public static ChildContract childContract;
 
+    public static int versionCode;
+    public static String versionName;
+
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static String hh04txt;
@@ -62,6 +65,13 @@ public class AppMain extends Application {
     public static int fCount = 0;
     public static int fTotal = 0;
     public static int cCount = 0;
+
+    public static String villageName;
+    public static String villageCode;
+
+    public static String lhwCode;
+    public static String lhwName;
+    public static String hhno;
 
     public static int cCount2m = 0;
     public static int cCount2f = 0;
