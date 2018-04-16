@@ -164,6 +164,7 @@ public class setupActivity extends Activity {
                                 fldGrpHH04.setVisibility(View.GONE);
                                 hh05.setChecked(false);
                                 hh06.setText(null);
+                                AppMain.hh07txt = null;
                                 btnAddHousehold.setVisibility(View.VISIBLE);
                             }
                         }

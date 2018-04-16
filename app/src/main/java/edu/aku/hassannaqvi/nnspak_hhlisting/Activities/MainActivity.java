@@ -508,7 +508,10 @@ public class MainActivity extends MenuActivity {
         if (exit) {
             finish(); // finish activity
 
-            startActivity(new Intent(this, LoginActivity.class));
+            Intent ii = new Intent(this, LoginActivity.class);
+            ii.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(ii);
+            finish();
 
         } else {
             Toast.makeText(this, "Press Back again to Exit.",

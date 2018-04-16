@@ -232,11 +232,24 @@ public class FamilyListingActivity extends Activity {
                 if (b) {
                     btnAddNewHousehold.setVisibility(View.VISIBLE);
                     btnAddHousehold.setVisibility(View.GONE);
+
+                    if (AppMain.hh07txt.equals("X")) {
+                        AppMain.hh07txt = "A";
+                    }
+
                 } else {
                     btnAddNewHousehold.setVisibility(View.GONE);
-
                     setupButtons();
+
+                    if (AppMain.fTotal == 0) {
+                        if (AppMain.hh07txt.equals("A")) {
+                            AppMain.hh07txt = "X";
+                        }
+                    }
+
                 }
+
+                txtTeamNoWithFam.setText(String.format("%04d", AppMain.hh03txt) + "-" + AppMain.hh07txt);
             }
         });
 
@@ -309,11 +322,14 @@ public class FamilyListingActivity extends Activity {
                 if (familyFlag) {
                     AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
                 } else {
-                    if (AppMain.hh07txt.equals("X")) {
+                    /*if (AppMain.hh07txt.equals("X")) {
                         AppMain.hh07txt = "B";
                     } else {
                         AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
-                    }
+                    }*/
+
+                    AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
+
                     familyFlag = true;
                 }
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
@@ -329,6 +345,7 @@ public class FamilyListingActivity extends Activity {
 
     private void SaveDraft() {
 
+        AppMain.lc.setHh07(AppMain.hh07txt.toString());
         AppMain.lc.setHh08a1(hh08a1a.isChecked() ? "1" : hh08a1b.isChecked() ? "2" : hh08a1c.isChecked() ? "3" : "0");
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
