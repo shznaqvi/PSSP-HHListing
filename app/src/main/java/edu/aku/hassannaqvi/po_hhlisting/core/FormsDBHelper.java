@@ -86,6 +86,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_CH03m + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CH03f + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CH04 + " TEXT, " +
+                ListingEntry.COLUMN_NAME_VERSION + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
@@ -247,6 +248,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_CH03m, lc.getCh03m());
         values.put(ListingEntry.COLUMN_NAME_CH03f, lc.getCh03f());
         values.put(ListingEntry.COLUMN_NAME_CH04, lc.getCh04());
+        values.put(ListingEntry.COLUMN_NAME_VERSION, lc.getVersion());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());

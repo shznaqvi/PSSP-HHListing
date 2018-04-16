@@ -235,6 +235,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setCh03f(ch03f.getText().toString());
 
         AppMain.lc.setCh04(ch04.getText().toString());
+        AppMain.lc.setVersion(AppMain.versionName + "." + String.valueOf(AppMain.versionCode));
 
         /*AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
         AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());*/
