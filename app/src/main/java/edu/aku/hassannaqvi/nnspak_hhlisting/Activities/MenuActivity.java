@@ -66,10 +66,10 @@ public class MenuActivity extends AppCompatActivity {
                 syncServer();
                 return true;
 
-            case R.id.menu_randomization:
+            /*case R.id.menu_randomization:
                 Intent iA = new Intent(this, RandomizationActivity.class);
                 startActivity(iA);
-                return true;
+                return true;*/
 
             case R.id.menu_openDB:
                 Intent dbmanager = new Intent(getApplicationContext(), AndroidDatabaseManager.class);

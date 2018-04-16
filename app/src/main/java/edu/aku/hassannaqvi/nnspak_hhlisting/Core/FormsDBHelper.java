@@ -154,7 +154,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
-        db.execSQL(SQL_CREATE_BL_RANDOM);
+//        db.execSQL(SQL_CREATE_BL_RANDOM);
         db.execSQL(SQL_CREATE_VERTICES_TABLE);
 
     }
@@ -174,7 +174,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             case 1:
                 db.execSQL(SQL_ALTER_LISTING);
                 db.execSQL(SQL_ALTER_LISTING1);
-                db.execSQL(SQL_CREATE_BL_RANDOM);
+//                db.execSQL(SQL_CREATE_BL_RANDOM);
                 db.execSQL(SQL_CREATE_VERTICES_TABLE);
 
         }
