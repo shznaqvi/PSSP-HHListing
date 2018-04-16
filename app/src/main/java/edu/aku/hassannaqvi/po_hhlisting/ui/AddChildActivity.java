@@ -282,7 +282,7 @@ public class AddChildActivity extends AppCompatActivity {
 
         if (updcount != 0) {
             Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            AppMain.childContract.setUID(AppMain.childContract.getDeviceID() + AppMain.childContract.getID());
+            AppMain.childContract.setUID(AppMain.lc.getDeviceID() + AppMain.childContract.getID());
             db.updateChild();
             //AppMain.lc.setHh04Village(null);
             return true;

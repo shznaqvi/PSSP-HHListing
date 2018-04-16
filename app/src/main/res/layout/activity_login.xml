@@ -45,6 +45,19 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/testing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorRed"
+                android:elevation="5dp"
+                android:gravity="center_horizontal"
+                android:keepScreenOn="true"
+                android:text="ONLY FOR TESTING"
+                android:textColor="@color/dullWhile"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"

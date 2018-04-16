@@ -54,6 +54,9 @@ public class AppMain extends Application {
     public static MwraContract mwra;
     public static ChildContract childContract;
 
+    public static int versionCode;
+    public static String versionName;
+
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static String hh04txt;
