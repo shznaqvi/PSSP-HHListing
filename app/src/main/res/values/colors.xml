@@ -24,4 +24,8 @@
     <color name="red">#990000</color>
     <color name="brown">#795548</color>
     <color name="orange">#d6ffa500</color>
+
+    <color name="status_bar_color">#FF000000</color>
+    <color name="layout_border_color">#FF111111</color>
+
 </resources>

@@ -85,6 +85,11 @@ public class AppMain extends Application {
         }
     }
 
+    public static String getTagName(Context mContext) {
+        SharedPreferences sharedPref = mContext.getSharedPreferences("tagName", MODE_PRIVATE);
+        return sharedPref.getString("tagName", null);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

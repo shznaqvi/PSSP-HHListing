@@ -30,6 +30,7 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUpdates;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncListing;
+import edu.aku.hassannaqvi.nnspak_hhlisting.WifiDirect.WiFiDirectActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -77,8 +78,8 @@ public class MenuActivity extends AppCompatActivity {
                 return true;
 
             case R.id.menu_wifiDirect:
-                /*Intent wifidirect = new Intent(getApplicationContext(), WiFiDirectActivity.class);
-                startActivity(wifidirect);*/
+                Intent wifidirect = new Intent(getApplicationContext(), WiFiDirectActivity.class);
+                startActivity(wifidirect);
                 return true;
 
             default:
