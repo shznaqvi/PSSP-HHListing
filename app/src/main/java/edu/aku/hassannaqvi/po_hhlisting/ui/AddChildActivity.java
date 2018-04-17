@@ -169,6 +169,7 @@ public class AddChildActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (ch0999.isChecked()) {
                     ch09.setText(null);
+                    ch09.setDate(Calendar.getInstance());
                     ch09.setVisibility(View.GONE);
 
                     ch10d.setVisibility(View.VISIBLE);
