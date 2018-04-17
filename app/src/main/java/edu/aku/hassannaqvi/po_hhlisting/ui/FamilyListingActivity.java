@@ -246,6 +246,7 @@ public class FamilyListingActivity extends Activity {
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         //Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
 
+
     }
 
     private boolean formValidation() {
