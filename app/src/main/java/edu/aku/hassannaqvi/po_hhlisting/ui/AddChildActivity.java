@@ -313,17 +313,6 @@ public class AddChildActivity extends AppCompatActivity {
         }
     }
 
-    private void ClearFields() {
-        ch06.setText(null);
-        ch07.setText(null);
-        ch08.clearCheck();
-        ch09.setText(null);
-        ch0999.setChecked(false);
-        ch10d.setText(null);
-        ch10m.setText(null);
-        ch10y.setText(null);
-        ch11.clearCheck();
-    }
 
     private boolean UpdateDB() {
         FormsDBHelper db = new FormsDBHelper(this);
@@ -377,6 +366,7 @@ public class AddChildActivity extends AppCompatActivity {
 
         AppMain.childContract.UUID = AppMain.lc.getUID();
         AppMain.childContract.hhno = AppMain.hhno;
+        AppMain.childContract.deviceID = AppMain.lc.getDeviceID();
 
 
         JSONObject js = new JSONObject();

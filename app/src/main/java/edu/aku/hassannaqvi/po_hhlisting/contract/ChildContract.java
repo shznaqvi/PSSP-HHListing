@@ -13,7 +13,7 @@ public class ChildContract {
     public String UUID;
     public String UID;
     public String chDT;
-    private String deviceID = "";
+    public String deviceID = "";
 
     //public String chVillageCode;
     //public String chStructureNo;
@@ -40,8 +40,6 @@ public class ChildContract {
         this.UUID = jsonObject.getString(ChildContract.ChildEntry.CHILD_UUID);
         this.UID = jsonObject.getString(ChildContract.ChildEntry.CHILD_UID);
         this.chDT = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHDT);
-        //this.chVillageCode = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHVILLAGECODE);
-        //this.chStructureNo = jsonObject.getString(ChildContract.ChildEntry.CHILD_CHSTRUCTURENO);
         this.hhno = jsonObject.getString(ChildContract.ChildEntry.CHILD_HHNO);
         this.extno = jsonObject.getString(ChildContract.ChildEntry.CHILD_EXTNO);
         this.ch01 = jsonObject.getString(ChildContract.ChildEntry.CHILD_CH01);
@@ -57,7 +55,7 @@ public class ChildContract {
         return this;
     }
 
-    public ChildContract Hydrate(Cursor cursor) {
+    public ChildContract hydrate(Cursor cursor) {
         this.ID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.COLUMN_ID));
         this.CHILDID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_ID));
         this.UUID = cursor.getString(cursor.getColumnIndex(ChildContract.ChildEntry.CHILD_UUID));
@@ -250,7 +248,11 @@ public class ChildContract {
         json.put(ChildContract.ChildEntry.CHILD_CH03, this.ch03 == null ? JSONObject.NULL : this.ch03);
         json.put(ChildContract.ChildEntry.CHILD_CH04, this.ch04 == null ? JSONObject.NULL : this.ch04);
         json.put(ChildContract.ChildEntry.CHILD_CH05, this.ch05 == null ? JSONObject.NULL : this.ch05);
-        json.put(ChildContract.ChildEntry.CHILD_CHILD, this.child == null ? JSONObject.NULL : this.child);
+
+        if (!this.child.equals("")) {
+            json.put(ChildContract.ChildEntry.CHILD_CHILD, this.child.equals("") ? JSONObject.NULL : new JSONObject(this.child));
+        }
+
 
 /*        json.put(MwraEntry.COLUMN_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
         json.put(MwraEntry.COLUMN_SYNCED_DATE, this.synced_date == null ? JSONObject.NULL : this.synced_date);*/
@@ -269,8 +271,6 @@ public class ChildContract {
         public static final String CHILD_UID = "uid";
         public static final String CHILD_DEVICEID = "deviceid";
         public static final String CHILD_CHDT = "chdt";
-        //public static final String CHILD_CHVILLAGECODE = "chvillagecode";
-        //public static final String CHILD_CHSTRUCTURENO = "chstructureno";
         public static final String CHILD_HHNO = "hhno";
         public static final String CHILD_EXTNO = "extno";
         public static final String CHILD_CH01 = "ch01";
@@ -283,7 +283,7 @@ public class ChildContract {
         public static final String COLUMN_SYNCED = "synced";
         public static final String COLUMN_SYNCED_DATE = "synced_date";
 
-        public static String _URL = "child.php";
+        public static String _URL = "childs.php";
     }
 
 }

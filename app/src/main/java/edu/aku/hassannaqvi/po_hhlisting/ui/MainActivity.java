@@ -44,7 +44,9 @@ import edu.aku.hassannaqvi.po_hhlisting.get.GetTalukas;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetUCs;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetUsers;
 import edu.aku.hassannaqvi.po_hhlisting.get.GetVillages;
+import edu.aku.hassannaqvi.po_hhlisting.sync.SyncChilds;
 import edu.aku.hassannaqvi.po_hhlisting.sync.SyncListing;
+import edu.aku.hassannaqvi.po_hhlisting.sync.SyncMwras;
 
 public class MainActivity extends Activity {
 
@@ -434,6 +436,11 @@ public class MainActivity extends Activity {
 
                     Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
                     new SyncListing(mContext).execute();
+
+
+                    Toast.makeText(getApplicationContext(), "Syncing Childs", Toast.LENGTH_SHORT).show();
+                    new SyncChilds(mContext).execute();
+
 
                     /*Toast.makeText(getApplicationContext(), "Syncing Mwras", Toast.LENGTH_SHORT).show();
                     new SyncMwras(mContext).execute();*/

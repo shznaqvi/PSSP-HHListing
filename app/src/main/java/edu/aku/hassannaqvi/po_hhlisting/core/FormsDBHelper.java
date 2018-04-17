@@ -116,6 +116,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ChildEntry.CHILD_CH04 + " TEXT," +
                 ChildEntry.CHILD_CH05 + " TEXT," +
                 ChildEntry.CHILD_CHILD + " TEXT," +
+                ChildEntry.CHILD_DEVICEID + " TEXT," +
                 ChildEntry.COLUMN_SYNCED + " TEXT, " +
                 ChildEntry.COLUMN_SYNCED_DATE + " TEXT " +
                 " );";
@@ -282,8 +283,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ChildEntry.CHILD_ID, childContract.getCHILDID());
         values.put(ChildEntry.CHILD_UUID, childContract.getUUID());
         values.put(ChildEntry.CHILD_CHDT, childContract.getChDT());
-        //values.put(ChildEntry.CHILD_CHVILLAGECODE, childContract.getChVillageCode());
-        //values.put(ChildEntry.CHILD_CHSTRUCTURENO, childContract.getChStructureNo());
+        values.put(ChildEntry.CHILD_DEVICEID, AppMain.lc.getDeviceID());
         values.put(ChildEntry.CHILD_HHNO, AppMain.hhno);
         values.put(ChildEntry.CHILD_EXTNO, AppMain.hh07txt);
         values.put(ChildEntry.CHILD_CH01, childContract.getCh01());
@@ -372,6 +372,27 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 where,
                 whereArgs);
     }
+
+
+    public void updateSyncedChild(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ChildEntry.COLUMN_SYNCED, true);
+        values.put(ChildEntry.COLUMN_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = ChildEntry.COLUMN_ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                ChildEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
 
     public Long addDistrict(TalukasContract dc) {
 
@@ -506,6 +527,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH04_VILLAGE,
                 ListingEntry.COLUMN_NAME_HH_LHWCODE,
                 ListingEntry.COLUMN_NAME_DEVICEID,
+                ListingEntry.COLUMN_NAME_VERSION,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
                 ListingEntry.COLUMN_NAME_GPSTime,
@@ -546,6 +568,63 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
         return allLC;
     }
+
+
+    public Collection<ChildContract> getAllChilds() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                ChildEntry.COLUMN_ID,
+                ChildEntry.CHILD_ID,
+                ChildEntry.CHILD_EXTNO,
+                ChildEntry.CHILD_CHILD,
+                ChildEntry.CHILD_CH01,
+                ChildEntry.CHILD_CH02,
+                ChildEntry.CHILD_CH03,
+                ChildEntry.CHILD_CH04,
+                ChildEntry.CHILD_CH05,
+                ChildEntry.CHILD_CHDT,
+                ChildEntry.CHILD_HHNO,
+                ChildEntry.CHILD_UID,
+                ChildEntry.CHILD_UUID,
+                ChildEntry.CHILD_DEVICEID
+
+        };
+
+        String whereClause = ChildEntry.COLUMN_SYNCED + " is null";
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                ChildEntry.COLUMN_ID + " ASC";
+
+        Collection<ChildContract> allLC = new ArrayList<ChildContract>();
+        try {
+            c = db.query(
+                    ChildEntry.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                ChildContract cc = new ChildContract();
+                allLC.add(cc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allLC;
+    }
+
 
     public Collection<MwraContract> getAllMwras() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -820,6 +899,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh04Village(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04_VILLAGE))));
         lc.setHhLhwCode(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH_LHWCODE))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
+        lc.setVersion(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_VERSION))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
@@ -829,6 +909,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         return lc;
     }
+
 
     public boolean Login(String username, String password) throws SQLException {
         SQLiteDatabase db = this.getReadableDatabase();
