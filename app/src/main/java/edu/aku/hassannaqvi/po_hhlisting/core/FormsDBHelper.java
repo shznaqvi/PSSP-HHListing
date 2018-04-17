@@ -234,7 +234,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH04_VILLAGE, lc.getHh04Village());
         values.put(ListingEntry.COLUMN_NAME_HH_LHWCODE, lc.getHhLhwCode());
 
-        AppMain.updatePSU(lc.getHh04Village(), lc.getHh03());
+        //AppMain.updatePSU(lc.getHh04Village(), lc.getHh03());
+        AppMain.updatePSU(lc.getHhLhwCode(), lc.getHh03());
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
         values.put(ListingEntry.COLUMN_NAME_HH04x, lc.getHh04x());

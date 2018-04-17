@@ -60,7 +60,7 @@ public class AppMain extends Application {
     public static String hh01txt = "0000";
     public static String hh02txt;
     public static String hh04txt;
-    public static int hh03txt = 0;
+    public static int hh03txt = 1;
     public static String hh07txt;
     public static int fCount = 0;
     public static int fTotal = 0;
@@ -100,28 +100,49 @@ public class AppMain extends Application {
 
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        editor.putString(villageCode, structureNo);
+        editor.putString(lhwCode, structureNo);
 
         editor.apply();
-        Log.d(TAG, "updatePSU: " + villageCode + " " + structureNo);
+        Log.d(TAG, "updateLHW: " + villageCode + " " + structureNo);
 
     }
 
-    public static Boolean PSUExist(String villageCode) {
-        Log.d(TAG, "PSUExist: " + villageCode);
+    public static Boolean PSUExist1(String villageCode) {
+        Log.d(TAG, "LHWExist: " + villageCode);
         AppMain.hh03txt = Integer.valueOf(sharedPref.getString(villageCode, "0"));
-        Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(villageCode, "0"));
+        Log.d(TAG, "LHWExist (Test): " + sharedPref.getString(villageCode, "0"));
 
         if (AppMain.hh03txt == 0) {
-            Log.d(TAG, "PSUExist (False): " + AppMain.hh03txt);
+            Log.d(TAG, "LHWExist (False): " + AppMain.hh03txt);
 
             return false;
         } else {
-            Log.d(TAG, "PSUExist (True): " + AppMain.hh03txt);
+            Log.d(TAG, "LHWExist (True): " + AppMain.hh03txt);
 
             return true;
         }
     }
+
+
+    public static Boolean LHWExist(String lhwCode, String villageCode) {
+        Log.d(TAG, "LHWExist: " + lhwCode + " - villagecode " + villageCode);
+
+
+
+        AppMain.hh03txt = Integer.valueOf(sharedPref.getString(lhwCode, "0"));
+        Log.d(TAG, "LHWExist (Test): " + sharedPref.getString(lhwCode, "0"));
+
+        if (AppMain.hh03txt == 0) {
+            Log.d(TAG, "LHWExist (False): " + AppMain.hh03txt);
+
+            return false;
+        } else {
+            Log.d(TAG, "LHWExist (True): " + AppMain.hh03txt);
+
+            return true;
+        }
+    }
+
 
     @Override
     public void onCreate() {

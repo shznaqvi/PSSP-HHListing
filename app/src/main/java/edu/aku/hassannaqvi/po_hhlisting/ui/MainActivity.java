@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -78,6 +79,9 @@ public class MainActivity extends Activity {
     @BindView(R.id.villageCode)
     EditText villageCode;
 
+    @BindView(R.id.openDBManager)
+    Button openDBManager;
+
     FormsDBHelper db;
     private Boolean exit = false;
 
@@ -90,6 +94,12 @@ public class MainActivity extends Activity {
         ButterKnife.bind(this);
 
         AppMain.lc = null;
+
+        if (AppMain.username.equals("dmu@aku") || AppMain.username.equals("test1234")) {
+            openDBManager.setVisibility(View.VISIBLE);
+        } else {
+            openDBManager.setVisibility(View.GONE);
+        }
 
         // database handler
         db = new FormsDBHelper(getApplicationContext());
@@ -342,7 +352,7 @@ public class MainActivity extends Activity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Do you want to continue?");
-        builder.setMessage("PSU data already exist.").setPositiveButton("Yes", dialogClickListener)
+        builder.setMessage("LHW data already exist.").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("Cancel", dialogClickListener).show();
     }
 
@@ -353,8 +363,8 @@ public class MainActivity extends Activity {
 
             Intent oF = new Intent(this, setupActivity.class);
 
-            if (AppMain.PSUExist(AppMain.hh04txt)) {
-                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+            if (AppMain.LHWExist(AppMain.lhwCode, AppMain.villageCode)) {
+                Toast.makeText(MainActivity.this, "LHW data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
                 startActivity(oF);

@@ -288,9 +288,9 @@ public class FamilyListingActivity extends Activity {
 
 
         if (ch01.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            ch01.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
+            Toast.makeText(this, "Please enter child", Toast.LENGTH_LONG).show();
+            ch01.setError("Please enter child");
+            Log.i(TAG, "Please enter child");
             return false;
         } else {
             ch01.setError(null);
@@ -323,9 +323,9 @@ public class FamilyListingActivity extends Activity {
 
 
         if (ch03m.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter male child count", Toast.LENGTH_LONG).show();
-            ch03m.setError("Please enter male child count");
-            Log.i(TAG, "Please enter male child count");
+            Toast.makeText(this, "Please enter male", Toast.LENGTH_LONG).show();
+            ch03m.setError("Please enter male");
+            Log.i(TAG, "Please enter male");
             return false;
         } else {
             ch03m.setError(null);
@@ -333,9 +333,9 @@ public class FamilyListingActivity extends Activity {
 
 
         if (ch03f.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter female child count", Toast.LENGTH_LONG).show();
-            ch03f.setError("Please enter female child count");
-            Log.i(TAG, "Please enter female child count");
+            Toast.makeText(this, "Please enter female", Toast.LENGTH_LONG).show();
+            ch03f.setError("Please enter female");
+            Log.i(TAG, "Please enter female");
             return false;
         } else {
             ch03f.setError(null);

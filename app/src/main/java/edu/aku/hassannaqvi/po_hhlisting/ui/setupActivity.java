@@ -104,13 +104,15 @@ public class setupActivity extends Activity {
         if (AppMain.hh02txt == null) {
             AppMain.hh03txt = 1;
         } else {
+
             AppMain.hh03txt++;
+
             //AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
             //hh02.setText(AppMain.hh04txt.toString());
             hh02.setText(AppMain.lhwCode);
             hh02.setEnabled(false);
-
         }
+
         AppMain.hh07txt = "X";
         hh01.setText(AppMain.hh02txt);
         hh03.setText(String.valueOf(AppMain.hh03txt));
