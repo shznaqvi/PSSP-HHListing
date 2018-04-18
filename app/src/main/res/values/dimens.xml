@@ -9,4 +9,7 @@
     <dimen name="splash_header_text_size">@dimen/_14sdp</dimen>
     <dimen name="splash_next_button_height">@dimen/_80sdp</dimen>
     <dimen name="splash_next_text_size">@dimen/_16sdp</dimen>
+    <dimen name="tablet_list_width">300dp</dimen>
+    <dimen name="phone_list_height">500dp</dimen>
+
 </resources>

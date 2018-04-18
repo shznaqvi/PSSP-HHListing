@@ -707,6 +707,94 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allLC;
     }
 
+    public Collection<ListingContract> getListingsByCluster(String cluster) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                ListingEntry._ID,
+                ListingEntry.COLUMN_NAME_UID,
+                ListingEntry.COLUMN_NAME_HHDATETIME,
+                ListingEntry.COLUMN_NAME_ENUMCODE,
+                ListingEntry.COLUMN_NAME_CLUSTERCODE,
+                ListingEntry.COLUMN_NAME_ENUMSTR,
+                ListingEntry.COLUMN_NAME_HH01,
+                ListingEntry.COLUMN_NAME_HH02,
+                ListingEntry.COLUMN_NAME_HH03,
+                ListingEntry.COLUMN_NAME_HH04,
+                ListingEntry.COLUMN_NAME_HH05,
+                ListingEntry.COLUMN_NAME_HH06,
+                ListingEntry.COLUMN_NAME_HH07,
+                ListingEntry.COLUMN_NAME_HH07n,
+                ListingEntry.COLUMN_NAME_HH08,
+                ListingEntry.COLUMN_NAME_HH09,
+                ListingEntry.COLUMN_NAME_HH08A1,
+                ListingEntry.COLUMN_NAME_HH09A1,
+                ListingEntry.COLUMN_NAME_HH10,
+                ListingEntry.COLUMN_NAME_HH11,
+                ListingEntry.COLUMN_NAME_HH12,
+                ListingEntry.COLUMN_NAME_HH13,
+                ListingEntry.COLUMN_NAME_HH14,
+                ListingEntry.COLUMN_NAME_HH15,
+                ListingEntry.COLUMN_NAME_HH16,
+                ListingEntry.COLUMN_ADDRESS,
+                ListingEntry.COLUMN_ISNEWHH,
+                ListingEntry.COLUMN_USERNAME,
+                ListingEntry.COLUMN_NAME_DEVICEID,
+                ListingEntry.COLUMN_TAGID,
+                ListingEntry.COLUMN_NAME_GPSLat,
+                ListingEntry.COLUMN_NAME_GPSLng,
+                ListingEntry.COLUMN_NAME_GPSTime,
+                ListingEntry.COLUMN_NAME_GPSAccuracy,
+                ListingEntry.COLUMN_NAME_GPSAltitude,
+                ListingEntry.COLUMN_APPVER,
+                ListingEntry.COLUMN_RANDOMIZED
+        };
+
+        String whereClause = ListingEntry.COLUMN_NAME_CLUSTERCODE + " = ?";
+        String[] whereArgs = {cluster};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                ListingEntry.COLUMN_NAME_CLUSTERCODE + " ASC";
+        JSONArray jsonArray = new JSONArray();
+
+        Collection<ListingContract> allLC = new ArrayList<ListingContract>();
+        try {
+            c = db.query(
+                    ListingEntry.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                ListingContract listing = new ListingContract();
+                allLC.add(listing.hydrate(c, 0));
+            }
+
+            for(ListingContract lc : allLC){
+                try {
+                    jsonArray.put(lc.toJSONObject());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allLC;
+    }
+
+
     public ArrayList<ListingContract> randomLisiting(String clusterCode) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
@@ -895,7 +983,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
             alc.set(1, Cursor2);
             if (null != c && c.getCount() > 0) {
-
 
                 alc.set(0, c);
                 c.moveToFirst();
