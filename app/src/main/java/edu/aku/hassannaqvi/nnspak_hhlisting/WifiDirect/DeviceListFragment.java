@@ -20,7 +20,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.aku.hassannaqvi.nns_2018.R;
+import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 
 /**
  * A ListFragment that displays available peers on discovery and requests the
