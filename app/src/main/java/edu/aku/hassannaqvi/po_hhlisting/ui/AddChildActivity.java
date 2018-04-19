@@ -131,12 +131,12 @@ public class AddChildActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         String dateToday = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-        String minDate2years = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTimeInMillis() - ((AppMain.MILLISECONDS_IN_2_YEARS) + (AppMain.MILLISECONDS_IN_DAY)));
+        String minDate5years = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTimeInMillis() - ((AppMain.MILLISECONDS_IN_5Years) + (AppMain.MILLISECONDS_IN_DAY)));
 
 
         ch09.setManager(getSupportFragmentManager());
         ch09.setMaxDate(dateToday);
-        ch09.setMinDate(minDate2years);
+        ch09.setMinDate(minDate5years);
 
 
         total2Months = Integer.valueOf(AppMain.cCount2m);
