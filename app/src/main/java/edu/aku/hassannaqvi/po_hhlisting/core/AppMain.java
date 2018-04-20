@@ -25,7 +25,7 @@ public class AppMain extends Application {
     //public static String _HOST_URL = "http://10.1.42.86/"; // Testing Server
     public static final String _IP = "43.245.131.159"; // Test PHP server
     public static final Integer _PORT = 8080; // Port - with colon (:)
-    public static final String _HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/pulseoximetry/api/";
+    public static final String _HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/po/api/";
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     private static final int TWO_MINUTES = 1000 * 60 * 2;
@@ -229,10 +229,7 @@ public class AppMain extends Application {
                 return true;
             } else if (isNewer && !isLessAccurate) {
                 return true;
-            } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-                return true;
-            }
-            return false;
+            } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
         }
 
         /**
