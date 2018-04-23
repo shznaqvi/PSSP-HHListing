@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 import edu.aku.hassannaqvi.nnspak_hhlisting.WifiDirect.DeviceListFragment.DeviceActionListener;
@@ -112,7 +111,9 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         mContentView.findViewById(R.id.btn_send_msg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    JSONArray listings = db.getListingsByCluster(getActivity().findViewById(R.id.msgBox));
+
+
+                JSONArray listings = db.getListingsByCluster(msgBox.getText().toString());
                     if (listings != null && listings.length() > 0) {
                         Intent serviceIntent = new Intent(getActivity(), DataTransferService.class);
                         serviceIntent.setAction("edu.aku.hassannaqvi.nns2018_teamleadersapp.WifiDirect.SEND");
@@ -132,15 +133,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         return mContentView;
     }
 
-    public void sendAnthro(View v) {
-        Intent serviceIntent = new Intent(getActivity(), DataTransferService.class);
-        serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
-        serviceIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(db.getAnthroFamilyMembers()));
-        serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS,
-                info.groupOwnerAddress.getHostAddress());
-        serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
-        getActivity().startService(serviceIntent);
-    }
+
 
     @Override
     public void onConnectionInfoAvailable(final WifiP2pInfo info) {
@@ -164,8 +157,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         // server. The file server is single threaded, single connection server
         // socket.
         if (info.groupFormed && info.isGroupOwner) {
-            new transferAnthro(getActivity(), mContentView.findViewById(R.id.status_text))
-                    .execute();
+       /*     new transferAnthro(getActivity(), mContentView.findViewById(R.id.status_text))
+                    .execute();*/
         } else if (info.groupFormed) {
             // The other device acts as the client. In this case, we enable the
             // get file button.

@@ -707,7 +707,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return allLC;
     }
 
-    public Collection<ListingContract> getListingsByCluster(String cluster) {
+    public JSONArray getListingsByCluster(String cluster) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -791,7 +791,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 db.close();
             }
         }
-        return allLC;
+        return jsonArray;
     }
 
 
