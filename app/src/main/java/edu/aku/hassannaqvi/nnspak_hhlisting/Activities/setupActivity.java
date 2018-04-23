@@ -139,10 +139,8 @@ public class setupActivity extends Activity {
                     AppMain.hh07txt = "X";
 
 
-                } else if (!hh04a.isChecked()) {
-                    AppMain.hh07txt = null;
-
-
+                } else {
+                    AppMain.hh07txt = "";
                 }
 
                 if (hh04a.isChecked() || hh04g.isChecked() || hh04h.isChecked() || hh04fb.isChecked() || hh04i.isChecked()) {
@@ -164,7 +162,7 @@ public class setupActivity extends Activity {
                                 fldGrpHH04.setVisibility(View.GONE);
                                 hh05.setChecked(false);
                                 hh06.setText(null);
-                                AppMain.hh07txt = null;
+                                AppMain.hh07txt = "";
                                 btnAddHousehold.setVisibility(View.VISIBLE);
                             }
                         }
@@ -237,20 +235,20 @@ public class setupActivity extends Activity {
     @OnClick(R.id.btnChangePSU)
     void onBtnChangePSUClick() {
 
-        SaveDraft();
-        if (UpdateDB()) {
-            AppMain.hh02txt = null;
-            finish();
-            Intent fA;
-            if (hh04h.isChecked()) {
+        finish();
 
-                //TODO: Add Confirmation Dialog
+        Intent fA;
+        if (hh04h.isChecked()) {
+            startActivity(new Intent(this, LoginActivity.class));
+        } else {
+            SaveDraft();
 
-                fA = new Intent(this, LoginActivity.class);
-            } else {
+            if (UpdateDB()) {
+                AppMain.hh02txt = null;
+
                 fA = new Intent(this, MainActivity.class);
+                startActivity(fA);
             }
-            startActivity(fA);
         }
 
     }
