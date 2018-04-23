@@ -120,10 +120,10 @@ public class setupActivity extends Activity {
             hh02.setEnabled(false);
         }
 
-        AppMain.hh07txt = "X";
+        AppMain.hh07txt = "1";
 
         //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
-        String StructureNumber = "NNS-" + AppMain.clusterCode + "-" + String.format("%04d", AppMain.hh03txt);
+        String StructureNumber = "NNS-" + AppMain.clusterCode + "-S" + String.format("%04d", AppMain.hh03txt);
 
         // removed status for REFUSED and LOCKED
         hh04i.setVisibility(View.GONE);
@@ -140,7 +140,7 @@ public class setupActivity extends Activity {
 
                 if (hh04a.isChecked()) {
                     //Moved to Add next Family button: AppMain.hh07txt = String.valueOf((char) AppMain.hh07txt.charAt(0) + 1);
-                    AppMain.hh07txt = "X";
+                    AppMain.hh07txt = "1";
 
 
                 } else {
@@ -159,7 +159,7 @@ public class setupActivity extends Activity {
                             if (hh09a1.isChecked()) {
                                 fldGrpHH04.setVisibility(View.VISIBLE);
                                 btnAddHousehold.setVisibility(View.GONE);
-                                AppMain.hh07txt = "X";
+                                AppMain.hh07txt = "1";
                                 hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
 
                             } else {
@@ -203,13 +203,13 @@ public class setupActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    AppMain.hh07txt = "A";
+                    AppMain.hh07txt = "1";
                     hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
                     hh06.setVisibility(View.VISIBLE);
                     hh06.requestFocus();
 
                 } else {
-                    AppMain.hh07txt = "X";
+                    AppMain.hh07txt = "1";
                     hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
                     hh06.setVisibility(View.GONE);
                     hh06.setText(null);

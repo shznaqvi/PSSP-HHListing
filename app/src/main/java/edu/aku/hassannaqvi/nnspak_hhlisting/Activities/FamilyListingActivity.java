@@ -102,7 +102,7 @@ public class FamilyListingActivity extends Activity {
         ButterKnife.bind(this);
 
         txtFamilyListing.setText("Household Information");
-        txtTeamNoWithFam.setText(String.format("%04d", AppMain.hh03txt) + "-" + AppMain.hh07txt);
+        txtTeamNoWithFam.setText("S" + String.format("%04d", AppMain.hh03txt) + "-H" + String.format("%03d", Integer.valueOf(AppMain.hh07txt)));
 
         setupButtons();
 
@@ -233,8 +233,8 @@ public class FamilyListingActivity extends Activity {
                     btnAddNewHousehold.setVisibility(View.VISIBLE);
                     btnAddHousehold.setVisibility(View.GONE);
 
-                    if (AppMain.hh07txt.equals("X")) {
-                        AppMain.hh07txt = "A";
+                    if (AppMain.hh07txt.equals("1")) {
+                        AppMain.hh07txt = "1";
                     }
 
                 } else {
@@ -242,14 +242,14 @@ public class FamilyListingActivity extends Activity {
                     setupButtons();
 
                     if (AppMain.fTotal == 0) {
-                        if (AppMain.hh07txt.equals("A")) {
-                            AppMain.hh07txt = "X";
+                        if (AppMain.hh07txt.equals("1")) {
+                            AppMain.hh07txt = "1";
                         }
                     }
 
                 }
 
-                txtTeamNoWithFam.setText(String.format("%04d", AppMain.hh03txt) + "-" + AppMain.hh07txt);
+                txtTeamNoWithFam.setText(String.format("%04d", AppMain.hh03txt) + "-H" + String.format("%03d", Integer.valueOf(AppMain.hh07txt)));
             }
         });
 
@@ -320,7 +320,7 @@ public class FamilyListingActivity extends Activity {
             SaveDraft();
             if (UpdateDB()) {
                 if (familyFlag) {
-                    AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
+                    AppMain.hh07txt = String.valueOf(Integer.valueOf(AppMain.hh07txt) + 1);
                 } else {
                     /*if (AppMain.hh07txt.equals("X")) {
                         AppMain.hh07txt = "B";
@@ -328,7 +328,7 @@ public class FamilyListingActivity extends Activity {
                         AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
                     }*/
 
-                    AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
+                    AppMain.hh07txt = String.valueOf(Integer.valueOf(AppMain.hh07txt) + 1);
 
                     familyFlag = true;
                 }
