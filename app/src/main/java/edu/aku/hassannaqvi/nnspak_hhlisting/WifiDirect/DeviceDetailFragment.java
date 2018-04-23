@@ -1,5 +1,6 @@
 package edu.aku.hassannaqvi.nnspak_hhlisting.WifiDirect;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
