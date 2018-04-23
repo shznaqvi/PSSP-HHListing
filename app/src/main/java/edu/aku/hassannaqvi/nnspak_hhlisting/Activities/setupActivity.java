@@ -76,7 +76,7 @@ public class setupActivity extends Activity {
         @BindView(R.id.hh04e)
         RadioButton hh04e;
         @BindView(R.id.hh04f)
-        RadioButton hh04f;*/
+        RadioButton hh04f;
 
     /*@BindView(R.id.hh04g)
     RadioButton hh04g;*/
@@ -125,6 +125,10 @@ public class setupActivity extends Activity {
         //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
         String StructureNumber = "NNS-" + AppMain.clusterCode + "-" + String.format("%04d", AppMain.hh03txt);
 
+        // removed status for REFUSED and LOCKED
+        hh04i.setVisibility(View.GONE);
+        hh04fb.setVisibility(View.GONE);
+
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);
         hh07.setText(getString(R.string.hh07) + ": " + AppMain.hh07txt);
@@ -139,10 +143,8 @@ public class setupActivity extends Activity {
                     AppMain.hh07txt = "X";
 
 
-                } else if (!hh04a.isChecked()) {
-                    AppMain.hh07txt = null;
-
-
+                } else {
+                    AppMain.hh07txt = "";
                 }
 
                 if (hh04a.isChecked() || hh04g.isChecked() || hh04h.isChecked() || hh04fb.isChecked() || hh04i.isChecked()) {
@@ -164,6 +166,7 @@ public class setupActivity extends Activity {
                                 fldGrpHH04.setVisibility(View.GONE);
                                 hh05.setChecked(false);
                                 hh06.setText(null);
+                                AppMain.hh07txt = "";
                                 btnAddHousehold.setVisibility(View.VISIBLE);
                             }
                         }
@@ -236,20 +239,20 @@ public class setupActivity extends Activity {
     @OnClick(R.id.btnChangePSU)
     void onBtnChangePSUClick() {
 
-        SaveDraft();
-        if (UpdateDB()) {
-            AppMain.hh02txt = null;
-            finish();
-            Intent fA;
-            if (hh04h.isChecked()) {
+        finish();
 
-                //TODO: Add Confirmation Dialog
+        Intent fA;
+        if (hh04h.isChecked()) {
+            startActivity(new Intent(this, LoginActivity.class));
+        } else {
+            SaveDraft();
 
-                fA = new Intent(this, LoginActivity.class);
-            } else {
+            if (UpdateDB()) {
+                AppMain.hh02txt = null;
+
                 fA = new Intent(this, MainActivity.class);
+                startActivity(fA);
             }
-            startActivity(fA);
         }
 
     }

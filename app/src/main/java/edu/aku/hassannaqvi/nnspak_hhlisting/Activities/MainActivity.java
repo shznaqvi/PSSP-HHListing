@@ -116,7 +116,7 @@ public class MainActivity extends MenuActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem dbManager = menu.findItem(R.id.menu_openDB);
-        MenuItem randomization = menu.findItem(R.id.menu_randomization);
+//        MenuItem randomization = menu.findItem(R.id.menu_randomization);
 
         if (AppMain.admin) {
             dbManager.setVisible(true);
@@ -460,16 +460,6 @@ public class MainActivity extends MenuActivity {
                     db.getAllListings()
             ).execute();
 
-            /*Toast.makeText(getApplicationContext(), "Syncing BL Random", Toast.LENGTH_SHORT).show();
-            new SyncAllData(
-                    this,
-                    "BL_Random",
-                    "updateSyncedBLRandom",
-                    BLRandomContract.class,
-                    AppMain._HOST_URL + BLRandomContract.singleRandomHH._URL,
-                    db.getAllBLRandom()
-            ).execute();*/
-
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = syncPref.edit();
 
@@ -518,7 +508,10 @@ public class MainActivity extends MenuActivity {
         if (exit) {
             finish(); // finish activity
 
-            startActivity(new Intent(this, LoginActivity.class));
+            Intent ii = new Intent(this, LoginActivity.class);
+            ii.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(ii);
+            finish();
 
         } else {
             Toast.makeText(this, "Press Back again to Exit.",
