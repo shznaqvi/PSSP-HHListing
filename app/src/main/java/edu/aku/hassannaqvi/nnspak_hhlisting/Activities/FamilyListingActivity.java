@@ -102,7 +102,7 @@ public class FamilyListingActivity extends Activity {
         ButterKnife.bind(this);
 
         txtFamilyListing.setText("Household Information");
-        txtTeamNoWithFam.setText("S" + String.format("%04d", AppMain.hh03txt) + "-H" + String.format("%03d", Integer.valueOf(AppMain.hh07txt)));
+        txtTeamNoWithFam.setText("NNS-S" + String.format("%04d", AppMain.hh03txt) + "-H" + String.format("%03d", Integer.valueOf(AppMain.hh07txt)));
 
         setupButtons();
 
