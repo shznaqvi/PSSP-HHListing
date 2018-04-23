@@ -76,7 +76,7 @@ public class setupActivity extends Activity {
         @BindView(R.id.hh04e)
         RadioButton hh04e;
         @BindView(R.id.hh04f)
-        RadioButton hh04f;*/
+        RadioButton hh04f;
 
     /*@BindView(R.id.hh04g)
     RadioButton hh04g;*/
@@ -124,6 +124,10 @@ public class setupActivity extends Activity {
 
         //String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
         String StructureNumber = "NNS-" + AppMain.clusterCode + "-" + String.format("%04d", AppMain.hh03txt);
+
+        // removed status for REFUSED and LOCKED
+        hh04i.setVisibility(View.GONE);
+        hh04fb.setVisibility(View.GONE);
 
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);

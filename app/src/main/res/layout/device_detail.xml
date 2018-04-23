@@ -20,26 +20,34 @@
                 android:id="@+id/btn_connect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/connect_peer_button" />
+                android:text="Connect to Near-By Devices" />
 
             <Button
                 android:id="@+id/btn_disconnect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disconnect_peer_button" />
+                android:text="Disconnect" />
 
             <Button
                 android:id="@+id/btn_send_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Send Listing Data"
+                android:text="Send Anthro Data"
+                android:visibility="gone" />
+
+
+            <Button
+                android:id="@+id/btn_send_cluster_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send Cluster Data"
                 android:visibility="gone" />
 
             <EditText
                 android:id="@+id/msgBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Data"
+                android:hint="Message"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
@@ -84,6 +92,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"></TextView>
     </LinearLayout>
 </FrameLayout>

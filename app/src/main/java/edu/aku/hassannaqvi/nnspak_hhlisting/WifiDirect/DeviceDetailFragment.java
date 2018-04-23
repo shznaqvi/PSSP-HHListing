@@ -3,14 +3,12 @@ package edu.aku.hassannaqvi.nnspak_hhlisting.WifiDirect;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager.ConnectionInfoListener;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,15 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
@@ -119,20 +112,29 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         mContentView.findViewById(R.id.btn_send_msg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent serviceIntent = new Intent(getActivity(), DataTransferService.class);
-                serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
 
-                serviceIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(db.getAllListingsJSON())); // get all listing
 
-                serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS,
-                        info.groupOwnerAddress.getHostAddress());
-                serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
-                getActivity().startService(serviceIntent);
+                JSONArray listings = db.getListingsByCluster(msgBox.getText().toString());
+                    if (listings != null && listings.length() > 0) {
+                        Intent serviceIntent = new Intent(getActivity(), DataTransferService.class);
+                        serviceIntent.setAction("edu.aku.hassannaqvi.nns2018_teamleadersapp.WifiDirect.SEND");
+                        serviceIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(listings));
+                        serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS,
+                                info.groupOwnerAddress.getHostAddress());
+                        serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
+                        getActivity().startService(serviceIntent);
+                    } else {
+                        Toast.makeText(getActivity(), "No linelisting in this cluster", Toast.LENGTH_SHORT).show();
+                    }
+
+
             }
         });
 
         return mContentView;
     }
+
+
 
     @Override
     public void onConnectionInfoAvailable(final WifiP2pInfo info) {
@@ -156,8 +158,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         // server. The file server is single threaded, single connection server
         // socket.
         if (info.groupFormed && info.isGroupOwner) {
-            new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text))
-                    .execute();
+       /*     new transferAnthro(getActivity(), mContentView.findViewById(R.id.status_text))
+                    .execute();*/
         } else if (info.groupFormed) {
             // The other device acts as the client. In this case, we enable the
             // get file button.
@@ -208,15 +210,15 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
      * A simple server socket that accepts connection and writes some data on
      * the stream.
      */
-    public static class FileServerAsyncTask extends AsyncTask<Void, Void, String> {
+   /* public static class FileServerAsyncTask extends AsyncTask<Void, Void, String> {
 
         private Context context;
         private TextView statusText;
 
-        /**
-         * @param context
-         * @param statusText
-         */
+        *//**
+     * @param context
+     * @param statusText
+     *//*
         public FileServerAsyncTask(Context context, View statusText) {
             this.context = context;
             this.statusText = (TextView) statusText;
@@ -233,7 +235,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                 Log.d(WiFiDirectActivity.TAG, "Server: Socket opened");
                 Socket client = serverSocket.accept();
                 Log.d(WiFiDirectActivity.TAG, "Server: connection done");
-                /*final File f = new File(Environment.getExternalStorageDirectory() + "/"
+                *//*final File f = new File(Environment.getExternalStorageDirectory() + "/"
                         + context.getPackageName() + "/wifip2pshared-" + System.currentTimeMillis()
                         + ".jpg");
 
@@ -241,7 +243,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                 if (!dirs.exists())
                     dirs.mkdirs();
                 f.createNewFile();
-*/
+*//*
                 //Log.d(WiFiDirectActivity.TAG, "server: copying files " + f.toString());
                 InputStream inputstream = client.getInputStream();
                 //copyFile(inputstream, new FileOutputStream(f));
@@ -264,41 +266,40 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
             }
         }
 
-        /*
-         * (non-Javadoc)
-         * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
-         */
+        *//*
+     * (non-Javadoc)
+     * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+     *//*
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                /*statusText.setText("Message - " + result);
-                Toast.makeText(context, result, Toast.LENGTH_LONG).show();
                 String json = result;
                 if (json.length() > 0) {
-                    FormsDBHelper db = new FormsDBHelper(context);
+                    DatabaseHelper db = new DatabaseHelper(context);
                     try {
                         JSONArray jsonArray = new JSONArray(json);
-                        db.syncListingFromDevice(jsonArray);
+                        db.syncAnthroFromDevice(jsonArray);
+                        statusText.setText("Message - " + jsonArray.length() + " Members for Anthro Received..");
+                        Toast.makeText(context, jsonArray.length() + " Members for Anthro Received..", Toast.LENGTH_LONG).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }*/
 
-                Toast.makeText(context, "I can't receive any data!!", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
         }
 
-        /*
-         * (non-Javadoc)
-         * @see android.os.AsyncTask#onPreExecute()
-         */
+        *//*
+     * (non-Javadoc)
+     * @see android.os.AsyncTask#onPreExecute()
+     *//*
         @Override
         protected void onPreExecute() {
             statusText.setText("Opening a server socket");
         }
 
-    }
+    }*/
 
 }

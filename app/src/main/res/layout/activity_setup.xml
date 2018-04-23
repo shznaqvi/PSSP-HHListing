@@ -135,7 +135,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/hh04fb" />
+                android:text="@string/hh04fb"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh04g"
@@ -156,7 +157,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/hh04i" />
+                android:text="@string/hh04i"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh04j"
