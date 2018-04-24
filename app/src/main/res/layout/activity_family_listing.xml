@@ -42,7 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/hh08a1" />
+            android:text="@string/hh08a1"
+            android:visibility="gone" />
 
         <RadioGroup
             android:id="@+id/hh08a1"
@@ -55,21 +56,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:checked="true"
-                android:text="@string/yes" />
+                android:text="@string/yes"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh08a1b"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/rfsd" />
+                android:text="@string/rfsd"
+                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/hh08a1c"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/locked" />
+                android:text="@string/locked"
+                android:visibility="gone" />
 
         </RadioGroup>
 
