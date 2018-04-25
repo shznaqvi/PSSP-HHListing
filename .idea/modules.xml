@@ -3,12 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PSSP-HHListing.iml" filepath="$PROJECT_DIR$/PSSP-HHListing.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PSSP-HHListing.iml" filepath="$PROJECT_DIR$/PSSP-HHListing.iml" />
-      <module fileurl="file://C:/Users/shzna.F49467/StudioProjects/PSSP-HHListing/PSSP-HHListing.iml" filepath="C:/Users/shzna.F49467/StudioProjects/PSSP-HHListing/PSSP-HHListing.iml" />
       <module fileurl="file://$PROJECT_DIR$/../PSSP-HHListing1/PSSP-HHListing.iml" filepath="$PROJECT_DIR$/../PSSP-HHListing1/PSSP-HHListing.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/PSSP-HHListing1.iml" filepath="$PROJECT_DIR$/.idea/PSSP-HHListing1.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:/Users/shzna.F49467/StudioProjects/PSSP-HHListing/app/app.iml" filepath="C:/Users/shzna.F49467/StudioProjects/PSSP-HHListing/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/../PSSP-HHListing1/app/app.iml" filepath="$PROJECT_DIR$/../PSSP-HHListing1/app/app.iml" />
     </modules>
   </component>
