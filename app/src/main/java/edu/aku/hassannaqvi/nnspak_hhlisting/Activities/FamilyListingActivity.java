@@ -253,7 +253,7 @@ public class FamilyListingActivity extends Activity {
             }
         });
 
-        hh08a1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        /*hh08a1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.hh08a1a) {
@@ -293,7 +293,7 @@ public class FamilyListingActivity extends Activity {
                     hh14b.setEnabled(false);
                 }
             }
-        });
+        });*/
 
     }
 
@@ -346,7 +346,7 @@ public class FamilyListingActivity extends Activity {
     private void SaveDraft() {
 
         AppMain.lc.setHh07(AppMain.hh07txt.toString());
-        AppMain.lc.setHh08a1(hh08a1a.isChecked() ? "1" : hh08a1b.isChecked() ? "2" : hh08a1c.isChecked() ? "3" : "0");
+        AppMain.lc.setHh08a1("1");
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
         AppMain.lc.setHh10(hh10a.isChecked() ? "1" : hh10b.isChecked() ? "2" : "0");
@@ -365,7 +365,7 @@ public class FamilyListingActivity extends Activity {
 
     private boolean formValidation() {
 
-        if (hh08a1a.isChecked()) {
+        //if (hh08a1a.isChecked()) {
 
             if (hh08.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please enter name", Toast.LENGTH_SHORT).show();
@@ -510,7 +510,7 @@ public class FamilyListingActivity extends Activity {
                 hh16.setError(null);
             }
 
-        }
+//        }
 
         return true;
     }
