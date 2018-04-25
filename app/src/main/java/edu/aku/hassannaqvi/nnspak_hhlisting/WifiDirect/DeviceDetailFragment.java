@@ -1,6 +1,5 @@
 package edu.aku.hassannaqvi.nnspak_hhlisting.WifiDirect;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -70,7 +69,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         db = new FormsDBHelper(getActivity());
 
         mContentView = inflater.inflate(R.layout.device_detail, null);
-        msgBox = mContentView.findViewById(R.id.msgBox);
+        msgBox = mContentView.findViewById(R.id.clusterBox);
         mContentView.findViewById(R.id.btn_connect).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -109,7 +108,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                 });
 
 
-        mContentView.findViewById(R.id.btn_send_msg).setOnClickListener(new View.OnClickListener() {
+        mContentView.findViewById(R.id.btn_send_cluster_data).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -163,8 +162,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         } else if (info.groupFormed) {
             // The other device acts as the client. In this case, we enable the
             // get file button.
-            mContentView.findViewById(R.id.btn_send_msg).setVisibility(View.VISIBLE);
-            mContentView.findViewById(R.id.msgBox).setVisibility(View.VISIBLE);
+            mContentView.findViewById(R.id.btn_send_cluster_data).setVisibility(View.VISIBLE);
+            mContentView.findViewById(R.id.clusterBox).setVisibility(View.VISIBLE);
             ((TextView) mContentView.findViewById(R.id.status_text)).setText(getResources()
                     .getString(R.string.client_text));
         }
@@ -201,8 +200,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         view.setText(R.string.empty);
         view = mContentView.findViewById(R.id.status_text);
         view.setText(R.string.empty);
-        mContentView.findViewById(R.id.btn_send_msg).setVisibility(View.GONE);
-        mContentView.findViewById(R.id.msgBox).setVisibility(View.GONE);
+        mContentView.findViewById(R.id.btn_send_cluster_data).setVisibility(View.GONE);
+        mContentView.findViewById(R.id.clusterBox).setVisibility(View.GONE);
         this.getView().setVisibility(View.GONE);
     }
 

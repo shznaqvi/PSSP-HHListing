@@ -42,14 +42,17 @@
                 android:layout_height="wrap_content"
                 android:text="Send Cluster Data"
                 android:visibility="gone" />
-
-            <EditText
-                android:id="@+id/msgBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Message"
-                android:textColor="@color/colorPrimary" />
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/clusterBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteOverlay"
+            android:hint="Cluster No"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/device_address"
