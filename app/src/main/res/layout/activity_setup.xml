@@ -197,6 +197,17 @@
 
         </RadioGroup>
 
+        <EditText
+            android:id="@+id/hh04jx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:digits="@string/txtName"
+            android:hint="@string/hh04j"
+            android:inputType="text"
+            android:maxLength="50"
+            android:visibility="gone" />
+
         <CheckBox
             android:id="@+id/hh09a1"
             android:layout_width="match_parent"

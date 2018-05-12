@@ -42,7 +42,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = DATABASE_NAME.replace(".db", "-copy.db");
     public static final String FOLDER_NAME = "DMU-NNSPAKHHL";
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -58,6 +58,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH04 + " TEXT, " +
+            ListingEntry.COLUMN_NAME_HH04OTHER + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH05 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH06 + " TEXT, " +
             ListingEntry.COLUMN_NAME_HH07 + " TEXT, " +
@@ -101,6 +102,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private static final String SQL_ALTER_LISTING1 = "ALTER TABLE " +
             ListingEntry.TABLE_NAME + " ADD COLUMN " +
             ListingEntry.COLUMN_RANDOMIZED + " TEXT;";
+
+    private static final String SQL_ALTER_LISTING2 = "ALTER TABLE " +
+            ListingEntry.TABLE_NAME + " ADD COLUMN " +
+            ListingEntry.COLUMN_NAME_HH04OTHER + " TEXT;";
 
     /*final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
             singlePSU._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -177,6 +182,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 db.execSQL(SQL_ALTER_LISTING1);
                 db.execSQL(SQL_CREATE_BL_RANDOM);
                 db.execSQL(SQL_CREATE_VERTICES_TABLE);
+
+            case 2:
+                db.execSQL(SQL_ALTER_LISTING2);
 
         }
 
@@ -293,6 +301,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Log.d(TAG, "PSUExist (Test): " + AppMain.sharedPref.getString(lc.getHh02(), "0"));
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
+        values.put(ListingEntry.COLUMN_NAME_HH04OTHER, lc.getHh04other());
         values.put(ListingEntry.COLUMN_NAME_HH05, lc.getHh05());
         values.put(ListingEntry.COLUMN_NAME_HH06, lc.getHh06());
         values.put(ListingEntry.COLUMN_NAME_HH07, lc.getHh07());
@@ -407,6 +416,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
+                ListingEntry.COLUMN_NAME_HH04OTHER,
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
@@ -490,6 +500,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
+                ListingEntry.COLUMN_NAME_HH04OTHER,
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
@@ -638,6 +649,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
+                ListingEntry.COLUMN_NAME_HH04OTHER,
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
@@ -721,6 +733,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
+                ListingEntry.COLUMN_NAME_HH04OTHER,
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,
@@ -809,6 +822,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
                 ListingEntry.COLUMN_NAME_HH04,
+                ListingEntry.COLUMN_NAME_HH04OTHER,
                 ListingEntry.COLUMN_NAME_HH05,
                 ListingEntry.COLUMN_NAME_HH06,
                 ListingEntry.COLUMN_NAME_HH07,

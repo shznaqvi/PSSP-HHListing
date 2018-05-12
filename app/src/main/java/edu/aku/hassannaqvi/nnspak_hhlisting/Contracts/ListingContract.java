@@ -21,6 +21,7 @@ public class ListingContract {
     public String hh02;
     public String hh03;
     public String hh04;
+    public String hh04other;
     public String hh05;
     public String hh06;
     public String hh07;
@@ -56,6 +57,14 @@ public class ListingContract {
     private String username; // User Name
 
     public ListingContract() {
+    }
+
+    public String getHh04other() {
+        return hh04other;
+    }
+
+    public void setHh04other(String hh04other) {
+        this.hh04other = hh04other;
     }
 
     public String getTotalhh() {
@@ -410,6 +419,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
         json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03);
         json.put(ListingEntry.COLUMN_NAME_HH04, this.hh04);
+        json.put(ListingEntry.COLUMN_NAME_HH04OTHER, this.hh04other);
         json.put(ListingEntry.COLUMN_NAME_HH14, this.hh14);
         json.put(ListingEntry.COLUMN_NAME_HH05, this.hh05);
         json.put(ListingEntry.COLUMN_NAME_HH06, this.hh06);
@@ -456,6 +466,7 @@ public class ListingContract {
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
         lc.setHh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH03))));
         lc.setHh04(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04))));
+        lc.setHh04other(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH04OTHER))));
         lc.setHh05(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH05))));
         lc.setHh06(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH06))));
         lc.setHh07(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH07))));
@@ -508,6 +519,7 @@ public class ListingContract {
         this.hh02 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH02);
         this.hh03 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH03);
         this.hh04 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH04);
+        this.hh04other = jsonObject.getString(ListingEntry.COLUMN_NAME_HH04OTHER);
         this.hh05 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH05);
         this.hh06 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH06);
         this.hh07 = jsonObject.getString(ListingEntry.COLUMN_NAME_HH07);
@@ -555,6 +567,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH02 = "hh02";
         public static final String COLUMN_NAME_HH03 = "hh03";
         public static final String COLUMN_NAME_HH04 = "hh04";
+        public static final String COLUMN_NAME_HH04OTHER = "hh04other";
         public static final String COLUMN_NAME_HH05 = "hh05";
         public static final String COLUMN_NAME_HH06 = "hh06";
         public static final String COLUMN_NAME_HH07 = "hh07";

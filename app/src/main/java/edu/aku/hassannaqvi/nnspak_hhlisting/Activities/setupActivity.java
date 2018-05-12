@@ -68,6 +68,8 @@ public class setupActivity extends Activity {
     RadioButton hh04i;
     @BindView(R.id.hh04j)
     RadioButton hh04j;
+    @BindView(R.id.hh04jx)
+    EditText hh04jx;
 
     /*    @BindView(R.id.hh04c)
         RadioButton hh04c;
@@ -196,6 +198,13 @@ public class setupActivity extends Activity {
                 } else {
                     btnChangPSU.setVisibility(View.GONE);
 
+                }
+
+                if (hh04j.isChecked()) {
+                    hh04jx.setVisibility(View.VISIBLE);
+                } else {
+                    hh04jx.setVisibility(View.GONE);
+                    hh04jx.setText(null);
                 }
             }
         });
@@ -327,6 +336,7 @@ public class setupActivity extends Activity {
             default:
                 break;
         }
+        AppMain.lc.setHh04other(hh04jx.getText().toString());
         AppMain.lc.setUsername(AppMain.userEmail);
         AppMain.lc.setHh05(hh05.isChecked() ? "1" : "2");
         AppMain.lc.setHh06(hh06.getText().toString());
@@ -427,6 +437,16 @@ public class setupActivity extends Activity {
                 hh06.setError(null);
             }
         }
+
+        if (hh04j.isChecked() && hh04jx.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "ERROR(empty): Data required", Toast.LENGTH_LONG).show();
+            hh04jx.setError("ERROR(empty): Data required");
+            Log.i(TAG, "ERROR(empty): Data required");
+            return false;
+        } else {
+            hh04jx.setError(null);
+        }
+
 
         return true;
     }
