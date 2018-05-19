@@ -39,6 +39,8 @@ public class FamilyListingActivity extends Activity {
     Button btnContNextQ;
     @BindView(R.id.btnAddMWRA)
     Button btnAddMWRA;
+    @BindView(R.id.hh19) EditText hh19;
+    @BindView(R.id.hh20) EditText hh20;
 
     FormsDBHelper db;
 
@@ -160,6 +162,8 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh09(hh09.getText().toString());
         AppMain.lc.setHh09a(hh09a.isChecked() ? "1" : "2");
         AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());
+        AppMain.lc.setBnf1(hh19.getText().toString());
+        AppMain.lc.setBnf2(hh20.getText().toString());
 
 //        setGPS();
 

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -53,19 +54,29 @@ public class AddChildActivity extends Activity {
     LinearLayout icage;
     @BindView(R.id.icdob)
     LinearLayout icdob;
+    @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
+    @BindView(R.id.hhdob)
     DatePicker hhdob;
     FormsDBHelper db;
     String dtToday;
+
+    Calendar now = Calendar.getInstance();
+    int year = now.get(Calendar.YEAR);
+    int month = now.get(Calendar.MONTH);
+    int day = now.get(Calendar.DATE);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_child);
         ButterKnife.bind(this);
-        hhdob.setMaxDate(System.currentTimeMillis());
-        hhdob.setMinDate(System.currentTimeMillis() - (AppMain.MILLISECONDS_IN_DAY * 30) * 7);
+        hhdob.setMaxDate(new Date().getTime());
+        hhdob.setMinDate(new Date().getTime() - ((AppMain.MILLISECONDS_IN_DAY * 30) * 7));
         dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
+
+        final int currentAge = (year - (hhdob.getYear())) * 12 + (month - (hhdob.getMonth()));
 
 //        AppMain.cCount++;
 
@@ -87,6 +98,8 @@ public class AddChildActivity extends Activity {
         }
 
         db = new FormsDBHelper(this);
+
+        icAgeM.setText(String.valueOf(currentAge));
 
         icdobage.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -142,6 +155,7 @@ public class AddChildActivity extends Activity {
         AppMain.cc = new ChildrenContract();
         String DOB = new SimpleDateFormat("dd-MM-yyyy").format(hhdob.getCalendarView().getDate());
 
+
         AppMain.cc.setUUID(AppMain.lc.getUID());
         AppMain.cc.setcDT(dtToday);
         AppMain.cc.setUserName(AppMain.userName);
@@ -157,6 +171,8 @@ public class AddChildActivity extends Activity {
         AppMain.cc.setHousehold(AppMain.household);
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
+
+
     }
 
     private boolean formValidation() {

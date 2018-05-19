@@ -29,6 +29,8 @@
     <string name="hh13"> Age of Child </string>
     <string name="hh14"> Is lady health worker visited your home? </string>
     <string name="hh15"> Whats the name of lady health worker? </string>
+    <string name="hh19"> Name of Beneficiary 1 </string>
+    <string name="hh20"> Name of Beneficiary 2 </string>
     <string name="yes"> yes </string>
     <string name="no"> no </string>
 
