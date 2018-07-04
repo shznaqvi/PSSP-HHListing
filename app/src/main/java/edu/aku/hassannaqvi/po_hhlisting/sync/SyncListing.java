@@ -168,7 +168,14 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
                     db.updateSyncedForms(jsonObject.getString("id"));
                     sSynced++;
                 } else {
-                    sSyncedError += "\nError: " + jsonObject.getString("message").toString();
+                    String error = jsonObject.getString("message").toString();
+                    sSyncedError += "\nError: " + error;
+
+                    if (error.equals("duplicate records")){
+                        db.updateSyncedForms(jsonObject.getString("id"));
+                        sSynced++;
+                    }
+
                 }
             }
             Toast.makeText(mContext, sSynced + " Listing synced." + String.valueOf(json.length() - sSynced) + " Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
