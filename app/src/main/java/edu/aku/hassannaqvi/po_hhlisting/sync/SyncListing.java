@@ -171,7 +171,7 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
                     String error = jsonObject.getString("message").toString();
                     sSyncedError += "\nError: " + error;
 
-                    if (error.equals("duplicate records")){
+                    if (error.equals("duplicate record")){
                         db.updateSyncedForms(jsonObject.getString("id"));
                         sSynced++;
                     }
