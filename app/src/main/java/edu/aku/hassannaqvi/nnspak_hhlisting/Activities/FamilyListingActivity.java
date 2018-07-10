@@ -524,7 +524,7 @@ public class FamilyListingActivity extends Activity {
             if (UpdateDB()) {
                 /*AppMain.cCount = 0;
                 AppMain.cTotal = 0;*/
-                AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
+                AppMain.hh07txt = String.valueOf(Integer.valueOf(AppMain.hh07txt) + 1);
                 AppMain.lc.setHh07(AppMain.hh07txt.toString());
                 AppMain.fCount++;
 
