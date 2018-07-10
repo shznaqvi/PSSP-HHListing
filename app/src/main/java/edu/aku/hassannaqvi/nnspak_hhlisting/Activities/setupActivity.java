@@ -107,12 +107,12 @@ public class setupActivity extends Activity {
         ButterKnife.bind(this);
 
         if (AppMain.userEmail == null) {
-            Toast.makeText(this, "USER ERROR: Please Login Again!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "USER ERROR1[" + AppMain.userEmail + "]: Please Login Again!", Toast.LENGTH_LONG).show();
             Intent retreat = new Intent(this, LoginActivity.class);
             startActivity(retreat);
         }
-        if (AppMain.userEmail.length() < 8) {
-            Toast.makeText(this, "USER ERROR: Please Login Again!", Toast.LENGTH_LONG).show();
+        if (AppMain.userEmail.length() < 7) {
+            Toast.makeText(this, "USER ERROR2" + AppMain.userEmail + ": Please Login Again!", Toast.LENGTH_LONG).show();
             Intent retreat = new Intent(this, LoginActivity.class);
             startActivity(retreat);
         }
