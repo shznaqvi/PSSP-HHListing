@@ -45,7 +45,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.BLRandomContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.VerticesContract;
@@ -134,6 +133,7 @@ public class MainActivity extends MenuActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
 
         if (AppMain.admin) {
             adminBlock.setVisibility(View.VISIBLE);

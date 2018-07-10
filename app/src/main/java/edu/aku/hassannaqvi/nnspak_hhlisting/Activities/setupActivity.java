@@ -96,7 +96,7 @@ public class setupActivity extends Activity {
     Button btnChangPSU;
     @BindView(R.id.hh09a1)
     CheckBox hh09a1;
-    String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
+    String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm:ss").format(new Date().getTime());
 
     private String TAG = "Setup Activity";
 
@@ -105,6 +105,18 @@ public class setupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
         ButterKnife.bind(this);
+
+        if (AppMain.userEmail == null) {
+            Toast.makeText(this, "USER ERROR: Please Login Again!", Toast.LENGTH_LONG).show();
+            Intent retreat = new Intent(this, LoginActivity.class);
+            startActivity(retreat);
+        }
+        if (AppMain.userEmail.length() < 8) {
+            Toast.makeText(this, "USER ERROR: Please Login Again!", Toast.LENGTH_LONG).show();
+            Intent retreat = new Intent(this, LoginActivity.class);
+            startActivity(retreat);
+        }
+
 
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
