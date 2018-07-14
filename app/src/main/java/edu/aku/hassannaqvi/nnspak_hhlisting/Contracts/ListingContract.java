@@ -39,6 +39,7 @@ public class ListingContract {
     public String hh16;
     public String hhadd;
     public String isNewHH;
+    public String counter;
     public String DeviceID;
     public String GPSLat;
     public String GPSLng;
@@ -404,6 +405,14 @@ public class ListingContract {
         this.hh08a1 = hh08a1;
     }
 
+    public String getCounter() {
+        return counter;
+    }
+
+    public void setCounter(String counter) {
+        this.counter = counter;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put("projectname", "NNS-LINELISTING 2018");
@@ -449,6 +458,10 @@ public class ListingContract {
 
         json.put(ListingEntry.COLUMN_ISNEWHH, this.isNewHH);
         json.put(ListingEntry.COLUMN_RANDOMIZED, this.isRandom);
+
+        if (!this.counter.equals("")) {
+            json.put(ListingEntry.COLUMN_COUNTER, this.counter.equals("") ? JSONObject.NULL : new JSONObject(this.counter));
+        }
 
         return json;
     }
@@ -496,6 +509,8 @@ public class ListingContract {
 
         lc.setIsNewHH(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ISNEWHH))));
         lc.setIsRandom(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_RANDOMIZED))));
+
+        lc.setCounter(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_COUNTER))));
 
         if (type == 1) {
             lc.setResCount(String.valueOf(c.getString(c.getColumnIndex("RESCOUNTER"))));
@@ -548,6 +563,8 @@ public class ListingContract {
         this.isRandom = jsonObject.getString(ListingEntry.COLUMN_RANDOMIZED);
         this.username = jsonObject.getString(ListingEntry.COLUMN_USERNAME);
 
+        this.counter = jsonObject.getString(ListingEntry.COLUMN_COUNTER);
+
         return this;
     }
 
@@ -585,6 +602,7 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH16 = "hh16";
         public static final String COLUMN_ADDRESS = "hhadd";
         public static final String COLUMN_ISNEWHH = "isnewhh";
+        public static final String COLUMN_COUNTER = "counter";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
         public static final String COLUMN_NAME_GPSLng = "gpslng";

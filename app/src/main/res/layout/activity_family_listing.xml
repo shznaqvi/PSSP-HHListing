@@ -179,7 +179,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:digits="1234567890"
                 android:hint="@string/hh10a"
                 android:inputType="number"
                 android:maxLength="2"
@@ -237,7 +236,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:digits="1234567890"
                 android:hint="@string/hh12a"
                 android:inputType="number"
                 android:maxLength="2"
@@ -295,7 +293,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="1"
-                android:digits="1234567890"
                 android:hint="@string/hh14a"
                 android:inputType="number"
                 android:maxLength="2"
@@ -320,7 +317,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="1234567890"
                 android:hint="@string/hh14a"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -336,7 +332,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="1234567890"
                 android:hint="@string/hh14a"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -352,7 +347,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="1234567890"
                 android:hint="@string/hh14a"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -368,7 +362,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="1234567890"
                 android:hint="@string/hh14a"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -384,7 +377,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="1234567890"
                 android:hint="@string/hh14a"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -400,7 +392,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:digits="1234567890"
                 android:hint="@string/hh14a"
                 android:inputType="number"
                 android:maxLength="2" />

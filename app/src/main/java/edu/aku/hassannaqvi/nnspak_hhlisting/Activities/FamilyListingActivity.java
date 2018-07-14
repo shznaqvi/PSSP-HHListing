@@ -14,6 +14,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,6 +89,19 @@ public class FamilyListingActivity extends Activity {
     Button btnAddFamilty;
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
+
+    @BindView(R.id.hh18)
+    EditText hh18;
+    @BindView(R.id.hh19)
+    EditText hh19;
+    @BindView(R.id.hh20)
+    EditText hh20;
+    @BindView(R.id.hh21)
+    EditText hh21;
+    @BindView(R.id.hh22)
+    EditText hh22;
+    @BindView(R.id.hh23)
+    EditText hh23;
 
     @BindViews({R.id.hh10, R.id.hh12, R.id.hh14})
     List<RadioGroup> hh10_12;
@@ -317,7 +333,11 @@ public class FamilyListingActivity extends Activity {
 
         if (formValidation()) {
 
-            SaveDraft();
+            try {
+                SaveDraft();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (UpdateDB()) {
                 if (familyFlag) {
                     AppMain.hh07txt = String.valueOf(Integer.valueOf(AppMain.hh07txt) + 1);
@@ -343,7 +363,7 @@ public class FamilyListingActivity extends Activity {
 
     }
 
-    private void SaveDraft() {
+    private void SaveDraft() throws JSONException {
 
         AppMain.lc.setHh07(AppMain.hh07txt.toString());
         AppMain.lc.setHh08a1("1");
@@ -358,6 +378,16 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh16(hh16.getText().toString());
         AppMain.lc.setIsNewHH(hh17.isChecked() ? "1" : "2");
 
+        JSONObject sA = new JSONObject();
+        sA.put("hh18", hh18.getText().toString());
+        sA.put("hh19", hh19.getText().toString());
+        sA.put("hh20", hh20.getText().toString());
+        sA.put("hh21", hh21.getText().toString());
+        sA.put("hh22", hh22.getText().toString());
+        sA.put("hh23", hh23.getText().toString());
+
+        AppMain.lc.setCounter(String.valueOf(sA));
+
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
 
@@ -367,45 +397,45 @@ public class FamilyListingActivity extends Activity {
 
         //if (hh08a1a.isChecked()) {
 
-            if (hh08.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Please enter name", Toast.LENGTH_SHORT).show();
-                hh08.setError("Please enter name");
-                Log.i(TAG, "Please enter name");
-                return false;
-            } else {
-                hh08.setError(null);
-            }
+        if (hh08.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter name", Toast.LENGTH_SHORT).show();
+            hh08.setError("Please enter name");
+            Log.i(TAG, "Please enter name");
+            return false;
+        } else {
+            hh08.setError(null);
+        }
 
-            if (hh09.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Please enter contact number", Toast.LENGTH_SHORT).show();
-                hh09.setError("Please enter contact number");
-                Log.i(TAG, "Please enter contact number");
-                return false;
-            } else {
-                hh09.setError(null);
-            }
+        if (hh09.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter contact number", Toast.LENGTH_SHORT).show();
+            hh09.setError("Please enter contact number");
+            Log.i(TAG, "Please enter contact number");
+            return false;
+        } else {
+            hh09.setError(null);
+        }
 
-            if (hh16.getText().toString().isEmpty()) {
-                Toast.makeText(this, "ERROR(empty): " + getString(R.string.hh16), Toast.LENGTH_SHORT).show();
-                hh16.setError("ERROR(empty): " + getString(R.string.hh16));
-                Log.i(TAG, "ERROR(empty): " + getString(R.string.hh16));
-                return false;
-            } else {
-                hh16.setError(null);
-            }
+        if (hh16.getText().toString().isEmpty()) {
+            Toast.makeText(this, "ERROR(empty): " + getString(R.string.hh16), Toast.LENGTH_SHORT).show();
+            hh16.setError("ERROR(empty): " + getString(R.string.hh16));
+            Log.i(TAG, "ERROR(empty): " + getString(R.string.hh16));
+            return false;
+        } else {
+            hh16.setError(null);
+        }
 
 
-            if (!validatorClass.EmptyRadioButton(this, hh10, hh10a, getString(R.string.hh10))) {
+        if (!validatorClass.EmptyRadioButton(this, hh10, hh10a, getString(R.string.hh10))) {
+            return false;
+        }
+        if (!validatorClass.EmptyRadioButton(this, hh10, hh10a, hh11, "Adolescents count")) {
+            return false;
+        }
+        if (hh10a.isChecked()) {
+            if (!validatorClass.RangeTextBox(this, hh11, 1, 99, getString(R.string.hh10), "for Adolescents")) {
                 return false;
             }
-            if (!validatorClass.EmptyRadioButton(this, hh10, hh10a, hh11, "Adolescents count")) {
-                return false;
-            }
-            if (hh10a.isChecked()) {
-                if (!validatorClass.RangeTextBox(this, hh11, 1, 99, getString(R.string.hh10), "for Adolescents")) {
-                    return false;
-                }
-            }
+        }
 /*
         if (hh10a.isChecked() && hh11.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter adolescents count", Toast.LENGTH_SHORT).show();
@@ -425,19 +455,19 @@ public class FamilyListingActivity extends Activity {
             hh11.setError(null);
         }*/
 
-            if (false) {
-                if (!validatorClass.EmptyRadioButton(this, hh12, hh12a, getString(R.string.hh12))) {
+        if (false) {
+            if (!validatorClass.EmptyRadioButton(this, hh12, hh12a, getString(R.string.hh12))) {
+                return false;
+            }
+            if (!validatorClass.EmptyRadioButton(this, hh12, hh12a, hh13, "Children count")) {
+                return false;
+            }
+            if (hh12a.isChecked()) {
+                if (!validatorClass.RangeTextBox(this, hh13, 1, 99, getString(R.string.hh12), "for Childrens")) {
                     return false;
-                }
-                if (!validatorClass.EmptyRadioButton(this, hh12, hh12a, hh13, "Children count")) {
-                    return false;
-                }
-                if (hh12a.isChecked()) {
-                    if (!validatorClass.RangeTextBox(this, hh13, 1, 99, getString(R.string.hh12), "for Childrens")) {
-                        return false;
-                    }
                 }
             }
+        }
 
         /*if (hh12a.isChecked() && hh13.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter children count", Toast.LENGTH_SHORT).show();
@@ -458,17 +488,17 @@ public class FamilyListingActivity extends Activity {
         }*/
 
 
-            if (!validatorClass.EmptyRadioButton(this, hh14, hh14a, getString(R.string.hh14))) {
+        if (!validatorClass.EmptyRadioButton(this, hh14, hh14a, getString(R.string.hh14))) {
+            return false;
+        }
+        if (!validatorClass.EmptyRadioButton(this, hh14, hh14a, hh15, "Married Woman count")) {
+            return false;
+        }
+        if (hh14a.isChecked()) {
+            if (!validatorClass.RangeTextBox(this, hh15, 1, 99, getString(R.string.hh14), "for Married Woman")) {
                 return false;
             }
-            if (!validatorClass.EmptyRadioButton(this, hh14, hh14a, hh15, "Married Woman count")) {
-                return false;
-            }
-            if (hh14a.isChecked()) {
-                if (!validatorClass.RangeTextBox(this, hh15, 1, 99, getString(R.string.hh14), "for Married Woman")) {
-                    return false;
-                }
-            }
+        }
 
         /*if (hh14a.isChecked() && hh15.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please enter married woman count", Toast.LENGTH_SHORT).show();
@@ -488,27 +518,77 @@ public class FamilyListingActivity extends Activity {
             hh15.setError(null);
         }*/
 
-            if (Integer.valueOf(hh16.getText().toString()) < 1) {
-                Toast.makeText(this, "Invalid Value!", Toast.LENGTH_SHORT).show();
-                hh16.setError("Invalid Value!");
-                Log.i(TAG, "Invalid Value!");
-                return false;
-            } else {
-                hh16.setError(null);
-            }
+        if (Integer.valueOf(hh16.getText().toString()) < 1) {
+            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_SHORT).show();
+            hh16.setError("Invalid Value!");
+            Log.i(TAG, "Invalid Value!");
+            return false;
+        } else {
+            hh16.setError(null);
+        }
 
 
-            if (Integer.valueOf(hh16.getText().toString()) <
-                    (Integer.valueOf(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString()) +
-                            Integer.valueOf(hh13.getText().toString().isEmpty() ? "0" : hh13.getText().toString()) +
-                            Integer.valueOf(hh15.getText().toString().isEmpty() ? "0" : hh15.getText().toString()))) {
-                Toast.makeText(this, "Invalid Count!", Toast.LENGTH_SHORT).show();
-                hh16.setError("Invalid Count!");
-                Log.i(TAG, "(hh16): Invalid Count! ");
-                return false;
-            } else {
-                hh16.setError(null);
-            }
+        if (Integer.valueOf(hh16.getText().toString()) <
+                (Integer.valueOf(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString()) +
+                        Integer.valueOf(hh13.getText().toString().isEmpty() ? "0" : hh13.getText().toString()) +
+                        Integer.valueOf(hh15.getText().toString().isEmpty() ? "0" : hh15.getText().toString()))) {
+            Toast.makeText(this, "Invalid Count!", Toast.LENGTH_SHORT).show();
+            hh16.setError("Invalid Count!");
+            Log.i(TAG, "(hh16): Invalid Count! ");
+            return false;
+        } else {
+            hh16.setError(null);
+        }
+
+
+        if (!validatorClass.EmptyTextBox(this, hh18, getString(R.string.hh18))) {
+            return false;
+        }
+
+        if (!validatorClass.RangeTextBox(this, hh18, (hh10a.isChecked() ? Integer.valueOf(hh11.getText().toString()) : 0), 99, getString(R.string.hh18), "")) {
+            return false;
+        }
+
+        if (!validatorClass.EmptyTextBox(this, hh19, getString(R.string.hh19))) {
+            return false;
+        }
+
+        if (!validatorClass.RangeTextBox(this, hh19, 0, 99, getString(R.string.hh19), "Deaths")) {
+            return false;
+        }
+
+        if (!validatorClass.EmptyTextBox(this, hh20, getString(R.string.hh20))) {
+            return false;
+        }
+
+        if (!validatorClass.RangeTextBox(this, hh20, 0, 99, getString(R.string.hh20), "Deaths")) {
+            return false;
+        }
+
+        if (!validatorClass.EmptyTextBox(this, hh21, getString(R.string.hh21))) {
+            return false;
+        }
+
+        if (!validatorClass.RangeTextBox(this, hh21, 0, 99, getString(R.string.hh21), "Deaths")) {
+            return false;
+        }
+
+        if (!validatorClass.EmptyTextBox(this, hh22, getString(R.string.hh22))) {
+            return false;
+        }
+
+        if (!validatorClass.RangeTextBox(this, hh22, 0, 99, getString(R.string.hh22), "Deaths")) {
+            return false;
+        }
+
+        if (!validatorClass.EmptyTextBox(this, hh23, getString(R.string.hh23))) {
+            return false;
+        }
+
+        if (!validatorClass.RangeTextBox(this, hh23, 0, 99, getString(R.string.hh23), "Deaths")) {
+            return false;
+        }
+
 
 //        }
 
@@ -520,7 +600,11 @@ public class FamilyListingActivity extends Activity {
     void onBtnAddFamilyClick() {
         if (formValidation()) {
 
-            SaveDraft();
+            try {
+                SaveDraft();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (UpdateDB()) {
                 /*AppMain.cCount = 0;
                 AppMain.cTotal = 0;*/
@@ -541,7 +625,11 @@ public class FamilyListingActivity extends Activity {
     void onBtnAddHouseholdClick() {
         if (formValidation()) {
 
-            SaveDraft();
+            try {
+                SaveDraft();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (UpdateDB()) {
                 AppMain.fCount = 0;
                 AppMain.fTotal = 0;

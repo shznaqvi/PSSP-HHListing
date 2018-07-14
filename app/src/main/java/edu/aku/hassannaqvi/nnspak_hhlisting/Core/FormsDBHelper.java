@@ -42,7 +42,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = DATABASE_NAME.replace(".db", "-copy.db");
     public static final String FOLDER_NAME = "DMU-NNSPAKHHL";
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -76,6 +76,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             ListingEntry.COLUMN_NAME_HH16 + " TEXT, " +
             ListingEntry.COLUMN_ADDRESS + " TEXT, " +
             ListingEntry.COLUMN_ISNEWHH + " TEXT, " +
+            ListingEntry.COLUMN_COUNTER + " TEXT, " +
             ListingEntry.COLUMN_USERNAME + " TEXT, " +
             ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
             ListingEntry.COLUMN_TAGID + " TEXT, " +
@@ -106,6 +107,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private static final String SQL_ALTER_LISTING2 = "ALTER TABLE " +
             ListingEntry.TABLE_NAME + " ADD COLUMN " +
             ListingEntry.COLUMN_NAME_HH04OTHER + " TEXT;";
+
+    private static final String SQL_ALTER_LISTING3 = "ALTER TABLE " +
+            ListingEntry.TABLE_NAME + " ADD COLUMN " +
+            ListingEntry.COLUMN_COUNTER + " TEXT;";
 
     /*final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
             singlePSU._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -182,9 +187,10 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 db.execSQL(SQL_ALTER_LISTING1);
                 db.execSQL(SQL_CREATE_BL_RANDOM);
                 db.execSQL(SQL_CREATE_VERTICES_TABLE);
-
             case 2:
                 db.execSQL(SQL_ALTER_LISTING2);
+            case 3:
+                db.execSQL(SQL_ALTER_LISTING3);
 
         }
 
@@ -319,6 +325,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH16, lc.getHh16());
         values.put(ListingEntry.COLUMN_ISNEWHH, lc.getIsNewHH());
         values.put(ListingEntry.COLUMN_ADDRESS, lc.getHhadd());
+        values.put(ListingEntry.COLUMN_COUNTER, lc.getCounter());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
@@ -434,6 +441,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH16,
                 ListingEntry.COLUMN_ADDRESS,
                 ListingEntry.COLUMN_ISNEWHH,
+                ListingEntry.COLUMN_COUNTER,
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_TAGID,
@@ -518,6 +526,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH16,
                 ListingEntry.COLUMN_ADDRESS,
                 ListingEntry.COLUMN_ISNEWHH,
+                ListingEntry.COLUMN_COUNTER,
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_TAGID,
@@ -667,6 +676,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH16,
                 ListingEntry.COLUMN_ADDRESS,
                 ListingEntry.COLUMN_ISNEWHH,
+                ListingEntry.COLUMN_COUNTER,
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_TAGID,
@@ -751,6 +761,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH16,
                 ListingEntry.COLUMN_ADDRESS,
                 ListingEntry.COLUMN_ISNEWHH,
+                ListingEntry.COLUMN_COUNTER,
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_TAGID,
@@ -840,6 +851,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH16,
                 ListingEntry.COLUMN_ADDRESS,
                 ListingEntry.COLUMN_ISNEWHH,
+                ListingEntry.COLUMN_COUNTER,
                 ListingEntry.COLUMN_USERNAME,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_TAGID,
