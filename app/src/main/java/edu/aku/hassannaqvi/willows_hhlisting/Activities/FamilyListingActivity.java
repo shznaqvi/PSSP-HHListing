@@ -15,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -81,6 +83,11 @@ public class FamilyListingActivity extends Activity {
     @BindView(R.id.hh1199)
     RadioButton hh1199;
 
+    @BindView(R.id.hh10a)
+    TextView hh10a;
+    @BindView(R.id.hh12a)
+    TextView hh12a;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +105,13 @@ public class FamilyListingActivity extends Activity {
             btnAddFamilty.setVisibility(View.GONE);
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
+
+        // change string on basis of type
+        if (MainActivity.mwraTypeFlag) {
+            hh10a.setText(hh10a.getText().toString().replace("44", "49"));
+            hh12a.setText(hh12a.getText().toString().replace("44", "49"));
+        }
+
 
 /*        hh11.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

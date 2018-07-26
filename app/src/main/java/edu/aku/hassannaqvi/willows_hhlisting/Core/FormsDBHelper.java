@@ -43,7 +43,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "willows-hhl.db";
     public static final String DB_NAME = "willows-hhl_copy.db";
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -94,8 +94,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             singlePSU._ID + " TEXT," +
             singlePSU.COLUMN_PSU_CODE + " TEXT, " +
             singlePSU.COLUMN_PSU_NAME + " TEXT, " +
-            singlePSU.COLUMN_DISTRICT_CODE + " TEXT " +
+            singlePSU.COLUMN_DISTRICT_CODE + " TEXT, " +
+            singlePSU.COLUMN_TYPE + " TEXT " +
             ");";
+
+    private static final String SQL_ALTER_PSU_TABLE = "ALTER TABLE " +
+            singlePSU.TABLE_NAME + " ADD COLUMN " +
+            singlePSU.COLUMN_TYPE + " TEXT;";
 
     final String SQL_CREATE_VERTICES_TABLE = "CREATE TABLE " + singleVertices.TABLE_NAME + " (" +
             singleVertices._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -173,10 +178,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        switch (oldVersion){
+        switch (oldVersion) {
             case 4:
                 db.execSQL(SQL_CREATE_VERTICES_TABLE);
                 db.execSQL(SQL_CREATE_VERTICESUC_TABLE);
+            case 5:
+                db.execSQL(SQL_ALTER_PSU_TABLE);
         }
 
         // Simply discard all old data and start over when upgrading.
@@ -710,7 +717,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singlePSU._ID,
                 singlePSU.COLUMN_PSU_CODE,
                 singlePSU.COLUMN_PSU_NAME,
-                singlePSU.COLUMN_DISTRICT_CODE
+                singlePSU.COLUMN_DISTRICT_CODE,
+                singlePSU.COLUMN_TYPE
         };
 
         String whereClause = singlePSU.COLUMN_DISTRICT_CODE + " = ?";
@@ -966,6 +974,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 values.put(singlePSU._ID, pc.getId());
                 values.put(singlePSU.COLUMN_PSU_CODE, pc.getPSUCode());
                 values.put(singlePSU.COLUMN_PSU_NAME, pc.getPSUName());
+                values.put(singlePSU.COLUMN_TYPE, pc.getType());
                 values.put(singlePSU.COLUMN_DISTRICT_CODE, pc.getDistrictCode());
 
                 db.insert(singlePSU.TABLE_NAME, null, values);

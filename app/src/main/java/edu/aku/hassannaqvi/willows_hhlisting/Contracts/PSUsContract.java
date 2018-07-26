@@ -16,6 +16,7 @@ public class PSUsContract {
     private String psuCode;
     private String psuName;
     private String districtCode;
+    private String type;
 
 
     public PSUsContract() {
@@ -26,6 +27,7 @@ public class PSUsContract {
         this.psuCode = jsonObject.getString(singlePSU.COLUMN_PSU_CODE);
         this.psuName = jsonObject.getString(singlePSU.COLUMN_PSU_NAME);
         this.districtCode = jsonObject.getString(singlePSU.COLUMN_DISTRICT_CODE);
+        this.type = jsonObject.getString(singlePSU.COLUMN_TYPE);
 
 
         return this;
@@ -36,6 +38,7 @@ public class PSUsContract {
         this.psuCode = cursor.getString(cursor.getColumnIndex(singlePSU.COLUMN_PSU_CODE));
         this.psuName = cursor.getString(cursor.getColumnIndex(singlePSU.COLUMN_PSU_NAME));
         this.districtCode = cursor.getString(cursor.getColumnIndex(singlePSU.COLUMN_DISTRICT_CODE));
+        this.type = cursor.getString(cursor.getColumnIndex(singlePSU.COLUMN_TYPE));
 
         return this;
     }
@@ -72,6 +75,14 @@ public class PSUsContract {
         this.districtCode = districtCode;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public static abstract class singlePSU implements BaseColumns {
 
         public static final String TABLE_NAME = "PSUs";
@@ -80,6 +91,7 @@ public class PSUsContract {
         public static final String COLUMN_PSU_CODE = "cluster_code";
         public static final String COLUMN_PSU_NAME = "cluster_name";
         public static final String COLUMN_DISTRICT_CODE = "uc_code";
+        public static final String COLUMN_TYPE = "type";
 
         public static final String _URI = "clusters.php";
     }

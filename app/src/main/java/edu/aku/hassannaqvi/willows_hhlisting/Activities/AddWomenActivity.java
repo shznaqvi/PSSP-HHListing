@@ -37,8 +37,8 @@ public class AddWomenActivity extends Activity {
     EditText icName;
     @BindView(R.id.icAgeY)
     EditText icAgeY;
-/*    @BindView(R.id.icAgeD)
-    EditText icAgeD;*/
+    /*    @BindView(R.id.icAgeD)
+        EditText icAgeD;*/
     @BindView(R.id.btnAddWomen)
     Button btnAddWomen;
     @BindView(R.id.btnAddFamily)
@@ -51,7 +51,13 @@ public class AddWomenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_women);
         ButterKnife.bind(this);
-        txtWomenListing.setText("MWRA (16-44) Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.cCount + " of " + AppMain.cTotal + ")");
+
+        if (MainActivity.mwraTypeFlag) {
+            txtWomenListing.setText("MWRA (16-49) Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.cCount + " of " + AppMain.cTotal + ")");
+        } else {
+            txtWomenListing.setText("MWRA (16-44) Listing: " + AppMain.hh03txt + "-" + AppMain.hh07txt + " (" + AppMain.cCount + " of " + AppMain.cTotal + ")");
+        }
+
         if (AppMain.cCount < AppMain.cTotal) {
             btnAddWomen.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
@@ -151,10 +157,10 @@ public class AddWomenActivity extends Activity {
             return false;
         }
 
-        if (Integer.valueOf(icAgeY.getText().toString()) < 16 || Integer.valueOf(icAgeY.getText().toString()) > 44) {
-            Toast.makeText(this, "Age in year Range 16 - 44 ", Toast.LENGTH_LONG).show();
-            icAgeY.setError("Range 16 - 44");
-            Log.i(TAG, "Age in year Range 16 - 44");
+        if (Integer.valueOf(icAgeY.getText().toString()) < 16 || Integer.valueOf(icAgeY.getText().toString()) > (MainActivity.mwraTypeFlag ? 49 : 44)) {
+            Toast.makeText(this, "Age in year Range 16 - " + (MainActivity.mwraTypeFlag ? "49" : "44"), Toast.LENGTH_LONG).show();
+            icAgeY.setError("Range 16 - " + (MainActivity.mwraTypeFlag ? "49" : "44"));
+            Log.i(TAG, "Age in year Range 16 - " + (MainActivity.mwraTypeFlag ? "49" : "44"));
             return false;
         } else {
             icAgeY.setError(null);

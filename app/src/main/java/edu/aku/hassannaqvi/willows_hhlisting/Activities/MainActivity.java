@@ -78,6 +78,8 @@ public class MainActivity extends Activity {
     FormsDBHelper db;
     private Boolean exit = false;
 
+    public static Boolean mwraTypeFlag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -207,6 +209,8 @@ public class MainActivity extends Activity {
                         psuN.setText(psuNameS[2]);
                         Log.d(TAG, "onItemSelected: " + psuNameS[2]);
 
+
+                        mwraTypeFlag = p.getType().equals("1");
                     }
                 }
             }
