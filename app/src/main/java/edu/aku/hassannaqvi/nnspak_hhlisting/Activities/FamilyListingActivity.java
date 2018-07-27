@@ -40,7 +40,6 @@ public class FamilyListingActivity extends Activity {
     EditText hh08;
     @BindView(R.id.hh09)
     EditText hh09;
-
     @BindView(R.id.hh10)
     RadioGroup hh10;
     @BindView(R.id.hh10a)
@@ -585,14 +584,7 @@ public class FamilyListingActivity extends Activity {
             return false;
         }
 
-        if (!validatorClass.RangeTextBox(this, hh23, 0, 99, getString(R.string.hh23), "Deaths")) {
-            return false;
-        }
-
-
-//        }
-
-        return true;
+        return validatorClass.RangeTextBox(this, hh23, 0, 99, getString(R.string.hh23), "Deaths");
     }
 
 
