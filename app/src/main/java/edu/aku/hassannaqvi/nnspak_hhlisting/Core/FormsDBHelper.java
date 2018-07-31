@@ -28,6 +28,8 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract.singleTaluka;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract.singleUser;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.VersionAppContract;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.VersionAppContract.VersionAppTable;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.VerticesContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.VerticesContract.singleVertices;
 
@@ -42,7 +44,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = DATABASE_NAME.replace(".db", "-copy.db");
     public static final String FOLDER_NAME = "DMU-NNSPAKHHL";
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -153,6 +155,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             + singleRandomHH.COLUMN_HH_SELECTED_STRUCT + " TEXT,"
             + singleRandomHH.COLUMN_RANDOMDT + " TEXT );";
 
+    final String SQL_CREATE_VERSIONAPP = "CREATE TABLE " + VersionAppTable.TABLE_NAME + " (" +
+            VersionAppTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            VersionAppTable.COLUMN_VERSION_CODE + " TEXT, " +
+            VersionAppTable.COLUMN_VERSION_NAME + " TEXT, " +
+            VersionAppTable.COLUMN_PATH_NAME + " TEXT " +
+            ");";
+
     public FormsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -167,6 +176,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_USERS);
         db.execSQL(SQL_CREATE_BL_RANDOM);
         db.execSQL(SQL_CREATE_VERTICES_TABLE);
+        db.execSQL(SQL_CREATE_VERSIONAPP);
 
     }
 
@@ -191,6 +201,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 db.execSQL(SQL_ALTER_LISTING2);
             case 3:
                 db.execSQL(SQL_ALTER_LISTING3);
+            case 4:
+                db.execSQL(SQL_CREATE_VERSIONAPP);
 
         }
 
@@ -409,7 +421,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 whereArgs);
     }
 
-    public JSONArray getAllListingsJSON(){
+    public JSONArray getAllListingsJSON() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -799,7 +811,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 allLC.add(listing.hydrate(c, 0));
             }
 
-            for(ListingContract lc : allLC){
+            for (ListingContract lc : allLC) {
                 try {
                     jsonArray.put(lc.toJSONObject());
                 } catch (JSONException e) {
@@ -1254,5 +1266,71 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
 
         }
+    }
+
+    public void syncVersionApp(JSONArray Versionlist) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(VersionAppTable.TABLE_NAME, null, null);
+        try {
+            JSONArray jsonArray = Versionlist;
+            JSONObject jsonObjectCC = jsonArray.getJSONObject(0);
+
+            VersionAppContract Vc = new VersionAppContract();
+            Vc.Sync(jsonObjectCC);
+
+            ContentValues values = new ContentValues();
+
+            values.put(VersionAppTable.COLUMN_PATH_NAME, Vc.getPathname());
+            values.put(VersionAppTable.COLUMN_VERSION_CODE, Vc.getVersioncode());
+            values.put(VersionAppTable.COLUMN_VERSION_NAME, Vc.getVersionname());
+
+            db.insert(VersionAppTable.TABLE_NAME, null, values);
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+    }
+
+    public VersionAppContract getVersionApp() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                VersionAppTable._ID,
+                VersionAppTable.COLUMN_VERSION_CODE,
+                VersionAppTable.COLUMN_VERSION_NAME,
+                VersionAppTable.COLUMN_PATH_NAME
+        };
+
+        String whereClause = null;
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy = VersionAppTable._ID + " ASC";
+
+        VersionAppContract allVC = new VersionAppContract();
+        try {
+            c = db.query(
+                    VersionAppTable.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                allVC.hydrate(c);
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allVC;
     }
 }

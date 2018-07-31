@@ -22,6 +22,7 @@ import java.net.URL;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.EnumBlockContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.TeamsContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.UsersContract;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.VersionAppContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 
@@ -74,6 +75,9 @@ public class GetAllData extends AsyncTask<String, String, String> {
                 case "Team":
                     url = new URL(AppMain._HOST_URL + TeamsContract.singleTaluka._URI);
                     break;
+                case "VersionApp":
+                    url = new URL(AppMain._UPDATE_URL + VersionAppContract.VersionAppTable._URI);
+                    break;
             }
 
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -123,6 +127,9 @@ public class GetAllData extends AsyncTask<String, String, String> {
                             break;
                         case "Team":
                             db.syncTeams(jsonArray);
+                            break;
+                        case "VersionApp":
+                            db.syncVersionApp(jsonArray);
                             break;
                     }
 
