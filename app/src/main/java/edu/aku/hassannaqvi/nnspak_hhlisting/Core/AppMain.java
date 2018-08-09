@@ -11,7 +11,6 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
@@ -32,6 +31,7 @@ public class AppMain extends Application {
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     private static final int TWO_MINUTES = 1000 * 60 * 2;
     public static String _HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/nns/api/";
+    public static final String _UPDATE_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/nns/app/linelisting/";
 
     public static String TAG = "AppMain";
     public static Boolean admin = false;
