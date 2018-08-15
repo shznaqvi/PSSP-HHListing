@@ -544,41 +544,41 @@ public class FamilyListingActivity extends Activity {
             return false;
         }
 
-        if (!validatorClass.RangeTextBox(this, hh18, (hh10a.isChecked() ? Integer.valueOf(hh11.getText().toString()) : 0), 99, getString(R.string.hh18), "")) {
+        /*if (!validatorClass.RangeTextBox(this, hh18, (hh10a.isChecked() ? Integer.valueOf(hh11.getText().toString()) : 0), 99, getString(R.string.hh18), "")) {
             return false;
-        }
+        }*/
 
         if (!validatorClass.EmptyTextBox(this, hh19, getString(R.string.hh19))) {
             return false;
         }
 
-        if (!validatorClass.RangeTextBox(this, hh19, 0, 99, getString(R.string.hh19), "Deaths")) {
+        /*if (!validatorClass.RangeTextBox(this, hh19, 0, 99, getString(R.string.hh19), "Deaths")) {
             return false;
-        }
+        }*/
 
         if (!validatorClass.EmptyTextBox(this, hh20, getString(R.string.hh20))) {
             return false;
         }
 
-        if (!validatorClass.RangeTextBox(this, hh20, 0, 99, getString(R.string.hh20), "Deaths")) {
+        /*if (!validatorClass.RangeTextBox(this, hh20, 0, 99, getString(R.string.hh20), "Deaths")) {
             return false;
-        }
+        }*/
 
         if (!validatorClass.EmptyTextBox(this, hh21, getString(R.string.hh21))) {
             return false;
         }
 
-        if (!validatorClass.RangeTextBox(this, hh21, 0, 99, getString(R.string.hh21), "Deaths")) {
+        /*if (!validatorClass.RangeTextBox(this, hh21, 0, 99, getString(R.string.hh21), "Deaths")) {
             return false;
-        }
+        }*/
 
         if (!validatorClass.EmptyTextBox(this, hh22, getString(R.string.hh22))) {
             return false;
         }
 
-        if (!validatorClass.RangeTextBox(this, hh22, 0, 99, getString(R.string.hh22), "Deaths")) {
+       /* if (!validatorClass.RangeTextBox(this, hh22, 0, 99, getString(R.string.hh22), "Deaths")) {
             return false;
-        }
+        }*/
 
         if (!validatorClass.EmptyTextBox(this, hh23, getString(R.string.hh23))) {
             return false;
