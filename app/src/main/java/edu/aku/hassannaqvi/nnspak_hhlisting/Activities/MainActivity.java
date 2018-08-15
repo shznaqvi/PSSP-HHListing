@@ -148,6 +148,38 @@ public class MainActivity extends MenuActivity {
         return true;
     }
 
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())) {
+
+                DownloadManager.Query query = new DownloadManager.Query();
+                query.setFilterById(sharedPrefDownload.getLong("refID", 0));
+
+                downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                Cursor cursor = downloadManager.query(query);
+                if (cursor.moveToFirst()) {
+                    int colIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
+                    if (DownloadManager.STATUS_SUCCESSFUL == cursor.getInt(colIndex)) {
+
+                        editorDownload.putBoolean("flag", true);
+                        editorDownload.commit();
+
+                        Toast.makeText(context, "NNS Linelisting APP downloaded!!", Toast.LENGTH_SHORT).show();
+                        lblAppVersion.setText("NNS Linelisting APP New Version " + newVer + "  Downloaded.");
+
+                        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+                        List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+
+                        if (taskInfo.get(0).topActivity.getClassName().equals(MainActivity.class.getName())) {
+                            showDialog(newVer, preVer);
+                        }
+                    }
+                }
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,6 +198,10 @@ public class MainActivity extends MenuActivity {
         sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
         sharedPrefInfo = getSharedPreferences("info", MODE_PRIVATE);
         editor = sharedPref.edit();
+
+        /*Download File*/
+        sharedPrefDownload = getSharedPreferences("appDownload", MODE_PRIVATE);
+        editorDownload = sharedPrefDownload.edit();
 
         String versionCode = sharedPrefInfo.getString("versionCode", "");
         if (versionCode.equals("")) {
@@ -230,14 +266,13 @@ public class MainActivity extends MenuActivity {
                 file = new File(Environment.getExternalStorageDirectory() + File.separator + fileName, versionAppContract.getPathname());
 
                 if (file.exists()) {
-                    lblAppVersion.setText("NNS Line Listing APP New Version " + newVer + "  Downloaded.");
-//                    InstallNewApp(newVer, preVer);
+                    lblAppVersion.setText("NNS Linelisting APP New Version " + newVer + "  Downloaded.");
                     showDialog(newVer, preVer);
                 } else {
                     NetworkInfo networkInfo = ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()) {
 
-                        lblAppVersion.setText("NNS Line Listing APP New Version " + newVer + " Downloading..");
+                        lblAppVersion.setText("NNS Linelisting APP New Version " + newVer + " Downloading..");
                         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                         Uri uri = Uri.parse(AppMain._UPDATE_URL + versionAppContract.getPathname());
                         DownloadManager.Request request = new DownloadManager.Request(uri);
@@ -246,11 +281,12 @@ public class MainActivity extends MenuActivity {
                                 .setTitle("Downloading NNS new App ver." + newVer);
                         refID = downloadManager.enqueue(request);
 
+                        editorDownload.putLong("refID", refID);
                         editorDownload.putBoolean("flag", false);
                         editorDownload.commit();
 
                     } else {
-                        lblAppVersion.setText("NNS Line Listing APP New Version " + newVer + "  Available..\n(Can't download.. Internet connectivity issue!!)");
+                        lblAppVersion.setText("NNS Linelisting APP New Version " + newVer + "  Available..\n(Can't download.. Internet connectivity issue!!)");
                     }
                 }
 
@@ -260,39 +296,13 @@ public class MainActivity extends MenuActivity {
             }
         }
 
-        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction())) {
-
-                    DownloadManager.Query query = new DownloadManager.Query();
-                    query.setFilterById(refID);
-
-                    Cursor cursor = downloadManager.query(query);
-                    if (cursor.moveToFirst()) {
-                        int colIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        if (DownloadManager.STATUS_SUCCESSFUL == cursor.getInt(colIndex)) {
-
-                            editorDownload.putBoolean("flag", true);
-                            editorDownload.commit();
-
-                            Toast.makeText(context, "New Line Listing App downloaded!!", Toast.LENGTH_SHORT).show();
-                            lblAppVersion.setText("NNS Line Listing APP New Version " + newVer + "  Downloaded.");
-
-                            ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-                            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-
-                            if (taskInfo.get(0).topActivity.getClassName().equals(MainActivity.class.getName())) {
-//                                InstallNewApp(newVer, preVer);
-                                showDialog(newVer, preVer);
-                            }
-                        }
-                    }
-                }
-            }
-        };
         registerReceiver(broadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 
     public void spinnersFill() {
@@ -387,7 +397,7 @@ public class MainActivity extends MenuActivity {
 
         if (versionAppContract.getVersioncode() != null) {
             if (AppMain.versionCode < Integer.valueOf(versionAppContract.getVersioncode())) {
-                if (sharedPrefDownload.getBoolean("flag", false) && file.exists()) {
+                if (sharedPrefDownload.getBoolean("flag", true) && file.exists()) {
                     showDialog(newVer, preVer);
                 } else {
                     OpenFormFun();
