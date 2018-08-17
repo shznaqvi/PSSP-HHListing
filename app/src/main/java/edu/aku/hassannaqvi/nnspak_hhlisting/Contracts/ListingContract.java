@@ -419,17 +419,15 @@ public class ListingContract {
         json.put(ListingEntry._ID, this.ID);
         json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
-
         json.put(ListingEntry.COLUMN_NAME_ENUMCODE, this.enumCode);
         json.put(ListingEntry.COLUMN_NAME_CLUSTERCODE, this.clusterCode);
         json.put(ListingEntry.COLUMN_NAME_ENUMSTR, this.enumStr);
-
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
         json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03);
         json.put(ListingEntry.COLUMN_NAME_HH04, this.hh04);
         json.put(ListingEntry.COLUMN_NAME_HH04OTHER, this.hh04other);
-        json.put(ListingEntry.COLUMN_NAME_HH14, this.hh14);
+//        json.put(ListingEntry.COLUMN_NAME_HH14, this.hh14);
         json.put(ListingEntry.COLUMN_NAME_HH05, this.hh05);
         json.put(ListingEntry.COLUMN_NAME_HH06, this.hh06);
         json.put(ListingEntry.COLUMN_NAME_HH07, this.hh07);
@@ -455,10 +453,8 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_APPVER, this.AppVer);
         json.put(ListingEntry.COLUMN_USERNAME, this.username);
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
-
         json.put(ListingEntry.COLUMN_ISNEWHH, this.isNewHH);
         json.put(ListingEntry.COLUMN_RANDOMIZED, this.isRandom);
-
         if (!this.counter.equals("")) {
             json.put(ListingEntry.COLUMN_COUNTER, this.counter.equals("") ? JSONObject.NULL : new JSONObject(this.counter));
         }
@@ -470,11 +466,9 @@ public class ListingContract {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
         lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
-
         lc.setEnumCode(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ENUMCODE))));
         lc.setClusterCode(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CLUSTERCODE))));
         lc.setEnumStr(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ENUMSTR))));
-
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
         lc.setHh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH03))));
@@ -495,7 +489,6 @@ public class ListingContract {
         lc.setHh14(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH14))));
         lc.setHh15(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH15))));
         lc.setHh16(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH16))));
-
         lc.setHhadd(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ADDRESS))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
@@ -506,12 +499,9 @@ public class ListingContract {
         lc.setAppVer(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_APPVER))));
         lc.setTagId(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_TAGID))));
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
-
         lc.setIsNewHH(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ISNEWHH))));
         lc.setIsRandom(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_RANDOMIZED))));
-
         lc.setCounter(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_COUNTER))));
-
         if (type == 1) {
             lc.setResCount(String.valueOf(c.getString(c.getColumnIndex("RESCOUNTER"))));
             lc.setChildCount(String.valueOf(c.getString(c.getColumnIndex("CHILDCOUNTER"))));
