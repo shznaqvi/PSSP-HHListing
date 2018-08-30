@@ -455,7 +455,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
         json.put(ListingEntry.COLUMN_ISNEWHH, this.isNewHH);
         json.put(ListingEntry.COLUMN_RANDOMIZED, this.isRandom);
-        if (!this.counter.equals("")) {
+        if (!this.counter.equals("") && this.counter == null) {
             json.put(ListingEntry.COLUMN_COUNTER, this.counter.equals("") ? JSONObject.NULL : new JSONObject(this.counter));
         }
 
