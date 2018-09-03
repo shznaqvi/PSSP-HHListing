@@ -1,12 +1,16 @@
 package edu.aku.hassannaqvi.nnspak_hhlisting.Core;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -98,16 +102,30 @@ public class AppMain extends Application {
 
         // Declare and Initialize GPS collection module
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // requestPermission();
+            } else {
+                requestLocationUpdate();
+            }
+        }else {
+            requestLocationUpdate();
+        }
+
+
+
+        sharedPref = getSharedPreferences("PSUCodes", Context.MODE_PRIVATE);
+
+    }
+    public void requestLocationUpdate(){
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 MINIMUM_TIME_BETWEEN_UPDATES,
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 new MyLocationListener()
         );
-
-        sharedPref = getSharedPreferences("PSUCodes", Context.MODE_PRIVATE);
-
     }
+
 
     protected void showCurrentLocation() {
 

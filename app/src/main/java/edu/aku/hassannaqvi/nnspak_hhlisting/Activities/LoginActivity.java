@@ -1,5 +1,6 @@
 package edu.aku.hassannaqvi.nnspak_hhlisting.Activities;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -14,6 +15,8 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -24,7 +27,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -99,6 +106,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     private UserLoginTask mAuthTask = null;
     private int clicks;
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
+    private static final int MY_PERMISSIONS_REQUEST_GET_ACCOUNTS = 1;
+    private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 2;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 3;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 4;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 5;
+    protected static LocationManager locationManager;
+    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
+    Location location;
+    private static final int TWO_MINUTES = 1000 * 60 * 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +145,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
-        populateAutoComplete();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkAndRequestPermissions()) {
+                populateAutoComplete();
+            }
+        } else {
+            populateAutoComplete();
+        }
 
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -150,6 +175,48 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 //        DB backup
 
         dbBackup();
+    }
+    private boolean checkAndRequestPermissions() {
+        int permissionContact = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS);
+        int permissionGetAccount = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.GET_ACCOUNTS);
+        int permissionReadPhoneState = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_PHONE_STATE);
+        int accessFineLocation = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int accessCoarseLocation = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        int writeExternalStorage = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionContact != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_CONTACTS);
+        }
+        if (permissionGetAccount != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.GET_ACCOUNTS);
+        }
+        if (permissionReadPhoneState != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if (accessFineLocation != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (accessCoarseLocation != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (writeExternalStorage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+            return false;
+        }
+
+        return true;
     }
 
     public void dbBackup() {
@@ -229,9 +296,61 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             Toast.makeText(this, "No network connection available.", Toast.LENGTH_SHORT).show();
         }
     }
+    /**
+     * Callback received when a permissions request has been completed.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        for (int i = 0; i < permissions.length; i++) {
+            if (permissions[i].equals(Manifest.permission.READ_CONTACTS)) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    populateAutoComplete();
+                }
+            } else if (permissions[i].equals(Manifest.permission.GET_ACCOUNTS)) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                }
+            } else if (permissions[i].equals(Manifest.permission.READ_PHONE_STATE)) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+
+                }
+            } else if (permissions[i].equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                }
+            } else if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    requestLocationUpdate();
+                }
+            } else if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+
+                }
+            }
+
+        }
+    }
+    public void requestLocationUpdate(){
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                MINIMUM_TIME_BETWEEN_UPDATES,
+                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                new MyLocationListener()
+        );
+    }
 
     private void populateAutoComplete() {
-        getLoaderManager().initLoader(0, null, this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                checkAndRequestPermissions();
+            } else {
+                //Permission already granted
+                getLoaderManager().initLoader(0, null, this);
+            }
+        } else {
+            getLoaderManager().initLoader(0, null, this);
+        }
     }
 
 
@@ -554,6 +673,122 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 }
             }, 1200);
         }
+    }
+    protected void showCurrentLocation() {
+
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        if (location != null) {
+            String message = String.format(
+                    "Current Location \n Longitude: %1$s \n Latitude: %2$s",
+                    location.getLongitude(), location.getLatitude()
+            );
+            //Toast.makeText(getApplicationContext(), message,
+            //Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private boolean isSameProvider(String provider1, String provider2) {
+        if (provider1 == null) {
+            return provider2 == null;
+        }
+        return provider1.equals(provider2);
+    }
+
+    protected boolean isBetterLocation(Location location, Location currentBestLocation) {
+        if (currentBestLocation == null) {
+            // A new location is always better than no location
+            return true;
+        }
+
+        // Check whether the new location fix is newer or older
+        long timeDelta = location.getTime() - currentBestLocation.getTime();
+        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
+        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
+        boolean isNewer = timeDelta > 0;
+
+        // If it's been more than two minutes since the current location, use the new location
+        // because the user has likely moved
+        if (isSignificantlyNewer) {
+            return true;
+            // If the new location is more than two minutes older, it must be worse
+        } else if (isSignificantlyOlder) {
+            return false;
+        }
+
+        // Check whether the new location fix is more or less accurate
+        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
+        boolean isLessAccurate = accuracyDelta > 0;
+        boolean isMoreAccurate = accuracyDelta < 0;
+        boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+
+        // Check if the old and new location are from the same provider
+        boolean isFromSameProvider = isSameProvider(location.getProvider(),
+                currentBestLocation.getProvider());
+
+        // Determine location quality using a combination of timeliness and accuracy
+        if (isMoreAccurate) {
+            return true;
+        } else if (isNewer && !isLessAccurate) {
+            return true;
+        } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
+    }
+
+    private class MyLocationListener implements LocationListener {
+
+        public void onLocationChanged(Location location) {
+
+            SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            String dt = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(sharedPref.getString("Time", "0"))).toString();
+
+            Location bestLocation = new Location("storedProvider");
+            bestLocation.setAccuracy(Float.parseFloat(sharedPref.getString("Accuracy", "0")));
+            bestLocation.setTime(Long.parseLong(sharedPref.getString(dt, "0")));
+//                bestLocation.setTime(Long.parseLong(dt));
+            bestLocation.setLatitude(Float.parseFloat(sharedPref.getString("Latitude", "0")));
+            bestLocation.setLongitude(Float.parseFloat(sharedPref.getString("Longitude", "0")));
+
+            if (isBetterLocation(location, bestLocation)) {
+                editor.putString("Longitude", String.valueOf(location.getLongitude()));
+                editor.putString("Latitude", String.valueOf(location.getLatitude()));
+                editor.putString("Accuracy", String.valueOf(location.getAccuracy()));
+                editor.putString("Time", String.valueOf(location.getTime()));
+                editor.putString("Altitude", String.valueOf(location.getAltitude()));
+//                    editor.putString("Time", DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString());
+
+//                String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();
+//                Toast.makeText(getApplicationContext(),
+//                        "GPS Commit! LAT: " + String.valueOf(location.getLongitude()) +
+//                                " LNG: " + String.valueOf(location.getLatitude()) +
+//                                " Accuracy: " + String.valueOf(location.getAccuracy()) +
+//                                " Time: " + date,
+//                        Toast.LENGTH_SHORT).show();
+
+                editor.apply();
+            }
+
+
+            Map<String, ?> allEntries = sharedPref.getAll();
+            for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                Log.d("Map", entry.getKey() + ": " + entry.getValue().toString());
+            }
+        }
+
+        public void onStatusChanged(String s, int i, Bundle b) {
+            showCurrentLocation();
+        }
+
+        public void onProviderDisabled(String s) {
+
+        }
+
+        public void onProviderEnabled(String s) {
+
+        }
+
     }
 
 
