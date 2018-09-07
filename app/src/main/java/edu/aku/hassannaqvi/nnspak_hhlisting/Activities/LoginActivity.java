@@ -30,6 +30,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.method.PasswordTransformationMethod;
@@ -65,6 +66,7 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUpdates;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncDevice;
 
 /**
  * A login screen that offers login via email/password.
@@ -148,9 +150,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkAndRequestPermissions()) {
                 populateAutoComplete();
+               loadIMEI();
             }
         } else {
             populateAutoComplete();
+            loadIMEI();
         }
 
         mPasswordView = findViewById(R.id.password);
@@ -175,6 +179,45 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 //        DB backup
 
         dbBackup();
+    }
+    public void loadIMEI() {
+        // Check if the READ_PHONE_STATE permission is already available.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // READ_PHONE_STATE permission has not been granted.
+                requestReadPhoneStatePermission();
+            }else{
+                doPermissionGrantedStuffs();
+            }
+        } else {
+            doPermissionGrantedStuffs();
+        }
+    }
+    private void requestReadPhoneStatePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_PHONE_STATE)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // For example if the user has previously denied the permission.
+            new AlertDialog.Builder(LoginActivity.this)
+                    .setTitle("Permission Request")
+                    .setMessage("permission read phone state rationale")
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            //re-request
+                            ActivityCompat.requestPermissions(LoginActivity.this,
+                                    new String[]{Manifest.permission.READ_PHONE_STATE},
+                                    MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
+                        }
+                    })
+                    .show();
+        } else {
+            // READ_PHONE_STATE permission has not been granted yet. Request it directly.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE},
+                    MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
+        }
     }
     private boolean checkAndRequestPermissions() {
         int permissionContact = ContextCompat.checkSelfPermission(this,
@@ -312,7 +355,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 }
             } else if (permissions[i].equals(Manifest.permission.READ_PHONE_STATE)) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-
+                    doPermissionGrantedStuffs();
                 }
             } else if (permissions[i].equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
@@ -337,6 +380,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 new MyLocationListener()
         );
+    }
+    private void doPermissionGrantedStuffs() {
+        AppMain.IMEI = ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
     }
 
     private void populateAutoComplete() {
@@ -638,7 +684,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 public void run() {
                     /*Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();
                     new GetUsers(mContext).execute();*/
-
+                    new SyncDevice(LoginActivity.this).execute();
                     Toast.makeText(LoginActivity.this, "Sync Enum Blocks", Toast.LENGTH_LONG).show();
                     new GetAllData(mContext, "EnumBlock").execute();
                     Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();

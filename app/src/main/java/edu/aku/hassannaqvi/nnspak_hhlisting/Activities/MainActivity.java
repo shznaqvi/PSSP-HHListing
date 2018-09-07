@@ -64,6 +64,7 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncAllData;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncDevice;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncListing;
 
 public class MainActivity extends MenuActivity {
@@ -239,9 +240,9 @@ public class MainActivity extends MenuActivity {
             }
         });
 
-        if (sharedPref.getString("tagName", null) == "" || sharedPref.getString("tagName", null) == null) {
+     /*   if (sharedPref.getString("tagName", null) == "" || sharedPref.getString("tagName", null) == null) {
             builder.show();
-        }
+        }*/
         /*Tag End*/
 
 
@@ -505,9 +506,9 @@ public class MainActivity extends MenuActivity {
 
     public void openForm(View view) {
 
-        if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {
+//        if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {
             NextSetupActivity();
-        } else {
+       /* } else {
 
             builder = new AlertDialog.Builder(MainActivity.this);
             ImageView img = new ImageView(getApplicationContext());
@@ -539,7 +540,7 @@ public class MainActivity extends MenuActivity {
             });
 
             builder.show();
-        }
+        }*/
     }
 
     public void NextSetupActivity() {
@@ -574,6 +575,7 @@ public class MainActivity extends MenuActivity {
         if (isNetworkAvailable()) {
 
 //            new syncData(this).execute();
+            new SyncDevice(this).execute();
 
             Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
             new SyncAllData(

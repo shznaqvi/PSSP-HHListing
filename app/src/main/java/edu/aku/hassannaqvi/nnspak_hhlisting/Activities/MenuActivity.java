@@ -29,6 +29,7 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUpdates;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncDevice;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncListing;
 import edu.aku.hassannaqvi.nnspak_hhlisting.WifiDirect.WiFiDirectActivity;
 
@@ -96,7 +97,6 @@ public class MenuActivity extends AppCompatActivity {
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-
             new syncData(this, 1).execute();
 
         } else {
@@ -198,6 +198,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
+                    new SyncDevice(MenuActivity.this).execute();
 
                     if (type == 1) {
                         Toast.makeText(MenuActivity.this, "Sync Enum Blocks", Toast.LENGTH_LONG).show();
