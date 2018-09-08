@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="72dp"
-    tools:context="edu.aku.hassannaqvi.tmk_hhlisting.Activities.LoginActivity">
+    tools:context="edu.aku.hassannaqvi.kmc2_linelisting.Activities.LoginActivity">
 
     <!-- Login progress -->
     <ProgressBar

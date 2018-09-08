@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.aku.hassannaqvi.tmk_hhlisting">
+    package="edu.aku.hassannaqvi.kmc2_linelisting">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,38 +13,38 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name="edu.aku.hassannaqvi.tmk_hhlisting.core.MainApp"
+        android:name="edu.aku.hassannaqvi.kmc2_linelisting.core.MainApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher01"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="edu.aku.hassannaqvi.tmk_hhlisting.Activities.MainActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.MainActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="edu.aku.hassannaqvi.tmk_hhlisting.Activities.HouseholdListingActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.HouseholdListingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="edu.aku.hassannaqvi.tmk_hhlisting.Activities.AddChildActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.AddChildActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="edu.aku.hassannaqvi.tmk_hhlisting.Activities.setupActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.setupActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="edu.aku.hassannaqvi.tmk_hhlisting.Activities.FamilyListingActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.FamilyListingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="edu.aku.hassannaqvi.tmk_hhlisting.core.AndroidDatabaseManager"
+            android:name="edu.aku.hassannaqvi.kmc2_linelisting.core.AndroidDatabaseManager"
             android:screenOrientation="portrait"
             android:theme="@style/android:Theme.Holo.Light.DarkActionBar" />
         <activity
-            android:name="edu.aku.hassannaqvi.tmk_hhlisting.Activities.LoginActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.LoginActivity"
             android:label="Login In"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="edu.aku.hassannaqvi.tmk_hhlisting.Activities.SplashScreenActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
