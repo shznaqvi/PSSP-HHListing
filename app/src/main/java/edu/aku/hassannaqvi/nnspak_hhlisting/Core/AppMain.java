@@ -36,7 +36,7 @@ public class AppMain extends Application {
     private static final int TWO_MINUTES = 1000 * 60 * 2;
     public static String _HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/nns/api/";
     public static final String _UPDATE_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/nns/app/linelisting/";
-    public static String DeviceURL = "devices_test.php";
+    public static String DeviceURL = "devices.php";
 
     public static String TAG = "AppMain";
     public static Boolean admin = false;
