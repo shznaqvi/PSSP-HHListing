@@ -41,7 +41,6 @@ import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUsers;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVillages;
 import edu.aku.hassannaqvi.kmc2_linelisting.R;
 import edu.aku.hassannaqvi.kmc2_linelisting.Sync.SyncListing;
-import edu.aku.hassannaqvi.kmc2_linelisting.contracts.AreasContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.TalukasContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.UCsContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.VillagesContract;
@@ -66,9 +65,9 @@ public class MainActivity extends Activity {
     Collection<UCsContract> UcsList;
     Map<String, String> ucsMap;
 
-    ArrayList<String> lablesAreas;
-    Collection<AreasContract> AreasList;
-    Map<String, String> AreasMap;
+    //ArrayList<String> lablesAreas;
+    //Collection<AreasContract> AreasList;
+    //Map<String, String> AreasMap;
 
     ArrayList<String> lablesVillages;
     Collection<VillagesContract> VillagesList;
@@ -79,8 +78,6 @@ public class MainActivity extends Activity {
     Spinner mN00;
     @BindView(R.id.MN01)
     Spinner mN01;
-    @BindView(R.id.MN02)
-    Spinner mN02;
     @BindView(R.id.MN03)
     Spinner mN03;
     @BindView(R.id.talukaN)
@@ -214,7 +211,7 @@ public class MainActivity extends Activity {
                     MainApp.ucCode = 0;
                 }
 
-                lablesAreas = new ArrayList<>();
+             /*   lablesAreas = new ArrayList<>();
                 AreasMap = new HashMap<>();
 
                 lablesAreas.add("Select Areas..");
@@ -223,11 +220,21 @@ public class MainActivity extends Activity {
                 for (AreasContract Areas : AreasList) {
                     lablesAreas.add(Areas.getArea());
                     AreasMap.put(Areas.getArea(), Areas.getAreacode());
+                }*/
+                lablesVillages = new ArrayList<>();
+                villagesMap = new HashMap<>();
+
+                lablesVillages.add("Select Village Code..");
+
+                VillagesList = db.getAllVillage(String.valueOf(MainApp.ucCode));
+                for (VillagesContract villages : VillagesList) {
+                    lablesVillages.add(villages.getVillagename());
+                    villagesMap.put(villages.getVillagename(), new VillagesContract(villages));
                 }
 
                 ucN.setText(mN01.getSelectedItem().toString());
 
-                mN02.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesAreas));
+                mN03.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesVillages));
 
             }
 
@@ -237,7 +244,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -268,7 +275,7 @@ public class MainActivity extends Activity {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
 
         mN03.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -354,7 +361,7 @@ public class MainActivity extends Activity {
 
     public void NextSetupActivity() {
         Intent oF = new Intent(this, setupActivity.class);
-        if (mN00.getSelectedItemPosition() != 0 && mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0 && mN03.getSelectedItemPosition() != 0) {
+        if (mN00.getSelectedItemPosition() != 0 && mN01.getSelectedItemPosition() != 0 && mN03.getSelectedItemPosition() != 0) {
 
             if (MainApp.PSUExist(MainApp.villageCode)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();

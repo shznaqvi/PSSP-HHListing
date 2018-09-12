@@ -36,8 +36,8 @@ public class setupActivity extends Activity {
     private static String deviceId;
     @BindView(R.id.activity_household_listing)
     ScrollView activityHouseholdListing;
-    @BindView(R.id.hh01)
-    TextView hh01;
+    /*@BindView(R.id.hh01)
+    TextView hh01;*/
     @BindView(R.id.hh02)
     EditText hh02;
     @BindView(R.id.hh03)
@@ -102,8 +102,8 @@ public class setupActivity extends Activity {
 
         }
         MainApp.hh07txt = "X";
-        hh01.setText(getString(R.string.hh01) + ": " + MainApp.hh01txt);
-        hh03.setText(hh02.getText().toString().substring(0, 6) + "-" + hh02.getText().toString().substring(6)
+        //hh01.setText(getString(R.string.hh01) + ": " + MainApp.hh01txt);
+        hh03.setText(hh02.getText().toString()
                 + "-" + String.valueOf(MainApp.hh03txt));
         hh07.setText(getString(R.string.hh07) + ": " + MainApp.hh07txt);
 
@@ -167,7 +167,7 @@ public class setupActivity extends Activity {
 
     }
 
-    @OnClick(R.id.btnAddChild)
+    @OnClick(R.id.btnAddPregnancy)
     void onBtnAddChildClick() {
 
         if (MainApp.hh02txt == null) {
@@ -205,9 +205,7 @@ public class setupActivity extends Activity {
         SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
         MainApp.lc.setTagId(sharedPref.getString("tagName", null));
         MainApp.lc.setHhDT(dtToday);
-        MainApp.lc.setHh00(String.valueOf(MainApp.talukaCode));    //Taluka Code
         MainApp.lc.setHh01(String.valueOf(MainApp.ucCode));    //UC Code
-        MainApp.lc.setHh01A(String.valueOf(MainApp.areaCode));    //Area Code
         MainApp.lc.setHh02(MainApp.villageCode);    //Village Code
         MainApp.lc.setHh03(String.valueOf(MainApp.hh03txt));
         switch (hh04.getCheckedRadioButtonId()) {
@@ -240,7 +238,6 @@ public class setupActivity extends Activity {
                 break;
         }
         MainApp.lc.setUsername(MainApp.userEmail);
-        MainApp.lc.setHh04x(hh04x88.getText().toString());
         MainApp.lc.setHh05(hh05.isChecked() ? "1" : "2");
         MainApp.lc.setHh06(hh06.getText().toString());
         MainApp.lc.setHh07(MainApp.hh07txt);

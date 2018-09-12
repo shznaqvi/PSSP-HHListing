@@ -41,12 +41,14 @@
 
             <!--DISTRICT (Name)-->
 
-            <TextView
-                android:id="@+id/hh01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/hh01" />
+            <!--
+                        <TextView
+                            android:id="@+id/hh01"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:text="@string/hh01" />
+            -->
 
 
             <!--PSU Code-->
@@ -228,7 +230,7 @@
                 android:typeface="serif" />
 
             <Button
-                android:id="@+id/btnAddChild"
+                android:id="@+id/btnAddPregnancy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"

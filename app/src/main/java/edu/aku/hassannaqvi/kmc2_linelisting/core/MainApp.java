@@ -30,11 +30,11 @@ public class MainApp extends Application {
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     private static final int TWO_MINUTES = 1000 * 60 * 2;
-    public static String _HOST_URL = "http://" + MainApp._IP + ":" + MainApp._PORT + "/tmk/api/";
+    public static String _HOST_URL = "http://" + MainApp._IP + ":" + MainApp._PORT + "/kmc/api/";
 
     public static String TAG = "MainApp";
     public static ListingContract lc;
-    public static String hh01txt = "0000";
+    //public static String hh01txt = "0000";
     public static String hh02txt;
     public static int hh03txt = 0;
     public static String hh07txt;
@@ -52,7 +52,6 @@ public class MainApp extends Application {
 
     public static int ucCode = 0;
     public static int talukaCode = 0;
-    public static int areaCode = 0;
     public static String villageCode = "";
     public static String villageName = "";
 
@@ -87,7 +86,7 @@ public class MainApp extends Application {
     public void onCreate() {
         super.onCreate();
         Log.d("App", "Creating...");
-        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/JameelNooriNastaleeq.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
+        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/MBLateefi.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
 
         // Declare and Initialize GPS collection module
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

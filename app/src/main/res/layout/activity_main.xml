@@ -34,12 +34,6 @@
         </Spinner>
 
         <Spinner
-            android:id="@+id/MN02"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </Spinner>
-
-        <Spinner
             android:id="@+id/MN03"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

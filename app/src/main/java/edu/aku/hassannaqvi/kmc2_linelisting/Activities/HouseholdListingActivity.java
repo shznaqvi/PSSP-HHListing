@@ -37,7 +37,7 @@ public class HouseholdListingActivity extends Activity {
     EditText hh10;
     @BindView(R.id.hh11)
     Switch hh11;
-    @BindView(R.id.btnAddChild)
+    @BindView(R.id.btnAddPregnancy)
     Button btnAddChild;
 
     @Override
@@ -83,7 +83,7 @@ public class HouseholdListingActivity extends Activity {
     }
 
     public void addChild(View view) {
-        Intent aC = new Intent(this, AddChildActivity.class);
+        Intent aC = new Intent(this, AddPregnancyActivity.class);
         startActivity(aC);
     }
 

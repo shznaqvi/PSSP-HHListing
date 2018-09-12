@@ -27,7 +27,7 @@
             android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.HouseholdListingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.AddChildActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.AddPregnancyActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="edu.aku.hassannaqvi.kmc2_linelisting.Activities.setupActivity"

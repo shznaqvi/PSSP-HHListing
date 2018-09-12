@@ -32,17 +32,19 @@ public class FamilyListingActivity extends Activity {
     @BindView(R.id.hh09)
     EditText hh09;
     @BindView(R.id.hh10)
-    Switch hh10;
+    EditText hh10;
     @BindView(R.id.hh11)
     EditText hh11;
     @BindView(R.id.hh12)
-    Switch hh12;
+    EditText hh12;
     @BindView(R.id.hh13)
     EditText hh13;
     @BindView(R.id.hh14)
-    EditText hh14;
-    @BindView(R.id.btnAddChild)
-    Button btnAddChild;
+    Switch hh14;
+    @BindView(R.id.hh15)
+    EditText hh15;
+    @BindView(R.id.btnAddPregnancy)
+    Button btnAddPregnancy;
     @BindView(R.id.btnAddFamily)
     Button btnAddFamilty;
     @BindView(R.id.btnAddHousehold)
@@ -65,27 +67,20 @@ public class FamilyListingActivity extends Activity {
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
 
-        hh10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        hh14.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    hh11.setVisibility(View.VISIBLE);
-                    hh11.requestFocus();
-
-                    hh12.setEnabled(true);
+                    hh15.setVisibility(View.VISIBLE);
+                    hh15.requestFocus();
                 } else {
-                    hh11.setVisibility(View.INVISIBLE);
-                    hh11.setText(null);
-
-                    hh12.setEnabled(false);
-                    hh13.setText(null);
-                    hh13.setVisibility(View.INVISIBLE);
-                    hh12.setChecked(false);
+                    hh15.setVisibility(View.INVISIBLE);
+                    hh15.setText(null);
                 }
             }
         });
 
-        hh12.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*hh12.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -96,9 +91,9 @@ public class FamilyListingActivity extends Activity {
                     hh13.setText(null);
                 }
             }
-        });
+        });*/
 
-        hh11.addTextChangedListener(new TextWatcher() {
+        hh15.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -106,13 +101,13 @@ public class FamilyListingActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
+                if (s.length() > 0 && Integer.valueOf(s.toString()) > 0) {
                     Toast.makeText(FamilyListingActivity.this, s.toString(), Toast.LENGTH_SHORT).show();
-                    btnAddChild.setVisibility(View.VISIBLE);
+                    btnAddPregnancy.setVisibility(View.VISIBLE);
                     btnAddFamilty.setVisibility(View.GONE);
                     btnAddHousehold.setVisibility(View.GONE);
                 } else {
-                    btnAddChild.setVisibility(View.GONE);
+                    btnAddPregnancy.setVisibility(View.GONE);
                     if (MainApp.fCount < MainApp.fTotal) {
                         btnAddFamilty.setVisibility(View.VISIBLE);
                         btnAddHousehold.setVisibility(View.GONE);
@@ -120,15 +115,8 @@ public class FamilyListingActivity extends Activity {
                         btnAddFamilty.setVisibility(View.GONE);
                         btnAddHousehold.setVisibility(View.VISIBLE);
                     }
-                } */
-
-                if (MainApp.fCount < MainApp.fTotal) {
-                    btnAddFamilty.setVisibility(View.VISIBLE);
-                    btnAddHousehold.setVisibility(View.GONE);
-                } else {
-                    btnAddFamilty.setVisibility(View.GONE);
-                    btnAddHousehold.setVisibility(View.VISIBLE);
                 }
+
             }
 
             @Override
@@ -139,16 +127,16 @@ public class FamilyListingActivity extends Activity {
 
     }
 
-    @OnClick(R.id.btnAddChild)
+    @OnClick(R.id.btnAddPregnancy)
     void onBtnAddChildClick() {
 
         if (formValidation()) {
 
             SaveDraft();
-            MainApp.cTotal = Integer.parseInt(hh11.getText().toString());
+            MainApp.cTotal = Integer.parseInt(hh15.getText().toString());
             MainApp.cCount++;
             Toast.makeText(this, MainApp.cCount + ":" + MainApp.cTotal + ":" + MainApp.fCount + ":" + MainApp.fTotal, Toast.LENGTH_SHORT).show();
-            Intent fA = new Intent(this, AddChildActivity.class);
+            Intent fA = new Intent(this, AddPregnancyActivity.class);
             startActivity(fA);
         }
 
@@ -159,9 +147,10 @@ public class FamilyListingActivity extends Activity {
         MainApp.lc.setHh08(hh08.getText().toString());
         MainApp.lc.setHh09(hh09.getText().toString());
         MainApp.lc.setHh14(hh14.getText().toString());
-        MainApp.lc.setHh10(hh10.isChecked() ? "1" : "2");
+        MainApp.lc.setHh15(hh15.getText().toString());
+        MainApp.lc.setHh10(hh10.getText().toString());
         MainApp.lc.setHh11(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString());
-        MainApp.lc.setHh12(hh12.isChecked() ? "1" : "2");
+        MainApp.lc.setHh12(hh12.getText().toString());
         MainApp.lc.setHh13(hh13.getText().toString().isEmpty() ? "0" : hh13.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + MainApp.lc.getHh03().toString());
@@ -188,31 +177,14 @@ public class FamilyListingActivity extends Activity {
             hh09.setError(null);
         }
 
-        /*if (hh14.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Error(Empty):"+R.string.hh14, Toast.LENGTH_LONG).show();
-            hh14.setError("Data required");
-            Log.i(TAG, "hh14: This data is required.");
-            return false;
-        } else {
-            hh14.setError(null);
-        }*/
 
-        if (!hh14.getText().toString().isEmpty() && Integer.valueOf(hh14.getText().toString()) < 1) {
-            Toast.makeText(this, "Invalid Value!"+R.string.hh14, Toast.LENGTH_LONG).show();
-            hh14.setError("Invalid Value!");
-            Log.i(TAG, "Invalid Value!");
+        if (hh10.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Error(Empty):" + R.string.hh10, Toast.LENGTH_LONG).show();
+            hh10.setError("Data required");
+            Log.i(TAG, "hh10: This data is required.");
             return false;
         } else {
-            hh14.setError(null);
-        }
-
-        if (hh10.isChecked() && hh11.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Error(Empty):"+R.string.hh11, Toast.LENGTH_LONG).show();
-            hh11.setError("Data required");
-            Log.i(TAG, "hh11: This data is required.");
-            return false;
-        } else {
-            hh11.setError(null);
+            hh10.setError(null);
         }
 
         if (!hh11.getText().toString().isEmpty() && Integer.valueOf(hh11.getText().toString()) < 1) {
@@ -224,14 +196,14 @@ public class FamilyListingActivity extends Activity {
             hh11.setError(null);
         }
 
-        if (hh12.isChecked() && hh13.getText().toString().isEmpty()) {
+       /* if (hh12.isChecked() && hh13.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):"+R.string.hh13, Toast.LENGTH_LONG).show();
             hh13.setError("Data required");
             Log.i(TAG, "hh13: This data is required.");
             return false;
         } else {
             hh13.setError(null);
-        }
+        }*/
 
         if (!hh13.getText().toString().isEmpty() && Integer.valueOf(hh13.getText().toString()) < 1) {
             Toast.makeText(this, "Invalid Value!"+R.string.hh13, Toast.LENGTH_LONG).show();
@@ -242,7 +214,7 @@ public class FamilyListingActivity extends Activity {
             hh13.setError(null);
         }
 
-        if(hh10.isChecked()){
+        //  if(hh10.isChecked()){
             if (Integer.parseInt(hh14.getText().toString()) <= Integer.parseInt(hh11.getText().toString())) {
                 Toast.makeText(this, "Family member must be greater then child.", Toast.LENGTH_LONG).show();
                 hh14.setError("Family member must be greater then child.");
@@ -251,9 +223,9 @@ public class FamilyListingActivity extends Activity {
             } else {
                 hh14.setError(null);
             }
-        }
+        //  }
 
-        if (hh12.isChecked() && hh10.isChecked()) {
+        /// if (hh12.isChecked() && hh10.isChecked()) {
             if (Integer.parseInt(hh13.getText().toString()) > Integer.parseInt(hh11.getText().toString())) {
                 Toast.makeText(this, "Not greater then child of age less then 5", Toast.LENGTH_LONG).show();
                 hh13.setError("Not greater then child of age less then 5");
@@ -262,7 +234,7 @@ public class FamilyListingActivity extends Activity {
             } else {
                 hh13.setError(null);
             }
-        }
+        //  }
 
 
         return true;
