@@ -69,7 +69,7 @@ public class AreasContract {
     public static abstract class singleAreas implements BaseColumns {
 
         public static final String TABLE_NAME = "areas";
-        public static final String COLUMN_AREACODE = "uc_code";
+        public static final String COLUMN_AREACODE = "area_code";
         public static final String COLUMN_AREA = "area_name";
         public static final String COLUMN_UC_CODE = "uc_code";
 

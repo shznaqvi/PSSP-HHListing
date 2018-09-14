@@ -23,26 +23,33 @@
         android:textAlignment="center" />
 
     <LinearLayout
+        android:id="@+id/ll_preg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/hh16" />
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/hh16"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_weight="1"
-            android:hint="@string/hh13a"
-            android:inputType="number"
-            android:digits="123456789"
-            android:maxLength="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/hh16" />
 
+            <EditText
+                android:id="@+id/hh16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_weight="1"
+                android:digits="123456789"
+                android:hint="@string/hh13a"
+                android:inputType="number"
+                android:maxLength="1" />
+
+        </LinearLayout>-->
 
     </LinearLayout>
 
@@ -51,8 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:onClick="addChild"
-        android:text="Add A Child"
+        android:text="Add A Pregnancy"
         android:visibility="gone" />
 
     <Button
@@ -60,7 +66,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:onClick="addFamily"
         android:text="Add Next Family"
         android:visibility="gone" />
 
@@ -69,7 +74,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:onClick="addHousehold"
         android:text="Goto Next Household"
         android:visibility="gone" />
 

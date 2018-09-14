@@ -248,7 +248,6 @@ public class setupActivity extends Activity {
 
         MainApp.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
 
-        Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: " + MainApp.lc.getHh03().toString());
 
     }
@@ -363,7 +362,6 @@ public class setupActivity extends Activity {
         MainApp.lc.setID(String.valueOf(updcount));
 
         if (updcount != 0) {
-            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
 
             MainApp.lc.setUID(
                     (MainApp.lc.getDeviceID() + MainApp.lc.getID()));

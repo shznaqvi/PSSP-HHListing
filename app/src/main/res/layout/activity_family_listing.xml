@@ -32,9 +32,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="60"
                 android:text="@string/hh08" />
 
             <EditText
@@ -42,7 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="40"
                 android:digits="@string/txtMsg"
                 android:inputType="text"
                 android:maxLength="24" />
@@ -56,9 +57,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="60"
                 android:text="@string/hh09" />
 
             <EditText
@@ -66,7 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="40"
                 android:digits="1234567890"
                 android:inputType="number"
                 android:maxLength="11" />
@@ -82,7 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="4"
+                android:layout_weight="60"
                 android:text="@string/hh10" />
 
             <EditText
@@ -90,12 +92,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="40"
                 android:digits="1234567890"
                 android:inputType="number"
                 android:maxLength="11" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,9 +106,9 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="4"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="60"
                 android:text="@string/hh11" />
 
             <EditText
@@ -113,7 +116,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="40"
                 android:digits="1234567890"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -128,7 +131,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="4"
+                android:layout_weight="60"
                 android:text="@string/hh12" />
 
             <EditText
@@ -136,7 +139,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="40"
                 android:digits="1234567890"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -149,9 +152,9 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="4"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_weight="60"
                 android:text="@string/hh13" />
 
             <EditText
@@ -159,7 +162,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
+                android:layout_weight="40"
                 android:digits="1234567890"
                 android:inputType="number"
                 android:maxLength="2" />
@@ -168,11 +171,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <Switch
                 android:id="@+id/hh14"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="4"
@@ -182,18 +185,16 @@
 
             <EditText
                 android:id="@+id/hh15"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_weight="1"
                 android:digits="1234567890"
                 android:hint="@string/hh15"
                 android:inputType="number"
                 android:maxLength="2"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
         </LinearLayout>
-
 
         <Button
             android:id="@+id/btnAddPregnancy"
@@ -209,7 +210,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="addFamily"
             android:text="Add Next Family"
             android:visibility="gone" />
 
@@ -218,8 +218,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:onClick="addHousehold"
             android:text="Goto Next Household"
             android:visibility="gone" />
+
     </LinearLayout>
 </ScrollView>

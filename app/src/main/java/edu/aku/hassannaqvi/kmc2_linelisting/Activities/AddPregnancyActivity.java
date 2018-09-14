@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,9 @@ public class AddPregnancyActivity extends Activity {
     @BindView(R.id.txtChildListing)
     TextView txtChildListing;
 
+    @BindView(R.id.ll_preg)
+    LinearLayout ll_preg;
+
 
     @BindView(R.id.btnAddPregnancy)
     Button btnAddChild;
@@ -42,7 +46,9 @@ public class AddPregnancyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pregnancy);
         ButterKnife.bind(this);
+
         txtChildListing.setText("Child Listing: " + MainApp.hh03txt + "-" + MainApp.hh07txt + " (" + MainApp.cCount + " of " + MainApp.cTotal + ")");
+
         if (MainApp.cCount < MainApp.cTotal) {
             btnAddChild.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
@@ -55,6 +61,37 @@ public class AddPregnancyActivity extends Activity {
             btnAddFamilty.setVisibility(View.GONE);
             btnAddHousehold.setVisibility(View.VISIBLE);
             btnAddChild.setVisibility(View.GONE);
+        }
+
+        AddDynamicLayout(MainApp.cTotal);
+
+    }
+
+    public void AddDynamicLayout(int count) {
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(0, 24, 0, 0);
+
+        for (int i = 1; i <= count; i++) {
+
+            LinearLayout ll = new LinearLayout(this);
+            ll.setLayoutParams(params);
+
+            TextView txt = new TextView(this);
+            txt.setText(i + ": " + getString(R.string.hh16));
+
+            EditText editTxt = new EditText(this);
+            editTxt.setHint(i + ": " + getString(R.string.hh16));
+            editTxt.setId(i);
+
+            ll.addView(txt);
+            ll.addView(editTxt);
+
+            ll_preg.addView(ll);
+
         }
 
     }

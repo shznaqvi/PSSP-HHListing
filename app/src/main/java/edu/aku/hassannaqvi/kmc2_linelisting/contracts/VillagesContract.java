@@ -105,7 +105,7 @@ public class VillagesContract {
         public static final String TABLE_NAME = "villages";
 //        public static final String COLUMN_ID = "_id";
         public static final String COLUMN_VILLAGE_NAME = "village_name";
-        public static final String COLUMN_UC_CODE = "ucuc_code";
+        public static final String COLUMN_UC_CODE = "uc_code";
 //        public static final String COLUMN_TALUKA = "taluka";
         public static final String COLUMN_VILLAGE_CODE = "village_code";
 

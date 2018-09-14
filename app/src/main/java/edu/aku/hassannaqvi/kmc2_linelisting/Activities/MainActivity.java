@@ -34,7 +34,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetAreas;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetTalukas;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUCs;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUsers;
@@ -475,8 +474,8 @@ public class MainActivity extends Activity {
                     new GetTalukas(mContext).execute();
                     Toast.makeText(MainActivity.this, "Sync UC's", Toast.LENGTH_LONG).show();
                     new GetUCs(mContext).execute();
-                    Toast.makeText(MainActivity.this, "Sync Areas", Toast.LENGTH_LONG).show();
-                    new GetAreas(mContext).execute();
+                    /*Toast.makeText(MainActivity.this, "Sync Areas", Toast.LENGTH_LONG).show();
+                    new GetAreas(mContext).execute();*/
                     Toast.makeText(MainActivity.this, "Sync Villages", Toast.LENGTH_LONG).show();
                     new GetVillages(mContext).execute();
 
