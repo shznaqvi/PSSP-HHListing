@@ -455,7 +455,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
         json.put(ListingEntry.COLUMN_ISNEWHH, this.isNewHH);
         json.put(ListingEntry.COLUMN_RANDOMIZED, this.isRandom);
-        if (!this.counter.equals("") && this.counter == null) {
+        if (!this.counter.equals("") && this.counter != null) {
             json.put(ListingEntry.COLUMN_COUNTER, this.counter.equals("") ? JSONObject.NULL : new JSONObject(this.counter));
         }
 
@@ -501,7 +501,8 @@ public class ListingContract {
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
         lc.setIsNewHH(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_ISNEWHH))));
         lc.setIsRandom(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_RANDOMIZED))));
-        lc.setCounter(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_COUNTER))));
+        lc.setCounter(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_COUNTER)) != null ?
+                c.getString(c.getColumnIndex(ListingEntry.COLUMN_COUNTER)) : ""));
         if (type == 1) {
             lc.setResCount(String.valueOf(c.getString(c.getColumnIndex("RESCOUNTER"))));
             lc.setChildCount(String.valueOf(c.getString(c.getColumnIndex("CHILDCOUNTER"))));

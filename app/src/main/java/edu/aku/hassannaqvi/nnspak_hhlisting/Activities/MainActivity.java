@@ -737,9 +737,15 @@ public class MainActivity extends MenuActivity {
 
                 @Override
                 public void run() {
-                    SyncListing ff = new SyncListing(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
-                    ff.execute();
+                    new SyncAllData(
+                            mContext,
+                            "Listing",
+                            "updateSyncedForms",
+                            ListingContract.class,
+                            AppMain._HOST_URL + ListingContract.ListingEntry._URL,
+                            db.getAllListings()
+                    ).execute();
 
 
                 }

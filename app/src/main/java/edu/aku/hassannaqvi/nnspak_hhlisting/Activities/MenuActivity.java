@@ -23,12 +23,15 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AndroidDatabaseManager;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUpdates;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
+import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncDevice;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncListing;
 import edu.aku.hassannaqvi.nnspak_hhlisting.WifiDirect.WiFiDirectActivity;
@@ -212,9 +215,15 @@ public class MenuActivity extends AppCompatActivity {
                         Toast.makeText(MenuActivity.this, "Get Vertices", Toast.LENGTH_SHORT).show();
                         new GetVertices(mContext).execute();
                     } else {
-                        SyncListing ff = new SyncListing(mContext);
                         Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
-                        ff.execute();
+                        new SyncAllData(
+                                mContext,
+                                "Listing",
+                                "updateSyncedForms",
+                                ListingContract.class,
+                                AppMain._HOST_URL + ListingContract.ListingEntry._URL,
+                                db.getAllListings()
+                        ).execute();
                     }
                 }
             });
