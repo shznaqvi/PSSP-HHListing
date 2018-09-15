@@ -3,6 +3,7 @@ package edu.aku.hassannaqvi.kmc2_linelisting.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
@@ -102,6 +103,7 @@ public class AddPregnancyActivity extends Activity {
             EditText editTxt = new EditText(this);
             editTxt.setHint(i + ": " + getString(R.string.hh16));
             editTxt.setId(i);
+            editTxt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
             editTxt.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
 
             ll.addView(txt);

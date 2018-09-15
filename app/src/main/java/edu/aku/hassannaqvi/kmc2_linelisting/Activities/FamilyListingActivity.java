@@ -119,10 +119,12 @@ public class FamilyListingActivity extends Activity {
         if (formValidation()) {
 
             SaveDraft();
-            Toast.makeText(this, MainApp.cCount + ":" + MainApp.cTotal + ":" + MainApp.fCount + ":" + MainApp.fTotal, Toast.LENGTH_SHORT).show();
-            Intent fA = new Intent(this, AddPregnancyActivity.class)
-                    .putExtra("cCount", Integer.parseInt(hh15.getText().toString()));
-            startActivity(fA);
+            if (UpdateDB()) {
+                Toast.makeText(this, MainApp.cCount + ":" + MainApp.cTotal + ":" + MainApp.fCount + ":" + MainApp.fTotal, Toast.LENGTH_SHORT).show();
+                Intent fA = new Intent(this, AddPregnancyActivity.class)
+                        .putExtra("cCount", Integer.parseInt(hh15.getText().toString()));
+                startActivity(fA);
+            }
         }
 
     }
@@ -211,6 +213,15 @@ public class FamilyListingActivity extends Activity {
                 Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh15), Toast.LENGTH_LONG).show();
                 hh15.setError("Greater then 0!!");
                 Log.i(TAG, "hh15: Greater than 0!!");
+                return false;
+            } else {
+                hh15.setError(null);
+            }
+
+            if (Integer.valueOf(hh09.getText().toString()) < Integer.valueOf(hh10.getText().toString())) {
+                Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh15), Toast.LENGTH_LONG).show();
+                hh15.setError("Lesser than or equal to " + (Integer.valueOf(hh10.getText().toString())) + "!!");
+                Log.i(TAG, "hh15: Lesser than or equal to " + (Integer.valueOf(hh10.getText().toString())) + "!!");
                 return false;
             } else {
                 hh15.setError(null);
