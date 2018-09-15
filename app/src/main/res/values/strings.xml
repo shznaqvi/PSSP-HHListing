@@ -35,7 +35,7 @@
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>
 
-    <string name="txtMsg">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM </string>
+    <string name="txtMsg">qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM</string>
     <string name="child_name">بچے کا نام</string>
     <string name="child_age">بچے کی عمر</string>
     <string name="hh13a">ماہ</string>

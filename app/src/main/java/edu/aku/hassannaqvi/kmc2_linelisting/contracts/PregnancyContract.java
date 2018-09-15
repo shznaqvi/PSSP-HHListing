@@ -1,5 +1,6 @@
 package edu.aku.hassannaqvi.kmc2_linelisting.contracts;
 
+import android.database.Cursor;
 import android.provider.BaseColumns;
 
 import org.json.JSONException;
@@ -156,6 +157,26 @@ public class PregnancyContract {
         json.put(singlePREG.COLUMN_SYNC_DATE, this.sync_date == null ? JSONObject.NULL : this.sync_date);
 
         return json;
+    }
+
+    public PregnancyContract hydrate(Cursor cursor) {
+        PregnancyContract pg = new PregnancyContract();
+        this.ID = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_ID));
+        this.hh01 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH01));
+        this.hh02 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH02));
+        this.hh03 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH03));
+        this.uuid = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_UUID));
+        this.uid = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_UID));
+        this.hhDT = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HHDT));
+        this.user = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_USER));
+        this.deviceid = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_DEVICEID));
+        this.devicetagid = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_DEVICETAGID));
+        this.app_ver = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_APP_VER));
+        this.synced = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_SYNCED));
+        this.sync_date = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_SYNC_DATE));
+        this.hh16 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH16));
+
+        return pg;
     }
 
     public static abstract class singlePREG implements BaseColumns {

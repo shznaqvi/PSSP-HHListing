@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.AreasContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.AreasContract.singleAreas;
@@ -82,7 +83,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
                 ListingEntry.COLUMN_NAME_APP_VER + " TEXT, " +
-                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
+                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
+                singlePREG.COLUMN_SYNCED + " TEXT," +
+                singlePREG.COLUMN_SYNC_DATE + " TEXT " +
                 " );";
 
         final String SQL_CREATE_PREGNANCY_TABLE = "CREATE TABLE " + singlePREG.TABLE_NAME + " (" +
@@ -281,6 +284,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_APP_VER, lc.getApp_ver());
         values.put(ListingEntry.COLUMN_TAGID, lc.getTagId());
 
+        values.put(ListingEntry.COLUMN_SYNCED, lc.getSynced());
+        values.put(ListingEntry.COLUMN_SYNC_DATE, lc.getSync_date());
+
         long newRowId;
         newRowId = db.insert(
                 ListingEntry.TABLE_NAME,
@@ -289,6 +295,44 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         DB_FORM_ID = String.valueOf(newRowId);
 
         return newRowId;
+    }
+
+    public void updateSyncedListing(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ListingEntry.COLUMN_SYNCED, true);
+        values.put(ListingEntry.COLUMN_SYNC_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = ListingEntry._ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                ListingEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
+    public void updateSyncedPregnancy(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(singlePREG.COLUMN_SYNCED, true);
+        values.put(singlePREG.COLUMN_SYNC_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = singlePREG.COLUMN_ID + " = ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                singlePREG.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
     }
 
     public Long addPregnancy(PregnancyContract prg) {
@@ -309,6 +353,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(singlePREG.COLUMN_DEVICETAGID, prg.getDevicetagid());
         values.put(singlePREG.COLUMN_APP_VER, prg.getApp_ver());
         values.put(singlePREG.COLUMN_HH16, prg.getHh16());
+        values.put(singlePREG.COLUMN_SYNCED, prg.getSynced());
+        values.put(singlePREG.COLUMN_SYNC_DATE, prg.getSync_date());
 
         long newRowId;
         newRowId = db.insert(
@@ -402,7 +448,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_APP_VER
         };
 
-        String whereClause = null;
+        String whereClause = ListingEntry.COLUMN_SYNCED + " is null";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
@@ -410,7 +456,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         String orderBy =
                 ListingEntry._ID + " ASC";
 
-        Collection<ListingContract> allLC = new ArrayList<ListingContract>();
+        Collection<ListingContract> allLC = new ArrayList<>();
         try {
             c = db.query(
                     ListingEntry.TABLE_NAME,  // The table to query
@@ -423,6 +469,59 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             );
             while (c.moveToNext()) {
                 allLC.add(hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allLC;
+    }
+
+    public Collection<PregnancyContract> getAllPregnancy() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singlePREG.COLUMN_ID,
+                singlePREG.COLUMN_HH01,
+                singlePREG.COLUMN_HH02,
+                singlePREG.COLUMN_HH03,
+                singlePREG.COLUMN_UUID,
+                singlePREG.COLUMN_UID,
+                singlePREG.COLUMN_HHDT,
+                singlePREG.COLUMN_USER,
+                singlePREG.COLUMN_DEVICEID,
+                singlePREG.COLUMN_DEVICETAGID,
+                singlePREG.COLUMN_APP_VER,
+                singlePREG.COLUMN_SYNCED,
+                singlePREG.COLUMN_SYNC_DATE,
+                singlePREG.COLUMN_HH16,
+        };
+
+        String whereClause = singlePREG.COLUMN_SYNCED + " is null";
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                singlePREG.COLUMN_ID + " ASC";
+
+        Collection<PregnancyContract> allLC = new ArrayList<>();
+        try {
+            c = db.query(
+                    singlePREG.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                allLC.add(new PregnancyContract().hydrate(c));
             }
         } finally {
             if (c != null) {

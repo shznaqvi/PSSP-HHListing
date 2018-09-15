@@ -35,6 +35,8 @@ public class ListingContract {
     public String GPSAcc;
     public String app_ver;
     public String tagId;
+    private String synced;
+    private String sync_date;
 
     private String username; // User Name
 
@@ -254,6 +256,21 @@ public class ListingContract {
         this.tagId = tagId;
     }
 
+    public String getSynced() {
+        return synced;
+    }
+
+    public void setSynced(String synced) {
+        this.synced = synced;
+    }
+
+    public String getSync_date() {
+        return sync_date;
+    }
+
+    public void setSync_date(String sync_date) {
+        this.sync_date = sync_date;
+    }
 
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
@@ -284,6 +301,9 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_APP_VER, this.app_ver);
         json.put(ListingEntry.COLUMN_USERNAME, this.username);
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
+
+        json.put(PregnancyContract.singlePREG.COLUMN_SYNCED, this.synced == null ? JSONObject.NULL : this.synced);
+        json.put(PregnancyContract.singlePREG.COLUMN_SYNC_DATE, this.sync_date == null ? JSONObject.NULL : this.sync_date);
 
         return json;
     }
@@ -318,6 +338,9 @@ public class ListingContract {
         public static final String COLUMN_NAME_APP_VER = "app_ver";
         public static final String COLUMN_TAGID = "tagId";
         public static final String COLUMN_USERNAME = "user";
+
+        public static final String COLUMN_SYNCED = "synced";
+        public static final String COLUMN_SYNC_DATE = "sync_date";
 
         public static final String _URL = "listings.php";
     }

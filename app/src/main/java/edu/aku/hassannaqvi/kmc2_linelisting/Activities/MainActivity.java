@@ -39,7 +39,9 @@ import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUCs;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUsers;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVillages;
 import edu.aku.hassannaqvi.kmc2_linelisting.R;
-import edu.aku.hassannaqvi.kmc2_linelisting.Sync.SyncListing;
+import edu.aku.hassannaqvi.kmc2_linelisting.Sync.SyncAllData;
+import edu.aku.hassannaqvi.kmc2_linelisting.contracts.ListingContract;
+import edu.aku.hassannaqvi.kmc2_linelisting.contracts.PregnancyContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.TalukasContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.UCsContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.VillagesContract;
@@ -466,9 +468,29 @@ public class MainActivity extends Activity {
                 @Override
                 public void run() {
 
-                    SyncListing ff = new SyncListing(mContext);
+                    /*SyncListing ff = new SyncListing(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
-                    ff.execute();
+                    ff.execute();*/
+
+                    Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
+                    new SyncAllData(
+                            mContext,
+                            "Listing",
+                            "updateSyncedForms",
+                            ListingContract.class,
+                            MainApp._HOST_URL + ListingContract.ListingEntry._URL,
+                            db.getAllListings()
+                    ).execute();
+
+                    Toast.makeText(getApplicationContext(), "Syncing Pregnancy", Toast.LENGTH_SHORT).show();
+                    new SyncAllData(
+                            mContext,
+                            "Pregnancy",
+                            "updateSyncedPregnancy",
+                            PregnancyContract.class,
+                            MainApp._HOST_URL + PregnancyContract.singlePREG._URL,
+                            db.getAllPregnancy()
+                    ).execute();
 
                     Toast.makeText(MainActivity.this, "Sync Talukas", Toast.LENGTH_LONG).show();
                     new GetTalukas(mContext).execute();
