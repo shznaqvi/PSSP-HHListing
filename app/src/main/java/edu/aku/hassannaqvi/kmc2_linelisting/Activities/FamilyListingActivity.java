@@ -119,10 +119,9 @@ public class FamilyListingActivity extends Activity {
         if (formValidation()) {
 
             SaveDraft();
-            MainApp.cTotal = Integer.parseInt(hh15.getText().toString());
-            MainApp.cCount++;
             Toast.makeText(this, MainApp.cCount + ":" + MainApp.cTotal + ":" + MainApp.fCount + ":" + MainApp.fTotal, Toast.LENGTH_SHORT).show();
-            Intent fA = new Intent(this, AddPregnancyActivity.class);
+            Intent fA = new Intent(this, AddPregnancyActivity.class)
+                    .putExtra("cCount", Integer.parseInt(hh15.getText().toString()));
             startActivity(fA);
         }
 
@@ -238,8 +237,6 @@ public class FamilyListingActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                MainApp.cCount = 0;
-                MainApp.cTotal = 0;
                 MainApp.hh07txt = String.valueOf((char) (MainApp.hh07txt.charAt(0) + 1));
                 MainApp.lc.setHh07(MainApp.hh07txt.toString());
                 MainApp.fCount++;
@@ -262,8 +259,6 @@ public class FamilyListingActivity extends Activity {
             if (UpdateDB()) {
                 MainApp.fCount = 0;
                 MainApp.fTotal = 0;
-                MainApp.cCount = 0;
-                MainApp.cTotal = 0;
 
                 finish();
 

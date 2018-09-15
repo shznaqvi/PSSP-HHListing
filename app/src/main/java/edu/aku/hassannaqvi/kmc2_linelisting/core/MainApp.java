@@ -50,6 +50,9 @@ public class MainApp extends Application {
 
 //    Ali
 
+    public static int versionCode = 0;
+    public static String versionName = "";
+
     public static int ucCode = 0;
     public static int talukaCode = 0;
     public static String villageCode = "";

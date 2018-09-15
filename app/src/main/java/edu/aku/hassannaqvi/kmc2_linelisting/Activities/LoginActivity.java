@@ -85,8 +85,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     AutoCompleteTextView mEmailView;
     @BindView(R.id.password)
     EditText mPasswordView;
-        @BindView(R.id.txtinstalldate)
-        TextView txtinstalldate;
+    @BindView(R.id.txtinstalldate)
+    TextView txtinstalldate;
     @BindView(R.id.email_sign_in_button)
     Button mEmailSignInButton;
     /**
@@ -103,20 +103,20 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         try {
             long installedOn = this
                     .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.pssp", 0)
-                    .lastUpdateTime
-                    ;
-            Integer versionCode = this
+                    .getPackageInfo("edu.aku.hassannaqvi.kmc2_linelisting", 0)
+                    .lastUpdateTime;
+
+            MainApp.versionCode = this
                     .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.pssp", 0)
+                    .getPackageInfo("edu.aku.hassannaqvi.kmc2_linelisting", 0)
                     .versionCode
-                    ;
-            String versionName = this
+            ;
+            MainApp.versionName = this
                     .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.pssp", 0)
+                    .getPackageInfo("edu.aku.hassannaqvi.kmc2_linelisting", 0)
                     .versionName
-                    ;
-            txtinstalldate.setText("Ver. "+versionName+"."+String.valueOf(versionCode)+" \r\n( Last Updated: "+new SimpleDateFormat("dd MMM. yyyy").format(new Date(installedOn))+" )");
+            ;
+            txtinstalldate.setText("Ver. " + MainApp.versionName + "." + String.valueOf(MainApp.versionCode) + " \r\n( Last Updated: " + new SimpleDateFormat("dd MMM. yyyy").format(new Date(installedOn)) + " )");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -152,7 +152,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
             }
         });
-        
+
 //
 //        // Spinner Drop down elements
 //        lables = new ArrayList<String>();

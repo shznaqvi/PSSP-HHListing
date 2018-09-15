@@ -33,7 +33,7 @@ public class ListingContract {
     public String GPSLng;
     public String GPSTime;
     public String GPSAcc;
-    public String Round = "1";
+    public String app_ver;
     public String tagId;
 
     private String username; // User Name
@@ -230,12 +230,12 @@ public class ListingContract {
         this.GPSAcc = GPSAcc;
     }
 
-    public String getRound() {
-        return Round;
+    public String getApp_ver() {
+        return app_ver;
     }
 
-    public void setRound(String round) {
-        Round = round;
+    public void setApp_ver(String app_ver) {
+        this.app_ver = app_ver;
     }
 
     public String getUsername() {
@@ -281,7 +281,7 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSLng, this.GPSLng);
         json.put(ListingEntry.COLUMN_NAME_GPSTime, this.GPSTime);
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
-        json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
+        json.put(ListingEntry.COLUMN_NAME_APP_VER, this.app_ver);
         json.put(ListingEntry.COLUMN_USERNAME, this.username);
         json.put(ListingEntry.COLUMN_TAGID, this.tagId);
 
@@ -315,10 +315,9 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSLng = "gpslng";
         public static final String COLUMN_NAME_GPSTime = "gpstime";
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
-        public static final String COLUMN_NAME_ROUND = "round";
+        public static final String COLUMN_NAME_APP_VER = "app_ver";
         public static final String COLUMN_TAGID = "tagId";
-
-        public static final String COLUMN_USERNAME = "username";
+        public static final String COLUMN_USERNAME = "user";
 
         public static final String _URL = "listings.php";
     }

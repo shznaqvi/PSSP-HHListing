@@ -241,8 +241,8 @@ public class setupActivity extends Activity {
         MainApp.lc.setHh05(hh05.isChecked() ? "1" : "2");
         MainApp.lc.setHh06(hh06.getText().toString());
         MainApp.lc.setHh07(MainApp.hh07txt);
-
         MainApp.lc.setDeviceID(deviceId);
+        MainApp.lc.setApp_ver(MainApp.versionName + "." + MainApp.versionCode);
 
         setGPS();
 

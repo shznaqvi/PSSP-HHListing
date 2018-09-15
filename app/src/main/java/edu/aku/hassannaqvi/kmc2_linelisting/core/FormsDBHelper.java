@@ -23,6 +23,8 @@ import edu.aku.hassannaqvi.kmc2_linelisting.contracts.ListingContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.ListingContract.ListingEntry;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.PSUsContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.PSUsContract.singlePSU;
+import edu.aku.hassannaqvi.kmc2_linelisting.contracts.PregnancyContract;
+import edu.aku.hassannaqvi.kmc2_linelisting.contracts.PregnancyContract.singlePREG;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.TalukasContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.TalukasContract.singleTalukas;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.UCsContract;
@@ -38,11 +40,11 @@ import edu.aku.hassannaqvi.kmc2_linelisting.contracts.VillagesContract.singleVil
  */
 public class FormsDBHelper extends SQLiteOpenHelper {
 
-    // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 4;
     // The name of database.
-    public static final String DATABASE_NAME = "kmc.db";
-    public static final String DB_NAME = "kmc.db";
+    public static final String DATABASE_NAME = "kmc_hhlisting.db";
+    public static final String DB_NAME = "kmc_hhlisting.db";
+    // Change this when you change the database schema.
+    private static final int DATABASE_VERSION = 1;
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -50,7 +52,6 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public FormsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -80,9 +81,26 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
-                ListingEntry.COLUMN_NAME_ROUND + " TEXT, " +
+                ListingEntry.COLUMN_NAME_APP_VER + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
                 " );";
+
+        final String SQL_CREATE_PREGNANCY_TABLE = "CREATE TABLE " + singlePREG.TABLE_NAME + " (" +
+                singlePREG.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singlePREG.COLUMN_HH01 + " TEXT," +
+                singlePREG.COLUMN_HH02 + " TEXT," +
+                singlePREG.COLUMN_HH03 + " TEXT," +
+                singlePREG.COLUMN_UUID + " TEXT," +
+                singlePREG.COLUMN_UID + " TEXT," +
+                singlePREG.COLUMN_HHDT + " TEXT," +
+                singlePREG.COLUMN_USER + " TEXT," +
+                singlePREG.COLUMN_DEVICEID + " TEXT," +
+                singlePREG.COLUMN_DEVICETAGID + " TEXT," +
+                singlePREG.COLUMN_APP_VER + " TEXT," +
+                singlePREG.COLUMN_HH16 + " TEXT," +
+                singlePREG.COLUMN_SYNCED + " TEXT," +
+                singlePREG.COLUMN_SYNC_DATE + " TEXT " +
+                ");";
 
         final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
                 singleDistrict._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -125,6 +143,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
+        db.execSQL(SQL_CREATE_PREGNANCY_TABLE);
+
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
@@ -147,6 +167,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + singleUCs.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleVillages.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleAreas.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singlePREG.TABLE_NAME);
 
         onCreate(db);
     }
@@ -257,7 +278,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
-        values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
+        values.put(ListingEntry.COLUMN_NAME_APP_VER, lc.getApp_ver());
         values.put(ListingEntry.COLUMN_TAGID, lc.getTagId());
 
         long newRowId;
@@ -266,6 +287,34 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_NULLABLE,
                 values);
         DB_FORM_ID = String.valueOf(newRowId);
+
+        return newRowId;
+    }
+
+    public Long addPregnancy(PregnancyContract prg) {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(singlePREG.COLUMN_ID, prg.getID());
+        values.put(singlePREG.COLUMN_HH01, prg.getHh01());
+        values.put(singlePREG.COLUMN_HH02, prg.getHh02());
+        values.put(singlePREG.COLUMN_HH03, prg.getHh03());
+        values.put(singlePREG.COLUMN_UUID, prg.getUuid());
+        values.put(singlePREG.COLUMN_UID, prg.getUid());
+        values.put(singlePREG.COLUMN_HHDT, prg.getHhDT());
+        values.put(singlePREG.COLUMN_USER, prg.getUser());
+        values.put(singlePREG.COLUMN_DEVICEID, prg.getDeviceid());
+        values.put(singlePREG.COLUMN_DEVICETAGID, prg.getDevicetagid());
+        values.put(singlePREG.COLUMN_APP_VER, prg.getApp_ver());
+        values.put(singlePREG.COLUMN_HH16, prg.getHh16());
+
+        long newRowId;
+        newRowId = db.insert(
+                singlePREG.TABLE_NAME,
+                singlePREG.COLUMN_NAME_NULLABLE,
+                values);
 
         return newRowId;
     }
@@ -292,16 +341,30 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public void updateListingUID() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-// New value for one column
         ContentValues values = new ContentValues();
         values.put(ListingEntry.COLUMN_NAME_UID, MainApp.lc.getUID());
 
-// Which row to update, based on the title
         String where = ListingEntry._ID + " = ?";
         String[] whereArgs = {MainApp.lc.getID().toString()};
 
         int count = db.update(
                 ListingEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+    }
+
+    public void updatePregnancyUID(PregnancyContract pg) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(singlePREG.COLUMN_UID, pg.getUid());
+
+        String where = singlePREG.COLUMN_ID + " = ?";
+        String[] whereArgs = {pg.getID().toString()};
+
+        int count = db.update(
+                singlePREG.TABLE_NAME,
                 values,
                 where,
                 whereArgs);
@@ -336,7 +399,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLng,
                 ListingEntry.COLUMN_NAME_GPSTime,
                 ListingEntry.COLUMN_NAME_GPSAccuracy,
-                ListingEntry.COLUMN_NAME_ROUND
+                ListingEntry.COLUMN_NAME_APP_VER
         };
 
         String whereClause = null;
@@ -758,7 +821,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
-        values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
+        values.put(ListingEntry.COLUMN_NAME_APP_VER, lc.getApp_ver());
         values.put(ListingEntry.COLUMN_USERNAME, lc.getUsername());
         values.put(ListingEntry.COLUMN_TAGID, lc.getTagId());
 
@@ -789,7 +852,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
         lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
-        lc.setRound(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ROUND))));
+        lc.setApp_ver(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_APP_VER))));
         lc.setTagId(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_TAGID))));
         lc.setUsername(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_USERNAME))));
 

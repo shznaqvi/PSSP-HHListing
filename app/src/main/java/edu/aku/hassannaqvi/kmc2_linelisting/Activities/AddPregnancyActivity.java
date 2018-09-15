@@ -3,6 +3,7 @@ package edu.aku.hassannaqvi.kmc2_linelisting.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +14,14 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.aku.hassannaqvi.kmc2_linelisting.R;
+import edu.aku.hassannaqvi.kmc2_linelisting.contracts.PregnancyContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.core.FormsDBHelper;
 import edu.aku.hassannaqvi.kmc2_linelisting.core.MainApp;
 
@@ -33,13 +38,14 @@ public class AddPregnancyActivity extends Activity {
     @BindView(R.id.ll_preg)
     LinearLayout ll_preg;
 
-
-    @BindView(R.id.btnAddPregnancy)
-    Button btnAddChild;
     @BindView(R.id.btnAddFamily)
-    Button btnAddFamilty;
+    Button btnAddFamily;
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
+
+    int cCount = 0;
+
+    boolean flag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,23 +53,33 @@ public class AddPregnancyActivity extends Activity {
         setContentView(R.layout.activity_add_pregnancy);
         ButterKnife.bind(this);
 
-        txtChildListing.setText("Child Listing: " + MainApp.hh03txt + "-" + MainApp.hh07txt + " (" + MainApp.cCount + " of " + MainApp.cTotal + ")");
+        txtChildListing.setText("Child Listing: " + MainApp.hh03txt + "-" + MainApp.hh07txt);
 
-        if (MainApp.cCount < MainApp.cTotal) {
-            btnAddChild.setVisibility(View.VISIBLE);
+        /*if (MainApp.cCount < MainApp.cTotal) {
+            btnAddPreg.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
-            btnAddFamilty.setVisibility(View.GONE);
+            btnAddFamily.setVisibility(View.GONE);
         } else if (MainApp.cCount >= MainApp.cTotal && MainApp.fCount < MainApp.fTotal) {
-            btnAddFamilty.setVisibility(View.VISIBLE);
+            btnAddFamily.setVisibility(View.VISIBLE);
             btnAddHousehold.setVisibility(View.GONE);
-            btnAddChild.setVisibility(View.GONE);
+            btnAddPreg.setVisibility(View.GONE);
         } else {
-            btnAddFamilty.setVisibility(View.GONE);
+            btnAddFamily.setVisibility(View.GONE);
             btnAddHousehold.setVisibility(View.VISIBLE);
-            btnAddChild.setVisibility(View.GONE);
+            btnAddPreg.setVisibility(View.GONE);
+        }*/
+
+        cCount = getIntent().getIntExtra("cCount", 0);
+
+        if (MainApp.fCount < MainApp.fTotal) {
+            btnAddFamily.setVisibility(View.VISIBLE);
+            btnAddHousehold.setVisibility(View.GONE);
+        } else {
+            btnAddFamily.setVisibility(View.GONE);
+            btnAddHousehold.setVisibility(View.VISIBLE);
         }
 
-        AddDynamicLayout(MainApp.cTotal);
+        AddDynamicLayout(cCount);
 
     }
 
@@ -73,7 +89,7 @@ public class AddPregnancyActivity extends Activity {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        params.setMargins(0, 24, 0, 0);
+        params.setMargins(0, 30, 0, 0);
 
         for (int i = 1; i <= count; i++) {
 
@@ -86,6 +102,7 @@ public class AddPregnancyActivity extends Activity {
             EditText editTxt = new EditText(this);
             editTxt.setHint(i + ": " + getString(R.string.hh16));
             editTxt.setId(i);
+            editTxt.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
 
             ll.addView(txt);
             ll.addView(editTxt);
@@ -96,63 +113,86 @@ public class AddPregnancyActivity extends Activity {
 
     }
 
-    @OnClick(R.id.btnAddPregnancy)
-    void onBtnAddChildClick() {
-        if (formValidation()) {
-
-            SaveDraft();
-            if (UpdateDB()) {
-                MainApp.cCount++;
-                Intent fA = new Intent(this, AddPregnancyActivity.class);
-                startActivity(fA);
-            }
-
-        }
-    }
-
-    private boolean UpdateDB() {
+    private boolean UpdateDB(PregnancyContract pg) {
         FormsDBHelper db = new FormsDBHelper(this);
 
+        long updcount = db.addPregnancy(pg);
 
-        long updcount = db.addForm(MainApp.lc);
-
-        MainApp.lc.setID(String.valueOf(updcount));
+        pg.setID(String.valueOf(updcount));
 
         if (updcount != 0) {
-            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
-            MainApp.lc.setHh13(null);
-            MainApp.lc.setHh12(null);
-
-            MainApp.lc.setUID(
-                    (MainApp.lc.getDeviceID() + MainApp.lc.getID()));
-
-            db.updateListingUID();
+            pg.setUid(pg.getDeviceid() + pg.getID());
+            db.updatePregnancyUID(pg);
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
 
-    private void SaveDraft() {
-        Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
+    private void SaveDraft(int count) {
+
+        for (int i = 1; i <= count; i++) {
+            PregnancyContract pg = new PregnancyContract();
+
+            pg.setDevicetagid(MainApp.lc.getTagId());
+            pg.setHhDT(new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime()));
+            pg.setUser(MainApp.lc.getUsername());
+            pg.setDeviceid(MainApp.lc.getDeviceID());
+            pg.setApp_ver(MainApp.lc.getApp_ver());
+            pg.setUuid(MainApp.lc.getUID());
+            pg.setHh01(MainApp.lc.getHh01());
+            pg.setHh02(MainApp.lc.getHh02());
+            pg.setHh03(MainApp.lc.getHh03());
+            pg.setHh16(((EditText) findViewById(i)).getText().toString());
+
+            flag = UpdateDB(pg);
+
+            if (!flag) {
+                return;
+            }
+
+        }
+
+
         Log.d(TAG, "SaveDraft: Structure " + MainApp.lc.getHh03().toString());
     }
 
-    private boolean formValidation() {
+    private boolean formValidation(int count) {
+
+        for (int i = 1; i <= count; i++) {
+
+            EditText txt = findViewById(i);
+
+            if (txt.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Error(Empty):" + getString(R.string.hh16), Toast.LENGTH_LONG).show();
+                txt.setError("Data required");
+                Log.i(TAG, "hh16_" + i + ": This data is required.");
+                return false;
+            } else {
+                txt.setError(null);
+            }
+
+            if (Integer.valueOf(txt.getText().toString()) < 1) {
+                Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh16), Toast.LENGTH_LONG).show();
+                txt.setError("Greater then 0!!");
+                Log.i(TAG, "hh16_" + i + ": Greater than 0!!");
+                return false;
+            } else {
+                txt.setError(null);
+            }
+        }
 
 
         return true;
     }
 
-
     @OnClick(R.id.btnAddFamily)
     void onBtnAddFamilyClick() {
-        if (formValidation()) {
+        if (formValidation(cCount)) {
 
-            SaveDraft();
-            if (UpdateDB()) {
-                MainApp.cCount = 0;
-                MainApp.cTotal = 0;
+            SaveDraft(cCount);
+
+            if (flag) {
                 MainApp.hh07txt = String.valueOf((char) (MainApp.hh07txt.charAt(0) + 1));
                 MainApp.lc.setHh07(MainApp.hh07txt.toString());
                 MainApp.fCount++;
@@ -164,6 +204,8 @@ public class AddPregnancyActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            } else {
+                Toast.makeText(this, "Error in updating DB", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -171,17 +213,18 @@ public class AddPregnancyActivity extends Activity {
 
     @OnClick(R.id.btnAddHousehold)
     void onBtnAddHouseholdClick() {
-        if (formValidation()) {
+        if (formValidation(cCount)) {
 
-            SaveDraft();
-            if (UpdateDB()) {
+            SaveDraft(cCount);
+
+            if (flag) {
                 MainApp.fCount = 0;
                 MainApp.fTotal = 0;
-                MainApp.cCount = 0;
-                MainApp.cTotal = 0;
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
 
+            } else {
+                Toast.makeText(this, "Error in updating DB", Toast.LENGTH_SHORT).show();
             }
         }
     }

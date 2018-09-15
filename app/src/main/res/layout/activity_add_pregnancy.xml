@@ -54,14 +54,6 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnAddPregnancy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Add A Pregnancy"
-        android:visibility="gone" />
-
-    <Button
         android:id="@+id/btnAddFamily"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
