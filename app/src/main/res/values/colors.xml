@@ -5,4 +5,12 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">#66000000</color>
+    <color name="greenAlpha">#244caf50</color>
+    <color name="dullWhileOverlay">#99d6d6d6</color>
+    <color name="dullBlueOverlay">#24bbdefb</color>
+    <color name="blackOverlay">#66000000</color>
+    <color name="dullBlack">#292929</color>
+    <color name="colorPrimaryAlpha">#66003f78</color>
+    <color name="colorAccentAlpha">#24d60000</color>
+    <color name="colorAccentGAlpha">#2400d600</color>
 </resources>

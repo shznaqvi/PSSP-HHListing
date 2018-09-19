@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="72dp"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,16 +42,17 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:background="#efefef"
                 android:gravity="center_horizontal"
                 android:text="A Project of"
                 android:textColor="@color/black_overlay"
-                android:background="#efefef"
-                android:textSize="16sp"
-                android:layout_marginTop="36dp"
-                 />
+                android:textSize="16sp" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,23 +93,44 @@
                 android:singleLine="true"
                 android:textAlignment="center" />
 
-            <Button
-                android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="110dp"
-                android:padding="16dp"
-                android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/email_sign_in_button"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="60"
+                    android:text="@string/action_sign_in"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/sync_button"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
+                    android:background="@color/black_overlay"
+                    android:text="Sync Data"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
             <TextView
+                android:id="@+id/txtinstalldate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtinstalldate"
-                android:gravity="center"
                 android:background="#efefef"
+                android:gravity="center"
                 android:textColor="#565656"
-                android:textSize="11sp"/>
+                android:textSize="11sp" />
 
         </LinearLayout>
     </ScrollView>

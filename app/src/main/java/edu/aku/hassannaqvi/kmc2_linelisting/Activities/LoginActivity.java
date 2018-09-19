@@ -49,6 +49,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.aku.hassannaqvi.kmc2_linelisting.R;
 import edu.aku.hassannaqvi.kmc2_linelisting.core.FormsDBHelper;
 import edu.aku.hassannaqvi.kmc2_linelisting.core.MainApp;
@@ -89,6 +90,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     TextView txtinstalldate;
     @BindView(R.id.email_sign_in_button)
     Button mEmailSignInButton;
+    @BindView(R.id.sync_button)
+    Button syncButton;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -453,6 +456,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
+    }
+
+
+    @OnClick(R.id.sync_button)
+    void onSyncButtonClick() {
+        //TODO implement
+
+
     }
 
     /**

@@ -32,6 +32,10 @@ import edu.aku.hassannaqvi.kmc2_linelisting.contracts.UCsContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.UCsContract.singleUCs;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.UsersContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.UsersContract.singleUser;
+import edu.aku.hassannaqvi.kmc2_linelisting.contracts.VerticesContract;
+import edu.aku.hassannaqvi.kmc2_linelisting.contracts.VerticesContract.singleVertices;
+import edu.aku.hassannaqvi.kmc2_linelisting.contracts.VerticesUCContract;
+import edu.aku.hassannaqvi.kmc2_linelisting.contracts.VerticesUCContract.singleVerticesUC;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.VillagesContract;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.VillagesContract.singleVillages;
 
@@ -144,6 +148,23 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 + singleAreas.COLUMN_UC_CODE + " TEXT,"
                 + singleAreas.COLUMN_AREA + " TEXT );";
 
+
+        final String SQL_CREATE_VERTICES_TABLE = "CREATE TABLE " + singleVertices.TABLE_NAME + " (" +
+                singleVertices._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singleVertices.COLUMN_CLUSTER_CODE + " TEXT," +
+                singleVertices.COLUMN_POLY_LAT + " TEXT, " +
+                singleVertices.COLUMN_POLY_LANG + " TEXT, " +
+                singleVertices.COLUMN_POLY_SEQ + " TEXT " +
+                ");";
+
+        final String SQL_CREATE_VERTICESUC_TABLE = "CREATE TABLE " + singleVerticesUC.TABLE_NAME + " (" +
+                singleVerticesUC._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singleVerticesUC.COLUMN_UC_CODE + " TEXT," +
+                singleVerticesUC.COLUMN_POLY_LAT + " TEXT, " +
+                singleVerticesUC.COLUMN_POLY_LANG + " TEXT, " +
+                singleVerticesUC.COLUMN_POLY_SEQ + " TEXT " +
+                ");";
+
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_PREGNANCY_TABLE);
@@ -156,6 +177,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TALUKAS);
         db.execSQL(SQL_CREATE_UCS);
         db.execSQL(SQL_CREATE_AREAS);
+
+        db.execSQL(SQL_CREATE_VERTICES_TABLE);
+        db.execSQL(SQL_CREATE_VERTICESUC_TABLE);
     }
 
     @Override
@@ -171,6 +195,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + singleVillages.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleAreas.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singlePREG.TABLE_NAME);
+
+        db.execSQL("DROP TABLE IF EXISTS " + singleVertices.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singleVerticesUC.TABLE_NAME);
 
         onCreate(db);
     }
@@ -333,6 +360,153 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 values,
                 where,
                 whereArgs);
+    }
+
+    public Collection<VerticesContract> getVerticesByCluster(String cluster_code) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singleVertices._ID,
+                singleVertices.COLUMN_CLUSTER_CODE,
+                singleVertices.COLUMN_POLY_LAT,
+                singleVertices.COLUMN_POLY_LANG,
+                singleVertices.COLUMN_POLY_SEQ
+        };
+
+        String whereClause = singleVertices.COLUMN_CLUSTER_CODE + " = ?";
+        String[] whereArgs = {cluster_code};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                singleVertices.COLUMN_POLY_SEQ + " ASC";
+
+        Collection<VerticesContract> allVC = new ArrayList<>();
+        try {
+            c = db.query(
+                    singleVertices.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                VerticesContract vc = new VerticesContract();
+                allVC.add(vc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allVC;
+    }
+
+    public Collection<VerticesUCContract> getVerticesByUC(String uc_code) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singleVerticesUC._ID,
+                singleVerticesUC.COLUMN_UC_CODE,
+                singleVerticesUC.COLUMN_POLY_LAT,
+                singleVerticesUC.COLUMN_POLY_LANG,
+                singleVerticesUC.COLUMN_POLY_SEQ
+        };
+
+        String whereClause = singleVerticesUC.COLUMN_UC_CODE + " = ?";
+        String[] whereArgs = {uc_code};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy = "substr('0000000000' || " + singleVerticesUC.COLUMN_POLY_SEQ + ", -10, 10) ASC";
+
+        Collection<VerticesUCContract> allVCUC = new ArrayList<>();
+        try {
+            c = db.query(
+                    singleVerticesUC.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                VerticesUCContract vc = new VerticesUCContract();
+                allVCUC.add(vc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allVCUC;
+    }
+
+    public void syncVerticesUC(JSONArray vcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(singleVerticesUC.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = vcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectVRUC = jsonArray.getJSONObject(i);
+
+                VerticesUCContract vc = new VerticesUCContract();
+                vc.sync(jsonObjectVRUC);
+
+                ContentValues values = new ContentValues();
+
+                values.put(singleVerticesUC.COLUMN_UC_CODE, vc.getUc_code());
+                values.put(singleVerticesUC.COLUMN_POLY_LAT, vc.getPoly_lat());
+                values.put(singleVerticesUC.COLUMN_POLY_LANG, vc.getPoly_lng());
+                values.put(singleVerticesUC.COLUMN_POLY_SEQ, vc.getPoly_seq());
+
+                db.insert(singleVerticesUC.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void syncVertices(JSONArray vcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(singleVertices.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = vcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectVR = jsonArray.getJSONObject(i);
+
+                VerticesContract vc = new VerticesContract();
+                vc.sync(jsonObjectVR);
+
+                ContentValues values = new ContentValues();
+
+                values.put(singleVertices.COLUMN_CLUSTER_CODE, vc.getCluster_code());
+                values.put(singleVertices.COLUMN_POLY_LAT, vc.getPoly_lat());
+                values.put(singleVertices.COLUMN_POLY_LANG, vc.getPoly_lng());
+                values.put(singleVertices.COLUMN_POLY_SEQ, vc.getPoly_seq());
+
+                db.insert(singleVertices.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+
+        }
     }
 
     public Long addPregnancy(PregnancyContract prg) {

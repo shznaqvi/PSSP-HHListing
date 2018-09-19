@@ -37,6 +37,8 @@ import butterknife.ButterKnife;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetTalukas;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUCs;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUsers;
+import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVertices;
+import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVerticesUC;
 import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVillages;
 import edu.aku.hassannaqvi.kmc2_linelisting.R;
 import edu.aku.hassannaqvi.kmc2_linelisting.Sync.SyncAllData;
@@ -492,17 +494,23 @@ public class MainActivity extends Activity {
                             db.getAllPregnancy()
                     ).execute();
 
-                    Toast.makeText(MainActivity.this, "Sync Talukas", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Get Talukas", Toast.LENGTH_LONG).show();
                     new GetTalukas(mContext).execute();
-                    Toast.makeText(MainActivity.this, "Sync UC's", Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(MainActivity.this, "Get UC's", Toast.LENGTH_LONG).show();
                     new GetUCs(mContext).execute();
-                    /*Toast.makeText(MainActivity.this, "Sync Areas", Toast.LENGTH_LONG).show();
-                    new GetAreas(mContext).execute();*/
-                    Toast.makeText(MainActivity.this, "Sync Villages", Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(getApplicationContext(), "Get UC Vertices", Toast.LENGTH_SHORT).show();
+                    new GetVerticesUC(mContext).execute();
+
+                    Toast.makeText(getApplicationContext(), "Syncing Vertices", Toast.LENGTH_SHORT).show();
+                    new GetVertices(mContext).execute();
+
+                    Toast.makeText(MainActivity.this, "Get Villages", Toast.LENGTH_LONG).show();
                     new GetVillages(mContext).execute();
 
                     GetUsers user = new GetUsers(mContext);
-                    Toast.makeText(getApplicationContext(), "Syncing User", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Get User", Toast.LENGTH_SHORT).show();
                     user.execute();
 
                 }
