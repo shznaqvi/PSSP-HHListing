@@ -60,8 +60,9 @@ public class FamilyListingActivity extends Activity {
         setContentView(R.layout.activity_family_listing);
         ButterKnife.bind(this);
 
+        this.setTitle("FAMILY LISTING");
 
-        txtFamilyListing.setText("Family Listing: " + MainApp.hh03txt + "-" + MainApp.hh07txt);
+        txtFamilyListing.setText("FAMILY : " + MainApp.hh03txt + "-" + MainApp.hh07txt);
 
         if (MainApp.fCount < MainApp.fTotal) {
             btnAddFamilty.setVisibility(View.VISIBLE);

@@ -2,6 +2,7 @@ package edu.aku.hassannaqvi.kmc2_linelisting.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.method.DigitsKeyListener;
@@ -54,7 +55,9 @@ public class AddPregnancyActivity extends Activity {
         setContentView(R.layout.activity_add_pregnancy);
         ButterKnife.bind(this);
 
-        txtChildListing.setText("Child Listing: " + MainApp.hh03txt + "-" + MainApp.hh07txt);
+        this.setTitle("PREGNANCY LISTING");
+
+        txtChildListing.setText("FAMILY : " + MainApp.hh03txt + "-" + MainApp.hh07txt);
 
         /*if (MainApp.cCount < MainApp.cTotal) {
             btnAddPreg.setVisibility(View.VISIBLE);
@@ -95,13 +98,23 @@ public class AddPregnancyActivity extends Activity {
         for (int i = 1; i <= count; i++) {
 
             LinearLayout ll = new LinearLayout(this);
+            ll.setOrientation(LinearLayout.VERTICAL);
             ll.setLayoutParams(params);
 
             TextView txt = new TextView(this);
+            txt.setTextAppearance(this, R.style.textView);
+
+            if (Build.VERSION.SDK_INT < 23) {
+                txt.setTextAppearance(this, R.style.textView);
+            } else {
+                txt.setTextAppearance(R.style.textView);
+            }
+
             txt.setText(i + ": " + getString(R.string.hh16));
 
             EditText editTxt = new EditText(this);
             editTxt.setHint(i + ": " + getString(R.string.hh16));
+            editTxt.setLayoutParams(params);
             editTxt.setId(i);
             editTxt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
             editTxt.setKeyListener(DigitsKeyListener.getInstance("0123456789"));

@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,8 +31,6 @@ import edu.aku.hassannaqvi.kmc2_linelisting.core.MainApp;
 public class setupActivity extends Activity {
 
     private static String deviceId;
-    @BindView(R.id.activity_household_listing)
-    ScrollView activityHouseholdListing;
     /*@BindView(R.id.hh01)
     TextView hh01;*/
     @BindView(R.id.hh02)
@@ -88,6 +85,8 @@ public class setupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
         ButterKnife.bind(this);
+
+        this.setTitle("HOUSEHOLD INFORMATION");
 
         villageName.setText("Sub Village: " + MainApp.villageName);
 

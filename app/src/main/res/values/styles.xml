@@ -3,7 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:textViewStyle">@style/textView</item>
         <item name="android:editTextStyle">@style/editText</item>
         <item name="android:typeface">serif</item>
         <item name="android:textSize">24sp</item>
@@ -19,10 +18,13 @@
 
     </style>
 
-    <style name="textView" parent="AppTheme">
+    <style name="textView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10sp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:background">#d6d6d6</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:padding">8sp</item>
         <item name="android:typeface">serif</item>
 
     </style>

@@ -16,28 +16,24 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HouseHold Listing Form" />
+            style="@style/textView"
+            android:text="HouseHold Listing Form"
+            android:textAlignment="center" />
 
         <Spinner
             android:id="@+id/MN00"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </Spinner>
+            android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/MN01"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </Spinner>
+            android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/MN03"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </Spinner>
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/openForm"
@@ -45,6 +41,13 @@
             android:layout_height="wrap_content"
             android:onClick="openForm"
             android:text="Add new household details" />
+
+        <Button
+            android:id="@+id/openMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openMap"
+            android:text="MAP" />
 
         <Button
             android:id="@+id/syncFunction"
@@ -62,19 +65,16 @@
 
         <TextView
             android:id="@+id/talukaN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/textView"
             android:layout_marginTop="80dp" />
 
         <TextView
             android:id="@+id/ucN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            style="@style/textView" />
 
         <TextView
             android:id="@+id/villagesN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            style="@style/textView" />
 
 
     </LinearLayout>

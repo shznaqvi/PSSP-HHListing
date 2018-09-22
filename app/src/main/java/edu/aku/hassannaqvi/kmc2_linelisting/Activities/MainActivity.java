@@ -169,6 +169,8 @@ public class MainActivity extends Activity {
 
                 if (mN00.getSelectedItemPosition() != 0) {
                     MainApp.talukaCode = Integer.valueOf(talukasMap.get(mN00.getSelectedItem().toString()));
+
+                    talukaN.setText("Taluka: " + mN00.getSelectedItem().toString());
                 } else {
                     MainApp.talukaCode = 0;
                 }
@@ -183,8 +185,6 @@ public class MainActivity extends Activity {
                     lablesUCs.add(ucs.getUcs());
                     ucsMap.put(ucs.getUcs(), ucs.getUccode());
                 }
-
-                talukaN.setText("Taluka: " + mN00.getSelectedItem().toString());
 
                 mN01.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesUCs));
 
@@ -202,20 +202,12 @@ public class MainActivity extends Activity {
 
                 if (mN01.getSelectedItemPosition() != 0) {
                     MainApp.ucCode = Integer.valueOf(ucsMap.get(mN01.getSelectedItem().toString()));
+
+                    ucN.setText("UC: " + mN01.getSelectedItem().toString());
                 } else {
                     MainApp.ucCode = 0;
                 }
 
-             /*   lablesAreas = new ArrayList<>();
-                AreasMap = new HashMap<>();
-
-                lablesAreas.add("Select Areas..");
-
-                AreasList = db.getAllAreas(String.valueOf(MainApp.ucCode));
-                for (AreasContract Areas : AreasList) {
-                    lablesAreas.add(Areas.getArea());
-                    AreasMap.put(Areas.getArea(), Areas.getAreacode());
-                }*/
                 lablesVillages = new ArrayList<>();
                 villagesMap = new HashMap<>();
 
@@ -226,8 +218,6 @@ public class MainActivity extends Activity {
                     lablesVillages.add(villages.getVillagename());
                     villagesMap.put(villages.getVillagename(), new VillagesContract(villages));
                 }
-
-                ucN.setText("UC: " + mN01.getSelectedItem().toString());
 
                 mN03.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesVillages));
 
@@ -318,7 +308,7 @@ public class MainActivity extends Activity {
     public void openForm(View view) {
 
         if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {
-            NextSetupActivity();
+            NextSetupActivity(setupActivity.class);
         } else {
 
             builder = new AlertDialog.Builder(MainActivity.this);
@@ -339,7 +329,7 @@ public class MainActivity extends Activity {
                         editor.putString("tagName", m_Text);
                         editor.commit();
 
-                        NextSetupActivity();
+                        NextSetupActivity(setupActivity.class);
                     }
                 }
             });
@@ -354,9 +344,53 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void NextSetupActivity() {
-        Intent oF = new Intent(this, setupActivity.class);
+    public void openMap(View view) {
+
+        if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {
+            NextSetupActivity(MapsActivity.class);
+        } else {
+
+            builder = new AlertDialog.Builder(MainActivity.this);
+            ImageView img = new ImageView(getApplicationContext());
+            img.setImageResource(R.drawable.tagimg);
+            img.setPadding(0, 15, 0, 15);
+            builder.setCustomTitle(img);
+
+            final EditText input = new EditText(MainActivity.this);
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    m_Text = input.getText().toString();
+                    if (!m_Text.equals("")) {
+                        editor.putString("tagName", m_Text);
+                        editor.commit();
+
+                        NextSetupActivity(MapsActivity.class);
+                    }
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
+        }
+    }
+
+    public void NextSetupActivity(Class activity) {
+        Intent oF = new Intent(this, activity);
         if (mN00.getSelectedItemPosition() != 0 && mN01.getSelectedItemPosition() != 0 && mN03.getSelectedItemPosition() != 0) {
+
+            if (activity.getName().equals(MapsActivity.class.getName())) {
+                startActivity(oF);
+                return;
+            }
 
             if (MainApp.PSUExist(MainApp.villageCode)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
@@ -364,6 +398,7 @@ public class MainActivity extends Activity {
             } else {
                 startActivity(oF);
             }
+
         } else {
             Toast.makeText(this, "Please Sync Data or select values from drop down!", Toast.LENGTH_SHORT).show();
         }
