@@ -50,6 +50,12 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetTalukas;
+import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUCs;
+import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUsers;
+import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVertices;
+import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVerticesUC;
+import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVillages;
 import edu.aku.hassannaqvi.kmc2_linelisting.R;
 import edu.aku.hassannaqvi.kmc2_linelisting.core.FormsDBHelper;
 import edu.aku.hassannaqvi.kmc2_linelisting.core.MainApp;
@@ -463,6 +469,24 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     void onSyncButtonClick() {
         //TODO implement
 
+        Toast.makeText(this, "Get Talukas", Toast.LENGTH_LONG).show();
+        new GetTalukas(this).execute();
+
+        Toast.makeText(this, "Get UC's", Toast.LENGTH_LONG).show();
+        new GetUCs(this).execute();
+
+        Toast.makeText(this, "Get UC Vertices", Toast.LENGTH_SHORT).show();
+        new GetVerticesUC(this).execute();
+
+        Toast.makeText(this, "Syncing Vertices", Toast.LENGTH_SHORT).show();
+        new GetVertices(this).execute();
+
+        Toast.makeText(this, "Get Villages", Toast.LENGTH_LONG).show();
+        new GetVillages(this).execute();
+
+        GetUsers user = new GetUsers(this);
+        Toast.makeText(this, "Get User", Toast.LENGTH_SHORT).show();
+        user.execute();
 
     }
 

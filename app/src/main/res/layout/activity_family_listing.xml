@@ -69,9 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="40"
-                android:digits="1234567890"
                 android:inputType="number"
-                android:maxLength="11" />
+                android:maxLength="2" />
 
         </LinearLayout>
 
@@ -93,9 +92,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="40"
-                android:digits="1234567890"
                 android:inputType="number"
-                android:maxLength="11" />
+                android:maxLength="2" />
 
         </LinearLayout>
 
@@ -117,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="40"
-                android:digits="1234567890"
+
                 android:inputType="number"
                 android:maxLength="2" />
         </LinearLayout>
@@ -140,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="40"
-                android:digits="1234567890"
+
                 android:inputType="number"
                 android:maxLength="2" />
         </LinearLayout>
@@ -163,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_weight="40"
-                android:digits="1234567890"
+
                 android:inputType="number"
                 android:maxLength="2" />
         </LinearLayout>
@@ -173,7 +171,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Switch
+            <!--<Switch
                 android:id="@+id/hh14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -181,14 +179,40 @@
                 android:layout_weight="4"
                 android:text="@string/hh14"
                 android:textOff="@string/no"
-                android:textOn="@string/yes" />
+                android:textOn="@string/yes" />-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/hh14" />
+
+            <RadioGroup
+                android:id="@+id/hh14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/hh14a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/hh14b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/no" />
+
+            </RadioGroup>
 
             <EditText
                 android:id="@+id/hh15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:digits="1234567890"
                 android:hint="@string/hh15"
                 android:inputType="number"
                 android:maxLength="2"

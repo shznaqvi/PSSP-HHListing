@@ -72,11 +72,6 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/areaN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
             android:id="@+id/villagesN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

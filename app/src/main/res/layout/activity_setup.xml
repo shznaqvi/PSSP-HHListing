@@ -24,14 +24,15 @@
             android:background="#d6d6d6"
             android:text="Household Information"
             android:textAlignment="center" />
+
         <TextView
             android:id="@+id/villageName"
-            android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@android:color/black"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,7 +83,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:layout_weight="1"
                 android:text="@string/hh03" />
 
@@ -124,7 +124,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/hh04b" />
 
-            <RadioButton
+            <!--<RadioButton
                 android:id="@+id/hh04c"
                 android:layout_width="wrap_content"
 
@@ -151,7 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/hh04f" />
+                android:text="@string/hh04f" />-->
 
             <RadioButton
                 android:id="@+id/hh04g"
@@ -160,23 +160,22 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/hh04g" />
 
-            <RadioButton
+            <!--<RadioButton
                 android:id="@+id/hh04x"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/hh04x" />
+                android:text="@string/hh04x" />-->
 
         </RadioGroup>
 
-
-        <EditText
+        <!--<EditText
             android:id="@+id/hh04x88"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:digits="@string/txtMsg"
-            android:hint="@string/hh04x" />
+            android:hint="@string/hh04x" />-->
 
         <LinearLayout
             android:id="@+id/fldGrpHH04"
@@ -188,8 +187,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                android:orientation="vertical">
 
                 <!--Are there more than one Families?-->
                 <TextView
@@ -198,27 +196,45 @@
                     android:layout_marginTop="24dp"
                     android:text="@string/hh05" />
 
-                <Switch
+                <!--<Switch
                     android:id="@+id/hh05"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_weight="1"
                     android:textOff="@string/no"
-                    android:textOn="@string/yes" />
+                    android:textOn="@string/yes" />-->
+
+                <RadioGroup
+                    android:id="@+id/hh05"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/hh05a"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/yes" />
+
+                    <RadioButton
+                        android:id="@+id/hh05b"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/no" />
+
+                </RadioGroup>
 
                 <!--How many Families?-->
                 <EditText
                     android:id="@+id/hh06"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_weight="1"
-                    android:digits="1234567890"
                     android:hint="@string/hh06"
                     android:inputType="number"
                     android:maxLength="2"
-                    android:visibility="invisible" />
+                    android:visibility="gone" />
             </LinearLayout>
 
             <TextView

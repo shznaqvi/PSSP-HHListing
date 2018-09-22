@@ -34,12 +34,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetTalukas;
-import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUCs;
-import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetUsers;
-import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVertices;
-import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVerticesUC;
-import edu.aku.hassannaqvi.kmc2_linelisting.Get.GetVillages;
 import edu.aku.hassannaqvi.kmc2_linelisting.R;
 import edu.aku.hassannaqvi.kmc2_linelisting.Sync.SyncAllData;
 import edu.aku.hassannaqvi.kmc2_linelisting.contracts.ListingContract;
@@ -87,8 +81,6 @@ public class MainActivity extends Activity {
     TextView talukaN;
     @BindView(R.id.ucN)
     TextView ucN;
-    @BindView(R.id.areaN)
-    TextView areaN;
     @BindView(R.id.villagesN)
     TextView villageN;
 
@@ -160,7 +152,7 @@ public class MainActivity extends Activity {
         lablesTalukas = new ArrayList<>();
         talukasMap = new HashMap<>();
 
-        lablesTalukas.add("Select Talukas..");
+        lablesTalukas.add("Select Taluka..");
 
         for (TalukasContract taluka : TalukasList) {
             lablesTalukas.add(taluka.getTaluka());
@@ -192,7 +184,7 @@ public class MainActivity extends Activity {
                     ucsMap.put(ucs.getUcs(), ucs.getUccode());
                 }
 
-                talukaN.setText(mN00.getSelectedItem().toString());
+                talukaN.setText("Taluka: " + mN00.getSelectedItem().toString());
 
                 mN01.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesUCs));
 
@@ -235,7 +227,7 @@ public class MainActivity extends Activity {
                     villagesMap.put(villages.getVillagename(), new VillagesContract(villages));
                 }
 
-                ucN.setText(mN01.getSelectedItem().toString());
+                ucN.setText("UC: " + mN01.getSelectedItem().toString());
 
                 mN03.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesVillages));
 
@@ -287,7 +279,7 @@ public class MainActivity extends Activity {
                 if (mN03.getSelectedItemPosition() != 0) {
                     MainApp.villageCode = villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode();
                     MainApp.villageName = mN03.getSelectedItem().toString();
-                    villageN.setText(villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode());
+                    villageN.setText("Village: " + MainApp.villageName + " | " + villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode());
                 }
             }
 
@@ -470,11 +462,7 @@ public class MainActivity extends Activity {
                 @Override
                 public void run() {
 
-                    /*SyncListing ff = new SyncListing(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
-                    ff.execute();*/
-
-                    Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
                     new SyncAllData(
                             mContext,
                             "Listing",
@@ -493,25 +481,6 @@ public class MainActivity extends Activity {
                             MainApp._HOST_URL + PregnancyContract.singlePREG._URL,
                             db.getAllPregnancy()
                     ).execute();
-
-                    Toast.makeText(MainActivity.this, "Get Talukas", Toast.LENGTH_LONG).show();
-                    new GetTalukas(mContext).execute();
-
-                    Toast.makeText(MainActivity.this, "Get UC's", Toast.LENGTH_LONG).show();
-                    new GetUCs(mContext).execute();
-
-                    Toast.makeText(getApplicationContext(), "Get UC Vertices", Toast.LENGTH_SHORT).show();
-                    new GetVerticesUC(mContext).execute();
-
-                    Toast.makeText(getApplicationContext(), "Syncing Vertices", Toast.LENGTH_SHORT).show();
-                    new GetVertices(mContext).execute();
-
-                    Toast.makeText(MainActivity.this, "Get Villages", Toast.LENGTH_LONG).show();
-                    new GetVillages(mContext).execute();
-
-                    GetUsers user = new GetUsers(mContext);
-                    Toast.makeText(getApplicationContext(), "Get User", Toast.LENGTH_SHORT).show();
-                    user.execute();
 
                 }
             });

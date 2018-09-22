@@ -103,7 +103,7 @@ public class AddPregnancyActivity extends Activity {
             EditText editTxt = new EditText(this);
             editTxt.setHint(i + ": " + getString(R.string.hh16));
             editTxt.setId(i);
-            editTxt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+            editTxt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
             editTxt.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
 
             ll.addView(txt);

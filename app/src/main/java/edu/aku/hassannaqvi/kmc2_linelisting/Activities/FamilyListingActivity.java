@@ -8,9 +8,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Switch;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +40,11 @@ public class FamilyListingActivity extends Activity {
     @BindView(R.id.hh13)
     EditText hh13;
     @BindView(R.id.hh14)
-    Switch hh14;
+    RadioGroup hh14;
+    @BindView(R.id.hh14a)
+    RadioButton hh14a;
+    @BindView(R.id.hh14b)
+    RadioButton hh14b;
     @BindView(R.id.hh15)
     EditText hh15;
     @BindView(R.id.btnAddPregnancy)
@@ -67,10 +71,23 @@ public class FamilyListingActivity extends Activity {
             btnAddHousehold.setVisibility(View.VISIBLE);
         }
 
-        hh14.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*hh14.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    hh15.setVisibility(View.VISIBLE);
+                    hh15.requestFocus();
+                } else {
+                    hh15.setVisibility(View.GONE);
+                    hh15.setText(null);
+                }
+            }
+        });*/
+
+        hh14.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (i == R.id.hh14a) {
                     hh15.setVisibility(View.VISIBLE);
                     hh15.requestFocus();
                 } else {
@@ -137,7 +154,7 @@ public class FamilyListingActivity extends Activity {
         MainApp.lc.setHh11(hh11.getText().toString());
         MainApp.lc.setHh12(hh12.getText().toString());
         MainApp.lc.setHh13(hh13.getText().toString());
-        MainApp.lc.setHh14(hh14.isChecked() ? "1" : "2");
+        MainApp.lc.setHh14(hh14a.isChecked() ? "1" : hh14b.isChecked() ? "2" : "0");
         MainApp.lc.setHh15(hh15.getText().toString());
         Log.d(TAG, "SaveDraft: Structure " + MainApp.lc.getHh03().toString());
 
@@ -163,10 +180,10 @@ public class FamilyListingActivity extends Activity {
             hh09.setError(null);
         }
 
-        if (Integer.valueOf(hh09.getText().toString()) < 1) {
+        if (Integer.valueOf(hh09.getText().toString()) < 2 || Integer.valueOf(hh09.getText().toString()) > 50) {
             Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh09), Toast.LENGTH_LONG).show();
-            hh09.setError("Total members greater than 0!!");
-            Log.i(TAG, "hh09: Total members greater than 0!!");
+            hh09.setError("Total members Range 2 - 50!!");
+            Log.i(TAG, "hh09: Total members Range 2 - 50!!");
             return false;
         } else {
             hh09.setError(null);
@@ -181,10 +198,28 @@ public class FamilyListingActivity extends Activity {
             hh10.setError(null);
         }
 
+        if (Integer.valueOf(hh10.getText().toString()) > 30) {
+            Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh10), Toast.LENGTH_LONG).show();
+            hh10.setError("Range can be 0 to 30 !!");
+            Log.i(TAG, "hh10: Range can be 0 to 30 !!");
+            return false;
+        } else {
+            hh10.setError(null);
+        }
+
         if (hh11.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):" + getString(R.string.hh11), Toast.LENGTH_LONG).show();
             hh11.setError("Data required");
             Log.i(TAG, "hh11: This data is required.");
+            return false;
+        } else {
+            hh11.setError(null);
+        }
+
+        if (Integer.valueOf(hh11.getText().toString()) > 20) {
+            Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh11), Toast.LENGTH_LONG).show();
+            hh11.setError("Range can be 0 to 20 !!");
+            Log.i(TAG, "hh11: Range can be 0 to 20 !!");
             return false;
         } else {
             hh11.setError(null);
@@ -199,6 +234,15 @@ public class FamilyListingActivity extends Activity {
             hh12.setError(null);
         }
 
+        if (Integer.valueOf(hh12.getText().toString()) > 20) {
+            Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh12), Toast.LENGTH_LONG).show();
+            hh12.setError("Range can be 0 to 20 !!");
+            Log.i(TAG, "hh12: Range can be 0 to 20 !!");
+            return false;
+        } else {
+            hh12.setError(null);
+        }
+
         if (hh13.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):" + getString(R.string.hh13), Toast.LENGTH_LONG).show();
             hh13.setError("Data required");
@@ -208,11 +252,38 @@ public class FamilyListingActivity extends Activity {
             hh13.setError(null);
         }
 
-        if (hh14.isChecked()) {
-            if (Integer.valueOf(hh15.getText().toString()) < 1) {
+        if (hh14.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "Please select one option", Toast.LENGTH_LONG).show();
+            hh14b.setError("Please select one option");
+            Log.i(TAG, "Please select one option");
+            return false;
+        } else {
+            hh14b.setError(null);
+        }
+
+        if (hh14a.isChecked()) {
+            if (Integer.valueOf(hh10.getText().toString()) < 1) {
+                Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh10), Toast.LENGTH_LONG).show();
+                hh10.setError("Greater than 0!!");
+                Log.i(TAG, "hh10: Greater than 0!!");
+                return false;
+            } else {
+                hh10.setError(null);
+            }
+
+            if (hh15.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Error(Empty):" + getString(R.string.hh15), Toast.LENGTH_LONG).show();
+                hh15.setError("Data required");
+                Log.i(TAG, "hh15: This data is required.");
+                return false;
+            } else {
+                hh15.setError(null);
+            }
+
+            if (Integer.valueOf(hh15.getText().toString()) < 1 || Integer.valueOf(hh15.getText().toString()) > Integer.valueOf(hh10.getText().toString())) {
                 Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh15), Toast.LENGTH_LONG).show();
-                hh15.setError("Greater then 0!!");
-                Log.i(TAG, "hh15: Greater than 0!!");
+                hh15.setError("Range can be 1 to " + hh10.getText().toString() + " !!");
+                Log.i(TAG, "hh15: Range can be 1 to " + hh10.getText().toString() + " !!");
                 return false;
             } else {
                 hh15.setError(null);
