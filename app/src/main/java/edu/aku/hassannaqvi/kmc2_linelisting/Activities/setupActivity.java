@@ -316,9 +316,9 @@ public class setupActivity extends Activity {
             hh02.setError(null);
         }
         if (hh04.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Please select one option", Toast.LENGTH_LONG).show();
-            hh04g.setError("Please select one option");
-            Log.i(TAG, "Please select one option");
+            Toast.makeText(this, "Error (Empty)" + getString(R.string.hh04), Toast.LENGTH_LONG).show();
+            hh04g.setError(getString(R.string.rd_empty));
+            Log.i(TAG, "hh04:" + getString(R.string.rd_empty));
             return false;
         } else {
             hh04g.setError(null);
@@ -335,27 +335,27 @@ public class setupActivity extends Activity {
 
         if (hh04a.isChecked()) {
             if (hh05.getCheckedRadioButtonId() == -1) {
-                Toast.makeText(this, "Please select one option", Toast.LENGTH_LONG).show();
-                hh05b.setError("Please select one option");
-                Log.i(TAG, "Please select one option");
+                Toast.makeText(this, "Error (Empty)" + getString(R.string.hh05), Toast.LENGTH_LONG).show();
+                hh05b.setError(getString(R.string.rd_empty));
+                Log.i(TAG, "hh05:" + getString(R.string.rd_empty));
                 return false;
             } else {
                 hh05b.setError(null);
             }
 
             if (hh05a.isChecked() && hh06.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Please enter number", Toast.LENGTH_LONG).show();
-                hh06.setError("Please enter number");
-                Log.i(TAG, "Please enter number");
+                Toast.makeText(this, "Error (Empty)" + getString(R.string.hh06), Toast.LENGTH_LONG).show();
+                hh06.setError(getString(R.string.hh06));
+                Log.i(TAG, "hh06: " + getString(R.string.hh06));
                 return false;
             } else {
                 hh06.setError(null);
             }
 
             if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) <= 1) {
-                Toast.makeText(this, "Greater then 1!", Toast.LENGTH_LONG).show();
-                hh06.setError("Greater then 1!");
-                Log.i(TAG, "hh06:Greater then 1!");
+                Toast.makeText(this, "Error (Invalid)" + getString(R.string.hh06), Toast.LENGTH_LONG).show();
+                hh06.setError("1 کان وڌيڪ لکو!");
+                Log.i(TAG, "hh06: Greater then 1!");
                 return false;
             } else {
                 hh06.setError(null);

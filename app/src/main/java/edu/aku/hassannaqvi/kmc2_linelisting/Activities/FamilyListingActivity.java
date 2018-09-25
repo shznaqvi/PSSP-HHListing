@@ -138,7 +138,7 @@ public class FamilyListingActivity extends Activity {
 
             SaveDraft();
             if (UpdateDB()) {
-                Toast.makeText(this, MainApp.cCount + ":" + MainApp.cTotal + ":" + MainApp.fCount + ":" + MainApp.fTotal, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, MainApp.cCount + ":" + MainApp.cTotal + ":" + MainApp.fCount + ":" + MainApp.fTotal, Toast.LENGTH_SHORT).show();
                 Intent fA = new Intent(this, AddPregnancyActivity.class)
                         .putExtra("cCount", Integer.parseInt(hh15.getText().toString()));
                 startActivity(fA);
@@ -165,7 +165,7 @@ public class FamilyListingActivity extends Activity {
 
         if (hh08.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):" + getString(R.string.hh08), Toast.LENGTH_LONG).show();
-            hh08.setError("Data required");
+            hh08.setError(getString(R.string.empty));
             Log.i(TAG, "hh08: This data is required.");
             return false;
         } else {
@@ -174,7 +174,7 @@ public class FamilyListingActivity extends Activity {
 
         if (hh09.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):" + getString(R.string.hh09), Toast.LENGTH_LONG).show();
-            hh09.setError("Data required");
+            hh09.setError(getString(R.string.empty));
             Log.i(TAG, "hh09: This data is required.");
             return false;
         } else {
@@ -183,7 +183,7 @@ public class FamilyListingActivity extends Activity {
 
         if (Integer.valueOf(hh09.getText().toString()) < 2 || Integer.valueOf(hh09.getText().toString()) > 50) {
             Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh09), Toast.LENGTH_LONG).show();
-            hh09.setError("Total members Range 2 - 50!!");
+            hh09.setError("ڪل ڀاتي 2 کان 50 تائين لکو!!");
             Log.i(TAG, "hh09: Total members Range 2 - 50!!");
             return false;
         } else {
@@ -192,7 +192,7 @@ public class FamilyListingActivity extends Activity {
 
         if (hh10.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):" + getString(R.string.hh10), Toast.LENGTH_LONG).show();
-            hh10.setError("Data required");
+            hh10.setError(getString(R.string.empty));
             Log.i(TAG, "hh10: This data is required.");
             return false;
         } else {
@@ -201,7 +201,7 @@ public class FamilyListingActivity extends Activity {
 
         if (Integer.valueOf(hh10.getText().toString()) > 30) {
             Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh10), Toast.LENGTH_LONG).show();
-            hh10.setError("Range can be 0 to 30 !!");
+            hh10.setError("0 کان 30 تائين لکو!!");
             Log.i(TAG, "hh10: Range can be 0 to 30 !!");
             return false;
         } else {
@@ -210,7 +210,7 @@ public class FamilyListingActivity extends Activity {
 
         if (hh11.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):" + getString(R.string.hh11), Toast.LENGTH_LONG).show();
-            hh11.setError("Data required");
+            hh11.setError(getString(R.string.empty));
             Log.i(TAG, "hh11: This data is required.");
             return false;
         } else {
@@ -219,7 +219,7 @@ public class FamilyListingActivity extends Activity {
 
         if (Integer.valueOf(hh11.getText().toString()) > 20) {
             Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh11), Toast.LENGTH_LONG).show();
-            hh11.setError("Range can be 0 to 20 !!");
+            hh11.setError("0 کان 20 تائين لکو!!");
             Log.i(TAG, "hh11: Range can be 0 to 20 !!");
             return false;
         } else {
@@ -228,7 +228,7 @@ public class FamilyListingActivity extends Activity {
 
         if (hh12.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):" + getString(R.string.hh12), Toast.LENGTH_LONG).show();
-            hh12.setError("Data required");
+            hh12.setError(getString(R.string.empty));
             Log.i(TAG, "hh12: This data is required.");
             return false;
         } else {
@@ -237,7 +237,7 @@ public class FamilyListingActivity extends Activity {
 
         if (Integer.valueOf(hh12.getText().toString()) > 20) {
             Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh12), Toast.LENGTH_LONG).show();
-            hh12.setError("Range can be 0 to 20 !!");
+            hh12.setError("0 کان 20 تائين لکو!!");
             Log.i(TAG, "hh12: Range can be 0 to 20 !!");
             return false;
         } else {
@@ -246,17 +246,26 @@ public class FamilyListingActivity extends Activity {
 
         if (hh13.getText().toString().isEmpty()) {
             Toast.makeText(this, "Error(Empty):" + getString(R.string.hh13), Toast.LENGTH_LONG).show();
-            hh13.setError("Data required");
+            hh13.setError(getString(R.string.empty));
             Log.i(TAG, "hh13: This data is required.");
             return false;
         } else {
             hh13.setError(null);
         }
 
+        if (Integer.valueOf(hh13.getText().toString()) > 8) {
+            Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh13), Toast.LENGTH_LONG).show();
+            hh13.setError("0 کان 8 تائين لکو!!");
+            Log.i(TAG, "hh13: Range can be 0 to 8 !!");
+            return false;
+        } else {
+            hh13.setError(null);
+        }
+
         if (hh14.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Please select one option", Toast.LENGTH_LONG).show();
-            hh14b.setError("Please select one option");
-            Log.i(TAG, "Please select one option");
+            Toast.makeText(this, getString(R.string.rd_empty), Toast.LENGTH_LONG).show();
+            hh14b.setError(getString(R.string.rd_empty));
+            Log.i(TAG, "hh14b:" + getString(R.string.rd_empty));
             return false;
         } else {
             hh14b.setError(null);
@@ -265,7 +274,7 @@ public class FamilyListingActivity extends Activity {
         if (hh14a.isChecked()) {
             if (Integer.valueOf(hh10.getText().toString()) < 1) {
                 Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh10), Toast.LENGTH_LONG).show();
-                hh10.setError("Greater than 0!!");
+                hh10.setError("0 کان وڌيڪ لکو!!");
                 Log.i(TAG, "hh10: Greater than 0!!");
                 return false;
             } else {
@@ -274,7 +283,7 @@ public class FamilyListingActivity extends Activity {
 
             if (hh15.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Error(Empty):" + getString(R.string.hh15), Toast.LENGTH_LONG).show();
-                hh15.setError("Data required");
+                hh15.setError(getString(R.string.empty));
                 Log.i(TAG, "hh15: This data is required.");
                 return false;
             } else {
@@ -283,7 +292,10 @@ public class FamilyListingActivity extends Activity {
 
             if (Integer.valueOf(hh15.getText().toString()) < 1 || Integer.valueOf(hh15.getText().toString()) > Integer.valueOf(hh10.getText().toString())) {
                 Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh15), Toast.LENGTH_LONG).show();
-                hh15.setError("Range can be 1 to " + hh10.getText().toString() + " !!");
+//                hh15.setError("Range can be 1 to " + hh10.getText().toString() + " !!");
+
+
+                hh15.setError("1 کان" + hh10.getText().toString() + "تائين لکو" + " !!");
                 Log.i(TAG, "hh15: Range can be 1 to " + hh10.getText().toString() + " !!");
                 return false;
             } else {
@@ -292,17 +304,26 @@ public class FamilyListingActivity extends Activity {
 
             if (Integer.valueOf(hh09.getText().toString()) < Integer.valueOf(hh10.getText().toString())) {
                 Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh15), Toast.LENGTH_LONG).show();
-                hh15.setError("Lesser than or equal to " + (Integer.valueOf(hh10.getText().toString())) + "!!");
-                Log.i(TAG, "hh15: Lesser than or equal to " + (Integer.valueOf(hh10.getText().toString())) + "!!");
+//                hh15.setError("Lesser than or equal to " + Integer.valueOf(hh10.getText().toString()) + "!!");
+
+                hh10.setError(hh09.getText().toString() + " يا " + hh09.getText().toString() + " کان گهٽ لکو");
+
+                Log.i(TAG, "hh10: Lesser than or equal to " + (Integer.valueOf(hh09.getText().toString())) + "!!");
                 return false;
             } else {
-                hh15.setError(null);
+                hh10.setError(null);
             }
         }
 
         if (Integer.valueOf(hh09.getText().toString()) < (Integer.valueOf(hh10.getText().toString()) + Integer.valueOf(hh11.getText().toString()))) {
             Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh09), Toast.LENGTH_LONG).show();
-            hh09.setError("Greater than or equal to " + (Integer.valueOf(hh10.getText().toString()) + Integer.valueOf(hh11.getText().toString())) + "!!");
+
+            int grNo = (Integer.valueOf(hh10.getText().toString()) + Integer.valueOf(hh11.getText().toString()));
+
+//            hh09.setError("Greater than or equal to " + (Integer.valueOf(hh10.getText().toString()) + Integer.valueOf(hh11.getText().toString())) + "!!");
+
+            hh09.setError(grNo + " يا " + grNo + " کان وڌيڪ لکو" + "!!");
+
             Log.i(TAG, "hh09: Greater than or equal to " + (Integer.valueOf(hh10.getText().toString()) + Integer.valueOf(hh11.getText().toString())) + "!!");
             return false;
         } else {

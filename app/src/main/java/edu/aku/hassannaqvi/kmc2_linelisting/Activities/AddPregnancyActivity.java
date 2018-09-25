@@ -180,7 +180,7 @@ public class AddPregnancyActivity extends Activity {
 
             if (txt.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Error(Empty):" + getString(R.string.hh16), Toast.LENGTH_LONG).show();
-                txt.setError("Data required");
+                txt.setError(getString(R.string.empty));
                 Log.i(TAG, "hh16_" + i + ": This data is required.");
                 return false;
             } else {
@@ -189,7 +189,7 @@ public class AddPregnancyActivity extends Activity {
 
             if (Integer.valueOf(txt.getText().toString()) < 1) {
                 Toast.makeText(this, "Invalid (Value)" + getString(R.string.hh16), Toast.LENGTH_LONG).show();
-                txt.setError("Greater then 0!!");
+                txt.setError("0 کان وڌيڪ لکو!!");
                 Log.i(TAG, "hh16_" + i + ": Greater than 0!!");
                 return false;
             } else {

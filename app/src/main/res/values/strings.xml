@@ -5,7 +5,7 @@
 
     <string name="hh01"> ڈسٹرکٹ کوڈ </string>
     <string name="hh02">  ڳوٺ جو نمبر </string>
-    <string name="hh03"> اسٹرکچر جو نمبر </string>
+    <string name="hh03"> گهر جو نمبر </string>
     <string name="hhadd"> پتو </string>
     <string name="hh04"> رھائش جي صورتحال </string>
     <string name="hh04a"> رهائشي </string>
@@ -14,29 +14,34 @@
     <string name="hh04d"> اسکول/کالج/یونیورسٹی </string>
     <string name="hh04e"> مرکز صحت </string>
     <string name="hh04f"> خالی/بند/زیرتعمیر </string>
-    <string name="hh04g"> مزید عمارت نہیں </string>
+    <string name="hh04g"> وڌيڪ عمارت نه آهي </string>
     <string name="hh04x"> دیگر (وضاحت کریں) </string>
     <string name="hh05"> ڇا هن گهر ۾ ڪو ٻيو خاندان رهندو آهي؟ </string>
-    <string name="hh06"> خاندانن جي تعداد؟ </string>
+    <string name="hh06"> خاندانن جي تعداد لکو </string>
     <string name="hh07"> خاندان نمبر </string>
     <string name="hh08"> گھر جي سربراه جو نالو </string>
     <string name="hh09"> ڪُل گھر ڀاتين جي تعداد </string>
 
 
-    <string name="hh14"> ڇا ھن وقت گھر ۾ ڪوبه حاملہ عورت آھي؟ </string>
+    <string name="hh14"> ڇا ھن وقت گھر ۾ ڪابه حاملہ عورت آھي؟ </string>
     <string name="hh15"> حاملہ عورٺن جي تعداد </string>
 
-    <string name="hh10"> 15 کان 49 سالن جي شادي شده عورتن جي تعداد؟ </string>
+    <string name="hh10"> 15 کان 49 سالن جي شادي شده عورتن جي تعداد </string>
     <string name="hh11"> 5 سالن کان گھٽ عمرجا ٻار </string>
     <string name="hh12"> گذريل 1 سال دوران زنده پيدائش جي تعداد </string>
     <string name="hh13"> گذريل 1 سال دوران ڄمڻ کان 28 ڏينهن جي عمر ۾ فوت ٻارن جي تعداد </string>
     <string name="hh16"> حمل کي ڪيترو عرصو ٿيو آهي؟ </string>
+
+    <string name="empty"> رهيل معلومات لکو </string>
+    <string name="rd_empty"> ڪنهن به هڪ جواب تي ٽڪ ڪريو </string>
+
+
     <!--
         <string name="hh12"> کیا گھر میں دو سال سے چھوٹا بچہ موجود ہے؟ </string>
     -->
 
-    <string name="yes"> ہاں </string>
-    <string name="no"> نہیں </string>
+    <string name="yes"> ھا </string>
+    <string name="no"> نه </string>
 
     <string name="txtMsg">qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM</string>
     <string name="child_name">بچے کا نام</string>
