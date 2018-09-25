@@ -501,7 +501,7 @@ public class MainActivity extends Activity {
                     new SyncAllData(
                             mContext,
                             "Listing",
-                            "updateSyncedForms",
+                            "updateSyncedListing",
                             ListingContract.class,
                             MainApp._HOST_URL + ListingContract.ListingEntry._URL,
                             db.getAllListings()
