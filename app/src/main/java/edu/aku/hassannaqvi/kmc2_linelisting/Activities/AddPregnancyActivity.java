@@ -158,6 +158,7 @@ public class AddPregnancyActivity extends Activity {
             pg.setHh01(MainApp.lc.getHh01());
             pg.setHh02(MainApp.lc.getHh02());
             pg.setHh03(MainApp.lc.getHh03());
+            pg.setHh07(MainApp.lc.getHh07());
             pg.setHh16(((EditText) findViewById(i)).getText().toString());
 
             flag = UpdateDB(pg);

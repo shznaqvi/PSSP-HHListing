@@ -97,6 +97,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singlePREG.COLUMN_HH01 + " TEXT," +
                 singlePREG.COLUMN_HH02 + " TEXT," +
                 singlePREG.COLUMN_HH03 + " TEXT," +
+                singlePREG.COLUMN_HH07 + " TEXT," +
                 singlePREG.COLUMN_UUID + " TEXT," +
                 singlePREG.COLUMN_UID + " TEXT," +
                 singlePREG.COLUMN_HHDT + " TEXT," +
@@ -519,6 +520,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(singlePREG.COLUMN_HH01, prg.getHh01());
         values.put(singlePREG.COLUMN_HH02, prg.getHh02());
         values.put(singlePREG.COLUMN_HH03, prg.getHh03());
+        values.put(singlePREG.COLUMN_HH07, prg.getHh07());
         values.put(singlePREG.COLUMN_UUID, prg.getUuid());
         values.put(singlePREG.COLUMN_UID, prg.getUid());
         values.put(singlePREG.COLUMN_HHDT, prg.getHhDT());
@@ -663,6 +665,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singlePREG.COLUMN_HH01,
                 singlePREG.COLUMN_HH02,
                 singlePREG.COLUMN_HH03,
+                singlePREG.COLUMN_HH07,
                 singlePREG.COLUMN_UUID,
                 singlePREG.COLUMN_UID,
                 singlePREG.COLUMN_HHDT,

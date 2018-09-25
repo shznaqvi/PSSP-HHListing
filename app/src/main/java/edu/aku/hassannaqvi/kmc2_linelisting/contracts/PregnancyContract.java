@@ -15,6 +15,7 @@ public class PregnancyContract {
     private String hh01;
     private String hh02;
     private String hh03;
+    private String hh07;
     private String uuid;
     private String uid;
     private String hhDT;
@@ -138,12 +139,21 @@ public class PregnancyContract {
         this.hh03 = hh03;
     }
 
+    public String getHh07() {
+        return hh07;
+    }
+
+    public void setHh07(String hh07) {
+        this.hh07 = hh07;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(singlePREG.COLUMN_ID, this.ID == null ? JSONObject.NULL : this.ID);
         json.put(singlePREG.COLUMN_HH01, this.hh01 == null ? JSONObject.NULL : this.hh01);
         json.put(singlePREG.COLUMN_HH02, this.hh02 == null ? JSONObject.NULL : this.hh02);
         json.put(singlePREG.COLUMN_HH03, this.hh03 == null ? JSONObject.NULL : this.hh03);
+        json.put(singlePREG.COLUMN_HH07, this.hh07 == null ? JSONObject.NULL : this.hh07);
         json.put(singlePREG.COLUMN_UUID, this.uuid == null ? JSONObject.NULL : this.uuid);
         json.put(singlePREG.COLUMN_UID, this.uid == null ? JSONObject.NULL : this.uid);
         json.put(singlePREG.COLUMN_HHDT, this.hhDT == null ? JSONObject.NULL : this.hhDT);
@@ -160,11 +170,11 @@ public class PregnancyContract {
     }
 
     public PregnancyContract hydrate(Cursor cursor) {
-        PregnancyContract pg = new PregnancyContract();
         this.ID = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_ID));
         this.hh01 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH01));
         this.hh02 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH02));
         this.hh03 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH03));
+        this.hh07 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH07));
         this.uuid = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_UUID));
         this.uid = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_UID));
         this.hhDT = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HHDT));
@@ -176,7 +186,7 @@ public class PregnancyContract {
         this.sync_date = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_SYNC_DATE));
         this.hh16 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH16));
 
-        return pg;
+        return this;
     }
 
     public static abstract class singlePREG implements BaseColumns {
@@ -187,6 +197,7 @@ public class PregnancyContract {
         public static final String COLUMN_HH01 = "hh01";
         public static final String COLUMN_HH02 = "hh02";
         public static final String COLUMN_HH03 = "hh03";
+        public static final String COLUMN_HH07 = "hh07";
         public static final String COLUMN_UUID = "uuid";
         public static final String COLUMN_UID = "uid";
         public static final String COLUMN_HHDT = "hhdt";
