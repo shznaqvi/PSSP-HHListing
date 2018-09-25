@@ -352,10 +352,10 @@ public class setupActivity extends Activity {
                 hh06.setError(null);
             }
 
-            if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) <= 1) {
+            if (!hh06.getText().toString().isEmpty() && (Integer.valueOf(hh06.getText().toString()) < 2 || Integer.valueOf(hh06.getText().toString()) > 15)) {
                 Toast.makeText(this, "Error (Invalid)" + getString(R.string.hh06), Toast.LENGTH_LONG).show();
-                hh06.setError("1 کان وڌيڪ لکو!");
-                Log.i(TAG, "hh06: Greater then 1!");
+                hh06.setError("2 کان 15 تائين لکو!");
+                Log.i(TAG, "hh06: Range 2 - 15!");
                 return false;
             } else {
                 hh06.setError(null);

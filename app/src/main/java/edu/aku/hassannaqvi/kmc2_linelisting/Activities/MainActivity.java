@@ -211,7 +211,7 @@ public class MainActivity extends Activity {
                 lablesVillages = new ArrayList<>();
                 villagesMap = new HashMap<>();
 
-                lablesVillages.add("Select Village Code..");
+                lablesVillages.add("Select Village..");
 
                 VillagesList = db.getAllVillage(String.valueOf(MainApp.ucCode));
                 for (VillagesContract villages : VillagesList) {
