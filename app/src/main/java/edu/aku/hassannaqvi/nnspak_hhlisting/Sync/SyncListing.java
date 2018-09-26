@@ -5,11 +5,9 @@ package edu.aku.hassannaqvi.nnspak_hhlisting.Sync;
  */
 
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,28 +33,24 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
 
     private static final String TAG = "SyncListing";
     private Context mContext;
-    private ProgressDialog pd;
+    //    private ProgressDialog pd;
+    Collection<ListingContract> Listing;
+
+    UpdateSyncStatus updateDelegate;
 
 
     public SyncListing(Context context) {
         mContext = context;
-    }
 
-    public static void longInfo(String str) {
-        if (str.length() > 4000) {
-            Log.i(TAG, str.substring(0, 4000));
-            longInfo(str.substring(4000));
-        } else
-            Log.i("TAG: ", str);
+        updateDelegate = (UpdateSyncStatus) context;
     }
-
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pd = new ProgressDialog(mContext);
+        /*pd = new ProgressDialog(mContext);
         pd.setTitle("Please wait... Processing Listing");
-        pd.show();
+        pd.show();*/
     }
 
 
@@ -64,7 +58,7 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
             String url;
-            url = AppMain._HOST_URL + ListingContract.ListingEntry._URL;
+            url = AppMain._HOST_URL + ListingContract.ListingEntry._URL1;
             Log.d(TAG, "doInBackground: URL " + url);
             return downloadUrl(url);
         } catch (IOException e) {
@@ -72,12 +66,12 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
         }
     }
 
-    private String downloadUrl(String myurl) throws IOException {
+    private String downloadUrl(String myurl) {
         String line = "No Response";
 
         FormsDBHelper db = new FormsDBHelper(mContext);
-        Collection<ListingContract> Listing;
-        Listing = db.getAllListings();
+
+        Listing = db.getAllListings(false);
         Log.d(TAG, String.valueOf(Listing.size()));
 
         if (Listing.size() > 0) {
@@ -110,7 +104,6 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
                         jsonSync.put(fc.toJSONObject());
                     }
                     wr.writeBytes(jsonSync.toString().replace("\uFEFF", "") + "\n");
-                    longInfo(jsonSync.toString().replace("\uFEFF", "") + "\n");
                     wr.flush();
 
 
@@ -158,7 +151,6 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
         try {
             json = new JSONArray(result);
 
-
             FormsDBHelper db = new FormsDBHelper(mContext); // Database Helper
             for (int i = 0; i < json.length(); i++) {
                 JSONObject jsonObject = new JSONObject(json.getString(i));
@@ -173,20 +165,29 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
                     sSyncedError += "\nError: " + jsonObject.getString("message");
                 }
             }
-            Toast.makeText(mContext, " Listing synced: " + sSynced + "\r\n\r\n Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
+
+            if (Listing.size() == (sSynced + sDuplicate)) {
+                updateDelegate.processListing(true);
+            } else {
+                updateDelegate.processListing(false);
+            }
+
+            /*Toast.makeText(mContext, " Listing synced: " + sSynced + "\r\n\r\n Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
 
             pd.setMessage(" Listing synced: " + sSynced + "\r\n\r\n Duplicates: " + sDuplicate + "\r\n\r\n Errors: " + sSyncedError);
             pd.setTitle("Done uploading Listing data");
-            pd.show();
+            pd.show();*/
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(mContext, "Failed Sync " + result, Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(mContext, "Failed Sync " + result, Toast.LENGTH_SHORT).show();
 
             pd.setMessage(result);
             pd.setTitle("Listing Sync Failed");
-            pd.show();
-
-
+            pd.show();*/
         }
+    }
+
+    public interface UpdateSyncStatus {
+        void processListing(boolean flag);
     }
 }

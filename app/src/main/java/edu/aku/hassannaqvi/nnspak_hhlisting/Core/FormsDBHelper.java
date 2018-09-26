@@ -506,7 +506,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return jsonArray;
     }
 
-    public Collection<ListingContract> getAllListings() {
+    public Collection<ListingContract> getAllListings(boolean type) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
@@ -551,8 +551,16 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_RANDOMIZED
         };
 
-        String whereClause = ListingEntry.COLUMN_SYNCED + " is null";
+        String whereClause;
         String[] whereArgs = null;
+        if (type) {
+            whereClause = ListingEntry.COLUMN_SYNCED + " is null";
+        } else {
+            whereClause = ListingEntry.COLUMN_COUNTER + " is not null AND " + ListingEntry.COLUMN_SYNCED + " =?";
+            whereArgs = new String[]{"1"};
+        }
+
+
         String groupBy = null;
         String having = null;
 

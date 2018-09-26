@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,11 +27,15 @@ public class SyncDevice extends AsyncTask<Void, Integer, String> {
     private String TAG = "";
     Context context;
 
+    public SyncDevicInterface delegate;
+
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
     public SyncDevice(Context context) {
         this.context = context;
 
+        delegate = (SyncDevicInterface) context;
+        delegate.processFinish(false);
     }
 
     @Override
@@ -130,7 +133,11 @@ public class SyncDevice extends AsyncTask<Void, Integer, String> {
                     sharedPref = context.getSharedPreferences("tagName", MODE_PRIVATE);
                     editor = sharedPref.edit();
                     editor.putString("tagName", tag);
+                    editor.putString("orgID", jsonObject.getString("id_org"));
                     editor.commit();
+
+                    delegate.processFinish(true);
+
                 } else if (jsonObject.getString("status").equals("0") && jsonObject.getString("error").equals("1")) {
                 } else {
                     sSyncedError += "\nError:This device is not found on server.";
@@ -142,5 +149,9 @@ public class SyncDevice extends AsyncTask<Void, Integer, String> {
             e.printStackTrace();
             Toast.makeText(context, "Failed to get TAG ID " + result, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public interface SyncDevicInterface {
+        void processFinish(boolean flag);
     }
 }

@@ -50,6 +50,7 @@ import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -67,7 +68,7 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncDevice;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncListing;
 
-public class MainActivity extends MenuActivity {
+public class MainActivity extends MenuActivity implements SyncListing.UpdateSyncStatus {
 
     public static String TAG = "MainActivity";
 
@@ -507,7 +508,7 @@ public class MainActivity extends MenuActivity {
     public void openForm(View view) {
 
 //        if (sharedPref.getString("tagName", null) != "" && sharedPref.getString("tagName", null) != null) {
-            NextSetupActivity();
+        NextSetupActivity();
        /* } else {
 
             builder = new AlertDialog.Builder(MainActivity.this);
@@ -584,8 +585,13 @@ public class MainActivity extends MenuActivity {
                     "updateSyncedForms",
                     ListingContract.class,
                     AppMain._HOST_URL + ListingContract.ListingEntry._URL,
-                    db.getAllListings()
+                    db.getAllListings(true)
             ).execute();
+
+            HashMap<String, String> sharedVal = AppMain.getTagValues(getApplicationContext());
+            if (!sharedVal.get("date").equals(dtToday) && sharedVal.get("listing").equals("2")) {
+                new SyncListing(getApplicationContext()).execute();
+            }
 
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = syncPref.edit();
@@ -653,6 +659,15 @@ public class MainActivity extends MenuActivity {
         }
     }
 
+    @Override
+    public void processListing(boolean flag) {
+        sharedPref = getApplicationContext().getSharedPreferences("tagName", MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putString("date", dtToday);
+
+        editor.putString("listing", flag ? "1" : "2");
+    }
+
     public class CopyTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog Asycdialog;
@@ -688,7 +703,7 @@ public class MainActivity extends MenuActivity {
                         + "_" + ListingContract.ListingEntry.TABLE_NAME);
                 FileWriter writer = new FileWriter(gpxfile);
 
-                Collection<ListingContract> listing = db.getAllListings();
+                Collection<ListingContract> listing = db.getAllListings(true);
                 if (listing.size() > 0) {
                     JSONArray jsonSync = new JSONArray();
                     for (ListingContract fc : listing) {
@@ -722,50 +737,6 @@ public class MainActivity extends MenuActivity {
             Toast.makeText(mContext, "Copying done!!", Toast.LENGTH_SHORT).show();
         }
     }
-
-    public class syncData extends AsyncTask<String, String, String> {
-
-        private Context mContext;
-
-        public syncData(Context mContext) {
-            this.mContext = mContext;
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
-                    new SyncAllData(
-                            mContext,
-                            "Listing",
-                            "updateSyncedForms",
-                            ListingContract.class,
-                            AppMain._HOST_URL + ListingContract.ListingEntry._URL,
-                            db.getAllListings()
-                    ).execute();
-
-
-                }
-            });
-
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    spinnersFill();
-                }
-            }, 1200);
-        }
-    }
-
 
     void showDialog(String newVer, String preVer) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();

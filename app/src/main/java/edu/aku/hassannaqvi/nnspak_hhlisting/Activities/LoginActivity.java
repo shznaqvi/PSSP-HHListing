@@ -64,14 +64,13 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUpdates;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncDevice;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, SyncDevice.SyncDevicInterface {
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -150,7 +149,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkAndRequestPermissions()) {
                 populateAutoComplete();
-               loadIMEI();
+                loadIMEI();
             }
         } else {
             populateAutoComplete();
@@ -180,6 +179,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         dbBackup();
     }
+
     public void loadIMEI() {
         // Check if the READ_PHONE_STATE permission is already available.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -187,13 +187,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     != PackageManager.PERMISSION_GRANTED) {
                 // READ_PHONE_STATE permission has not been granted.
                 requestReadPhoneStatePermission();
-            }else{
+            } else {
                 doPermissionGrantedStuffs();
             }
         } else {
             doPermissionGrantedStuffs();
         }
     }
+
     private void requestReadPhoneStatePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.READ_PHONE_STATE)) {
@@ -219,6 +220,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
         }
     }
+
     private boolean checkAndRequestPermissions() {
         int permissionContact = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_CONTACTS);
@@ -339,6 +341,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             Toast.makeText(this, "No network connection available.", Toast.LENGTH_SHORT).show();
         }
     }
+
     /**
      * Callback received when a permissions request has been completed.
      */
@@ -373,7 +376,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         }
     }
-    public void requestLocationUpdate(){
+
+    public void requestLocationUpdate() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 MINIMUM_TIME_BETWEEN_UPDATES,
@@ -381,7 +395,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 new MyLocationListener()
         );
     }
+
     private void doPermissionGrantedStuffs() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         AppMain.IMEI = ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
     }
 
@@ -561,6 +586,24 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 
+    @Override
+    public void processFinish(boolean flag) {
+        if (flag) {
+            Toast.makeText(LoginActivity.this, "Sync Enum Blocks", Toast.LENGTH_LONG).show();
+            new GetAllData(this, "EnumBlock").execute();
+            Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();
+            new GetAllData(this, "User").execute();
+            Toast.makeText(LoginActivity.this, "Sync Teams", Toast.LENGTH_SHORT).show();
+            new GetAllData(this, "Team").execute();
+            Toast.makeText(LoginActivity.this, "Sync Version", Toast.LENGTH_SHORT).show();
+            new GetAllData(this, "VersionApp").execute();
+            Toast.makeText(LoginActivity.this, "Get Updates", Toast.LENGTH_SHORT).show();
+            new GetUpdates(this).execute();
+            /*Toast.makeText(LoginActivity.this, "Get Vertices", Toast.LENGTH_SHORT).show();
+            new GetVertices(this).execute();*/
+        }
+    }
+
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -667,6 +710,30 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 
+    protected void showCurrentLocation() {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        if (location != null) {
+            String message = String.format(
+                    "Current Location \n Longitude: %1$s \n Latitude: %2$s",
+                    location.getLongitude(), location.getLatitude()
+            );
+            //Toast.makeText(getApplicationContext(), message,
+            //Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     public class syncData extends AsyncTask<String, String, String> {
 
@@ -685,18 +752,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     /*Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();
                     new GetUsers(mContext).execute();*/
                     new SyncDevice(LoginActivity.this).execute();
-                    Toast.makeText(LoginActivity.this, "Sync Enum Blocks", Toast.LENGTH_LONG).show();
-                    new GetAllData(mContext, "EnumBlock").execute();
-                    Toast.makeText(LoginActivity.this, "Sync User", Toast.LENGTH_LONG).show();
-                    new GetAllData(mContext, "User").execute();
-                    Toast.makeText(LoginActivity.this, "Sync Teams", Toast.LENGTH_SHORT).show();
-                    new GetAllData(mContext, "Team").execute();
-                    Toast.makeText(LoginActivity.this, "Sync Version", Toast.LENGTH_SHORT).show();
-                    new GetAllData(mContext, "VersionApp").execute();
-                    Toast.makeText(LoginActivity.this, "Get Updates", Toast.LENGTH_SHORT).show();
-                    new GetUpdates(mContext).execute();
-                    Toast.makeText(LoginActivity.this, "Get Vertices", Toast.LENGTH_SHORT).show();
-                    new GetVertices(mContext).execute();
+
                 }
             });
 
@@ -719,20 +775,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 }
             }, 1200);
         }
-    }
-    protected void showCurrentLocation() {
-
-        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        if (location != null) {
-            String message = String.format(
-                    "Current Location \n Longitude: %1$s \n Latitude: %2$s",
-                    location.getLongitude(), location.getLatitude()
-            );
-            //Toast.makeText(getApplicationContext(), message,
-            //Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     private boolean isSameProvider(String provider1, String provider2) {

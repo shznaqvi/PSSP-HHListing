@@ -15,6 +15,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
@@ -95,6 +96,19 @@ public class AppMain extends Application {
         return sharedPref.getString("tagName", null);
     }
 
+
+    public static HashMap<String, String> getTagValues(Context mContext) {
+        SharedPreferences sharedPref = mContext.getSharedPreferences("tagName", MODE_PRIVATE);
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("tag", sharedPref.getString("tagName", null));
+        map.put("org", sharedPref.getString("orgID", null));
+        map.put("listing", sharedPref.getString("listing", null));
+        map.put("date", sharedPref.getString("date", null));
+
+        return map;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -104,21 +118,31 @@ public class AppMain extends Application {
         // Declare and Initialize GPS collection module
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // requestPermission();
             } else {
                 requestLocationUpdate();
             }
-        }else {
+        } else {
             requestLocationUpdate();
         }
-
 
 
         sharedPref = getSharedPreferences("PSUCodes", Context.MODE_PRIVATE);
 
     }
-    public void requestLocationUpdate(){
+
+    public void requestLocationUpdate() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 MINIMUM_TIME_BETWEEN_UPDATES,
@@ -130,6 +154,16 @@ public class AppMain extends Application {
 
     protected void showCurrentLocation() {
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         if (location != null) {

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import edu.aku.hassannaqvi.nnspak_hhlisting.Contracts.ListingContract;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AndroidDatabaseManager;
@@ -29,20 +30,20 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetUpdates;
-import edu.aku.hassannaqvi.nnspak_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncAllData;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncDevice;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncListing;
 import edu.aku.hassannaqvi.nnspak_hhlisting.WifiDirect.WiFiDirectActivity;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity implements SyncDevice.SyncDevicInterface, SyncListing.UpdateSyncStatus {
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
     String DirectoryName;
     FormsDBHelper db;
+    boolean flagSync = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,8 @@ public class MenuActivity extends AppCompatActivity {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             new syncData(this, 1).execute();
+
+            flagSync = true;
 
         } else {
             Toast.makeText(this, "No network connection available.", Toast.LENGTH_SHORT).show();
@@ -179,9 +182,37 @@ public class MenuActivity extends AppCompatActivity {
 
             new syncData(this, 2).execute();
 
+            flagSync = false;
+
         } else {
             Toast.makeText(this, "No network connection available.", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    @Override
+    public void processFinish(boolean flag) {
+        if (flag && flagSync) {
+            Toast.makeText(MenuActivity.this, "Sync Enum Blocks", Toast.LENGTH_LONG).show();
+            new GetAllData(this, "EnumBlock").execute();
+            Toast.makeText(MenuActivity.this, "Sync User", Toast.LENGTH_LONG).show();
+            new GetAllData(this, "User").execute();
+            Toast.makeText(MenuActivity.this, "Sync Teams", Toast.LENGTH_SHORT).show();
+            new GetAllData(this, "Team").execute();
+            Toast.makeText(MenuActivity.this, "Get Updates", Toast.LENGTH_SHORT).show();
+            new GetUpdates(this).execute();
+            /*Toast.makeText(MenuActivity.this, "Get Vertices", Toast.LENGTH_SHORT).show();
+            new GetVertices(this).execute();*/
+        }
+    }
+
+    @Override
+    public void processListing(boolean flag) {
+        sharedPref = getApplicationContext().getSharedPreferences("tagName", MODE_PRIVATE);
+        editor = sharedPref.edit();
+
+        editor.putString("date", dtToday);
+        editor.putString("listing", flag ? "1" : "2");
 
     }
 
@@ -204,16 +235,7 @@ public class MenuActivity extends AppCompatActivity {
                     new SyncDevice(MenuActivity.this).execute();
 
                     if (type == 1) {
-                        Toast.makeText(MenuActivity.this, "Sync Enum Blocks", Toast.LENGTH_LONG).show();
-                        new GetAllData(mContext, "EnumBlock").execute();
-                        Toast.makeText(MenuActivity.this, "Sync User", Toast.LENGTH_LONG).show();
-                        new GetAllData(mContext, "User").execute();
-                        Toast.makeText(MenuActivity.this, "Sync Teams", Toast.LENGTH_SHORT).show();
-                        new GetAllData(mContext, "Team").execute();
-                        Toast.makeText(MenuActivity.this, "Get Updates", Toast.LENGTH_SHORT).show();
-                        new GetUpdates(mContext).execute();
-                        Toast.makeText(MenuActivity.this, "Get Vertices", Toast.LENGTH_SHORT).show();
-                        new GetVertices(mContext).execute();
+
                     } else {
                         Toast.makeText(getApplicationContext(), "Syncing Listing", Toast.LENGTH_SHORT).show();
                         new SyncAllData(
@@ -222,8 +244,13 @@ public class MenuActivity extends AppCompatActivity {
                                 "updateSyncedForms",
                                 ListingContract.class,
                                 AppMain._HOST_URL + ListingContract.ListingEntry._URL,
-                                db.getAllListings()
+                                db.getAllListings(true)
                         ).execute();
+
+                        HashMap<String, String> sharedVal = AppMain.getTagValues(getApplicationContext());
+                        if (!sharedVal.get("date").equals(dtToday) && sharedVal.get("listing").equals("2")) {
+                            new SyncListing(getApplicationContext()).execute();
+                        }
                     }
                 }
             });
