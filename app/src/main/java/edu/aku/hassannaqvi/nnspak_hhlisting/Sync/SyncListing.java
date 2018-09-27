@@ -56,14 +56,10 @@ public class SyncListing extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        try {
-            String url;
-            url = AppMain._HOST_URL + ListingContract.ListingEntry._URL1;
-            Log.d(TAG, "doInBackground: URL " + url);
-            return downloadUrl(url);
-        } catch (IOException e) {
-            return "Unable to upload data. Server may be down.";
-        }
+        String url;
+        url = AppMain._HOST_URL + ListingContract.ListingEntry._URL1;
+        Log.d(TAG, "doInBackground: URL " + url);
+        return downloadUrl(url);
     }
 
     private String downloadUrl(String myurl) {

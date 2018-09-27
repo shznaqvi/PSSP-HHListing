@@ -589,8 +589,12 @@ public class MainActivity extends MenuActivity implements SyncListing.UpdateSync
             ).execute();
 
             HashMap<String, String> sharedVal = AppMain.getTagValues(getApplicationContext());
-            if (!sharedVal.get("date").equals(dtToday) && sharedVal.get("listing").equals("2")) {
-                new SyncListing(getApplicationContext()).execute();
+            if (sharedVal.get("date") != null) {
+                if (!sharedVal.get("date").equals(dtToday) && sharedVal.get("listing").equals("2")) {
+                    new SyncListing(this).execute();
+                }
+            } else {
+                new SyncListing(this).execute();
             }
 
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);

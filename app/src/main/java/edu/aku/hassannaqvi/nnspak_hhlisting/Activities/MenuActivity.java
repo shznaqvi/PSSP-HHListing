@@ -36,7 +36,7 @@ import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncDevice;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Sync.SyncListing;
 import edu.aku.hassannaqvi.nnspak_hhlisting.WifiDirect.WiFiDirectActivity;
 
-public class MenuActivity extends AppCompatActivity implements SyncDevice.SyncDevicInterface, SyncListing.UpdateSyncStatus {
+public class MenuActivity extends AppCompatActivity implements SyncDevice.SyncDevicInterface {
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -206,16 +206,6 @@ public class MenuActivity extends AppCompatActivity implements SyncDevice.SyncDe
         }
     }
 
-    @Override
-    public void processListing(boolean flag) {
-        sharedPref = getApplicationContext().getSharedPreferences("tagName", MODE_PRIVATE);
-        editor = sharedPref.edit();
-
-        editor.putString("date", dtToday);
-        editor.putString("listing", flag ? "1" : "2");
-
-    }
-
     public class syncData extends AsyncTask<String, String, String> {
 
         private Context mContext;
@@ -248,8 +238,12 @@ public class MenuActivity extends AppCompatActivity implements SyncDevice.SyncDe
                         ).execute();
 
                         HashMap<String, String> sharedVal = AppMain.getTagValues(getApplicationContext());
-                        if (!sharedVal.get("date").equals(dtToday) && sharedVal.get("listing").equals("2")) {
-                            new SyncListing(getApplicationContext()).execute();
+                        if (sharedVal.get("date") != null) {
+                            if (!sharedVal.get("date").equals(dtToday) && sharedVal.get("listing").equals("2")) {
+                                new SyncListing(mContext).execute();
+                            }
+                        } else {
+                            new SyncListing(mContext).execute();
                         }
                     }
                 }

@@ -31,6 +31,7 @@ public class SyncDevice extends AsyncTask<Void, Integer, String> {
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
+
     public SyncDevice(Context context) {
         this.context = context;
 
@@ -54,66 +55,67 @@ public class SyncDevice extends AsyncTask<Void, Integer, String> {
 
         return downloadUrl();
     }
+
     private String downloadUrl() {
         String line = "No Response";
-            HttpURLConnection connection = null;
-            try {
-                String request = AppMain._HOST_URL+AppMain.DeviceURL;
-                URL url = new URL(request);
+        HttpURLConnection connection = null;
+        try {
+            String request = AppMain._HOST_URL + AppMain.DeviceURL;
+            URL url = new URL(request);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            int HttpResult = connection.getResponseCode();
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
+
                 connection = (HttpURLConnection) url.openConnection();
+                JSONObject jsonObject = new JSONObject();
+                connection.setDoOutput(true);
+                connection.setDoInput(true);
+                connection.setInstanceFollowRedirects(false);
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("charset", "utf-8");
+                connection.setUseCaches(false);
                 connection.connect();
-                int HttpResult = connection.getResponseCode();
-                if (HttpResult == HttpURLConnection.HTTP_OK) {
 
-                    connection = (HttpURLConnection) url.openConnection();
-                    JSONObject jsonObject = new JSONObject();
-                    connection.setDoOutput(true);
-                    connection.setDoInput(true);
-                    connection.setInstanceFollowRedirects(false);
-                    connection.setRequestMethod("POST");
-                    connection.setRequestProperty("Content-Type", "application/json");
-                    connection.setRequestProperty("charset", "utf-8");
-                    connection.setUseCaches(false);
-                    connection.connect();
+                DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
 
-                    DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+                try {
+                    jsonObject.put("imei", AppMain.IMEI);
+                    jsonObject.put("appversion", AppMain.versionName + "." + AppMain.versionCode);
+                    jsonObject.put("appname", context.getString(R.string.app_name));
 
-                    try {
-                        jsonObject.put("imei",AppMain.IMEI);
-                        jsonObject.put("appversion",AppMain.versionName+"."+AppMain.versionCode);
-                        jsonObject.put("appname",context.getString(R.string.app_name));
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    wr.writeBytes(jsonObject.toString().replace("\uFEFF", "") + "\n");
-                    wr.flush();
-
-
-                    BufferedReader br = new BufferedReader(new InputStreamReader(
-                            connection.getInputStream(), "utf-8"));
-                    StringBuffer sb = new StringBuffer();
-
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line + "\n");
-                    }
-                    br.close();
-                    System.out.println("" + sb.toString());
-                    return sb.toString();
-                } else {
-                    System.out.println(connection.getResponseMessage());
-                    return connection.getResponseMessage();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
 
-                e.printStackTrace();
-            } finally {
-                if (connection != null)
-                    connection.disconnect();
+                wr.writeBytes(jsonObject.toString().replace("\uFEFF", "") + "\n");
+                wr.flush();
+
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(
+                        connection.getInputStream(), "utf-8"));
+                StringBuffer sb = new StringBuffer();
+
+                while ((line = br.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                br.close();
+                System.out.println("" + sb.toString());
+                return sb.toString();
+            } else {
+                System.out.println(connection.getResponseMessage());
+                return connection.getResponseMessage();
             }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        } finally {
+            if (connection != null)
+                connection.disconnect();
+        }
         return line;
     }
 
