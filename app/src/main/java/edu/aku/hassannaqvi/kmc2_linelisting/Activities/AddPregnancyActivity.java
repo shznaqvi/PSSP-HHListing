@@ -16,9 +16,6 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -135,11 +132,12 @@ public class AddPregnancyActivity extends Activity {
 
         pg.setID(String.valueOf(updcount));
 
-        if (updcount != 0) {
+        if (updcount > 0) {
             pg.setUid(pg.getDeviceid() + pg.getID());
             db.updatePregnancyUID(pg);
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
@@ -150,11 +148,12 @@ public class AddPregnancyActivity extends Activity {
             PregnancyContract pg = new PregnancyContract();
 
             pg.setDevicetagid(MainApp.lc.getTagId());
-            pg.setHhDT(new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime()));
+            pg.setHhDT(MainApp.lc.getHhDT());
             pg.setUser(MainApp.lc.getUsername());
             pg.setDeviceid(MainApp.lc.getDeviceID());
             pg.setApp_ver(MainApp.lc.getApp_ver());
             pg.setUuid(MainApp.lc.getUID());
+            pg.setHh00(MainApp.lc.getHh00());
             pg.setHh01(MainApp.lc.getHh01());
             pg.setHh02(MainApp.lc.getHh02());
             pg.setHh03(MainApp.lc.getHh03());

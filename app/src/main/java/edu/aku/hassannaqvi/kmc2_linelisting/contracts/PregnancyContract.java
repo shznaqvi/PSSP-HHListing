@@ -12,6 +12,7 @@ import org.json.JSONObject;
 public class PregnancyContract {
 
     private String ID;
+    private String hh00;
     private String hh01;
     private String hh02;
     private String hh03;
@@ -147,9 +148,18 @@ public class PregnancyContract {
         this.hh07 = hh07;
     }
 
+    public String getHh00() {
+        return hh00;
+    }
+
+    public void setHh00(String hh00) {
+        this.hh00 = hh00;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(singlePREG.COLUMN_ID, this.ID == null ? JSONObject.NULL : this.ID);
+        json.put(singlePREG.COLUMN_HH00, this.hh00 == null ? JSONObject.NULL : this.hh00);
         json.put(singlePREG.COLUMN_HH01, this.hh01 == null ? JSONObject.NULL : this.hh01);
         json.put(singlePREG.COLUMN_HH02, this.hh02 == null ? JSONObject.NULL : this.hh02);
         json.put(singlePREG.COLUMN_HH03, this.hh03 == null ? JSONObject.NULL : this.hh03);
@@ -171,6 +181,7 @@ public class PregnancyContract {
 
     public PregnancyContract hydrate(Cursor cursor) {
         this.ID = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_ID));
+        this.hh00 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH00));
         this.hh01 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH01));
         this.hh02 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH02));
         this.hh03 = cursor.getString(cursor.getColumnIndex(singlePREG.COLUMN_HH03));
@@ -194,6 +205,7 @@ public class PregnancyContract {
         public static final String TABLE_NAME = "pregnancy";
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
         public static final String COLUMN_ID = "id";
+        public static final String COLUMN_HH00 = "hh00";
         public static final String COLUMN_HH01 = "hh01";
         public static final String COLUMN_HH02 = "hh02";
         public static final String COLUMN_HH03 = "hh03";

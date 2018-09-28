@@ -13,6 +13,7 @@ public class ListingContract {
     public String ID;
     public String UID;
     public String hhDT;
+    public String hh00;
     public String hh01;
     public String hh02;
     public String hh03;
@@ -272,11 +273,20 @@ public class ListingContract {
         this.sync_date = sync_date;
     }
 
+    public String getHh00() {
+        return hh00;
+    }
+
+    public void setHh00(String hh00) {
+        this.hh00 = hh00;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
         json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
+        json.put(ListingEntry.COLUMN_NAME_HH00, this.hh00);
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
         json.put(ListingEntry.COLUMN_NAME_HH03, this.hh03);
@@ -315,6 +325,7 @@ public class ListingContract {
         public static final String _ID = "_id";
         public static final String COLUMN_NAME_UID = "uid";
         public static final String COLUMN_NAME_HHDATETIME = "hhdt";
+        public static final String COLUMN_NAME_HH00 = "hh00"; //Taluka
         public static final String COLUMN_NAME_HH01 = "hh01"; //UC
         public static final String COLUMN_NAME_HH02 = "hh02"; //Village Code
         public static final String COLUMN_NAME_HH03 = "hh03";

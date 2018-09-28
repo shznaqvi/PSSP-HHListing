@@ -225,6 +225,7 @@ public class setupActivity extends Activity {
         SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
         MainApp.lc.setTagId(sharedPref.getString("tagName", null));
         MainApp.lc.setHhDT(dtToday);
+        MainApp.lc.setHh00(String.valueOf(MainApp.talukaCode));    //Taluka Code
         MainApp.lc.setHh01(String.valueOf(MainApp.ucCode));    //UC Code
         MainApp.lc.setHh02(MainApp.villageCode);    //Village Code
         MainApp.lc.setHh03(String.valueOf(MainApp.hh03txt));
@@ -393,7 +394,7 @@ public class setupActivity extends Activity {
 
         MainApp.lc.setID(String.valueOf(updcount));
 
-        if (updcount != 0) {
+        if (updcount > 0) {
 
             MainApp.lc.setUID(
                     (MainApp.lc.getDeviceID() + MainApp.lc.getID()));
@@ -402,6 +403,7 @@ public class setupActivity extends Activity {
 
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }

@@ -49,7 +49,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "kmc_hhlisting.db";
     public static final String DB_NAME = "kmc_hhlisting.db";
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
 
@@ -58,6 +58,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /*final String SQL_ALTER_LISTINGS = "ALTER TABLE " +
+            ListingEntry.TABLE_NAME + " ADD COLUMN " +
+            ListingEntry.COLUMN_NAME_HH00 + " TEXT;";
+
+    final String SQL_ALTER_PREGNANCY = "ALTER TABLE " +
+            singlePREG.TABLE_NAME + " ADD COLUMN " +
+            singlePREG.COLUMN_HH00 + " TEXT;";*/
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a table to hold Listings.
@@ -65,6 +73,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ListingEntry.COLUMN_NAME_UID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH00 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH03 + " TEXT, " +
@@ -94,6 +103,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_PREGNANCY_TABLE = "CREATE TABLE " + singlePREG.TABLE_NAME + " (" +
                 singlePREG.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singlePREG.COLUMN_HH00 + " TEXT," +
                 singlePREG.COLUMN_HH01 + " TEXT," +
                 singlePREG.COLUMN_HH02 + " TEXT," +
                 singlePREG.COLUMN_HH03 + " TEXT," +
@@ -201,6 +211,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + singleVerticesUC.TABLE_NAME);
 
         onCreate(db);
+
+        /*switch (oldVersion) {
+            case 1:
+                db.execSQL(SQL_ALTER_LISTINGS);
+                db.execSQL(SQL_ALTER_PREGNANCY);
+        }*/
     }
 
     public Long lastInsertId() {
@@ -284,6 +300,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
+        values.put(ListingEntry.COLUMN_NAME_HH00, lc.getHh00());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
@@ -516,7 +533,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(singlePREG.COLUMN_ID, prg.getID());
+        values.put(singlePREG.COLUMN_HH00, prg.getHh00());
         values.put(singlePREG.COLUMN_HH01, prg.getHh01());
         values.put(singlePREG.COLUMN_HH02, prg.getHh02());
         values.put(singlePREG.COLUMN_HH03, prg.getHh03());
@@ -599,6 +616,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry._ID,
                 ListingEntry.COLUMN_NAME_UID,
                 ListingEntry.COLUMN_NAME_HHDATETIME,
+                ListingEntry.COLUMN_NAME_HH00,
                 ListingEntry.COLUMN_NAME_HH01,
                 ListingEntry.COLUMN_NAME_HH02,
                 ListingEntry.COLUMN_NAME_HH03,
@@ -662,6 +680,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Cursor c = null;
         String[] columns = {
                 singlePREG.COLUMN_ID,
+                singlePREG.COLUMN_HH00,
                 singlePREG.COLUMN_HH01,
                 singlePREG.COLUMN_HH02,
                 singlePREG.COLUMN_HH03,
@@ -1077,6 +1096,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry._ID, lc.getID());
         values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
+        values.put(ListingEntry.COLUMN_NAME_HH00, lc.getHh00());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
@@ -1108,6 +1128,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
         lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
+        lc.setHh00(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH00))));
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
         lc.setHh03(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH03))));

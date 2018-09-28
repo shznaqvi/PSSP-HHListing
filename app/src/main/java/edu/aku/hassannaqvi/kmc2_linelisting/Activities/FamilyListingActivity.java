@@ -381,7 +381,7 @@ public class FamilyListingActivity extends Activity {
 
         MainApp.lc.setID(String.valueOf(updcount));
 
-        if (updcount != 0) {
+        if (updcount > 0) {
             MainApp.lc.setUID(
                     (MainApp.lc.getDeviceID() + MainApp.lc.getID()));
 
@@ -389,6 +389,7 @@ public class FamilyListingActivity extends Activity {
 
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
