@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -151,9 +149,7 @@ public class SyncAllData extends AsyncTask<Void, Void, String> {
                 if (connection != null)
                     connection.disconnect();
             }
-        } else
-
-        {
+        } else {
             return "No new records to sync";
         }
         return line;

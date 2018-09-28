@@ -127,29 +127,35 @@ public class SyncDevice extends AsyncTask<Void, Integer, String> {
         JSONArray json = null;
         try {
             json = new JSONArray(result);
-            for (int i = 0; i < json.length(); i++) {
-                JSONObject jsonObject = new JSONObject(json.getString(i));
-                if (!jsonObject.equals("")) {
-                    //  db.updateSyncedChildForm(jsonObject.getString("id"));  // UPDATE SYNCED
-                    String tag = jsonObject.getString("tag");
-                    sharedPref = context.getSharedPreferences("tagName", MODE_PRIVATE);
-                    editor = sharedPref.edit();
-                    editor.putString("tagName", tag);
-                    editor.putString("orgID", jsonObject.getString("id_org"));
-                    editor.commit();
+            if (json.length() > 0) {
+                for (int i = 0; i < json.length(); i++) {
+                    JSONObject jsonObject = new JSONObject(json.getString(i));
+                    if (!jsonObject.equals("")) {
+                        //  db.updateSyncedChildForm(jsonObject.getString("id"));  // UPDATE SYNCED
+                        String tag = jsonObject.getString("tag");
+                        sharedPref = context.getSharedPreferences("tagName", MODE_PRIVATE);
+                        editor = sharedPref.edit();
+                        editor.putString("tagName", tag);
+                        editor.putString("orgID", jsonObject.getString("id_org"));
+                        editor.commit();
 
-                    delegate.processFinish(true);
+                        delegate.processFinish(true);
 
-                } else if (jsonObject.getString("status").equals("0") && jsonObject.getString("error").equals("1")) {
-                } else {
-                    sSyncedError += "\nError:This device is not found on server.";
+                    } else if (jsonObject.getString("status").equals("0") && jsonObject.getString("error").equals("1")) {
+                    } else {
+                        sSyncedError += "\nError:This device is not found on server.";
+                    }
                 }
+            } else {
+                delegate.processFinish(true);
             }
 //            Toast.makeText(context,  " synced: " + sSynced + "\r\n\r\n Errors: " + sSyncedError, Toast.LENGTH_SHORT).show();
 
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(context, "Failed to get TAG ID " + result, Toast.LENGTH_SHORT).show();
+
+            delegate.processFinish(true);
         }
     }
 
