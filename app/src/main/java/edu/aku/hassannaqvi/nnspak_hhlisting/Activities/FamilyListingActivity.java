@@ -101,6 +101,12 @@ public class FamilyListingActivity extends Activity {
     EditText hh22;
     @BindView(R.id.hh23)
     EditText hh23;
+    @BindView(R.id.hh24)
+    EditText hh24;
+    @BindView(R.id.hh25)
+    EditText hh25;
+    @BindView(R.id.hh26)
+    EditText hh26;
 
     @BindViews({R.id.hh10, R.id.hh12, R.id.hh14})
     List<RadioGroup> hh10_12;
@@ -384,6 +390,9 @@ public class FamilyListingActivity extends Activity {
         sA.put("hh21", hh21.getText().toString());
         sA.put("hh22", hh22.getText().toString());
         sA.put("hh23", hh23.getText().toString());
+        sA.put("hh24", hh24.getText().toString());
+        sA.put("hh25", hh25.getText().toString());
+        sA.put("hh26", hh26.getText().toString());
 
         AppMain.lc.setCounter(String.valueOf(sA));
 
@@ -579,6 +588,30 @@ public class FamilyListingActivity extends Activity {
        /* if (!validatorClass.RangeTextBox(this, hh22, 0, 99, getString(R.string.hh22), "Deaths")) {
             return false;
         }*/
+
+        if (!validatorClass.EmptyTextBox(this, hh24, getString(R.string.hh24))) {
+            return false;
+        }
+
+        if (!validatorClass.RangeTextBox(this, hh24, 0, 9, getString(R.string.hh24), "Deaths")) {
+            return false;
+        }
+
+        if (!validatorClass.EmptyTextBox(this, hh25, getString(R.string.hh25))) {
+            return false;
+        }
+
+        if (!validatorClass.RangeTextBox(this, hh25, 0, 9, getString(R.string.hh25), "Deaths")) {
+            return false;
+        }
+
+        if (!validatorClass.EmptyTextBox(this, hh26, getString(R.string.hh26))) {
+            return false;
+        }
+
+        if (!validatorClass.RangeTextBox(this, hh26, 0, 9, getString(R.string.hh26), "Deaths")) {
+            return false;
+        }
 
         if (!validatorClass.EmptyTextBox(this, hh23, getString(R.string.hh23))) {
             return false;
