@@ -93,7 +93,7 @@ public class GetAllData extends AsyncTask<String, String, String> {
 
                     HashMap<String, String> tagVal = AppMain.getTagValues(mContext);
 
-                    if (tagVal.get("org") != null && !tagVal.get("org").equals("")) {
+                    if (!tagVal.get("org").equals("null") && tagVal.get("org") != null && !tagVal.get("org").equals("")) {
                         if (Integer.valueOf(tagVal.get("org")) > 0) {
                             urlConnection.setRequestMethod("POST");
                             urlConnection.setDoOutput(true);
