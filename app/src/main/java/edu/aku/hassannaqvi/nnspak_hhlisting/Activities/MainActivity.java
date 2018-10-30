@@ -37,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -411,6 +412,19 @@ public class MainActivity extends MenuActivity implements SyncListing.UpdateSync
             Toast.makeText(this, "Sync data!!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+    public void SwitchServer(View v) {
+        if(((ToggleButton) v).isChecked()) {
+            // handle toggle on
+            // handle Server 2
+            AppMain._HOST_URL = "http://" + AppMain._IP2 + ":" + AppMain._PORT + "/nns/api/";
+            AppMain._UPDATE_URL = "http://" + AppMain._IP2 + ":" + AppMain._PORT + "/nns/app/linelisting/";
+        } else {
+            // handle toggle off
+            // handle Server 1
+            AppMain._HOST_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/nns/api/";
+            AppMain._UPDATE_URL = "http://" + AppMain._IP + ":" + AppMain._PORT + "/nns/app/linelisting/";
+        }
     }
 
     public void OpenFormFun() {
