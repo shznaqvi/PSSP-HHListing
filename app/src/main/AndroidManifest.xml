@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.aku.hassannaqvi.kmc2_linelisting">
+    package="edu.aku.hassannaqvi.kmc2_hhl_validation">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,38 +15,38 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name=".core.MainApp"
+        android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.core.MainApp"
         android:allowBackup="true"
         android:icon="@drawable/agakhannew"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.MainActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.HouseholdListingActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.HouseholdListingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.AddPregnancyActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.AddPregnancyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.setupActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.setupActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.FamilyListingActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.FamilyListingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".core.AndroidDatabaseManager"
+            android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.core.AndroidDatabaseManager"
             android:screenOrientation="portrait"
             android:theme="@style/android:Theme.Holo.Light.DarkActionBar" />
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.LoginActivity"
             android:label="Login In"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".Activities.SplashScreenActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
@@ -62,11 +62,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Activities.MapsActivity"
+            android:name="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.MapsActivity"
             android:label="@string/title_activity_maps">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.aku.hassannaqvi.kmc2_linelisting.Activities.MainActivity" />
+                android:value="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.MainActivity" />
         </activity>
 
     </application>

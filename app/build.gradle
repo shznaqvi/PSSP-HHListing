@@ -16,11 +16,11 @@ android {
         versionProps.store(versionPropsFile.newWriter(), null)
 
         defaultConfig {
-            applicationId "edu.aku.hassannaqvi.kmc2_linelisting"
+            applicationId "edu.aku.hassannaqvi.kmc2_hhl_validation"
             minSdkVersion 22
             targetSdkVersion 27
             versionCode code
-            versionName "2.0"
+            versionName "0.1"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         }
     } else {
@@ -42,7 +42,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:support-media-compat:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    
+
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 

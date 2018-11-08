@@ -10,4 +10,4 @@
     map:uiTiltGestures="true"
     map:uiZoomControls="false"
     map:uiZoomGestures="true"
-    tools:context="edu.aku.hassannaqvi.kmc2_linelisting.Activities.MapsActivity" />
+    tools:context="edu.aku.hassannaqvi.kmc2_hhl_validation.Activities.MapsActivity" />
