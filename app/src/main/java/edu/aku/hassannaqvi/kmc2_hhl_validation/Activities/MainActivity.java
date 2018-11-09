@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +43,7 @@ import edu.aku.hassannaqvi.kmc2_hhl_validation.R;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.Sync.SyncAllData;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.ListingContract;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.PregnancyContract;
+import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.RandomizedContract;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.TalukasContract;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.UCsContract;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.VillagesContract;
@@ -91,10 +93,11 @@ public class MainActivity extends Activity {
     LinearLayout adminSec;
     @BindView(R.id.fldGrpSec01)
     LinearLayout fldGrpSec01;
-    @BindView(R.id.fldGrpSec02)
-    LinearLayout fldGrpSec02;
     @BindView(R.id.edtHHNO)
     EditText edtHHNO;
+
+    @BindView(R.id.openForm)
+    Button openFormBtn;
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -114,6 +117,8 @@ public class MainActivity extends Activity {
         /*Tag Info Start*/
         sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
         editor = sharedPref.edit();
+
+        this.setTitle("HouseHold Listing Form");
 
         builder = new AlertDialog.Builder(MainActivity.this);
         ImageView img = new ImageView(getApplicationContext());
@@ -275,7 +280,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                fldGrpSec02.setVisibility(View.GONE);
+                openFormBtn.setVisibility(View.GONE);
             }
 
             @Override
@@ -469,9 +474,13 @@ public class MainActivity extends Activity {
 
         if (!edtHHNO.getText().toString().isEmpty()) {
 
-
-            MainApp.hh03txt = Integer.valueOf(edtHHNO.getText().toString());
-            fldGrpSec02.setVisibility(View.VISIBLE);
+            RandomizedContract rndData = db.getRandomizedData(edtHHNO.getText().toString(), MainApp.villageCode);
+            if (rndData != null) {
+                MainApp.hh03txt = Integer.valueOf(edtHHNO.getText().toString());
+                openFormBtn.setVisibility(View.VISIBLE);
+            } else {
+                Toast.makeText(this, "HH-NO not found!!", Toast.LENGTH_SHORT).show();
+            }
 
         } else {
             edtHHNO.setError("HH-No required!!");

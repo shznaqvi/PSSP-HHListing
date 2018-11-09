@@ -48,8 +48,8 @@ import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.VillagesContract.single
 public class FormsDBHelper extends SQLiteOpenHelper {
 
     // The name of database.
-    public static final String DATABASE_NAME = "kmc_hhlisting.db";
-    public static final String DB_NAME = "kmc_hhlisting.db";
+    public static final String DATABASE_NAME = "kmc_hhl_val.db";
+    public static final String DB_NAME = DATABASE_NAME.replace(".db", "_copy.db");
     // Change this when you change the database schema.
     private static final int DATABASE_VERSION = 2;
     public static String TAG = "FormsDBHelper";
@@ -181,15 +181,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_MWRA = "CREATE TABLE " +
                 RandomizedEntry.TABLE_NAME + "(" +
                 RandomizedEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                RandomizedEntry.MWRA_MUID + " TEXT," +
-                RandomizedEntry.MWRA_DUID + " TEXT," +
-                RandomizedEntry.MWRA_HH02 + " TEXT," +
-                RandomizedEntry.MWRA_HHNO + " TEXT," +
-                RandomizedEntry.MWRA_SNO + " TEXT," +
-                RandomizedEntry.MWRA_WNAME + " TEXT," +
-                RandomizedEntry.MWRA_DLVRDATE + " TEXT," +
-                RandomizedEntry.MWRA_HH08 + " TEXT," +
-                RandomizedEntry.MWRA_HH09 + " TEXT"
+                RandomizedEntry.COLUMN_UID + " TEXT," +
+                RandomizedEntry.COLUMN_RANDDT + " TEXT," +
+                RandomizedEntry.COLUMN_HH02 + " TEXT," +
+                RandomizedEntry.COLUMN_HH03 + " TEXT," +
+                RandomizedEntry.COLUMN_HHDT + " TEXT," +
+                RandomizedEntry.COLUMN_HH08 + " TEXT," +
+                RandomizedEntry.COLUMN_HH09 + " TEXT"
                 + " );";
 
         // Do the creating of the databases.
@@ -1297,15 +1295,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
 
-                values.put(RandomizedEntry.MWRA_MUID, vc.getMuid());
-                values.put(RandomizedEntry.MWRA_DUID, vc.getDuid());
-                values.put(RandomizedEntry.MWRA_HH02, vc.getHh02());
-                values.put(RandomizedEntry.MWRA_HHNO, vc.getHhno());
-                values.put(RandomizedEntry.MWRA_SNO, vc.getSno());
-                values.put(RandomizedEntry.MWRA_WNAME, vc.getWname());
-                values.put(RandomizedEntry.MWRA_DLVRDATE, vc.getDlvr_date());
-                values.put(RandomizedEntry.MWRA_HH08, vc.getHh08());
-                values.put(RandomizedEntry.MWRA_HH09, vc.getHh09());
+                values.put(RandomizedEntry.COLUMN_UID, vc.getLv_uid());
+                values.put(RandomizedEntry.COLUMN_RANDDT, vc.getLv_rnddt());
+                values.put(RandomizedEntry.COLUMN_HH02, vc.getHh02());
+                values.put(RandomizedEntry.COLUMN_HH03, vc.getHh03());
+                values.put(RandomizedEntry.COLUMN_HHDT, vc.getLv_hhdt());
+                values.put(RandomizedEntry.COLUMN_HH08, vc.getHh08());
+                values.put(RandomizedEntry.COLUMN_HH09, vc.getHh09());
 
                 db.insert(RandomizedEntry.TABLE_NAME, null, values);
             }
@@ -1316,32 +1312,30 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Collection<RandomizedContract> getRandomized(String hhno, String villageCode) {
+    public RandomizedContract getRandomizedData(String hhno, String villageCode) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
                 RandomizedEntry._ID,
-                RandomizedEntry.MWRA_MUID,
-                RandomizedEntry.MWRA_DUID,
-                RandomizedEntry.MWRA_HH02,
-                RandomizedEntry.MWRA_HHNO,
-                RandomizedEntry.MWRA_SNO,
-                RandomizedEntry.MWRA_WNAME,
-                RandomizedEntry.MWRA_DLVRDATE,
-                RandomizedEntry.MWRA_HH08,
-                RandomizedEntry.MWRA_HH09
+                RandomizedEntry.COLUMN_UID,
+                RandomizedEntry.COLUMN_RANDDT,
+                RandomizedEntry.COLUMN_HH02,
+                RandomizedEntry.COLUMN_HH03,
+                RandomizedEntry.COLUMN_HHDT,
+                RandomizedEntry.COLUMN_HH08,
+                RandomizedEntry.COLUMN_HH09
         };
 
-        String whereClause = RandomizedEntry.MWRA_HHNO + " =? AND " + RandomizedEntry.MWRA_HH02 + " =?";
+        String whereClause = RandomizedEntry.COLUMN_HH03 + " =? AND " + RandomizedEntry.COLUMN_HH02 + " =?";
         String[] whereArgs = new String[]{hhno, villageCode};
         String groupBy = null;
         String having = null;
 
         String orderBy =
-                RandomizedEntry.MWRA_DLVRDATE + " ASC";
+                RandomizedEntry.COLUMN_HH02 + " DESC";
 
-        Collection<RandomizedContract> allEB = new ArrayList<>();
+        RandomizedContract allEB = null;
 
         try {
             c = db.query(
@@ -1354,8 +1348,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                     orderBy                    // The sort order
             );
             while (c.moveToNext()) {
-                RandomizedContract mwra = new RandomizedContract();
-                allEB.add(mwra.hydrate(c));
+                allEB = new RandomizedContract().hydrate(c);
             }
         } finally {
             if (c != null) {

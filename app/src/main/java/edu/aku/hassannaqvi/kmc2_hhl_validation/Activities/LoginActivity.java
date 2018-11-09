@@ -157,83 +157,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-//
-//        // Spinner Drop down elements
-//        lables = new ArrayList<String>();
-//        lables.add("K. Abdullah");
-//        lables.add("Quetta");
-//        lables.add("Pishin");
-//        lables.add("J & Bara");
-//        lables.add("Town 1 & 2");
-//        lables.add("Town 3 & 4");
-//        lables.add("K Zone 1");
-//        lables.add("K Zone 2");
-//        lables.add("K Zone 3");
-//        lables.add("Sukkur");
-//        lables.add("Larkhana");
-//        lables.add("Rawalpindi");
-//        lables.add("Lahore");
-//        lables.add("Multan");
-//
-//        values = new ArrayList<String>();
-//        values.add("11");
-//        values.add("12");
-//        values.add("13");
-//        values.add("21");
-//        values.add("22");
-//        values.add("23");
-//        values.add("31");
-//        values.add("32");
-//        values.add("33");
-//        values.add("41");
-//        values.add("42");
-//        values.add("91");
-//        values.add("92");
-//        values.add("93");
-//        
-//        valuesnlabels = new HashMap<String, String>();
-//        valuesnlabels.put("11", "K. Abdullah");
-//        valuesnlabels.put("12", "Quetta");
-//        valuesnlabels.put("13", "Pishin");
-//        valuesnlabels.put("21", "J & Bara");
-//        valuesnlabels.put("22", "Town 1 & 2");
-//        valuesnlabels.put("23", "Town 3 & 4");
-//        valuesnlabels.put("31", "K Zone 1");
-//        valuesnlabels.put("32", "K Zone 2");
-//        valuesnlabels.put("33", "K Zone 3");
-//        valuesnlabels.put("41", "Sukkur");
-//        valuesnlabels.put("42", "Larkhana");
-//        valuesnlabels.put("91", "Rawalpindi");
-//        valuesnlabels.put("92", "Lahore");
-//        valuesnlabels.put("93", "Multan");
-//
-//
-//        // Creating adapter for spinner
-//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(),
-//                android.R.layout.simple_spinner_item, lables);
-//
-//        // Drop down layout style - list view with radio button
-//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//        // attaching data adapter to spinner
-//        spUC.setAdapter(dataAdapter);
-//        spUC.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-//        //spUC.setOnItemSelectedListener(this);
-//        spUC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                PSSPApp.mna3 = Integer.valueOf(values.get(position));
-//                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-//                Toast.makeText(LoginActivity.this, values.get(position), Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-
     }
 
     public void dbBackup() {
@@ -269,8 +192,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                         File dbFile = new File(this.getDatabasePath(FormsDBHelper.DATABASE_NAME).getPath());
                         FileInputStream fis = new FileInputStream(dbFile);
 
-                        String outFileName = DirectoryName + File.separator +
-                                FormsDBHelper.DB_NAME;
+                        String outFileName = DirectoryName + File.separator + FormsDBHelper.DB_NAME;
 
                         // Open the empty db as the output stream
                         OutputStream output = new FileOutputStream(outFileName);
