@@ -26,6 +26,8 @@ import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.PSUsContract;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.PSUsContract.singlePSU;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.PregnancyContract;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.PregnancyContract.singlePREG;
+import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.RandomizedContract;
+import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.RandomizedContract.RandomizedEntry;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.TalukasContract;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.TalukasContract.singleTalukas;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.UCsContract;
@@ -176,6 +178,20 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleVerticesUC.COLUMN_POLY_SEQ + " TEXT " +
                 ");";
 
+        final String SQL_CREATE_MWRA = "CREATE TABLE " +
+                RandomizedEntry.TABLE_NAME + "(" +
+                RandomizedEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                RandomizedEntry.MWRA_MUID + " TEXT," +
+                RandomizedEntry.MWRA_DUID + " TEXT," +
+                RandomizedEntry.MWRA_HH02 + " TEXT," +
+                RandomizedEntry.MWRA_HHNO + " TEXT," +
+                RandomizedEntry.MWRA_SNO + " TEXT," +
+                RandomizedEntry.MWRA_WNAME + " TEXT," +
+                RandomizedEntry.MWRA_DLVRDATE + " TEXT," +
+                RandomizedEntry.MWRA_HH08 + " TEXT," +
+                RandomizedEntry.MWRA_HH09 + " TEXT"
+                + " );";
+
         // Do the creating of the databases.
         db.execSQL(SQL_CREATE_LISTING_TABLE);
         db.execSQL(SQL_CREATE_PREGNANCY_TABLE);
@@ -191,6 +207,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_VERTICES_TABLE);
         db.execSQL(SQL_CREATE_VERTICESUC_TABLE);
+
+        db.execSQL(SQL_CREATE_MWRA);
     }
 
     @Override
@@ -209,6 +227,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS " + singleVertices.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleVerticesUC.TABLE_NAME);
+
+        db.execSQL("DROP TABLE IF EXISTS " + RandomizedEntry.TABLE_NAME);
 
         onCreate(db);
 
@@ -1259,6 +1279,93 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
 
         }
+    }
+
+    public void syncRandomized(JSONArray pcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(RandomizedEntry.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = pcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectPSU = jsonArray.getJSONObject(i);
+
+                RandomizedContract vc = new RandomizedContract();
+                vc.sync(jsonObjectPSU);
+                Log.i(TAG, "Randomized: " + jsonObjectPSU.toString());
+
+                ContentValues values = new ContentValues();
+
+                values.put(RandomizedEntry.MWRA_MUID, vc.getMuid());
+                values.put(RandomizedEntry.MWRA_DUID, vc.getDuid());
+                values.put(RandomizedEntry.MWRA_HH02, vc.getHh02());
+                values.put(RandomizedEntry.MWRA_HHNO, vc.getHhno());
+                values.put(RandomizedEntry.MWRA_SNO, vc.getSno());
+                values.put(RandomizedEntry.MWRA_WNAME, vc.getWname());
+                values.put(RandomizedEntry.MWRA_DLVRDATE, vc.getDlvr_date());
+                values.put(RandomizedEntry.MWRA_HH08, vc.getHh08());
+                values.put(RandomizedEntry.MWRA_HH09, vc.getHh09());
+
+                db.insert(RandomizedEntry.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+            Log.d(TAG, "syncRandomized: " + e.getMessage());
+        }
+    }
+
+    public Collection<RandomizedContract> getRandomized(String hhno, String villageCode) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                RandomizedEntry._ID,
+                RandomizedEntry.MWRA_MUID,
+                RandomizedEntry.MWRA_DUID,
+                RandomizedEntry.MWRA_HH02,
+                RandomizedEntry.MWRA_HHNO,
+                RandomizedEntry.MWRA_SNO,
+                RandomizedEntry.MWRA_WNAME,
+                RandomizedEntry.MWRA_DLVRDATE,
+                RandomizedEntry.MWRA_HH08,
+                RandomizedEntry.MWRA_HH09
+        };
+
+        String whereClause = RandomizedEntry.MWRA_HHNO + " =? AND " + RandomizedEntry.MWRA_HH02 + " =?";
+        String[] whereArgs = new String[]{hhno, villageCode};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                RandomizedEntry.MWRA_DLVRDATE + " ASC";
+
+        Collection<RandomizedContract> allEB = new ArrayList<>();
+
+        try {
+            c = db.query(
+                    RandomizedEntry.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                RandomizedContract mwra = new RandomizedContract();
+                allEB.add(mwra.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allEB;
     }
 
 }

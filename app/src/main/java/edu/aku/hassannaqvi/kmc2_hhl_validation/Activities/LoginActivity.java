@@ -50,12 +50,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.kmc2_hhl_validation.Get.GetTalukas;
-import edu.aku.hassannaqvi.kmc2_hhl_validation.Get.GetUCs;
-import edu.aku.hassannaqvi.kmc2_hhl_validation.Get.GetUsers;
-import edu.aku.hassannaqvi.kmc2_hhl_validation.Get.GetVertices;
-import edu.aku.hassannaqvi.kmc2_hhl_validation.Get.GetVerticesUC;
-import edu.aku.hassannaqvi.kmc2_hhl_validation.Get.GetVillages;
+import edu.aku.hassannaqvi.kmc2_hhl_validation.Get.GetAllData;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.R;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.core.FormsDBHelper;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.core.MainApp;
@@ -470,23 +465,25 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         //TODO implement
 
         Toast.makeText(this, "Get Talukas", Toast.LENGTH_LONG).show();
-        new GetTalukas(this).execute();
+        new GetAllData(this, "Talukas").execute();
 
         Toast.makeText(this, "Get UC's", Toast.LENGTH_LONG).show();
-        new GetUCs(this).execute();
+        new GetAllData(this, "UCs").execute();
 
         Toast.makeText(this, "Get UC Vertices", Toast.LENGTH_SHORT).show();
-        new GetVerticesUC(this).execute();
+        new GetAllData(this, "VerticesUC").execute();
 
         Toast.makeText(this, "Syncing Vertices", Toast.LENGTH_SHORT).show();
-        new GetVertices(this).execute();
+        new GetAllData(this, "Vertices").execute();
 
         Toast.makeText(this, "Get Villages", Toast.LENGTH_LONG).show();
-        new GetVillages(this).execute();
+        new GetAllData(this, "Villages").execute();
 
-        GetUsers user = new GetUsers(this);
         Toast.makeText(this, "Get User", Toast.LENGTH_SHORT).show();
-        user.execute();
+        new GetAllData(this, "User").execute();
+
+        Toast.makeText(this, "Get Randomized", Toast.LENGTH_SHORT).show();
+        new GetAllData(this, "Randomized").execute();
 
     }
 

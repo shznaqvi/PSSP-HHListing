@@ -73,6 +73,6 @@ public class UCsContract {
         public static final String COLUMN_UCS = "uc_name";
         public static final String COLUMN_TALUKA_CODE = "taluka_code";
 
-        public static final String _URI = "ucs.php";
+        public static final String _URL = "ucs.php";
     }
 }

@@ -56,20 +56,6 @@ public class AddPregnancyActivity extends Activity {
 
         txtChildListing.setText("FAMILY : " + MainApp.hh03txt + "-" + MainApp.hh07txt);
 
-        /*if (MainApp.cCount < MainApp.cTotal) {
-            btnAddPreg.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-            btnAddFamily.setVisibility(View.GONE);
-        } else if (MainApp.cCount >= MainApp.cTotal && MainApp.fCount < MainApp.fTotal) {
-            btnAddFamily.setVisibility(View.VISIBLE);
-            btnAddHousehold.setVisibility(View.GONE);
-            btnAddPreg.setVisibility(View.GONE);
-        } else {
-            btnAddFamily.setVisibility(View.GONE);
-            btnAddHousehold.setVisibility(View.VISIBLE);
-            btnAddPreg.setVisibility(View.GONE);
-        }*/
-
         cCount = getIntent().getIntExtra("cCount", 0);
 
         if (MainApp.fCount < MainApp.fTotal) {
@@ -235,7 +221,7 @@ public class AddPregnancyActivity extends Activity {
             if (flag) {
                 MainApp.fCount = 0;
                 MainApp.fTotal = 0;
-                Intent fA = new Intent(this, setupActivity.class);
+                Intent fA = new Intent(this, MainActivity.class);
                 startActivity(fA);
 
             } else {

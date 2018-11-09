@@ -60,6 +60,6 @@ public class TalukasContract {
         public static final String COLUMN_TALUKA_CODE = "taluka_code";
         public static final String COLUMN_TALUKA = "taluka_name";
 
-        public static final String _URI = "talukas.php";
+        public static final String _URL = "talukas.php";
     }
 }

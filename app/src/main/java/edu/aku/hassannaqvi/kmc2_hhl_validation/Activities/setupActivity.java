@@ -93,21 +93,13 @@ public class setupActivity extends Activity {
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        if (MainApp.villageCode == null) {
-            MainApp.hh03txt = 1;
-        } else {
-            MainApp.hh03txt++;
-            //MainApp.lc.setHh03(String.valueOf(MainApp.hh03txt));
-            hh02.setText(MainApp.villageCode);
-            hh02.setEnabled(false);
+        hh02.setText(MainApp.villageCode);
+        hh02.setEnabled(false);
 
-        }
         MainApp.hh07txt = "X";
         //hh01.setText(getString(R.string.hh01) + ": " + MainApp.hh01txt);
-        hh03.setText(hh02.getText().toString()
-                + "-" + String.valueOf(MainApp.hh03txt));
+        hh03.setText(hh02.getText().toString() + "-" + String.valueOf(MainApp.hh03txt));
         hh07.setText(getString(R.string.hh07) + ": " + MainApp.hh07txt);
-
 
         hh04.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -379,7 +371,7 @@ public class setupActivity extends Activity {
 
                 finish();
 
-                Intent fA = new Intent(this, setupActivity.class);
+                Intent fA = new Intent(this, MainActivity.class);
                 startActivity(fA);
 
             }

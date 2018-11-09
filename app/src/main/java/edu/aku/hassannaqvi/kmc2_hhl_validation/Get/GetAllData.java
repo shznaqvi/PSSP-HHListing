@@ -15,25 +15,42 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.RandomizedContract;
+import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.TalukasContract;
+import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.UCsContract;
+import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.UsersContract;
+import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.VerticesContract;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.VerticesUCContract;
+import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.VillagesContract;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.core.FormsDBHelper;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.core.MainApp;
 
-public class GetVerticesUC extends AsyncTask<String, String, String> {
-    private final String TAG = "GetVerticesUC()";
+/**
+ * Created by ali.azaz on 7/14/2017.
+ */
+
+public class GetAllData extends AsyncTask<String, String, String> {
+
     HttpURLConnection urlConnection;
+    private String TAG = "";
     private Context mContext;
     private ProgressDialog pd;
 
-    public GetVerticesUC(Context context) {
+    private String syncClass;
+
+
+    public GetAllData(Context context, String syncClass) {
         mContext = context;
+        this.syncClass = syncClass;
+
+        TAG = "Get" + syncClass;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         pd = new ProgressDialog(mContext);
-        pd.setTitle("Syncing UC Vertices");
+        pd.setTitle("Syncing " + syncClass);
         pd.setMessage("Getting connected to server...");
         pd.show();
 
@@ -46,7 +63,30 @@ public class GetVerticesUC extends AsyncTask<String, String, String> {
 
         URL url = null;
         try {
-            url = new URL(MainApp._HOST_URL + VerticesUCContract.singleVerticesUC._URI);
+            switch (syncClass) {
+                case "Talukas":
+                    url = new URL(MainApp._HOST_URL + TalukasContract.singleTalukas._URL);
+                    break;
+                case "UCs":
+                    url = new URL(MainApp._HOST_URL + UCsContract.singleUCs._URL);
+                    break;
+                case "User":
+                    url = new URL(MainApp._HOST_URL + UsersContract.singleUser._URL);
+                    break;
+                case "Vertices":
+                    url = new URL(MainApp._HOST_URL + VerticesContract.singleVertices._URL);
+                    break;
+                case "VerticesUC":
+                    url = new URL(MainApp._HOST_URL + VerticesUCContract.singleVerticesUC._URL);
+                    break;
+                case "Villages":
+                    url = new URL(MainApp._HOST_URL + VillagesContract.singleVillages._URL);
+                    break;
+                case "Randomized":
+                    url = new URL(MainApp._HOST_URL + RandomizedContract.RandomizedEntry._URL);
+                    break;
+            }
+
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
@@ -58,7 +98,7 @@ public class GetVerticesUC extends AsyncTask<String, String, String> {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.i(TAG, "VerticesUC In: " + line);
+                    Log.i(TAG, syncClass + " In: " + line);
                     result.append(line);
                 }
             }
@@ -78,14 +118,37 @@ public class GetVerticesUC extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
 
         //Do something with the JSON string
-
         if (result != null) {
             String json = result;
             if (json.length() > 0) {
                 FormsDBHelper db = new FormsDBHelper(mContext);
                 try {
                     JSONArray jsonArray = new JSONArray(json);
-                    db.syncVerticesUC(jsonArray);
+
+                    switch (syncClass) {
+                        case "Talukas":
+                            db.syncTalukas(jsonArray);
+                            break;
+                        case "UCs":
+                            db.syncUCs(jsonArray);
+                            break;
+                        case "User":
+                            db.syncUser(jsonArray);
+                            break;
+                        case "Vertices":
+                            db.syncVertices(jsonArray);
+                            break;
+                        case "VerticesUC":
+                            db.syncVerticesUC(jsonArray);
+                            break;
+                        case "Villages":
+                            db.syncVillages(jsonArray);
+                            break;
+                        case "Randomized":
+                            db.syncRandomized(jsonArray);
+                            break;
+                    }
+
                     pd.setMessage("Received: " + jsonArray.length());
                     pd.show();
                 } catch (JSONException e) {
@@ -101,4 +164,5 @@ public class GetVerticesUC extends AsyncTask<String, String, String> {
             pd.show();
         }
     }
+
 }

@@ -366,7 +366,7 @@ public class FamilyListingActivity extends Activity {
 
                 finish();
 
-                Intent fA = new Intent(this, setupActivity.class);
+                Intent fA = new Intent(this, MainActivity.class);
                 startActivity(fA);
 
             }

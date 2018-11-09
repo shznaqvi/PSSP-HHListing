@@ -73,6 +73,6 @@ public class AreasContract {
         public static final String COLUMN_AREA = "area_name";
         public static final String COLUMN_UC_CODE = "uc_code";
 
-        public static final String _URI = "areas.php";
+        public static final String _URL = "areas.php";
     }
 }

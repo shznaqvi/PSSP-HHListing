@@ -11,12 +11,15 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +37,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.R;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.Sync.SyncAllData;
 import edu.aku.hassannaqvi.kmc2_hhl_validation.contracts.ListingContract;
@@ -75,14 +79,22 @@ public class MainActivity extends Activity {
     Spinner mN00;
     @BindView(R.id.MN01)
     Spinner mN01;
-    @BindView(R.id.MN03)
-    Spinner mN03;
+    @BindView(R.id.MN02)
+    Spinner mN02;
     @BindView(R.id.talukaN)
     TextView talukaN;
     @BindView(R.id.ucN)
     TextView ucN;
     @BindView(R.id.villagesN)
     TextView villageN;
+    @BindView(R.id.adminSec)
+    LinearLayout adminSec;
+    @BindView(R.id.fldGrpSec01)
+    LinearLayout fldGrpSec01;
+    @BindView(R.id.fldGrpSec02)
+    LinearLayout fldGrpSec02;
+    @BindView(R.id.edtHHNO)
+    EditText edtHHNO;
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -135,11 +147,16 @@ public class MainActivity extends Activity {
         }
         /*Tag End*/
 
-
         // database handler
         db = new FormsDBHelper(getApplicationContext());
 
+        //spinners fill
         spinnersFill(this);
+
+        //Checking Admin sec
+        if (MainApp.userEmail.contains("@")) {
+            adminSec.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -219,7 +236,7 @@ public class MainActivity extends Activity {
                     villagesMap.put(villages.getVillagename(), new VillagesContract(villages));
                 }
 
-                mN03.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesVillages));
+                mN02.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesVillages));
 
             }
 
@@ -229,47 +246,18 @@ public class MainActivity extends Activity {
             }
         });
 
-        /*mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                if (mN02.getSelectedItemPosition() != 0) {
-                    MainApp.areaCode = Integer.valueOf(AreasMap.get(mN02.getSelectedItem().toString()));
-                } else {
-                    MainApp.areaCode = 0;
-                }
-
-                lablesVillages = new ArrayList<>();
-                villagesMap = new HashMap<>();
-
-                lablesVillages.add("Select Village Code..");
-
-                VillagesList = db.getAllVillage(String.valueOf(MainApp.areaCode));
-                for (VillagesContract villages : VillagesList) {
-                    lablesVillages.add(villages.getVillagename());
-                    villagesMap.put(villages.getVillagename(), new VillagesContract(villages));
-                }
-
-                areaN.setText(mN02.getSelectedItem().toString());
-
-                mN03.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, lablesVillages));
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });*/
-
-        mN03.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mN02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (mN03.getSelectedItemPosition() != 0) {
-                    MainApp.villageCode = villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode();
-                    MainApp.villageName = mN03.getSelectedItem().toString();
-                    villageN.setText("Village: " + MainApp.villageName + " | " + villagesMap.get(mN03.getSelectedItem().toString()).getVillagecode());
+                if (mN02.getSelectedItemPosition() != 0) {
+                    MainApp.villageCode = villagesMap.get(mN02.getSelectedItem().toString()).getVillagecode();
+                    MainApp.villageName = mN02.getSelectedItem().toString();
+                    villageN.setText("Village: " + MainApp.villageName + " | " + villagesMap.get(mN02.getSelectedItem().toString()).getVillagecode());
+
+                    fldGrpSec01.setVisibility(View.VISIBLE);
+                } else {
+                    fldGrpSec01.setVisibility(View.GONE);
                 }
             }
 
@@ -278,6 +266,24 @@ public class MainActivity extends Activity {
 
             }
         });
+
+        edtHHNO.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                fldGrpSec02.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
     }
 
     public void alertPSU() {
@@ -385,19 +391,16 @@ public class MainActivity extends Activity {
 
     public void NextSetupActivity(Class activity) {
         Intent oF = new Intent(this, activity);
-        if (mN00.getSelectedItemPosition() != 0 && mN01.getSelectedItemPosition() != 0 && mN03.getSelectedItemPosition() != 0) {
+        if (mN00.getSelectedItemPosition() != 0 && mN01.getSelectedItemPosition() != 0 && mN02.getSelectedItemPosition() != 0) {
 
-            if (activity.getName().equals(MapsActivity.class.getName())) {
-                startActivity(oF);
-                return;
-            }
+            startActivity(oF);
 
-            if (MainApp.PSUExist(MainApp.villageCode)) {
+           /* if (MainApp.PSUExist(MainApp.villageCode)) {
                 Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
                 startActivity(oF);
-            }
+            }*/
 
         } else {
             Toast.makeText(this, "Please Sync Data or select values from drop down!", Toast.LENGTH_SHORT).show();
@@ -420,9 +423,7 @@ public class MainActivity extends Activity {
             editor.putString("LastSyncDB", dtToday);
 
             editor.apply();
-        } /*else {
-            Toast.makeText(getApplicationContext(), "Network Not Available", Toast.LENGTH_SHORT).show();
-        }*/
+        }
     }
 
     private boolean isNetworkAvailable() {
@@ -460,6 +461,22 @@ public class MainActivity extends Activity {
             return false;
 
         }
+    }
+
+    @OnClick(R.id.btnCheckHH)
+    void onBtnCheckHHClick() {
+        //TODO implement
+
+        if (!edtHHNO.getText().toString().isEmpty()) {
+
+
+            MainApp.hh03txt = Integer.valueOf(edtHHNO.getText().toString());
+            fldGrpSec02.setVisibility(View.VISIBLE);
+
+        } else {
+            edtHHNO.setError("HH-No required!!");
+        }
+
     }
 
     @Override
@@ -534,6 +551,5 @@ public class MainActivity extends Activity {
             }, 1200);
         }
     }
-
 
 }

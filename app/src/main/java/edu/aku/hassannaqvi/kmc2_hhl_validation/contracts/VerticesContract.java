@@ -78,7 +78,7 @@ public class VerticesContract {
         public static final String COLUMN_POLY_LANG = "poly_lng";
         public static final String COLUMN_POLY_SEQ = "poly_seq";
 
-        public static final String _URI = "vertices.php";
+        public static final String _URL = "vertices.php";
     }
 
 }
