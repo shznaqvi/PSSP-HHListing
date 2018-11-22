@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:scrollViewStyle">@style/BackgroundStyle</item>
         <item name="android:textViewStyle">@style/labels</item>
         <item name="android:editTextStyle">@style/textInput</item>
@@ -52,7 +52,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="MyPopupMenu" parent="android:Theme.Material.Light.DarkActionBar">
+    <style name="MyPopupMenu" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:popupBackground">@android:color/black</item>
     </style>
 
@@ -102,7 +102,7 @@
 
 
     <!-- Form Styles -->
-    <style name="labels" parent="android:Widget.Material.Light.TextView">
+    <style name="labels" parent="android:Widget.Holo.Light.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">24dp</item>
@@ -118,7 +118,7 @@
 
     </style>
 
-    <style name="textInput" parent="android:Widget.Material.Light.EditText">
+    <style name="textInput" parent="android:Widget.Holo.Light.EditText">
         <item name="android:textSize">24sp</item>
         <item name="android:background">#efefef</item>
         <item name="android:paddingBottom">8dp</item>
@@ -132,7 +132,7 @@
 
     </style>
 
-    <style name="listItems" parent="android:Widget.Material.Light.TextView">
+    <style name="listItems" parent="android:Widget.Holo.Light.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@android:color/darker_gray</item>
@@ -212,7 +212,7 @@
 
     </style>
 
-    <style name="radiobutton" parent="android:Widget.Material.Light.CompoundButton.RadioButton">
+    <style name="radiobutton" parent="android:Widget.Holo.Light.CompoundButton.RadioButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:button">@null</item>
@@ -224,7 +224,7 @@
         <item name="android:elevation">1dp</item>
     </style>
 
-    <style name="buttons" parent="android:Widget.Material.Light.Button">
+    <style name="buttons" parent="android:Widget.Holo.Light.Button">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:minHeight">36dp</item>
         <item name="android:textSize">14pt</item>
@@ -236,7 +236,7 @@
         <item name="android:background">@drawable/background_grad</item>
     </style>
 
-    <style name="checkbox" parent="android:Widget.Material.Light.CompoundButton.CheckBox">
+    <style name="checkbox" parent="android:Widget.Holo.Light.CompoundButton.CheckBox">
         <item name="android:layout_gravity">right</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -248,7 +248,7 @@
         <item name="android:padding">4dp</item>
     </style>
 
-    <style name="checkbox1" parent="android:Widget.Material.Light.CompoundButton.CheckBox">
+    <style name="checkbox1" parent="android:Widget.Holo.Light.CompoundButton.CheckBox">
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -314,7 +314,7 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="Theme.AppTheme.Light.DarkActionBar" parent="android:Theme.Material.Light.DarkActionBar">
+    <style name="Theme.AppTheme.Light.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:colorAccent">@color/colorAccent</item>
