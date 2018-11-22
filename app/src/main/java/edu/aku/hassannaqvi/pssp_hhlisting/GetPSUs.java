@@ -20,6 +20,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.PSUsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.UsersContract;
+
 /**
  * Created by hassan.naqvi on 4/28/2016.
  */
@@ -50,7 +53,8 @@ public class GetPSUs extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/enrich/psus/");
+//            URL url = new URL(AppMain._IP + "/enrich/psus/");
+            URL url = new URL(AppMain._HOST_URL + PSUsContract.singlePSU._URI);
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();

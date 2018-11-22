@@ -25,6 +25,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
 
 public class setupActivity extends Activity {
 

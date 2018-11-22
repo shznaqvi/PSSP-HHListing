@@ -15,10 +15,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import edu.aku.hassannaqvi.pssp_hhlisting.DistrictsContract.singleDistrict;
-import edu.aku.hassannaqvi.pssp_hhlisting.ListingContract.ListingEntry;
-import edu.aku.hassannaqvi.pssp_hhlisting.PSUsContract.singlePSU;
-import edu.aku.hassannaqvi.pssp_hhlisting.UsersContract.singleUser;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.DistrictsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.DistrictsContract.singleDistrict;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract.ListingEntry;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.PSUsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.PSUsContract.singlePSU;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.UsersContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.UsersContract.singleUser;
 
 import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 

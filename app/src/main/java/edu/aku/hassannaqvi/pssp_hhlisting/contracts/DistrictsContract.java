@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.contracts;
 
 import android.database.Cursor;
 import android.provider.BaseColumns;
@@ -55,6 +55,8 @@ public class DistrictsContract {
         public static final String _ID = "_ID";
         public static final String COLUMN_DISTRICT_CODE = "district_code";
         public static final String COLUMN_DISTRICT_NAME = "district";
+        public static String _URI = "districts.php";
+
 
     }
 

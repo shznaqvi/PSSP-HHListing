@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.contracts;
 
 import android.provider.BaseColumns;
 
@@ -52,6 +52,8 @@ public class UsersContract {
         public static final String _ID = "id";
         public static final String ROW_USERNAME = "username";
         public static final String ROW_PASSWORD = "password";
+        public static String _URI = "users.php";
+
 
 
     }

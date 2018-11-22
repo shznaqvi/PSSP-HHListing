@@ -20,6 +20,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.DistrictsContract;
+
 /**
  * Created by hassan.naqvi on 4/28/2016.
  */
@@ -53,7 +55,8 @@ public class GetDistricts extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/enrich/districts/");
+//            URL url = new URL(AppMain._IP + "/enrich/districts/");
+            URL url = new URL(AppMain._HOST_URL + DistrictsContract.singleDistrict._URI);
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //pd.show();
