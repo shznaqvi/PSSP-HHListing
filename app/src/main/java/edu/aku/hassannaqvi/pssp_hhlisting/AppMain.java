@@ -1,4 +1,5 @@
 package edu.aku.hassannaqvi.pssp_hhlisting;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,10 +27,10 @@ public class AppMain extends Application {
     //public static String _IP = "http://192.168.1.10:3000"; // Testing Server
 //    public static String _IP = "http://43.245.131.159:3000"; //Production server
     public static final String _IP = "10.1.42.30"; //testing server
-//    public static final String _IP = "43.245.131.159"; // PHP server
+    //    public static final String _IP = "43.245.131.159"; // PHP server
     public static final Integer _PORT = 8080; // Port - with colon (:)
     public static final String _HOST_URL = "http://" + AppMain._IP + "/enrich/api/";
-    public static final String _UPDATE_URL = "http://" + AppMain._IP +"/enrich/app/app-debug.apk";
+    public static final String _UPDATE_URL = "http://" + AppMain._IP + "/enrich/app/app-debug.apk";
     public static String TAG = "AppMain";
     public static ListingContract lc;
     public static String hh01txt = "0000";
@@ -156,10 +157,7 @@ public class AppMain extends Application {
                 return true;
             } else if (isNewer && !isLessAccurate) {
                 return true;
-            } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-                return true;
-            }
-            return false;
+            } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
         }
 
         /**

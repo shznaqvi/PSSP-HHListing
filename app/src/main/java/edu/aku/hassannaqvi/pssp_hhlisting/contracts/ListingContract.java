@@ -35,7 +35,9 @@ public class ListingContract {
     public String GPSTime;
     public String GPSAcc;
     public String Round = "1";
-    public static String userName;
+    public String userName;
+    private String synced = "";
+    private String synced_date = "";
 
 
     public ListingContract() {
@@ -297,6 +299,8 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
         json.put(ListingEntry.COLUMN_NAME_USERNAME, this.userName);
+        json.put(ListingEntry.COLUMN_SYNCED, this.synced);
+        json.put(ListingEntry.COLUMN_SYNCED_DATE, this.synced_date);
 
         return json;
     }
@@ -331,6 +335,9 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
         public static final String COLUMN_NAME_ROUND = "round";
         public static final String COLUMN_NAME_USERNAME = "username";
+        public static final String COLUMN_SYNCED = "synced";
+        public static final String COLUMN_SYNCED_DATE = "synced_date";
+
         public static String _URI = "listings.php";
 
 

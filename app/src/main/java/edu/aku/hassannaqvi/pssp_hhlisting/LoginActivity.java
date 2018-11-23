@@ -29,8 +29,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,LoaderManager.LoaderCallbacks<Cursor> {
 
 
@@ -48,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     AutoCompleteTextView mEmailView;
     Button email_sign_in_button;
 
+    public static String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -247,7 +246,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 FormsDBHelper db = new FormsDBHelper(LoginActivity.this);
                 if ((mEmail.equals("test1234") && mPassword.equals("test1234")) || (mEmail.equals("dmu@aku") && mPassword.equals("aku?dmu")) || db.Login(mEmail, mPassword)) {
-                    ListingContract.userName = mEmail;
+                    userName = mEmail;
 //                    MainApp.admin = mEmail.contains("@");
 
                     Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);

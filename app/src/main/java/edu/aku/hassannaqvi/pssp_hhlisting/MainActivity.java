@@ -29,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.aku.hassannaqvi.pssp_hhlisting.contracts.DistrictsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
 import edu.aku.hassannaqvi.pssp_hhlisting.contracts.PSUsContract;
 
 public class MainActivity extends Activity {
@@ -120,7 +121,7 @@ public class MainActivity extends Activity {
 
                     if (p.getPSUCode().equals(AppMain.hh02txt)) {
                         Log.d(TAG, "onItemSelected: " + p.getPSUName());
-                        String[] psuNameS = p.getPSUName().toString().split("\\|");
+                        String[] psuNameS = p.getPSUName().split("\\|");
                         districtN.setText(psuNameS[0]);
                         Log.d(TAG, "onItemSelected: " + psuNameS[0]);
                         ucN.setText(psuNameS[1]);
@@ -177,8 +178,7 @@ public class MainActivity extends Activity {
             } else {
                 startActivity(oF);
             }
-        }
-        else {
+        } else {
 
         }
     }
@@ -190,9 +190,17 @@ public class MainActivity extends Activity {
 
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
-            SyncForms ff = new SyncForms(this);
-            Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
-            ff.execute();
+
+            FormsDBHelper db = new FormsDBHelper(this);
+            Toast.makeText(getApplicationContext(), "Syncing Forms Listing", Toast.LENGTH_SHORT).show();
+            new SyncAllData(
+                    this,
+                    "Listing",
+                    "updateSyncedListing",
+                    ListingContract.class,
+                    AppMain._HOST_URL + ListingContract.ListingEntry._URI,
+                    db.getUnsyncedListings()
+            ).execute();
 
             GetUsers u = new GetUsers(this);
             Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
@@ -204,7 +212,6 @@ public class MainActivity extends Activity {
             GetPSUs gp = new GetPSUs(this);
             Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
             gp.execute();
-
 
             SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = syncPref.edit();
