@@ -26,6 +26,7 @@ import butterknife.OnClick;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.AppMain;
 import edu.aku.hassannaqvi.nnspak_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.nnspak_hhlisting.R;
+import edu.aku.hassannaqvi.nnspak_hhlisting.utils.JsonUtils;
 import edu.aku.hassannaqvi.nnspak_hhlisting.validation.validatorClass;
 
 public class FamilyListingActivity extends Activity {
@@ -357,7 +358,7 @@ public class FamilyListingActivity extends Activity {
 
                     familyFlag = true;
                 }
-                AppMain.lc.setHh07(AppMain.hh07txt.toString());
+                AppMain.lc.setHh07(AppMain.hh07txt);
                 AppMain.fCount++;
 
                 finish();
@@ -370,7 +371,7 @@ public class FamilyListingActivity extends Activity {
 
     private void SaveDraft() throws JSONException {
 
-        AppMain.lc.setHh07(AppMain.hh07txt.toString());
+        AppMain.lc.setHh07(AppMain.hh07txt);
         AppMain.lc.setHh08a1("1");
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
@@ -383,21 +384,23 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh16(hh16.getText().toString());
         AppMain.lc.setIsNewHH(hh17.isChecked() ? "1" : "2");
 
-        JSONObject sA = new JSONObject();
-        sA.put("hh18", hh18.getText().toString());
-        sA.put("hh19", hh19.getText().toString());
-        sA.put("hh20", hh20.getText().toString());
-        sA.put("hh21", hh21.getText().toString());
-        sA.put("hh22", hh22.getText().toString());
-        sA.put("hh23", hh23.getText().toString());
-        sA.put("hh24", hh24.getText().toString());
-        sA.put("hh25", hh25.getText().toString());
-        sA.put("hh26", hh26.getText().toString());
+        JSONObject sB = new JSONObject();
+        sB.put("hh18", hh18.getText().toString());
+        sB.put("hh19", hh19.getText().toString());
+        sB.put("hh20", hh20.getText().toString());
+        sB.put("hh21", hh21.getText().toString());
+        sB.put("hh22", hh22.getText().toString());
+        sB.put("hh23", hh23.getText().toString());
+        sB.put("hh24", hh24.getText().toString());
+        sB.put("hh25", hh25.getText().toString());
+        sB.put("hh26", hh26.getText().toString());
 
-        AppMain.lc.setCounter(String.valueOf(sA));
+        JSONObject sMerge = JsonUtils.mergeJSONObjects(setupActivity.IMEI, sB);
+
+        AppMain.lc.setCounter(String.valueOf(sMerge));
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03());
 
     }
 
@@ -634,7 +637,7 @@ public class FamilyListingActivity extends Activity {
                 /*AppMain.cCount = 0;
                 AppMain.cTotal = 0;*/
                 AppMain.hh07txt = String.valueOf(Integer.valueOf(AppMain.hh07txt) + 1);
-                AppMain.lc.setHh07(AppMain.hh07txt.toString());
+                AppMain.lc.setHh07(AppMain.hh07txt);
                 AppMain.fCount++;
 
                 finish();

@@ -1,12 +1,16 @@
 package edu.aku.hassannaqvi.nnspak_hhlisting.Activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +25,9 @@ import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -99,6 +106,8 @@ public class setupActivity extends Activity {
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm:ss").format(new Date().getTime());
 
     private String TAG = "Setup Activity";
+
+    public static JSONObject IMEI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,7 +257,11 @@ public class setupActivity extends Activity {
             AppMain.hh02txt = hh02.getText().toString();
         }
         if (formValidation()) {
-            SaveDraft();
+            try {
+                SaveDraft();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             AppMain.fCount++;
             finish();
             Intent fA = new Intent(this, FamilyListingActivity.class);
@@ -266,7 +279,11 @@ public class setupActivity extends Activity {
         if (hh04h.isChecked()) {
             startActivity(new Intent(this, LoginActivity.class));
         } else {
-            SaveDraft();
+            try {
+                SaveDraft();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             if (UpdateDB()) {
                 AppMain.hh02txt = null;
@@ -279,7 +296,7 @@ public class setupActivity extends Activity {
     }
 
 
-    private void SaveDraft() {
+    private void SaveDraft() throws JSONException {
 
         AppMain.lc = new ListingContract();
         SharedPreferences sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
@@ -360,12 +377,28 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setIsRandom("2");
 
+        JSONObject sA = new JSONObject();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        sA.put("imei", ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId());
+        IMEI = sA;
+
+        AppMain.lc.setCounter(String.valueOf(IMEI));
+
         setGPS();
 
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03());
 
     }
 
@@ -470,7 +503,11 @@ public class setupActivity extends Activity {
         }
         if (formValidation()) {
 
-            SaveDraft();
+            try {
+                SaveDraft();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (UpdateDB()) {
                 AppMain.fCount = 0;
                 AppMain.fTotal = 0;
@@ -486,7 +523,7 @@ public class setupActivity extends Activity {
 
     private boolean UpdateDB() {
         FormsDBHelper db = new FormsDBHelper(this);
-        Log.d(TAG, "UpdateDB: Structure" + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "UpdateDB: Structure" + AppMain.lc.getHh03());
 
         long updcount = db.addForm(AppMain.lc);
 
