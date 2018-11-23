@@ -22,6 +22,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.UsersContract;
+
 /**
  * Created by hassan.naqvi on 7/26/2016.
  */
@@ -132,7 +135,10 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            return downloadUrl(AppMain._IP + "/enrich/forms/");
+//            return downloadUrl(AppMain._IP + "/enrich/forms/");
+//            return downloadUrl(AppMain._IP + "/enrich/listings.php");
+
+            return downloadUrl(AppMain._HOST_URL + ListingContract.ListingEntry._URI);
         } catch (IOException e) {
             return "Unable to upload data. Server may be down.";
         }
@@ -141,6 +147,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+
         pd.setMessage("Server Response: " + result);
         pd.setTitle("Done!... Synced Forms");
         //pd.show();

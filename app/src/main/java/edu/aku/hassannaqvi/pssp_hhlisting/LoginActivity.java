@@ -29,6 +29,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,LoaderManager.LoaderCallbacks<Cursor> {
 
 
@@ -68,13 +70,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return false;
             }
         });
+        email_sign_in_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptLogin();
+            }
+        });
+
 
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.email_sign_in_button){
-            attemptLogin();
         }
     }
 

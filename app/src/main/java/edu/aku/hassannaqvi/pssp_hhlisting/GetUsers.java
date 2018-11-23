@@ -21,6 +21,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.DistrictsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.UsersContract;
+
 /**
  * Created by hassan.naqvi on 4/28/2016.
  */
@@ -51,7 +54,8 @@ public class GetUsers extends AsyncTask<String, String, String> {
         StringBuilder result = new StringBuilder();
 
         try {
-            URL url = new URL(AppMain._IP + "/enrich/users/");
+//            URL url = new URL(AppMain._IP + "/enrich/users/");
+            URL url = new URL(AppMain._HOST_URL + UsersContract.singleUser._URI);
             urlConnection = (HttpURLConnection) url.openConnection();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());

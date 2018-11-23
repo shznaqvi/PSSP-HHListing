@@ -1,4 +1,4 @@
-package edu.aku.hassannaqvi.pssp_hhlisting;
+package edu.aku.hassannaqvi.pssp_hhlisting.contracts;
 
 import android.provider.BaseColumns;
 
@@ -331,6 +331,8 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
         public static final String COLUMN_NAME_ROUND = "round";
         public static final String COLUMN_NAME_USERNAME = "username";
+        public static String _URI = "listings.php";
+
 
     }
 }
