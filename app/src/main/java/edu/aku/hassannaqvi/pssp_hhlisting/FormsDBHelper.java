@@ -76,6 +76,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
                 ListingEntry.COLUMN_NAME_ROUND + " TEXT, " +
                 ListingEntry.COLUMN_NAME_USERNAME + " TEXT, " +
+                ListingEntry.COLUMN_APP_VERSION + " TEXT, " +
                 ListingEntry.COLUMN_SYNCED + " TEXT, " +
                 ListingEntry.COLUMN_SYNCED_DATE + " TEXT" +
                 " );";
@@ -166,6 +167,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
         values.put(ListingEntry.COLUMN_NAME_USERNAME, lc.getRound());
+        values.put(ListingEntry.COLUMN_APP_VERSION, lc.getAppver());
 
         long newRowId;
         newRowId = db.insert(
@@ -226,6 +228,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSAccuracy,
                 ListingEntry.COLUMN_NAME_ROUND,
                 ListingEntry.COLUMN_NAME_USERNAME,
+                ListingEntry.COLUMN_APP_VERSION,
                 ListingEntry.COLUMN_SYNCED,
                 ListingEntry.COLUMN_SYNCED_DATE,
         };
@@ -399,6 +402,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
         values.put(ListingEntry.COLUMN_NAME_USERNAME, lc.getUserName());
+        values.put(ListingEntry.COLUMN_APP_VERSION, lc.getAppver());
 
         return values;
     }
@@ -430,6 +434,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
         lc.setRound(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ROUND))));
         lc.setUserName(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_USERNAME))));
+        lc.setAppver(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_APP_VERSION))));
 
         return lc;
     }

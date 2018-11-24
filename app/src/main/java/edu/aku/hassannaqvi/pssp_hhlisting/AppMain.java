@@ -45,6 +45,10 @@ public class AppMain extends Application {
     public static SharedPreferences sharedPref;
     protected static LocationManager locationManager;
 
+    public static long installedOn;
+    public static int versionCode;
+    public static String versionName;
+
     public static void updatePSU(String psuCode, String structureNo) {
 
         SharedPreferences.Editor editor = sharedPref.edit();

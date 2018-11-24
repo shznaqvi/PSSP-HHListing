@@ -126,7 +126,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh10(hh10.isChecked() ? "1" : "2");
         AppMain.lc.setHh11(hh11.getText().toString().isEmpty() ? "0" : hh11.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03());
 
     }
 
@@ -150,22 +150,24 @@ public class FamilyListingActivity extends Activity {
             hh09.setError(null);
         }
 
-        if (hh10.isChecked() && hh11.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
-            hh11.setError("Please enter child count");
-            Log.i(TAG, "Please enter child count");
-            return false;
-        } else {
-            hh11.setError(null);
-        }
+        if (hh10.isChecked()) {
+            if (hh11.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter child count", Toast.LENGTH_LONG).show();
+                hh11.setError("Please enter child count");
+                Log.i(TAG, "Please enter child count");
+                return false;
+            } else {
+                hh11.setError(null);
+            }
 
-        if (!hh11.getText().toString().isEmpty() && Integer.valueOf(hh11.getText().toString()) < 1) {
-            Toast.makeText(this, "Invalid Value!", Toast.LENGTH_LONG).show();
-            hh11.setError("Invalid Value!");
-            Log.i(TAG, "Invalid Value!");
-            return false;
-        } else {
-            hh11.setError(null);
+            if (Integer.valueOf(hh11.getText().toString()) < 1 || Integer.valueOf(hh11.getText().toString()) > 15) {
+                Toast.makeText(this, "Range 1 - 15!", Toast.LENGTH_LONG).show();
+                hh11.setError("Range 1 - 15!");
+                Log.i(TAG, "Range 1 - 15!");
+                return false;
+            } else {
+                hh11.setError(null);
+            }
         }
 
         return true;
@@ -181,7 +183,7 @@ public class FamilyListingActivity extends Activity {
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
                 AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
-                AppMain.lc.setHh07(AppMain.hh07txt.toString());
+                AppMain.lc.setHh07(AppMain.hh07txt);
                 AppMain.fCount++;
 
                 Intent fA = new Intent(this, FamilyListingActivity.class);

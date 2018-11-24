@@ -227,6 +227,8 @@ public class setupActivity extends Activity {
         AppMain.lc.setDeviceID(deviceId);
         AppMain.lc.setUserName(LoginActivity.userName);
 
+        AppMain.lc.setAppver(AppMain.versionName + "." + AppMain.versionCode);
+
         SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
         AppMain.lc.setGPSLat(sharedPref.getString("Latitude", ""));
         AppMain.lc.setGPSLat(sharedPref.getString("Longitude", ""));
@@ -270,23 +272,27 @@ public class setupActivity extends Activity {
             hh04x88.setError(null);
         }
 
-        if (hh05.isChecked() && hh06.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please enter number", Toast.LENGTH_LONG).show();
-            hh06.setError("Please enter number");
-            Log.i(TAG, "Please enter number");
-            return false;
-        } else {
-            hh06.setError(null);
+        if (hh05.isChecked()) {
+            if (hh06.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter number", Toast.LENGTH_LONG).show();
+                hh06.setError("Please enter number");
+                Log.i(TAG, "Please enter number");
+                return false;
+            } else {
+                hh06.setError(null);
+            }
+
+            if (Integer.valueOf(hh06.getText().toString()) < 2 || Integer.valueOf(hh06.getText().toString()) > 15) {
+                Toast.makeText(this, "Range 2 - 15!", Toast.LENGTH_LONG).show();
+                hh06.setError("Range 2 - 15!");
+                Log.i(TAG, "Range 2 - 15!");
+                return false;
+            } else {
+                hh06.setError(null);
+            }
+
         }
 
-        if (!hh06.getText().toString().isEmpty() && Integer.valueOf(hh06.getText().toString()) <= 1) {
-            Toast.makeText(this, "Answers do not match!", Toast.LENGTH_LONG).show();
-            hh06.setError("Answers do not match!");
-            Log.i(TAG, "Answers do not match!");
-            return false;
-        } else {
-            hh06.setError(null);
-        }
         return true;
     }
 
