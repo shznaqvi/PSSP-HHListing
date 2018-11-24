@@ -7,8 +7,12 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,38 +30,57 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
-
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,LoaderManager.LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "test1234:test1234", "testS12345:testS12345", "bar@example.com:world"};
-
+    private static final String[] DUMMY_CREDENTIALS = new String[]{"test1234:test1234", "testS12345:testS12345", "bar@example.com:world"};
     private UserLoginTask mAuthTask = null;
-
     public ArrayList<String> lables;
     public ArrayList<String> values;
-
 
     ProgressBar mProgressView;
     EditText mPasswordView;
     AutoCompleteTextView mEmailView;
     Button email_sign_in_button;
 
+    public static String userName = "";
+    public static boolean admin = false;
+
+    String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mProgressView = (ProgressBar)findViewById(R.id.login_progress);
-        mPasswordView = (EditText)findViewById(R.id.password);
-        mEmailView = (AutoCompleteTextView)findViewById(R.id.email);
-        email_sign_in_button = (Button)findViewById(R.id.email_sign_in_button);
+        mProgressView = (ProgressBar) findViewById(R.id.login_progress);
+        mPasswordView = (EditText) findViewById(R.id.password);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
+        TextView txtinstalldate = (TextView) findViewById(R.id.txtinstalldate);
+
+        try {
+            AppMain.installedOn = this
+                    .getPackageManager()
+                    .getPackageInfo("edu.aku.hassannaqvi.pssp_hhlisting", 0)
+                    .lastUpdateTime;
+            AppMain.versionCode = this
+                    .getPackageManager()
+                    .getPackageInfo("edu.aku.hassannaqvi.pssp_hhlisting", 0)
+                    .versionCode;
+            AppMain.versionName = this
+                    .getPackageManager()
+                    .getPackageInfo("edu.aku.hassannaqvi.pssp_hhlisting", 0)
+                    .versionName;
+            txtinstalldate.setText("Ver. " + AppMain.versionName + "." + String.valueOf(AppMain.versionCode) + " \r\n( Last Updated: " + new SimpleDateFormat("dd MMM. yyyy").format(new Date(AppMain.installedOn)) + " )");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
         populateAutoComplete();
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -77,13 +100,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+        Button syncData = (Button) findViewById(R.id.syncData);
+        syncData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (isNetworkAvailable()) {
+
+                    GetUsers u = new GetUsers(LoginActivity.this);
+                    Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
+                    u.execute();
+
+                    GetDistricts gd = new GetDistricts(LoginActivity.this);
+                    Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
+                    gd.execute();
+
+                    GetPSUs gp = new GetPSUs(LoginActivity.this);
+                    Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
+                    gp.execute();
+
+                    SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = syncPref.edit();
+
+                    editor.putString("LastSyncDB", dtToday);
+
+                    editor.apply();
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Network Not Available", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.email_sign_in_button){
-        }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private void populateAutoComplete() {
@@ -247,9 +303,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 FormsDBHelper db = new FormsDBHelper(LoginActivity.this);
                 if ((mEmail.equals("test1234") && mPassword.equals("test1234")) || (mEmail.equals("dmu@aku") && mPassword.equals("aku?dmu")) || db.Login(mEmail, mPassword)) {
-                    ListingContract.userName = mEmail;
-//                    MainApp.admin = mEmail.contains("@");
+                    userName = mEmail;
+                    admin = mEmail.contains("@");
 
+                    finish();
                     Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(iLogin);
 

@@ -1,4 +1,5 @@
 package edu.aku.hassannaqvi.pssp_hhlisting;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,7 +9,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.widget.Toast;
 
 import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
 
@@ -26,10 +26,10 @@ public class AppMain extends Application {
     //public static String _IP = "http://192.168.1.10:3000"; // Testing Server
 //    public static String _IP = "http://43.245.131.159:3000"; //Production server
     public static final String _IP = "10.1.42.30"; //testing server
-//    public static final String _IP = "43.245.131.159"; // PHP server
+    //    public static final String _IP = "43.245.131.159"; // PHP server
     public static final Integer _PORT = 8080; // Port - with colon (:)
     public static final String _HOST_URL = "http://" + AppMain._IP + "/enrich/api/";
-    public static final String _UPDATE_URL = "http://" + AppMain._IP +"/enrich/app/app-debug.apk";
+    public static final String _UPDATE_URL = "http://" + AppMain._IP + "/enrich/app/app-debug.apk";
     public static String TAG = "AppMain";
     public static ListingContract lc;
     public static String hh01txt = "0000";
@@ -43,6 +43,10 @@ public class AppMain extends Application {
     public static int cTotal = 0;
     public static SharedPreferences sharedPref;
     protected static LocationManager locationManager;
+
+    public static long installedOn;
+    public static int versionCode;
+    public static String versionName;
 
     public static void updatePSU(String psuCode, String structureNo) {
 
@@ -109,12 +113,12 @@ public class AppMain extends Application {
                 editor.putString("Accuracy", String.valueOf(location.getAccuracy()));
                 editor.putString("Time", String.valueOf(location.getTime()));
                 String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(String.valueOf(location.getTime()))).toString();
-                Toast.makeText(getApplicationContext(),
+                /*Toast.makeText(getApplicationContext(),
                         "GPS Commit! LAT: " + String.valueOf(location.getLongitude()) +
                                 " LNG: " + String.valueOf(location.getLatitude()) +
                                 " Accuracy: " + String.valueOf(location.getAccuracy()) +
                                 " Time: " + date,
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
 
                 editor.apply();
             }
@@ -156,10 +160,7 @@ public class AppMain extends Application {
                 return true;
             } else if (isNewer && !isLessAccurate) {
                 return true;
-            } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-                return true;
-            }
-            return false;
+            } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
         }
 
         /**
@@ -196,8 +197,8 @@ public class AppMain extends Application {
                         "Current Location \n Longitude: %1$s \n Latitude: %2$s",
                         location.getLongitude(), location.getLatitude()
                 );
-                Toast.makeText(AppMain.this, message,
-                        Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(AppMain.this, message,
+                        Toast.LENGTH_SHORT).show();*/
             }
 
         }

@@ -34,8 +34,11 @@ public class ListingContract {
     public String GPSLng;
     public String GPSTime;
     public String GPSAcc;
-    public String Round = "1";
-    public static String userName;
+    public String Round = "2";
+    public String userName;
+    private String appver = "";
+    private String synced = "";
+    private String synced_date = "";
 
 
     public ListingContract() {
@@ -269,10 +272,18 @@ public class ListingContract {
         this.userName = userName;
     }
 
+    public String getAppver() {
+        return appver;
+    }
+
+    public void setAppver(String appver) {
+        this.appver = appver;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
-        json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
+        json.put(ListingEntry.COLUMN_UID, this.UID);
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
         json.put(ListingEntry.COLUMN_NAME_HH01, this.hh01);
         json.put(ListingEntry.COLUMN_NAME_HH02, this.hh02);
@@ -297,6 +308,9 @@ public class ListingContract {
         json.put(ListingEntry.COLUMN_NAME_GPSAccuracy, this.GPSAcc);
         json.put(ListingEntry.COLUMN_NAME_ROUND, this.Round);
         json.put(ListingEntry.COLUMN_NAME_USERNAME, this.userName);
+        /*json.put(ListingEntry.COLUMN_SYNCED, this.synced);
+        json.put(ListingEntry.COLUMN_SYNCED_DATE, this.synced_date);*/
+        json.put(ListingEntry.COLUMN_APP_VERSION, this.appver);
 
         return json;
     }
@@ -306,7 +320,7 @@ public class ListingContract {
         public static final String TABLE_NAME = "listings";
         public static final String COLUMN_NAME_NULLABLE = "NULLHACK";
         public static final String _ID = "_id";
-        public static final String COLUMN_NAME_UID = "uid";
+        public static final String COLUMN_UID = "uid";
         public static final String COLUMN_NAME_HHDATETIME = "hhdt";
         public static final String COLUMN_NAME_HH01 = "hh01";
         public static final String COLUMN_NAME_HH02 = "hh02";
@@ -331,8 +345,11 @@ public class ListingContract {
         public static final String COLUMN_NAME_GPSAccuracy = "gpsacc";
         public static final String COLUMN_NAME_ROUND = "round";
         public static final String COLUMN_NAME_USERNAME = "username";
-        public static String _URI = "listings.php";
+        public static final String COLUMN_SYNCED = "synced";
+        public static final String COLUMN_SYNCED_DATE = "synced_date";
+        public static final String COLUMN_APP_VERSION = "app_version";
 
+        public static String _URI = "listings.php";
 
     }
 }

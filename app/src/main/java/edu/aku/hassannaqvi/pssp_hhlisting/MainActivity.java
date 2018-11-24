@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -13,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,15 +20,14 @@ import android.widget.Toast;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.aku.hassannaqvi.pssp_hhlisting.contracts.DistrictsContract;
+import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
 import edu.aku.hassannaqvi.pssp_hhlisting.contracts.PSUsContract;
 
 public class MainActivity extends Activity {
@@ -40,7 +39,6 @@ public class MainActivity extends Activity {
 
     public List<String> psuCode;
 
-    String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
     @BindView(R.id.MN01)
     Spinner mN01;
     @BindView(R.id.MN02)
@@ -51,12 +49,17 @@ public class MainActivity extends Activity {
     TextView ucN;
     @BindView(R.id.psuN)
     TextView psuN;
+    @BindView(R.id.openDBManager)
+    Button openDBManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        //Checking admin login
+        openDBManager.setVisibility(LoginActivity.admin ? View.VISIBLE : View.GONE);
 
         AppMain.lc = null;
 
@@ -120,7 +123,7 @@ public class MainActivity extends Activity {
 
                     if (p.getPSUCode().equals(AppMain.hh02txt)) {
                         Log.d(TAG, "onItemSelected: " + p.getPSUName());
-                        String[] psuNameS = p.getPSUName().toString().split("\\|");
+                        String[] psuNameS = p.getPSUName().split("\\|");
                         districtN.setText(psuNameS[0]);
                         Log.d(TAG, "onItemSelected: " + psuNameS[0]);
                         ucN.setText(psuNameS[1]);
@@ -146,6 +149,7 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
+                        finish();
                         Intent oF = new Intent(MainActivity.this, setupActivity.class);
                         startActivity(oF);
                         break;
@@ -169,6 +173,7 @@ public class MainActivity extends Activity {
 
         if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
 
+            finish();
             Intent oF = new Intent(this, setupActivity.class);
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
@@ -177,8 +182,7 @@ public class MainActivity extends Activity {
             } else {
                 startActivity(oF);
             }
-        }
-        else {
+        } else {
 
         }
     }
@@ -190,31 +194,21 @@ public class MainActivity extends Activity {
 
     public void syncFunction(View view) {
         if (isNetworkAvailable()) {
-            SyncForms ff = new SyncForms(this);
-            Toast.makeText(getApplicationContext(), "Syncing Forms", Toast.LENGTH_SHORT).show();
-            ff.execute();
 
-            GetUsers u = new GetUsers(this);
-            Toast.makeText(getApplicationContext(), "Syncing Users", Toast.LENGTH_SHORT).show();
-            u.execute();
+            FormsDBHelper db = new FormsDBHelper(this);
+            Toast.makeText(getApplicationContext(), "Syncing Forms Listing", Toast.LENGTH_SHORT).show();
+            new SyncAllData(
+                    this,
+                    "Listing",
+                    "updateSyncedListing",
+                    ListingContract.class,
+                    AppMain._HOST_URL + ListingContract.ListingEntry._URI,
+                    db.getUnsyncedListings()
+            ).execute();
 
-            GetDistricts gd = new GetDistricts(this);
-            Toast.makeText(getApplicationContext(), "Syncing Districts", Toast.LENGTH_SHORT).show();
-            gd.execute();
-            GetPSUs gp = new GetPSUs(this);
-            Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
-            gp.execute();
-
-
-            SharedPreferences syncPref = getSharedPreferences("SyncInfo", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = syncPref.edit();
-
-            editor.putString("LastSyncDB", dtToday);
-
-            editor.apply();
-        } /*else {
+        } else {
             Toast.makeText(getApplicationContext(), "Network Not Available", Toast.LENGTH_SHORT).show();
-        }*/
+        }
     }
 
     private boolean isNetworkAvailable() {

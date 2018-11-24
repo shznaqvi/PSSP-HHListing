@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import edu.aku.hassannaqvi.pssp_hhlisting.contracts.DistrictsContract;
 import edu.aku.hassannaqvi.pssp_hhlisting.contracts.DistrictsContract.singleDistrict;
@@ -45,13 +46,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     }
 
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a table to hold Listings.
         final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE " + ListingEntry.TABLE_NAME + " (" +
                 ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                ListingEntry.COLUMN_NAME_UID + " TEXT, " +
+                ListingEntry.COLUMN_UID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
@@ -73,8 +73,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSTime + " TEXT, " +
+                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT, " +
                 ListingEntry.COLUMN_NAME_ROUND + " TEXT, " +
-                ListingEntry.COLUMN_NAME_GPSAccuracy + " TEXT " +
+                ListingEntry.COLUMN_NAME_USERNAME + " TEXT, " +
+                ListingEntry.COLUMN_APP_VERSION + " TEXT, " +
+                ListingEntry.COLUMN_SYNCED + " TEXT, " +
+                ListingEntry.COLUMN_SYNCED_DATE + " TEXT" +
                 " );";
 
         final String SQL_CREATE_DISTRICT_TABLE = "CREATE TABLE " + singleDistrict.TABLE_NAME + " (" +
@@ -134,13 +138,13 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
+        values.put(ListingEntry.COLUMN_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
         values.put(ListingEntry.COLUMN_NAME_HH03, lc.getHh03());
 
-        AppMain.updatePSU(lc.getHh02(), lc.getHh03()); 
+        AppMain.updatePSU(lc.getHh02(), lc.getHh03());
         Log.d(TAG, "PSUExist (Test): " + sharedPref.getString(lc.getHh02(), "0"));
 
         values.put(ListingEntry.COLUMN_NAME_HH04, lc.getHh04());
@@ -162,6 +166,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
+        values.put(ListingEntry.COLUMN_NAME_USERNAME, lc.getUserName());
+        values.put(ListingEntry.COLUMN_APP_VERSION, lc.getAppver());
 
         long newRowId;
         newRowId = db.insert(
@@ -192,12 +198,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    public Collection<ListingContract> getAllListings() {
+    public Collection<ListingContract> getUnsyncedListings() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         String[] columns = {
                 ListingEntry._ID,
-                ListingEntry.COLUMN_NAME_UID,
+                ListingEntry.COLUMN_UID,
                 ListingEntry.COLUMN_NAME_HHDATETIME,
                 ListingEntry.COLUMN_NAME_HH01,
                 ListingEntry.COLUMN_NAME_HH02,
@@ -220,10 +226,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_GPSLng,
                 ListingEntry.COLUMN_NAME_GPSTime,
                 ListingEntry.COLUMN_NAME_GPSAccuracy,
-                ListingEntry.COLUMN_NAME_ROUND
+                ListingEntry.COLUMN_NAME_ROUND,
+                ListingEntry.COLUMN_NAME_USERNAME,
+                ListingEntry.COLUMN_APP_VERSION,
+                ListingEntry.COLUMN_SYNCED,
+                ListingEntry.COLUMN_SYNCED_DATE,
         };
 
-        String whereClause = null;
+        String whereClause = ListingEntry.COLUMN_SYNCED + " is null OR " + ListingEntry.COLUMN_SYNCED + " = ''";
         String[] whereArgs = null;
         String groupBy = null;
         String having = null;
@@ -254,6 +264,26 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             }
         }
         return allLC;
+    }
+
+    public void updateSyncedListing(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ListingEntry.COLUMN_SYNCED, true);
+        values.put(ListingEntry.COLUMN_SYNCED_DATE, new Date().toString());
+
+// Which row to update, based on the title
+        String where = ListingEntry._ID + " LIKE ?";
+        String[] whereArgs = {id};
+
+        int count = db.update(
+                ListingEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
+        db.close();
     }
 
     public Collection<DistrictsContract> getAllDistricts() {
@@ -347,7 +377,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private ContentValues getContentValues(ListingContract lc) {
         ContentValues values = new ContentValues();
         values.put(ListingEntry._ID, lc.getID());
-        values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
+        values.put(ListingEntry.COLUMN_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
@@ -371,13 +401,15 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
+        values.put(ListingEntry.COLUMN_NAME_USERNAME, lc.getUserName());
+        values.put(ListingEntry.COLUMN_APP_VERSION, lc.getAppver());
 
         return values;
     }
 
     private ListingContract hydrate(Cursor c) {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
-        lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
+        lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_UID))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
@@ -401,6 +433,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setGPSTime(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSTime))));
         lc.setGPSAcc(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSAccuracy))));
         lc.setRound(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_ROUND))));
+        lc.setUserName(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_USERNAME))));
+        lc.setAppver(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_APP_VERSION))));
 
         return lc;
     }
@@ -410,11 +444,28 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
         Cursor mCursor = db.rawQuery("SELECT * FROM " + UsersContract.singleUser.TABLE_NAME + " WHERE " + UsersContract.singleUser.ROW_USERNAME + "=? AND " + UsersContract.singleUser.ROW_PASSWORD + "=?", new String[]{username, password});
         if (mCursor != null) {
-            if (mCursor.getCount() > 0) {
-                return true;
-            }
+            return mCursor.getCount() > 0;
         }
         return false;
+    }
+
+
+    public void updateListingUID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ListingEntry.COLUMN_UID, AppMain.lc.getUID());
+
+// Which row to update, based on the title
+        String where = ListingEntry._ID + " =?";
+        String[] whereArgs = {AppMain.lc.getID()};
+
+        int count = db.update(
+                ListingEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
     }
 
 

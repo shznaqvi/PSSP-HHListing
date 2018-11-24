@@ -23,7 +23,6 @@ import java.net.URL;
 import java.util.Collection;
 
 import edu.aku.hassannaqvi.pssp_hhlisting.contracts.ListingContract;
-import edu.aku.hassannaqvi.pssp_hhlisting.contracts.UsersContract;
 
 /**
  * Created by hassan.naqvi on 7/26/2016.
@@ -57,7 +56,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
     }
 
-    private String downloadUrl(String myurl) throws IOException {
+    private String downloadUrl(String myurl) {
         String line = "No Response";
 
         HttpURLConnection connection = null;
@@ -82,7 +81,7 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             FormsDBHelper db = new FormsDBHelper(mContext);
-            Collection<ListingContract> listings = db.getAllListings();
+            Collection<ListingContract> listings = db.getUnsyncedListings();
             Log.d(TAG, String.valueOf(listings.size()));
 //            pd.setMessage("Total Forms: " );
             for (ListingContract lc : listings) {
@@ -134,14 +133,14 @@ public class SyncForms extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        try {
+//        try {
 //            return downloadUrl(AppMain._IP + "/enrich/forms/");
 //            return downloadUrl(AppMain._IP + "/enrich/listings.php");
 
             return downloadUrl(AppMain._HOST_URL + ListingContract.ListingEntry._URI);
-        } catch (IOException e) {
+        /*} catch (IOException e) {
             return "Unable to upload data. Server may be down.";
-        }
+        }*/
     }
 
     @Override
