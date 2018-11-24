@@ -24,7 +24,7 @@
     <string name="no"> نہیں </string>
 
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
-    <string name="txt">qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM </string>
+    <string name="txt">qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM </string>
     <string name="child_name">بچے کا نام</string>
     <string name="child_age">بچے کی عمر</string>
     <string name="hh12m">ماہ</string>
