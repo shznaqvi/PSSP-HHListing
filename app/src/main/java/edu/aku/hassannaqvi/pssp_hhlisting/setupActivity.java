@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -229,18 +230,37 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setAppver(AppMain.versionName + "." + AppMain.versionCode);
 
-        SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
-        AppMain.lc.setGPSLat(sharedPref.getString("Latitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Longitude", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Accuracy", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Time", ""));
-
+        setGPS();
 
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
-
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03());
 
+    }
+
+    public void setGPS() {
+        SharedPreferences GPSPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+
+        try {
+            String lat = GPSPref.getString("Latitude", "0");
+            String lang = GPSPref.getString("Longitude", "0");
+            String acc = GPSPref.getString("Accuracy", "0");
+            String dt = GPSPref.getString("Time", "0");
+
+            if (lat.equals("0") && lang.equals("0")) {
+                Toast.makeText(this, "Could not obtained GPS points", Toast.LENGTH_SHORT).show();
+            }
+
+            String date = DateFormat.format("dd-MM-yyyy HH:mm", Long.parseLong(dt)).toString();
+
+            AppMain.lc.setGPSLat(lat);
+            AppMain.lc.setGPSLng(lang);
+            AppMain.lc.setGPSAcc(acc);
+            AppMain.lc.setGPSTime(date); // Timestamp is converted to date above
+
+        } catch (Exception e) {
+            Log.e(TAG, "setGPS: " + e.getMessage());
+        }
 
     }
 
@@ -322,12 +342,23 @@ public class setupActivity extends Activity {
 
         long updcount = db.addForm(AppMain.lc);
 
+        AppMain.lc.setID(String.valueOf(updcount));
+
         if (updcount != 0) {
-            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+
+            AppMain.lc.setUID(
+                    (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+
+            // Update UID of Last Inserted Form
+            db.updateListingUID();
+
+            return true;
+
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+
+            return false;
         }
-        return true;
     }
 
     @Override

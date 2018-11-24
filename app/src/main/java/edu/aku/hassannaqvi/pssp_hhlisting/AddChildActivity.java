@@ -87,12 +87,23 @@ public class AddChildActivity extends Activity {
         }
         long updcount = db.addForm(AppMain.lc);
 
+        AppMain.lc.setID(String.valueOf(updcount));
+
         if (updcount != 0) {
-            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+
+            AppMain.lc.setUID(
+                    (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+
+            // Update UID of Last Inserted Form
+            db.updateListingUID();
+
+            return true;
+
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+
+            return false;
         }
-        return true;
     }
 
     private void SaveDraft() {
@@ -100,7 +111,7 @@ public class AddChildActivity extends Activity {
         AppMain.lc.setHh12d(icAgeD.getText().toString());
         AppMain.lc.setHh12m(icAgeM.getText().toString());
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03());
     }
 
     private boolean formValidation() {
@@ -163,7 +174,7 @@ public class AddChildActivity extends Activity {
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
                 AppMain.hh07txt = String.valueOf((char) (AppMain.hh07txt.charAt(0) + 1));
-                AppMain.lc.setHh07(AppMain.hh07txt.toString());
+                AppMain.lc.setHh07(AppMain.hh07txt);
                 AppMain.fCount++;
 
                 Intent fA = new Intent(this, FamilyListingActivity.class);

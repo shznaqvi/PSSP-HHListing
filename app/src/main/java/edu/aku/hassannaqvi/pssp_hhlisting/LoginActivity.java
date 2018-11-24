@@ -48,7 +48,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     AutoCompleteTextView mEmailView;
     Button email_sign_in_button;
 
-    public static String userName;
+    public static String userName = "";
+    public static boolean admin = false;
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
@@ -303,7 +304,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 FormsDBHelper db = new FormsDBHelper(LoginActivity.this);
                 if ((mEmail.equals("test1234") && mPassword.equals("test1234")) || (mEmail.equals("dmu@aku") && mPassword.equals("aku?dmu")) || db.Login(mEmail, mPassword)) {
                     userName = mEmail;
-//                    MainApp.admin = mEmail.contains("@");
+                    admin = mEmail.contains("@");
 
                     Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(iLogin);

@@ -217,12 +217,23 @@ public class FamilyListingActivity extends Activity {
 
         long updcount = db.addForm(AppMain.lc);
 
+        AppMain.lc.setID(String.valueOf(updcount));
+
         if (updcount != 0) {
-            Toast.makeText(this, "Updating Database... Successful!", Toast.LENGTH_SHORT).show();
+
+            AppMain.lc.setUID(
+                    (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
+
+            // Update UID of Last Inserted Form
+            db.updateListingUID();
+
+            return true;
+
         } else {
             Toast.makeText(this, "Updating Database... ERROR!", Toast.LENGTH_SHORT).show();
+
+            return false;
         }
-        return true;
     }
 
     @Override

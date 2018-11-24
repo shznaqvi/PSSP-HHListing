@@ -51,7 +51,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         // Create a table to hold Listings.
         final String SQL_CREATE_LISTING_TABLE = "CREATE TABLE " + ListingEntry.TABLE_NAME + " (" +
                 ListingEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                ListingEntry.COLUMN_NAME_UID + " TEXT, " +
+                ListingEntry.COLUMN_UID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HHDATETIME + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH01 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH02 + " TEXT, " +
@@ -138,7 +138,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
+        values.put(ListingEntry.COLUMN_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
@@ -166,7 +166,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_GPSTime, lc.getGPSTime());
         values.put(ListingEntry.COLUMN_NAME_GPSAccuracy, lc.getGPSAcc());
         values.put(ListingEntry.COLUMN_NAME_ROUND, lc.getRound());
-        values.put(ListingEntry.COLUMN_NAME_USERNAME, lc.getRound());
+        values.put(ListingEntry.COLUMN_NAME_USERNAME, lc.getUserName());
         values.put(ListingEntry.COLUMN_APP_VERSION, lc.getAppver());
 
         long newRowId;
@@ -203,7 +203,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         Cursor c = null;
         String[] columns = {
                 ListingEntry._ID,
-                ListingEntry.COLUMN_NAME_UID,
+                ListingEntry.COLUMN_UID,
                 ListingEntry.COLUMN_NAME_HHDATETIME,
                 ListingEntry.COLUMN_NAME_HH01,
                 ListingEntry.COLUMN_NAME_HH02,
@@ -377,7 +377,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     private ContentValues getContentValues(ListingContract lc) {
         ContentValues values = new ContentValues();
         values.put(ListingEntry._ID, lc.getID());
-        values.put(ListingEntry.COLUMN_NAME_UID, lc.getUID());
+        values.put(ListingEntry.COLUMN_UID, lc.getUID());
         values.put(ListingEntry.COLUMN_NAME_HHDATETIME, lc.getHhDT());
         values.put(ListingEntry.COLUMN_NAME_HH01, lc.getHh01());
         values.put(ListingEntry.COLUMN_NAME_HH02, lc.getHh02());
@@ -409,7 +409,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
     private ListingContract hydrate(Cursor c) {
         ListingContract lc = new ListingContract(c.getString(c.getColumnIndex(ListingEntry._ID)));
-        lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_UID))));
+        lc.setUID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_UID))));
         lc.setHhDT(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HHDATETIME))));
         lc.setHh01(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH01))));
         lc.setHh02(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH02))));
@@ -447,6 +447,25 @@ public class FormsDBHelper extends SQLiteOpenHelper {
             return mCursor.getCount() > 0;
         }
         return false;
+    }
+
+
+    public void updateListingUID() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+// New value for one column
+        ContentValues values = new ContentValues();
+        values.put(ListingEntry.COLUMN_UID, AppMain.lc.getUID());
+
+// Which row to update, based on the title
+        String where = ListingEntry._ID + " =?";
+        String[] whereArgs = {AppMain.lc.getID()};
+
+        int count = db.update(
+                ListingEntry.TABLE_NAME,
+                values,
+                where,
+                whereArgs);
     }
 
 

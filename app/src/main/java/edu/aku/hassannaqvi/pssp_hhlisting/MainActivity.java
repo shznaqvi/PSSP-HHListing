@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,12 +49,17 @@ public class MainActivity extends Activity {
     TextView ucN;
     @BindView(R.id.psuN)
     TextView psuN;
+    @BindView(R.id.openDBManager)
+    Button openDBManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        //Checking admin login
+        openDBManager.setVisibility(LoginActivity.admin ? View.VISIBLE : View.GONE);
 
         AppMain.lc = null;
 
