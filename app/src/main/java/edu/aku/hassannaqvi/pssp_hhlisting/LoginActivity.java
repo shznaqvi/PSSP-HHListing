@@ -306,6 +306,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                     userName = mEmail;
                     admin = mEmail.contains("@");
 
+                    finish();
                     Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(iLogin);
 

@@ -149,6 +149,7 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
+                        finish();
                         Intent oF = new Intent(MainActivity.this, setupActivity.class);
                         startActivity(oF);
                         break;
@@ -172,6 +173,7 @@ public class MainActivity extends Activity {
 
         if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
 
+            finish();
             Intent oF = new Intent(this, setupActivity.class);
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {

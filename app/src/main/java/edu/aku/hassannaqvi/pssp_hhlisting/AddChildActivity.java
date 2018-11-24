@@ -71,6 +71,7 @@ public class AddChildActivity extends Activity {
 
                 AppMain.lc.setHhChildNm(null);
 
+                finish();
                 Intent fA = new Intent(this, AddChildActivity.class);
                 startActivity(fA);
             }
@@ -177,6 +178,7 @@ public class AddChildActivity extends Activity {
                 AppMain.lc.setHh07(AppMain.hh07txt);
                 AppMain.fCount++;
 
+                finish();
                 Intent fA = new Intent(this, FamilyListingActivity.class);
                 startActivity(fA);
                 try {
@@ -199,6 +201,8 @@ public class AddChildActivity extends Activity {
                 AppMain.fTotal = 0;
                 AppMain.cCount = 0;
                 AppMain.cTotal = 0;
+
+                finish();
                 Intent fA = new Intent(this, setupActivity.class);
                 startActivity(fA);
 
