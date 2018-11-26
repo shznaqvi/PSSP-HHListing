@@ -173,7 +173,6 @@ public class MainActivity extends Activity {
 
         if (mN01.getSelectedItem() != null && mN02.getSelectedItem() != null) {
 
-            finish();
             Intent oF = new Intent(this, setupActivity.class);
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
