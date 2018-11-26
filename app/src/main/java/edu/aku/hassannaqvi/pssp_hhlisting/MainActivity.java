@@ -144,28 +144,30 @@ public class MainActivity extends Activity {
 
     public void alertPSU() {
 
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        finish();
-                        Intent oF = new Intent(MainActivity.this, setupActivity.class);
-                        startActivity(oF);
-                        break;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                MainActivity.this);
+        alertDialogBuilder
+                .setTitle("Do you want to continue?")
+                .setMessage("PSU data already exist.")
+                .setCancelable(false)
+                .setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                finish();
+                                Intent oF = new Intent(MainActivity.this, setupActivity.class);
+                                startActivity(oF);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
 
-                    case DialogInterface.BUTTON_NEGATIVE:
-
-                        break;
-                }
-            }
-
-        };
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do you want to continue?");
-        builder.setMessage("PSU data already exist.").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("Cancel", dialogClickListener).show();
     }
 
     public void openForm(View view) {
@@ -176,7 +178,7 @@ public class MainActivity extends Activity {
             Intent oF = new Intent(this, setupActivity.class);
 
             if (AppMain.PSUExist(AppMain.hh02txt)) {
-                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, "PSU data exist!", Toast.LENGTH_LONG).show();
                 alertPSU();
             } else {
                 startActivity(oF);
