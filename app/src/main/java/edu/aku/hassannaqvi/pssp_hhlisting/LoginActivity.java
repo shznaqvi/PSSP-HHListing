@@ -58,11 +58,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mProgressView = (ProgressBar) findViewById(R.id.login_progress);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
-        TextView txtinstalldate = (TextView) findViewById(R.id.txtinstalldate);
+        mProgressView = findViewById(R.id.login_progress);
+        mPasswordView = findViewById(R.id.password);
+        mEmailView = findViewById(R.id.email);
+        email_sign_in_button = findViewById(R.id.email_sign_in_button);
+        TextView txtinstalldate = findViewById(R.id.txtinstalldate);
 
         try {
             AppMain.installedOn = this
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         });
 
-        Button syncData = (Button) findViewById(R.id.syncData);
+        Button syncData = findViewById(R.id.syncData);
         syncData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -306,7 +306,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                     userName = mEmail;
                     admin = mEmail.contains("@");
 
-                    finish();
                     Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(iLogin);
 
