@@ -25,8 +25,8 @@ public class AppMain extends Application {
     private static final int TWO_MINUTES = 1000 * 60 * 2;
     //public static String _IP = "http://192.168.1.10:3000"; // Testing Server
 //    public static String _IP = "http://43.245.131.159:3000"; //Production server
-    public static final String _IP = "10.1.42.30"; //testing server
-    //    public static final String _IP = "43.245.131.159"; // PHP server
+    //public static final String _IP = "10.1.42.30"; //testing server
+    public static final String _IP = "43.245.131.159:8080"; // PHP server
     public static final Integer _PORT = 8080; // Port - with colon (:)
     public static final String _HOST_URL = "http://" + AppMain._IP + "/enrich/api/";
     public static final String _UPDATE_URL = "http://" + AppMain._IP + "/enrich/app/app-debug.apk";
