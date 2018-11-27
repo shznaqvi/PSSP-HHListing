@@ -219,6 +219,10 @@ public class FamilyListingActivity extends Activity {
     private boolean UpdateDB() {
         FormsDBHelper db = new FormsDBHelper(this);
 
+        AppMain.lc.setHhChildNm("");
+        AppMain.lc.setHh12m("");
+        AppMain.lc.setHh12d("");
+
         long updcount = db.addForm(AppMain.lc);
 
         AppMain.lc.setID(String.valueOf(updcount));
