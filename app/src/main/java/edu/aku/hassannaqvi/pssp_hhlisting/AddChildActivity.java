@@ -90,7 +90,7 @@ public class AddChildActivity extends Activity {
 
         AppMain.lc.setID(String.valueOf(updcount));
 
-        if (updcount != 0) {
+        if (updcount > 0) {
 
             AppMain.lc.setUID(
                     (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
