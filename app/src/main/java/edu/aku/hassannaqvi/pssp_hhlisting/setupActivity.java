@@ -178,14 +178,16 @@ public class setupActivity extends Activity {
     @OnClick(R.id.btnChangePSU)
     void onBtnChangePSUClick() {
 
-        AppMain.hh02txt = null;
-
         if (formValidation()) {
             SaveDraft();
             if (UpdateDB()) {
+
+                AppMain.hh02txt = null;
+
                 finish();
                 Intent fA = new Intent(this, MainActivity.class);
                 startActivity(fA);
+
             }
         }
 
