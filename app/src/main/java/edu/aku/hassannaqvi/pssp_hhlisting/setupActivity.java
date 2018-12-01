@@ -179,9 +179,15 @@ public class setupActivity extends Activity {
     void onBtnChangePSUClick() {
 
         AppMain.hh02txt = null;
-        finish();
-        Intent fA = new Intent(this, MainActivity.class);
-        startActivity(fA);
+
+        if (formValidation()) {
+            SaveDraft();
+            if (UpdateDB()) {
+                finish();
+                Intent fA = new Intent(this, MainActivity.class);
+                startActivity(fA);
+            }
+        }
 
     }
 
@@ -213,7 +219,7 @@ public class setupActivity extends Activity {
                 AppMain.lc.setHh04("6");
                 break;
             case R.id.hh04g:
-                AppMain.lc.setHh04("7");
+                AppMain.lc.setHh04("8");
                 break;
             case R.id.hh04x:
                 AppMain.lc.setHh04("88");
