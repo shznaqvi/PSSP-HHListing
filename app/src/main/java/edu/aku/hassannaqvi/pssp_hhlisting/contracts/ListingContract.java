@@ -28,7 +28,9 @@ public class ListingContract {
     public String hh11;
     public String hh12m;
     public String hh12d;
+    public String hh13;
     public String hhChildNm;
+    public String childSno;
     public String DeviceID;
     public String GPSLat;
     public String GPSLng;
@@ -46,22 +48,6 @@ public class ListingContract {
 
     public ListingContract(String ID) {
         this.ID = ID;
-    }
-
-    public ListingContract(String hh01, String hh02, String hh03, String hh04, String hh04x, String hh05, String hh06, String hh07, String DeviceID, String GPSLat, String GPSLng, String GPSTime, String GPSAcc) {
-        this.hh01 = hh01;
-        this.hh02 = hh02;
-        this.hh03 = hh03;
-        this.hh04 = hh04;
-        this.hh04x = hh04x;
-        this.hh05 = hh05;
-        this.hh06 = hh06;
-        this.hh07 = hh07;
-        this.DeviceID = DeviceID;
-        this.GPSLat = GPSLat;
-        this.GPSLng = GPSLng;
-        this.GPSTime = GPSTime;
-        this.GPSAcc = GPSAcc;
     }
 
     public String getID() {
@@ -280,6 +266,22 @@ public class ListingContract {
         this.appver = appver;
     }
 
+    public String getHh13() {
+        return hh13;
+    }
+
+    public void setHh13(String hh13) {
+        this.hh13 = hh13;
+    }
+
+    public String getChildSno() {
+        return childSno;
+    }
+
+    public void setChildSno(String chSno) {
+        this.childSno = chSno;
+    }
+
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(ListingEntry._ID, this.ID);
@@ -311,6 +313,8 @@ public class ListingContract {
         /*json.put(ListingEntry.COLUMN_SYNCED, this.synced);
         json.put(ListingEntry.COLUMN_SYNCED_DATE, this.synced_date);*/
         json.put(ListingEntry.COLUMN_APP_VERSION, this.appver);
+        json.put(ListingEntry.COLUMN_NAME_HH13, this.hh13);
+        json.put(ListingEntry.COLUMN_NAME_CHILD_SNO, this.childSno);
 
         return json;
     }
@@ -337,7 +341,9 @@ public class ListingContract {
         public static final String COLUMN_NAME_HH11 = "hh11";
         public static final String COLUMN_NAME_HH12m = "hh12m";
         public static final String COLUMN_NAME_HH12d = "hh12d";
+        public static final String COLUMN_NAME_HH13 = "hh13";
         public static final String COLUMN_NAME_CHILD_NAME = "child_name";
+        public static final String COLUMN_NAME_CHILD_SNO = "child_sno";
         public static final String COLUMN_NAME_DEVICEID = "deviceid";
         public static final String COLUMN_NAME_GPSLat = "gpslat";
         public static final String COLUMN_NAME_GPSLng = "gpslng";

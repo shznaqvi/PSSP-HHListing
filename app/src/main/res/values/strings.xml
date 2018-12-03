@@ -27,9 +27,11 @@
     <string name="txt">qwertyuiopasdfghjklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM </string>
     <string name="child_name">بچے کا نام</string>
     <string name="child_age">بچے کی عمر</string>
+    <string name="child_gender">بچے کی جنس</string>
     <string name="hh12m">ماہ</string>
     <string name="hh12d">دن</string>
-
+    <string name="male"> مرد</string>
+    <string name="female"> عورت </string>
 
     <!--Ali-->
     <string name="prompt_password">Password (optional)</string>

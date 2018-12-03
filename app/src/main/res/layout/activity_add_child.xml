@@ -67,6 +67,33 @@
             android:maxLength="2" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/child_gender" />
+
+    <RadioGroup
+        android:id="@+id/icGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/icGendera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/male" />
+
+        <RadioButton
+            android:id="@+id/icGenderb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/female" />
+
+    </RadioGroup>
+
     <Button
         android:id="@+id/btnAddChild"
         android:layout_width="match_parent"

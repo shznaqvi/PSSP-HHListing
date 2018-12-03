@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,12 @@ public class AddChildActivity extends Activity {
     Button btnAddFamilty;
     @BindView(R.id.btnAddHousehold)
     Button btnAddHousehold;
+    @BindView(R.id.icGender)
+    RadioGroup icGender;
+    @BindView(R.id.icGendera)
+    RadioButton icGendera;
+    @BindView(R.id.icGenderb)
+    RadioButton icGenderb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +96,9 @@ public class AddChildActivity extends Activity {
         }
         long updcount = db.addForm(AppMain.lc);
 
-        AppMain.lc.setID(String.valueOf(updcount));
-
         if (updcount > 0) {
+
+            AppMain.lc.setID(String.valueOf(updcount));
 
             AppMain.lc.setUID(
                     (AppMain.lc.getDeviceID() + AppMain.lc.getID()));
@@ -111,6 +119,8 @@ public class AddChildActivity extends Activity {
         AppMain.lc.setHhChildNm(icName.getText().toString());
         AppMain.lc.setHh12d(icAgeD.getText().toString());
         AppMain.lc.setHh12m(icAgeM.getText().toString());
+        AppMain.lc.setHh13(icGendera.isChecked() ? "1" : icGenderb.isChecked() ? "2" : "0");
+        AppMain.lc.setChildSno(String.valueOf(AppMain.cCount));
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03());
     }
@@ -162,6 +172,16 @@ public class AddChildActivity extends Activity {
             icAgeD.setError(null);
             icAgeM.setError(null);
         }
+
+        if (icGender.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "Please select gender option", Toast.LENGTH_LONG).show();
+            icGenderb.setError("Please one option");
+            Log.i(TAG, "Please one option");
+            return false;
+        } else {
+            icGenderb.setError(null);
+        }
+
         return true;
     }
 

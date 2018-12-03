@@ -34,7 +34,7 @@ import static edu.aku.hassannaqvi.pssp_hhlisting.AppMain.sharedPref;
 public class FormsDBHelper extends SQLiteOpenHelper {
 
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
     // The name of database.
     private static final String DATABASE_NAME = "pssp-hhl.db";
     public static String TAG = "FormsDBHelper";
@@ -45,6 +45,12 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    String SQL_CREATE_ALTER_FORMS1 = "ALTER TABLE " +
+            ListingEntry.TABLE_NAME + " ADD COLUMN " +
+            ListingEntry.COLUMN_NAME_HH13 + " TEXT;";
+    String SQL_CREATE_ALTER_FORMS2 = "ALTER TABLE " +
+            ListingEntry.TABLE_NAME + " ADD COLUMN " +
+            ListingEntry.COLUMN_NAME_CHILD_SNO + " TEXT;";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -68,7 +74,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12m + " TEXT, " +
                 ListingEntry.COLUMN_NAME_HH12d + " TEXT, " +
+                ListingEntry.COLUMN_NAME_HH13 + " TEXT, " +
                 ListingEntry.COLUMN_NAME_CHILD_NAME + " TEXT, " +
+                ListingEntry.COLUMN_NAME_CHILD_SNO + " TEXT, " +
                 ListingEntry.COLUMN_NAME_DEVICEID + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLat + " TEXT, " +
                 ListingEntry.COLUMN_NAME_GPSLng + " TEXT, " +
@@ -109,11 +117,18 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Simply discard all old data and start over when upgrading.
-        db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
+        /*db.execSQL("DROP TABLE IF EXISTS " + ListingEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleDistrict.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
-        onCreate(db);
+        onCreate(db);*/
+
+        switch (oldVersion) {
+            case 5:
+                db.execSQL(SQL_CREATE_ALTER_FORMS1);
+                db.execSQL(SQL_CREATE_ALTER_FORMS2);
+        }
+
     }
 
     public Long lastInsertId() {
@@ -159,6 +174,8 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
         values.put(ListingEntry.COLUMN_NAME_HH12d, lc.getHh12d());
+        values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
+        values.put(ListingEntry.COLUMN_NAME_CHILD_SNO, lc.getChildSno());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
@@ -220,7 +237,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 ListingEntry.COLUMN_NAME_HH11,
                 ListingEntry.COLUMN_NAME_HH12m,
                 ListingEntry.COLUMN_NAME_HH12d,
+                ListingEntry.COLUMN_NAME_HH13,
                 ListingEntry.COLUMN_NAME_CHILD_NAME,
+                ListingEntry.COLUMN_NAME_CHILD_SNO,
                 ListingEntry.COLUMN_NAME_DEVICEID,
                 ListingEntry.COLUMN_NAME_GPSLat,
                 ListingEntry.COLUMN_NAME_GPSLng,
@@ -394,7 +413,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         values.put(ListingEntry.COLUMN_NAME_HH11, lc.getHh11());
         values.put(ListingEntry.COLUMN_NAME_HH12m, lc.getHh12m());
         values.put(ListingEntry.COLUMN_NAME_HH12d, lc.getHh12d());
+        values.put(ListingEntry.COLUMN_NAME_HH13, lc.getHh13());
         values.put(ListingEntry.COLUMN_NAME_CHILD_NAME, lc.getHhChildNm());
+        values.put(ListingEntry.COLUMN_NAME_CHILD_SNO, lc.getChildSno());
         values.put(ListingEntry.COLUMN_NAME_DEVICEID, lc.getDeviceID());
         values.put(ListingEntry.COLUMN_NAME_GPSLat, lc.getGPSLat());
         values.put(ListingEntry.COLUMN_NAME_GPSLng, lc.getGPSLng());
@@ -426,7 +447,9 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         lc.setHh11(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH11))));
         lc.setHh12m(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12m))));
         lc.setHh12d(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH12d))));
+        lc.setHh13(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_HH13))));
         lc.setHhChildNm(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CHILD_NAME))));
+        lc.setChildSno(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_CHILD_SNO))));
         lc.setDeviceID(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_DEVICEID))));
         lc.setGPSLat(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLat))));
         lc.setGPSLng(String.valueOf(c.getString(c.getColumnIndex(ListingEntry.COLUMN_NAME_GPSLng))));
