@@ -107,6 +107,8 @@ public class FamilyListingActivity extends Activity {
     EditText hh25;
     @BindView(R.id.hh26)
     EditText hh26;
+    @BindView(R.id.hh27)
+    EditText hh27;
 
     @BindViews({R.id.hh10, R.id.hh12, R.id.hh14})
     List<RadioGroup> hh10_12;
@@ -357,7 +359,7 @@ public class FamilyListingActivity extends Activity {
 
                     familyFlag = true;
                 }
-                AppMain.lc.setHh07(AppMain.hh07txt.toString());
+                AppMain.lc.setHh07(AppMain.hh07txt);
                 AppMain.fCount++;
 
                 finish();
@@ -370,7 +372,7 @@ public class FamilyListingActivity extends Activity {
 
     private void SaveDraft() throws JSONException {
 
-        AppMain.lc.setHh07(AppMain.hh07txt.toString());
+        AppMain.lc.setHh07(AppMain.hh07txt);
         AppMain.lc.setHh08a1("1");
         AppMain.lc.setHh08(hh08.getText().toString());
         AppMain.lc.setHh09(hh09.getText().toString());
@@ -393,11 +395,12 @@ public class FamilyListingActivity extends Activity {
         sA.put("hh24", hh24.getText().toString());
         sA.put("hh25", hh25.getText().toString());
         sA.put("hh26", hh26.getText().toString());
+        sA.put("hh27", hh27.getText().toString());
 
         AppMain.lc.setCounter(String.valueOf(sA));
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "SaveDraft: Structure " + AppMain.lc.getHh03());
 
     }
 
@@ -577,6 +580,10 @@ public class FamilyListingActivity extends Activity {
             return false;
         }
 
+        if (!validatorClass.EmptyTextBox(this, hh27, getString(R.string.hh27))) {
+            return false;
+        }
+
         /*if (!validatorClass.RangeTextBox(this, hh21, 0, 99, getString(R.string.hh21), "Deaths")) {
             return false;
         }*/
@@ -634,7 +641,7 @@ public class FamilyListingActivity extends Activity {
                 /*AppMain.cCount = 0;
                 AppMain.cTotal = 0;*/
                 AppMain.hh07txt = String.valueOf(Integer.valueOf(AppMain.hh07txt) + 1);
-                AppMain.lc.setHh07(AppMain.hh07txt.toString());
+                AppMain.lc.setHh07(AppMain.hh07txt);
                 AppMain.fCount++;
 
                 finish();
