@@ -415,7 +415,7 @@ public class ListingContract {
 
     public JSONObject toJSONObject() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put("projectname", "NNS-LINELISTING 2018");
+        json.put("projectname", "NNS-LINELISTING 2018*");
         json.put(ListingEntry._ID, this.ID);
         json.put(ListingEntry.COLUMN_NAME_UID, this.UID);
         json.put(ListingEntry.COLUMN_NAME_HHDATETIME, this.hhDT);
