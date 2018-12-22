@@ -91,6 +91,8 @@ public class FamilyListingActivity extends Activity {
 
     @BindView(R.id.hh18)
     EditText hh18;
+    @BindView(R.id.hh18a)
+    EditText hh18a;
     @BindView(R.id.hh19)
     EditText hh19;
     @BindView(R.id.hh20)
@@ -387,6 +389,7 @@ public class FamilyListingActivity extends Activity {
 
         JSONObject sA = new JSONObject();
         sA.put("hh18", hh18.getText().toString());
+        sA.put("hh18a", hh18a.getText().toString());
         sA.put("hh19", hh19.getText().toString());
         sA.put("hh20", hh20.getText().toString());
         sA.put("hh21", hh21.getText().toString());
@@ -551,8 +554,11 @@ public class FamilyListingActivity extends Activity {
             hh16.setError(null);
         }
 
-
         if (!validatorClass.EmptyTextBox(this, hh18, getString(R.string.hh18))) {
+            return false;
+        }
+
+        if (!validatorClass.EmptyTextBox(this, hh18a, getString(R.string.hh18a))) {
             return false;
         }
 
@@ -624,7 +630,16 @@ public class FamilyListingActivity extends Activity {
             return false;
         }
 
-        return validatorClass.RangeTextBox(this, hh23, 0, 99, getString(R.string.hh23), "Deaths");
+
+        if (!validatorClass.RangeTextBox(this, hh23, 0, 9, getString(R.string.hh23), "Deaths")) {
+            return false;
+        }
+
+        int total = Integer.valueOf(hh19.getText().toString()) + Integer.valueOf(hh20.getText().toString()) + Integer.valueOf(hh21.getText().toString()) +
+                Integer.valueOf(hh22.getText().toString()) + Integer.valueOf(hh23.getText().toString()) + Integer.valueOf(hh24.getText().toString()) +
+                Integer.valueOf(hh25.getText().toString()) + Integer.valueOf(hh26.getText().toString()) + Integer.valueOf(hh27.getText().toString());
+
+        return validatorClass.RangeTextBox(this, hh18a, total, 99, getString(R.string.hh18a), " Deaths");
     }
 
 

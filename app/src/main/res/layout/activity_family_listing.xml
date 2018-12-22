@@ -324,6 +324,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/hh18a" />
+
+            <EditText
+                android:id="@+id/hh18a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hh14a"
+                android:inputType="number"
+                android:maxLength="2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/hh19" />
 
@@ -454,7 +468,7 @@
                 android:layout_weight="1"
                 android:hint="@string/hh14a"
                 android:inputType="number"
-                android:maxLength="2" />
+                android:maxLength="1" />
 
         </LinearLayout>
 
