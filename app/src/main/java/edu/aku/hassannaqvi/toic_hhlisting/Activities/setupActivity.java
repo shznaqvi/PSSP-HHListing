@@ -102,7 +102,7 @@ public class setupActivity extends Activity {
         } else {
             AppMain.hh03txt++;
             //AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
-            hh02.setText(AppMain.hh02txt.toString());
+            hh02.setText(AppMain.hh02txt);
             hh02.setEnabled(false);
 
         }
@@ -110,7 +110,8 @@ public class setupActivity extends Activity {
 
         hh01.setText("");
 
-        String StructureNumber = "T-" + AppMain.teamNo + "-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
+//        String StructureNumber = "T-" + AppMain.teamNo + "-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
+        String StructureNumber = "T-" + hh02.getText() + "-" + String.format("%03d", AppMain.hh03txt);
 
         hh03.setTextColor(Color.RED);
         hh03.setText(StructureNumber);
@@ -260,7 +261,7 @@ public class setupActivity extends Activity {
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03());
 
     }
 
@@ -370,7 +371,7 @@ public class setupActivity extends Activity {
 
     private boolean UpdateDB() {
         FormsDBHelper db = new FormsDBHelper(this);
-        Log.d(TAG, "UpdateDB: Structure" + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "UpdateDB: Structure" + AppMain.lc.getHh03());
 
         long updcount = db.addForm(AppMain.lc);
 
