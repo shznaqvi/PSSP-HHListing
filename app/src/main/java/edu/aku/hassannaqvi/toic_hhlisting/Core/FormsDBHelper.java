@@ -24,6 +24,8 @@ import edu.aku.hassannaqvi.toic_hhlisting.Contracts.TalukasContract;
 import edu.aku.hassannaqvi.toic_hhlisting.Contracts.TalukasContract.singleTaluka;
 import edu.aku.hassannaqvi.toic_hhlisting.Contracts.UsersContract;
 import edu.aku.hassannaqvi.toic_hhlisting.Contracts.UsersContract.singleUser;
+import edu.aku.hassannaqvi.toic_hhlisting.Contracts.VerticesContract;
+import edu.aku.hassannaqvi.toic_hhlisting.Contracts.VerticesContract.singleVertices;
 
 
 /**
@@ -35,7 +37,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "toic-hhl.db";
     public static final String DB_NAME = "toic-hhl-copy.db";
     // Change this when you change the database schema.
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 1;
     private static final String SQL_TOTAL_RECORDS = "select count(*) from listings";
     public static String TAG = "FormsDBHelper";
     public static String DB_FORM_ID;
@@ -88,6 +90,14 @@ public class FormsDBHelper extends SQLiteOpenHelper {
                 singleTaluka.COLUMN_TALUKA_NAME + " TEXT " +
                 ");";
 
+        final String SQL_CREATE_VERTICES_TABLE = "CREATE TABLE " + singleVertices.TABLE_NAME + " (" +
+                singleVertices._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                singleVertices.COLUMN_CLUSTER_CODE + " TEXT," +
+                singleVertices.COLUMN_POLY_LAT + " TEXT, " +
+                singleVertices.COLUMN_POLY_LANG + " TEXT, " +
+                singleVertices.COLUMN_POLY_SEQ + " TEXT " +
+                ");";
+
         final String SQL_CREATE_PSU_TABLE = "CREATE TABLE " + singlePSU.TABLE_NAME + " (" +
                 singlePSU._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 singlePSU.COLUMN_PSU_CODE + " TEXT, " +
@@ -107,6 +117,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_DISTRICT_TABLE);
         db.execSQL(SQL_CREATE_PSU_TABLE);
         db.execSQL(SQL_CREATE_USERS);
+        db.execSQL(SQL_CREATE_VERTICES_TABLE);
     }
 
     @Override
@@ -116,6 +127,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + singleTaluka.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singlePSU.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + singleUser.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + singleVertices.TABLE_NAME);
         onCreate(db);
     }
 
@@ -224,6 +236,35 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void syncVertices(JSONArray vcList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(singleVertices.TABLE_NAME, null, null);
+
+        try {
+            JSONArray jsonArray = vcList;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectVR = jsonArray.getJSONObject(i);
+
+                VerticesContract vc = new VerticesContract();
+                vc.sync(jsonObjectVR);
+
+                ContentValues values = new ContentValues();
+
+                values.put(singleVertices.COLUMN_CLUSTER_CODE, vc.getCluster_code());
+                values.put(singleVertices.COLUMN_POLY_LAT, vc.getPoly_lat());
+                values.put(singleVertices.COLUMN_POLY_LANG, vc.getPoly_lng());
+                values.put(singleVertices.COLUMN_POLY_SEQ, vc.getPoly_seq());
+
+                db.insert(singleVertices.TABLE_NAME, null, values);
+            }
+            db.close();
+
+        } catch (Exception e) {
+
+        }
+    }
+
 
     public void updateSyncedForms(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -327,7 +368,7 @@ public class FormsDBHelper extends SQLiteOpenHelper {
 
 // Which row to update, based on the title
         String where = ListingEntry._ID + " = ?";
-        String[] whereArgs = {AppMain.lc.getID().toString()};
+        String[] whereArgs = {AppMain.lc.getID()};
 
         int count = db.update(
                 ListingEntry.TABLE_NAME,
@@ -575,6 +616,51 @@ public class FormsDBHelper extends SQLiteOpenHelper {
         }
 
 
+    }
+
+    public Collection<VerticesContract> getVerticesByCluster(String cluster_code) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = null;
+        String[] columns = {
+                singleVertices._ID,
+                singleVertices.COLUMN_CLUSTER_CODE,
+                singleVertices.COLUMN_POLY_LAT,
+                singleVertices.COLUMN_POLY_LANG,
+                singleVertices.COLUMN_POLY_SEQ
+        };
+
+        String whereClause = singleVertices.COLUMN_CLUSTER_CODE + " = ?";
+        String[] whereArgs = {cluster_code};
+        String groupBy = null;
+        String having = null;
+
+        String orderBy =
+                singleVertices.COLUMN_POLY_SEQ + " ASC";
+
+        Collection<VerticesContract> allVC = new ArrayList<>();
+        try {
+            c = db.query(
+                    singleVertices.TABLE_NAME,  // The table to query
+                    columns,                   // The columns to return
+                    whereClause,               // The columns for the WHERE clause
+                    whereArgs,                 // The values for the WHERE clause
+                    groupBy,                   // don't group the rows
+                    having,                    // don't filter by row groups
+                    orderBy                    // The sort order
+            );
+            while (c.moveToNext()) {
+                VerticesContract vc = new VerticesContract();
+                allVC.add(vc.hydrate(c));
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+        return allVC;
     }
 
     public void syncTalukas(JSONArray dcList) {

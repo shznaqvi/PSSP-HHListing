@@ -51,4 +51,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile 'com.intuit.sdp:sdp-android:1.0.5'
+
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
 }

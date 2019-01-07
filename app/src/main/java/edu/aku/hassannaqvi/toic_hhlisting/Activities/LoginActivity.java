@@ -57,9 +57,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.aku.hassannaqvi.pssp_hhlisting.R;
 import edu.aku.hassannaqvi.toic_hhlisting.Get.GetPSUs;
 import edu.aku.hassannaqvi.toic_hhlisting.Get.GetTalukas;
+import edu.aku.hassannaqvi.toic_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.toic_hhlisting.R;
 import edu.aku.hassannaqvi.toic_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.toic_hhlisting.Core.AppMain;
@@ -135,10 +135,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
 
         // Set up the login form.
-        mEmailView = (EditText) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -176,10 +176,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         if (sharedPref.getBoolean("checkingFlag", false)) {
 
-            String dt = sharedPref.getString("dt", new SimpleDateFormat("dd-MM-yy").format(new Date()).toString());
+            String dt = sharedPref.getString("dt", new SimpleDateFormat("dd-MM-yy").format(new Date()));
 
-            if (dt != new SimpleDateFormat("dd-MM-yy").format(new Date()).toString()) {
-                editor.putString("dt", new SimpleDateFormat("dd-MM-yy").format(new Date()).toString());
+            if (dt != new SimpleDateFormat("dd-MM-yy").format(new Date())) {
+                editor.putString("dt", new SimpleDateFormat("dd-MM-yy").format(new Date()));
 
                 editor.commit();
             }
@@ -527,6 +527,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     GetPSUs gp = new GetPSUs(mContext);
                     Toast.makeText(getApplicationContext(), "Syncing Psus", Toast.LENGTH_SHORT).show();
                     gp.execute();
+
+                    GetVertices gv = new GetVertices(mContext);
+                    Toast.makeText(getApplicationContext(), "Syncing Vertices", Toast.LENGTH_SHORT).show();
+                    gv.execute();
                 }
             });
 

@@ -295,7 +295,7 @@ public class MainActivity extends Activity {
 
                     Log.d(TAG, "onItemSelected: " + p.getPSUCode() + " - " + AppMain.hh02txt);
                     Log.d(TAG, "onItemSelected: " + p.getPSUName());
-                    String[] psuNameS = p.getPSUName().toString().split("\\|");
+                    String[] psuNameS = p.getPSUName().split("\\|");
                     districtN.setText(psuNameS[0]);
                     Log.d(TAG, "onItemSelected: " + psuNameS[0]);
                     ucN.setText(psuNameS[1]);
@@ -476,6 +476,11 @@ public class MainActivity extends Activity {
                 }
             }, 3 * 1000);
         }
+    }
+
+    public void openMap(View view) {
+
+        startActivity(new Intent(MainActivity.this, MapsActivity.class));
     }
 
     public class syncData extends AsyncTask<String, String, String> {
