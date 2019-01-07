@@ -44,6 +44,7 @@ public class AppMain extends Application {
     public static int cTotal = 0;
     public static SharedPreferences sharedPref;
     public static String userEmail;
+    public static boolean admin;
     public static int versionCode;
     public static String versionName;
     protected static LocationManager locationManager;
@@ -163,10 +164,7 @@ public class AppMain extends Application {
             return true;
         } else if (isNewer && !isLessAccurate) {
             return true;
-        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-            return true;
-        }
-        return false;
+        } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
     }
 
     private class MyLocationListener implements LocationListener {

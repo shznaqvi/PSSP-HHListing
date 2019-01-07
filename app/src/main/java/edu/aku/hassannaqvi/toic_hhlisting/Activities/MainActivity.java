@@ -76,6 +76,8 @@ public class MainActivity extends Activity {
 
     @BindView(R.id.testing)
     TextView testing;
+    @BindView(R.id.openDBManager)
+    Button openDBManager;
 
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -96,6 +98,10 @@ public class MainActivity extends Activity {
         /*Tag Info Start*/
         sharedPref = getSharedPreferences("tagName", MODE_PRIVATE);
         editor = sharedPref.edit();
+
+        // Checking Admin
+        if (!AppMain.admin)
+            openDBManager.setVisibility(View.GONE);
 
         builder = new AlertDialog.Builder(MainActivity.this);
         ImageView img = new ImageView(getApplicationContext());

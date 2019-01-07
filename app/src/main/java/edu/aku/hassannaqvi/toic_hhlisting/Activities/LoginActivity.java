@@ -31,9 +31,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -41,7 +38,6 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,13 +53,13 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import edu.aku.hassannaqvi.toic_hhlisting.Core.AppMain;
+import edu.aku.hassannaqvi.toic_hhlisting.Core.FormsDBHelper;
 import edu.aku.hassannaqvi.toic_hhlisting.Get.GetPSUs;
 import edu.aku.hassannaqvi.toic_hhlisting.Get.GetTalukas;
+import edu.aku.hassannaqvi.toic_hhlisting.Get.GetUsers;
 import edu.aku.hassannaqvi.toic_hhlisting.Get.GetVertices;
 import edu.aku.hassannaqvi.toic_hhlisting.R;
-import edu.aku.hassannaqvi.toic_hhlisting.Core.FormsDBHelper;
-import edu.aku.hassannaqvi.toic_hhlisting.Core.AppMain;
-import edu.aku.hassannaqvi.toic_hhlisting.Get.GetUsers;
 
 /**
  * A login screen that offers login via email/password.
@@ -156,7 +152,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 attemptLogin();
             }
         });
-        
+
 //        DB backup
 
         dbBackup();
@@ -164,7 +160,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 //        Testing visibility
         if (Integer.valueOf(AppMain.versionName.split("\\.")[0]) > 0) {
             testing.setVisibility(View.GONE);
-        }else {
+        } else {
             testing.setVisibility(View.VISIBLE);
         }
     }
@@ -390,10 +386,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         //TODO implement
         if (mPasswordView.getTransformationMethod() == null) {
             mPasswordView.setTransformationMethod(new PasswordTransformationMethod());
-            mPasswordView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lock_black_24dp,0,0,0);
+            mPasswordView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lock_black_24dp, 0, 0, 0);
         } else {
             mPasswordView.setTransformationMethod(null);
-            mPasswordView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lock_open_black_24dp,0,0,0);
+            mPasswordView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lock_open_black_24dp, 0, 0, 0);
         }
     }
 
@@ -456,10 +452,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 if ((mEmail.equals("dmu@aku") && mPassword.equals("aku?dmu")) || db.Login(mEmail, mPassword)
                         || (mEmail.equals("test1234") && mPassword.equals("test1234"))) {
                     AppMain.userEmail = mEmail;
-                        finish();
+                    AppMain.admin = mEmail.contains("@");
 
-                        Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(iLogin);
+                    finish();
+
+                    Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(iLogin);
 
                 } else {
                     mPasswordView.setError(getString(R.string.error_incorrect_password));
