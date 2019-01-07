@@ -92,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         newClusterPoints = new ArrayList<LatLng>();
         ucPoints = new ArrayList<LatLng>();
 
-        Collection<VerticesContract> vc = db.getVerticesByCluster(AppMain.hh02txt);
+        Collection<VerticesContract> vc = db.getVerticesByCluster(getIntent().getStringExtra("psu"));
 
         for (VerticesContract v : vc) {
 

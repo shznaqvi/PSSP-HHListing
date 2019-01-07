@@ -486,7 +486,12 @@ public class MainActivity extends Activity {
 
     public void openMap(View view) {
 
-        startActivity(new Intent(MainActivity.this, MapsActivity.class));
+        if (flag) {
+            startActivity(new Intent(MainActivity.this, MapsActivity.class).putExtra("psu", txtPSU.getText().toString()));
+        } else {
+            Toast.makeText(this, "Please Click on Check Button", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public class syncData extends AsyncTask<String, String, String> {
