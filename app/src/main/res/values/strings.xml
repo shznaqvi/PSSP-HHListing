@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TOIC - Household Line Listing</string>
+    <string name="app_name">TOIC - Household Line Listing 2019</string>
     <string name="hh01"> Taluka Code </string>
     <string name="hh02"> Cluster Code </string>
     <string name="hh03"> Structure Number </string>
