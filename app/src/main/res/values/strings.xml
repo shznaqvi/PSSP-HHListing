@@ -1,24 +1,26 @@
 <resources>
-    <string name="app_name">PSSP-HHListing</string>
-    <string name="hh01"> ڈسٹرکٹ کوڈ </string>
-    <string name="hh02"> PSU کوڈ </string>
-    <string name="hh03"> اسٹرکچر نمبر </string>
-    <string name="hh04"> تعمیراتی ساخت </string>
-    <string name="hh04a"> رہائشی </string>
-    <string name="hh04b"> دکان/مارکیٹ/پلازہ </string>
-    <string name="hh04c"> مسجد/گرجاگھر/مندر </string>
-    <string name="hh04d"> اسکول/کالج/یونیورسٹی </string>
-    <string name="hh04e"> مرکز صحت </string>
-    <string name="hh04f"> خالی/بند/زیرتعمیر </string>
-    <string name="hh04g"> مزید عمارت نہیں </string>
-    <string name="hh04x"> دیگر (وضاحت کریں) </string>
-    <string name="hh05"> کیا اس عمارت میں ایک سے زیادہ خاندان رہائش پزیر ہیں؟ </string>
-    <string name="hh06"> خاندان کی تعداد؟ </string>
-    <string name="hh07"> خاندان نمبر </string>
-    <string name="hh08"> خاندان کے سربراہ کا نام </string>
-    <string name="hh09"> رابطہ کا نمبر </string>
-    <string name="hh10"> کیا گھر میں ایک سال سے چھوٹا بچہ موجود ہے؟ </string>
-    <string name="hh11"> بچوں کی تعداد؟ </string>
+    <string name="app_name">Naunehal Line Listing</string>
+    <string name="hl01"> ڈسٹرکٹ </string>
+    <string name="hl02"> یوسی  کا نام </string>
+    <string name="hl03"> کلسٹر نمبر </string>
+
+    <string name="hl04">  علاقہ[گائوں/گوٹھ/موضع/ٹائون/گلی/بلاک/لین]: </string>
+    <string name="hl06"> اسٹرکچر کا نمبر </string>
+    <string name="hl07"> اسٹرکچر کی قسم </string>
+    <string name="hl07a"> رہائشی </string>
+    <string name="hl07b"> دکان/مارکیٹ/پلازہ </string>
+    <string name="hl07c"> مسجد/گرجاگھر/مندر </string>
+    <string name="hl07d"> اسکول/کالج/یونیورسٹی </string>
+    <string name="hl07e"> مرکز صحت </string>
+    <string name="hl07f"> خالی/بند/زیرتعمیر </string>
+    <string name="hl07g"> مزید عمارت نہیں </string>
+    <string name="hl0796"> دیگر (وضاحت کریں) </string>
+    <string name="hl08"> کیا یہ جگہ رہائشی مقاصد کے لئے استعمال کی جا رہی ہے؟ </string>
+    <string name="hl09"> کیا اس اسٹرکچر میں ایک سے زیا دہ گھرانے ہیں </string>
+    <string name="hl10"> اگر ہاں، تو سوال نمبر 7 سے گھرانے کا سیریل نمبر لکھیں </string>
+    <string name="hl11"> گھرانے کے سربراہ کا نام </string>
+    <string name="hl12"> گھرانے کے افراد کی تعداد </string>
+    <string name="hl13"> پانچ سال سے کم عمر بچوں کی تعداد </string>
 
     <string name="yes"> ہاں </string>
     <string name="no"> نہیں </string>
@@ -26,6 +28,8 @@
     <string name="txtMsg">1234567890-=+ qwertyuiop[]asdfghjkl;zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:ZXCVBNM?</string>
     <string name="child_name">بچے کا نام</string>
     <string name="child_age">بچے کی عمر</string>
-    <string name="hh12m">ماہ</string>
-    <string name="hh12d">دن</string>
+    <string name="hl12m">ماہ</string>
+    <string name="hl12d">دن</string>
+    <string name="btnDownload">Download Data</string>
+    <string name="btnUpload">Upload Data</string>
 </resources>
