@@ -1,10 +1,10 @@
 package edu.aku.hassannaqvi.naunehal_listing.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import java.text.SimpleDateFormat;
@@ -16,7 +16,7 @@ import edu.aku.hassannaqvi.naunehal_listing.core.MainApp;
 import edu.aku.hassannaqvi.naunehal_listing.databinding.ActivitySetupBinding;
 import edu.aku.hassannaqvi.naunehal_listing.models.Listings;
 
-public class SetupActivity extends Activity {
+public class SetupActivity extends AppCompatActivity {
 
     private static String deviceId;
     private final String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm", Locale.getDefault()).format(new Date().getTime());
@@ -36,6 +36,7 @@ public class SetupActivity extends Activity {
         MainApp.listing.setHl03(MainApp.clusterCode);
         MainApp.listing.setHl06(String.valueOf(++MainApp.structureNo));
         bi.setListing(MainApp.listing);
+        setSupportActionBar(bi.toolbar);
 
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
