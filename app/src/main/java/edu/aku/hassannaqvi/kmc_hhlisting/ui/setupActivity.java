@@ -1,9 +1,7 @@
 package edu.aku.hassannaqvi.kmc_hhlisting.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -78,7 +76,7 @@ public class setupActivity extends Activity {
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
-    private String TAG = "Setup Activity";
+    private final String TAG = "Setup Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +92,7 @@ public class setupActivity extends Activity {
         } else {
             AppMain.hh03txt++;
             //AppMain.lc.setHh03(String.valueOf(AppMain.hh03txt));
-            hh02.setText(AppMain.hh04txt.toString());
+            hh02.setText(AppMain.hh04txt);
             hh02.setEnabled(false);
 
         }
@@ -236,17 +234,17 @@ public class setupActivity extends Activity {
 
         AppMain.lc.setDeviceID(deviceId);
 
-        SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
+        /*SharedPreferences sharedPref = getSharedPreferences("GPSCoordinates", Context.MODE_PRIVATE);
         AppMain.lc.setGPSLat(sharedPref.getString("Latitude", ""));
         AppMain.lc.setGPSLat(sharedPref.getString("Longitude", ""));
         AppMain.lc.setGPSLat(sharedPref.getString("Accuracy", ""));
-        AppMain.lc.setGPSLat(sharedPref.getString("Time", ""));
+        AppMain.lc.setGPSLat(sharedPref.getString("Time", ""));*/
 
 
         AppMain.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "SaveDraft: " + AppMain.lc.getHh03());
 
 
     }
@@ -331,7 +329,7 @@ public class setupActivity extends Activity {
 
     private boolean UpdateDB() {
         FormsDBHelper db = new FormsDBHelper(this);
-        Log.d(TAG, "UpdateDB: Structure" + AppMain.lc.getHh03().toString());
+        Log.d(TAG, "UpdateDB: Structure" + AppMain.lc.getHh03());
 
         long rowId = db.addForm(AppMain.lc);
         AppMain.lc.setID(String.valueOf(rowId));

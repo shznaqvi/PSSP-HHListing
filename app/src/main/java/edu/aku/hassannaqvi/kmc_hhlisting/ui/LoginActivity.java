@@ -102,15 +102,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     .getPackageManager()
                     .getPackageInfo("edu.aku.hassannaqvi.kmc_hhlisting", 0)
                     .versionName;
-            txtinstalldate.setText("Ver. " + AppMain.versionName + "." + String.valueOf(AppMain.versionCode) + " \r\n( Last Updated: " + new SimpleDateFormat("dd MMM. yyyy").format(new Date(installedOn)) + " )");
+            txtinstalldate.setText("Ver. " + AppMain.versionName + "." + AppMain.versionCode + " \r\n( Last Updated: " + new SimpleDateFormat("dd MMM. yyyy").format(new Date(installedOn)) + " )");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
 //        Testing visibility
-        if (Integer.valueOf(AppMain.versionName.split("\\.")[0]) > 0) {
+        if (Integer.parseInt(AppMain.versionName.split("\\.")[0]) > 0) {
             testing.setVisibility(View.GONE);
-        }else {
+        } else {
             testing.setVisibility(View.VISIBLE);
         }
 
@@ -281,7 +281,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mAuthTask = null;
 
             LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            if (mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+//            if (mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            if (true) {
                 FormsDBHelper db = new FormsDBHelper(LoginActivity.this);
                 if ((mEmail.equals("dmu@aku") && mPassword.equals("aku?dmu")) || (mEmail.equals("test1234") && mPassword.equals("test1234")) || db.Login(mEmail, mPassword)) {
                     AppMain.username = mEmail;

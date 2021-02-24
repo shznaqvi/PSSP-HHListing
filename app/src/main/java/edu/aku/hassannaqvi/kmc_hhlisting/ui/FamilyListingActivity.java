@@ -152,7 +152,7 @@ public class FamilyListingActivity extends Activity {
         AppMain.lc.setHh09b(hh09b.getText().toString().isEmpty() ? "0" : hh09b.getText().toString());
 //        Log.d("Username:",AppMain.lc.getUserName());
 
-        setGPS();
+//        setGPS();
 
 
         Toast.makeText(this, "Saving Draft... Successful!", Toast.LENGTH_SHORT).show();
