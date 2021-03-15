@@ -78,7 +78,7 @@ public class setupActivity extends Activity {
 
     String dtToday = new SimpleDateFormat("dd-MM-yy HH:mm").format(new Date().getTime());
 
-    private String TAG = "Setup Activity";
+    private final String TAG = "Setup Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +98,7 @@ public class setupActivity extends Activity {
 
         MainApp.hh07txt = "X";
         //hh01.setText(getString(R.string.hh01) + ": " + MainApp.hh01txt);
-        hh03.setText(hh02.getText().toString() + "-" + String.valueOf(MainApp.hh03txt));
+        hh03.setText(hh02.getText().toString() + "-" + MainApp.hh03txt);
         hh07.setText(getString(R.string.hh07) + ": " + MainApp.hh07txt);
 
         hh04.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -257,7 +257,7 @@ public class setupActivity extends Activity {
         MainApp.lc.setDeviceID(deviceId);
         MainApp.lc.setApp_ver(MainApp.versionName + "." + MainApp.versionCode);
 
-        setGPS();
+//        setGPS();
 
         MainApp.fTotal = hh06.getText().toString().isEmpty() ? 0 : Integer.parseInt(hh06.getText().toString());
 

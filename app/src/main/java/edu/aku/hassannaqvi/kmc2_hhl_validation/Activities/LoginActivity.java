@@ -4,17 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Context;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -107,20 +103,20 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         try {
             long installedOn = this
                     .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.kmc2_linelisting", 0)
+                    .getPackageInfo("edu.aku.hassannaqvi.kmc2_hhl_validation", 0)
                     .lastUpdateTime;
 
             MainApp.versionCode = this
                     .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.kmc2_linelisting", 0)
+                    .getPackageInfo("edu.aku.hassannaqvi.kmc2_hhl_validation", 0)
                     .versionCode
             ;
             MainApp.versionName = this
                     .getPackageManager()
-                    .getPackageInfo("edu.aku.hassannaqvi.kmc2_linelisting", 0)
+                    .getPackageInfo("edu.aku.hassannaqvi.kmc2_hhl_validation", 0)
                     .versionName
             ;
-            txtinstalldate.setText("Ver. " + MainApp.versionName + "." + String.valueOf(MainApp.versionCode) + " \r\n( Last Updated: " + new SimpleDateFormat("dd MMM. yyyy").format(new Date(installedOn)) + " )");
+            txtinstalldate.setText("Ver. " + MainApp.versionName + "." + MainApp.versionCode + " \r\n( Last Updated: " + new SimpleDateFormat("dd MMM. yyyy").format(new Date(installedOn)) + " )");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -451,45 +447,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             mAuthTask = null;
             showProgress(false);
 
-            LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            if (mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                FormsDBHelper db = new FormsDBHelper(LoginActivity.this);
-                if ((mEmail.equals("dmu@aku") && mPassword.equals("aku?dmu")) || db.Login(mEmail, mPassword) ||
-                        (mEmail.equals("test1234") && mPassword.equals("test1234"))) {
-                    MainApp.userEmail = mEmail;
-                    finish();
-                    Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(iLogin);
+            FormsDBHelper db = new FormsDBHelper(LoginActivity.this);
+            if ((mEmail.equals("dmu@aku") && mPassword.equals("aku?dmu")) || db.Login(mEmail, mPassword) ||
+                    (mEmail.equals("test1234") && mPassword.equals("test1234"))) {
+                MainApp.userEmail = mEmail;
+                finish();
+                Intent iLogin = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(iLogin);
 
-                } else {
-                    mPasswordView.setError(getString(R.string.error_incorrect_password));
-                    mPasswordView.requestFocus();
-                    Toast.makeText(LoginActivity.this, mEmail + " " + mPassword, Toast.LENGTH_SHORT).show();
-                }
             } else {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        LoginActivity.this);
-                alertDialogBuilder
-                        .setMessage("GPS is disabled in your device. Enable it?")
-                        .setCancelable(false)
-                        .setPositiveButton("Enable GPS",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        Intent callGPSSettingIntent = new Intent(
-                                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                        startActivity(callGPSSettingIntent);
-                                    }
-                                });
-                alertDialogBuilder.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = alertDialogBuilder.create();
-                alert.show();
-
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+                Toast.makeText(LoginActivity.this, mEmail + " " + mPassword, Toast.LENGTH_SHORT).show();
             }
 
         }
